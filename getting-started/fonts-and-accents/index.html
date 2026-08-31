@@ -1,0 +1,2122 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../../overworld/rooms-and-collision/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 2: Fonts and Accents - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fonts-and-accents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 2: Fonts and Accents
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-symptom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The symptom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Branch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-build-a-test-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Build a test room
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-install-the-typeface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Install the typeface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — Install the typeface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confirm-the-system-sees-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm the system sees it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirm-it-actually-has-the-accents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm it actually has the accents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restart-gamemaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restart GameMaker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-find-out-which-font-your-text-uses-then-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Find out which font your text uses, then fix it
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — Find out which font your text uses, then fix it">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-are-three-text-fonts-not-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        There are three text fonts, not one
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-restore-the-original-spacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Restore the original spacing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6 — Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On screen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-enemy-bubble-too" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test the enemy bubble too
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-the-other-two-text-fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — The other two text fonts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7 — The other two text fonts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#font_main-the-easy-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        font_main — the easy one
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#font_dotumche-the-enemy-bubble" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        font_dotumche — the enemy bubble
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The rest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When things go wrong
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When things go wrong">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undoing-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undoing everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-does-this-font-have-the-glyphs-i-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool: does this font have the glyphs I need?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-symptom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The symptom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The cause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Branch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-build-a-test-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Build a test room
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-install-the-typeface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Install the typeface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — Install the typeface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confirm-the-system-sees-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm the system sees it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirm-it-actually-has-the-accents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm it actually has the accents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restart-gamemaker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restart GameMaker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-find-out-which-font-your-text-uses-then-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Find out which font your text uses, then fix it
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — Find out which font your text uses, then fix it">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-are-three-text-fonts-not-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        There are three text fonts, not one
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-restore-the-original-spacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Restore the original spacing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6 — Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On screen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-enemy-bubble-too" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test the enemy bubble too
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-the-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-the-other-two-text-fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — The other two text fonts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7 — The other two text fonts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#font_main-the-easy-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        font_main — the easy one
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#font_dotumche-the-enemy-bubble" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        font_dotumche — the enemy bubble
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The rest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When things go wrong
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When things go wrong">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undoing-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undoing everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-does-this-font-have-the-glyphs-i-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool: does this font have the glyphs I need?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="fonts-and-accents">Fonts and accents<a class="headerlink" href="#fonts-and-accents" title="Permanent link">&para;</a></h1>
+<p>If your game is in English, you can skip this chapter. If it is in Portuguese, Spanish, French, German, Turkish or anything else with diacritics, read it before you write dialogue — the fix is easy, but the failure mode is silent and the wrong fix wastes an afternoon.</p>
+<h2 id="the-symptom">The symptom<a class="headerlink" href="#the-symptom" title="Permanent link">&para;</a></h2>
+<p>Write a line with an accent and run it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>text = "{col(y)}* Bem-vindo Sérgio, Bonitão.{col(w)}{p}{e}"
+</code></pre></div>
+<p>On screen you get:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>* Bem-vindo Srgio, Bonito.
+</code></pre></div>
+<p>The accented characters vanish, and the letters carrying them go with them. No error, no warning, nothing in the Output window.</p>
+<h2 id="the-cause">The cause<a class="headerlink" href="#the-cause" title="Permanent link">&para;</a></h2>
+<p>The engine's fonts are <strong>bitmap fonts</strong>: every glyph is a slice of a prepared image (<code>fonts/font_main/font_main.png</code>), and the <code>.yy</code> file holds a table of which characters were drawn. That table covers ASCII only:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">"ranges"</span><span class="p">:[</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="p">{</span><span class="nt">"lower"</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span><span class="nt">"upper"</span><span class="p">:</span><span class="mi">127</span><span class="p">,},</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="p">{</span><span class="nt">"lower"</span><span class="p">:</span><span class="mi">9647</span><span class="p">,</span><span class="nt">"upper"</span><span class="p">:</span><span class="mi">9647</span><span class="p">,},</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">]</span>
+</code></pre></div>
+<p><code>á</code> is 225. <code>ç</code> is 231. <code>ã</code> is 227. All above 127, so they are simply <strong>not in the atlas</strong>. GameMaker has nothing to draw and draws nothing.</p>
+<div class="admonition info">
+<p class="admonition-title">This is not a UTF-8 problem</p>
+<p>Your <code>.gml</code> is fine, the encoding is fine, GameMaker read the right string. The gap is at draw time only. Changing file encodings will not help.</p>
+</div>
+<p>Fixing it means <strong>regenerating each font with the accented characters included</strong> — and for that, GameMaker needs the original typeface installed on your system, because the project ships no <code>.ttf</code> files at all.</p>
+<h2 id="what-you-need">What you need<a class="headerlink" href="#what-you-need" title="Permanent link">&para;</a></h2>
+<p>One font: <strong><code>8bitoperator JVE</code></strong> by Jayvee Enaguas (GrafxKid). It is a free pixel font and it covers the full Latin-1 accent set. Search for it by name and prefer the author's own page over font aggregator sites, which are re-uploads.</p>
+<div class="admonition warning">
+<p class="admonition-title">About the engine's other source fonts</p>
+<p>The project references six source typefaces, and not all of them are obtainable. In particular, the one named <code>Monospaced JVE</code> in the <code>.yy</code> — the font behind <strong>all dialogue</strong> — is not distributed anywhere. <strong>You do not need it.</strong> Step 4 shows how to use <code>8bitoperator</code> in its place and step 5 restores the spacing. Do not spend time hunting for it.</p>
+</div>
+<hr />
+<h2 id="step-1-branch">Step 1 — Branch<a class="headerlink" href="#step-1-branch" title="Permanent link">&para;</a></h2>
+<p>You are about to modify binary assets. One mistake dirties several files at once, and Git is the civilised way back.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>fonts
+</code></pre></div>
+<p><strong>Check:</strong> <code>git status</code> is clean and <code>git branch --show-current</code> says <code>fonts</code>.</p>
+<hr />
+<h2 id="step-2-build-a-test-room">Step 2 — Build a test room<a class="headerlink" href="#step-2-build-a-test-room" title="Permanent link">&para;</a></h2>
+<p>Do not test in the middle of your game. A minimal room opens in two seconds and isolates the variable.</p>
+<ol>
+<li><strong>Create → Room</strong>, name it <code>RoomTest</code>.</li>
+<li>Drag in three objects:<ul>
+<li><strong><code>o_dev_world</code></strong> — the game controller. Nothing works without it.</li>
+<li><strong><code>o_dev_playermarker</code></strong> — where the player spawns.</li>
+<li><strong><code>o_ow_sign</code></strong> — the sign you will read.</li>
+</ul>
+</li>
+<li>
+<p>Select the sign and put this in its <strong>Instance Creation Code</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>text = "{col(y)}* Bem-vindo Sérgio, Bonitão.{col(w)}{p}{e}"
+</code></pre></div>
+<p>That sentence carries two different accent families: <code>é</code> (acute, 233) and <code>ã</code> (tilde, 227). If both survive, the rest will too.</p>
+</li>
+<li>
+<p>Run. If <code>RoomTest</code> is not the first room, open the console with <span class="keys"><kbd class="key-tab">Tab</kbd></span>, type <code>room_select</code>, and pick it.</p>
+</li>
+<li>Read the sign, and <strong>write down what you saw</strong>. That is your "before".</li>
+</ol>
+<hr />
+<h2 id="step-3-install-the-typeface">Step 3 — Install the typeface<a class="headerlink" href="#step-3-install-the-typeface" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux (Mint, Ubuntu…)</label><label for="__tabbed_1_2">Windows</label><label for="__tabbed_1_3">macOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/share/fonts
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>cp<span class="w"> </span>~/Downloads/8bitoperator_jve.ttf<span class="w"> </span>~/.local/share/fonts/
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>fc-cache<span class="w"> </span>-f
+</code></pre></div>
+<p>Or double-click the <code>.ttf</code> in the file manager and press <strong>Install</strong>.</p>
+</div>
+<div class="tabbed-block">
+<p>Double-click the <code>.ttf</code> and press <strong>Install</strong>.</p>
+</div>
+<div class="tabbed-block">
+<p>Double-click the <code>.ttf</code> and press <strong>Install Font</strong>.</p>
+</div>
+</div>
+</div>
+<h3 id="confirm-the-system-sees-it">Confirm the system sees it<a class="headerlink" href="#confirm-the-system-sees-it" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>fc-list<span class="w"> </span>:<span class="w"> </span>family<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"8bitoperator"</span>
+</code></pre></div>
+<p>It must print <code>8bitoperator JVE</code>. <strong>That exact name matters</strong> — it is what you will select inside GameMaker.</p>
+<h3 id="confirm-it-actually-has-the-accents">Confirm it actually has the accents<a class="headerlink" href="#confirm-it-actually-has-the-accents" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>fc-list<span class="w"> </span><span class="s2">":lang=pt"</span><span class="w"> </span>family<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"8bitoperator"</span>
+</code></pre></div>
+<p>If the name appears, the font covers the language. A more thorough checker is at the <a href="#tool-does-this-font-have-the-glyphs-i-need">end of this page</a>.</p>
+<h3 id="restart-gamemaker">Restart GameMaker<a class="headerlink" href="#restart-gamemaker" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">This step is not optional</p>
+<p>The IDE builds its list of system fonts <strong>at startup</strong>. If it was already open when you installed, it still cannot see the font — and it will not tell you. It quietly generates the bitmap from a substitute typeface, and your pixel art becomes a smooth, larger font.</p>
+</div>
+<hr />
+<h2 id="step-4-find-out-which-font-your-text-uses-then-fix-it">Step 4 — Find out which font your text uses, then fix it<a class="headerlink" href="#step-4-find-out-which-font-your-text-uses-then-fix-it" title="Permanent link">&para;</a></h2>
+<h3 id="there-are-three-text-fonts-not-one">There are three text fonts, not one<a class="headerlink" href="#there-are-three-text-fonts-not-one" title="Permanent link">&para;</a></h3>
+<p>This is the step that costs the most time. The engine does not draw all text with the same font — it picks by context, and <strong>fixing the wrong asset changes nothing on screen</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>The text</th>
+<th>Font used</th>
+<th>Asset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signs, overworld dialogue, cutscenes, ACT text</td>
+<td><code>loc_font("text")</code></td>
+<td><strong><code>font_main_mono</code></strong></td>
+</tr>
+<tr>
+<td><strong>Enemy speech bubble, during battle</strong></td>
+<td><code>loc_font("enc")</code></td>
+<td><strong><code>font_dotumche</code></strong></td>
+</tr>
+<tr>
+<td>Menus, console, enemy names, HP/TP, game over</td>
+<td><code>loc_font("main")</code></td>
+<td><strong><code>font_main</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p>Which key maps to which asset lives in <code>datafiles/loc/fonts.json</code>.</p>
+<p><strong>Your test sign</strong> takes this path:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>o_ow_sign → dialogue_start()            objects/o_ow_sign/Other_10.gml:1
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>          → o_ui_dialogue
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>          → text_typer_create()         objects/o_ui_dialogue/Other_10.gml:15
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>          → o_text_typer
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>                font = loc_font("text")     objects/o_text_typer/Create_0.gml:5
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>          → fonts.json:  "font_text" → "font_main_mono"
+</code></pre></div>
+<p><strong>The enemy bubble branches off midway.</strong> It goes through the same <code>o_text_typer</code>, but a <em>preset</em> swaps the font:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>enemy.dialogue → actor_dialogue_create()          scripts/misc/misc.gml:313
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>               → o_ui_actordialogue
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>                     preset = "{preset(enemy_text)}"    Create_0.gml:7
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>               → o_text_typer, handling that preset:
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                     font = loc_font("enc")             Other_10.gml:98
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>               → fonts.json:  "font_enc" → "font_dotumche"
+</code></pre></div>
+<p>So it is entirely possible to fix the sign, walk into a battle, and watch the enemy still speak without accents. <strong>Different assets.</strong></p>
+<div class="admonition info">
+<p class="admonition-title">There are other presets</p>
+<p>The same mechanism applies to <code>{preset(god_text)}</code> and <code>{preset(light_world)}</code>, defined in <code>objects/o_text_typer/Other_10.gml:96</code>. If some text is still broken after everything else works, look for a <code>{preset(...)}</code> at the start of it.</p>
+</div>
+<h3 id="fix-it">Fix it<a class="headerlink" href="#fix-it" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Open <strong><code>font_main_mono</code></strong> in the Asset Browser.</li>
+<li>In the <strong>Font</strong> field, replace <code>Monospaced JVE</code> with <strong><code>8bitoperator JVE</code></strong>.</li>
+<li>Under <strong>Character Range</strong>, click <strong>Add</strong> and enter <em>lower</em> = <strong>192</strong>, <em>upper</em> = <strong>255</strong>. That covers <code>À</code>–<code>ÿ</code>, every accented character in Portuguese, Spanish, French and German. Use 160 instead of 192 if you also want <code>º ª « » ¿</code>.</li>
+<li><strong>Force regeneration.</strong> GameMaker only redraws the bitmap when something changes — nudge <strong>Size</strong> from <code>12</code> to <code>13</code> and back to <code>12</code>.</li>
+<li><strong>Ctrl+S.</strong></li>
+</ol>
+<p><strong>Check</strong> the font preview right there in the editor:</p>
+<table>
+<thead>
+<tr>
+<th>Preview shows</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pixel art, with <code>À Á Â Ã Ç É</code> among the glyphs</td>
+<td>✅ done, go to step 5</td>
+</tr>
+<tr>
+<td>Pixel art, but the accents are blank gaps</td>
+<td>the selected typeface lacks those glyphs — revisit step 3</td>
+</tr>
+<tr>
+<td>Smooth, larger letters with no pixels</td>
+<td>the IDE did not find the font — close it, reopen, redo this step</td>
+</tr>
+</tbody>
+</table>
+<p>Run <code>RoomTest</code>. The sign should now read <strong><code>Bem-vindo Sérgio, Bonitão.</code></strong> — but with letter spacing that looks different from the rest of the game. Step 5 fixes that.</p>
+<hr />
+<h2 id="step-5-restore-the-original-spacing">Step 5 — Restore the original spacing<a class="headerlink" href="#step-5-restore-the-original-spacing" title="Permanent link">&para;</a></h2>
+<p>tlDR dialogue is <strong>monospaced</strong>: every character advances exactly 8 pixels. That is what gives the text its typewriter rhythm.</p>
+<p><code>8bitoperator</code> is proportional — <code>.</code> advances 3px, <code>i</code> advances 7, <code>W</code> advances 8. Regenerating from it in step 4 gave the dialogue that variable spacing. This step puts the fixed advance back.</p>
+<p>It is safe because no glyph in the font is drawn wider than 8px, so nothing can bleed into the next character.</p>
+<ol>
+<li><strong>Close the project</strong> in GameMaker. The IDE rewrites the <code>.yy</code> when it saves, so it must not have the file open.</li>
+<li>
+<p>From the project root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="s">import re</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s">p = 'fonts/font_main_mono/font_main_mono.yy'</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="s">s = open(p).read()</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="s">def fix(m):</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="s">    return f'{m.group(1)}"shift":{16 if int(m.group(2)) &gt; 9000 else 8},'</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="s">s2, n = re.subn(r'("(\d+)":\{"character":\d+,"h":\d+,"offset":\d+,)"shift":\d+,', fix, s)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="s">open(p, 'w').write(s2)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="s">print("glyphs set to a fixed advance of 8:", n)</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="s">EOF</span>
+</code></pre></div>
+</li>
+<li>
+<p>Reopen the project.</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">This is always the last step</p>
+<p>If you go back into the font editor and touch Size, Range or Font again, the IDE regenerates the <code>.yy</code> from scratch and the spacing reverts. That is not a bug — just run the script again. Get the font right in the IDE first, run the script last.</p>
+</div>
+<hr />
+<h2 id="step-6-test">Step 6 — Test<a class="headerlink" href="#step-6-test" title="Permanent link">&para;</a></h2>
+<h3 id="on-screen">On screen<a class="headerlink" href="#on-screen" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before anything</td>
+<td><code>* Bem-vindo Srgio, Bonito.</code></td>
+</tr>
+<tr>
+<td>After step 4</td>
+<td><code>* Bem-vindo Sérgio, Bonitão.</code> with tight, uneven spacing</td>
+</tr>
+<tr>
+<td>After step 5</td>
+<td><code>* Bem-vindo Sérgio, Bonitão.</code> with the engine's regular rhythm</td>
+</tr>
+</tbody>
+</table>
+<p>Compare the last one against any other text in the game — a menu, a sign in <code>room_ex_church</code> — to confirm the letter rhythm matches.</p>
+<h3 id="test-the-enemy-bubble-too">Test the enemy bubble too<a class="headerlink" href="#test-the-enemy-bubble-too" title="Permanent link">&para;</a></h3>
+<p>Signs and battle bubbles use <strong>different fonts</strong>, so one can be right while the other is broken:</p>
+<ol>
+<li>Open the console (<span class="keys"><kbd class="key-tab">Tab</kbd></span>) and type <code>encounter_select</code>.</li>
+<li>Pick any encounter whose enemy speaks with accented text.</li>
+<li>Read the bubble above the enemy at the start of the round.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>What happens</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign <strong>and</strong> bubble correct</td>
+<td>✅ <code>font_main_mono</code> and <code>font_dotumche</code> are both fine</td>
+</tr>
+<tr>
+<td>Sign correct, bubble broken</td>
+<td><code>font_dotumche</code> still needs fixing — see step 7</td>
+</tr>
+<tr>
+<td>Bubble correct, sign broken</td>
+<td><code>font_main_mono</code> still needs fixing — see step 4</td>
+</tr>
+<tr>
+<td>Enemy name in the list broken</td>
+<td><code>font_main</code> still needs fixing — see step 7</td>
+</tr>
+</tbody>
+</table>
+<h3 id="in-the-files">In the files<a class="headerlink" href="#in-the-files" title="Permanent link">&para;</a></h3>
+<p>You can check without launching the game. From the project root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="s">import re, glob, os</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="s">for f in sorted(glob.glob('fonts/*/*.yy')):</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="s">    if f.endswith('.old.yy'): continue                       # skip IDE backups</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="s">    if os.path.basename(f)[:-3] != os.path.basename(os.path.dirname(f)): continue</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="s">    s = open(f).read()</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="s">    name = re.search(r'"%Name":"([^"]*)"', s).group(1)</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="s">    ttf  = re.search(r'"fontName":"([^"]*)"', s).group(1)</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="s">    lh   = re.search(r'"lineHeight":(\d+)', s).group(1)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="s">    rng  = re.findall(r'\{"lower":(\d+),"upper":(\d+),\}', s)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="s">    ac   = re.search(r'"225":\{"character":225,"h":\d+,"offset":\d+,"shift":\d+,"w":(\d+)', s)</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="s">    st   = "no a-acute" if not ac else ("a-acute EMPTY" if ac.group(1) == '0' else "a-acute OK")</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="s">    print(f'{name:22} {ttf:26} lineHeight={lh:&lt;3} {st:14} ranges={rng}')</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="s">EOF</span>
+</code></pre></div>
+<p>How to read the row for the font you fixed:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td><code>a-acute OK</code></td>
+<td>✅ the glyph made it into the atlas</td>
+</tr>
+<tr>
+<td>state</td>
+<td><code>no a-acute</code></td>
+<td>the range was never widened, or you did not save</td>
+</tr>
+<tr>
+<td>state</td>
+<td><code>a-acute EMPTY</code></td>
+<td>range is right, but the typeface has no such glyph</td>
+</tr>
+<tr>
+<td><code>lineHeight</code></td>
+<td><code>16</code></td>
+<td>✅ came from the pixel font</td>
+</tr>
+<tr>
+<td><code>lineHeight</code></td>
+<td>much larger (e.g. <code>22</code>)</td>
+<td>the IDE used a substitute — restart it and redo step 4</td>
+</tr>
+<tr>
+<td><code>fontName</code></td>
+<td>anything</td>
+<td><strong>proves nothing.</strong> The <code>.yy</code> always stores the name you asked for, even when the IDE could not find it</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Independent proof that the range was the whole problem</p>
+<p>In that same output, look at the fonts ending in <strong><code>_ja</code></strong> (the Japanese ones). They ship with range <code>32–65439</code> and report <code>a-acute OK</code> in a freshly cloned project, with no work from you. Same engine, same system — accents always worked in those.</p>
+</div>
+<hr />
+<h2 id="step-7-the-other-two-text-fonts">Step 7 — The other two text fonts<a class="headerlink" href="#step-7-the-other-two-text-fonts" title="Permanent link">&para;</a></h2>
+<p>Steps 4 and 5 fixed signs and cutscenes. Two assets remain, and you will notice their absence in specific places:</p>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>You notice when…</th>
+<th>Source typeface</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>font_main_mono</code></td>
+<td>a sign or cutscene eats accents</td>
+<td>unobtainable</td>
+<td>✅ done in steps 4–5</td>
+</tr>
+<tr>
+<td><strong><code>font_dotumche</code></strong></td>
+<td><strong>an enemy speaks without accents in battle</strong></td>
+<td>DotumChe Pixel</td>
+<td>not obtainable — see below</td>
+</tr>
+<tr>
+<td><code>font_main</code></td>
+<td>an enemy name or a menu eats accents</td>
+<td>8bitoperator JVE</td>
+<td>you already have the typeface</td>
+</tr>
+</tbody>
+</table>
+<h3 id="font_main-the-easy-one"><code>font_main</code> — the easy one<a class="headerlink" href="#font_main-the-easy-one" title="Permanent link">&para;</a></h3>
+<p>Its source typeface is the one you installed. Repeat step 4 <strong>without changing the Font field</strong> (it already says <code>8bitoperator JVE</code>) and <strong>without doing step 5</strong> — this font is proportional on purpose.</p>
+<h3 id="font_dotumche-the-enemy-bubble"><code>font_dotumche</code> — the enemy bubble<a class="headerlink" href="#font_dotumche-the-enemy-bubble" title="Permanent link">&para;</a></h3>
+<p><code>DotumChe Pixel</code> is not obtainable either. Two ways out:</p>
+<p><strong>A. Point the key at a font you already fixed.</strong> One line in <code>datafiles/loc/fonts.json</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">"font_enc"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nt">"en"</span><span class="p">:</span><span class="w"> </span><span class="s2">"font_main"</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">"ja"</span><span class="p">:</span><span class="w"> </span><span class="s2">"font_dotumche_ja"</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Ten seconds, and the bubble uses the same font as the menus.</p>
+<p><strong>B. Regenerate the asset from <code>8bitoperator JVE</code>.</strong> Open <code>font_dotumche</code>, change the <strong>Font</strong> field, add range 192–255, force regeneration. More work, but it keeps the assets separate — useful if you later want a distinct look per context.</p>
+<h3 id="the-rest">The rest<a class="headerlink" href="#the-rest" title="Permanent link">&para;</a></h3>
+<p><code>font_lwmenu</code> (Light World menu), <code>font_prophecy</code> (overworld prophecy) and <code>font_8bit</code> only matter if your game uses those screens. The procedure never changes: install the source typeface → widen the range → force regeneration.</p>
+<div class="admonition tip">
+<p class="admonition-title">Fix on demand</p>
+<p>Do not try to fix all six at once. Play, find text that is broken, work out which asset draws it (step 4), fix that one, keep playing.</p>
+</div>
+<hr />
+<h2 id="when-things-go-wrong">When things go wrong<a class="headerlink" href="#when-things-go-wrong" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accents vanish, no error</td>
+<td>the font's range is 32–127 — step 4</td>
+</tr>
+<tr>
+<td>Fixed a font and the sign did not change</td>
+<td>wrong asset; dialogue is <code>font_main_mono</code> — step 4</td>
+</tr>
+<tr>
+<td>The font lost its pixels and got bigger</td>
+<td>the IDE could not find the typeface and substituted one — restart it (step 3)</td>
+</tr>
+<tr>
+<td>Installed the font, the IDE does not list it</td>
+<td>it reads the list only at startup — restart</td>
+</tr>
+<tr>
+<td>Changed the range and nothing happened</td>
+<td>the bitmap was not regenerated — nudge Size, then save</td>
+</tr>
+<tr>
+<td>Accents render as blank space</td>
+<td>the typeface has no such glyph — step 7</td>
+</tr>
+<tr>
+<td>Dialogue spacing became uneven</td>
+<td>step 5 is missing</td>
+</tr>
+<tr>
+<td>Ran the script, then the spacing reverted</td>
+<td>the IDE regenerated afterwards; run the script again, last</td>
+</tr>
+<tr>
+<td>Menus and dialogue use different fonts</td>
+<td>they are different assets — step 7</td>
+</tr>
+<tr>
+<td>Everything is broken</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<h3 id="undoing-everything">Undoing everything<a class="headerlink" href="#undoing-everything" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>--<span class="w"> </span>fonts/
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>rm<span class="w"> </span>-f<span class="w"> </span>fonts/*/*.old.png<span class="w"> </span>fonts/*/*.old.yy
+</code></pre></div>
+<p>The <code>rm</code> clears the backups GameMaker makes when it regenerates. Then <strong>close and reopen the project</strong> so the IDE rereads the bitmaps from disk.</p>
+<hr />
+<h2 id="tool-does-this-font-have-the-glyphs-i-need">Tool: does this font have the glyphs I need?<a class="headerlink" href="#tool-does-this-font-have-the-glyphs-i-need" title="Permanent link">&para;</a></h2>
+<p>Worth checking before adopting any new typeface. This reads the installed <code>.ttf</code>'s <code>cmap</code> and tests the accented characters one by one:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'EOF' "8bitoperator"</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="s">import struct, sys, subprocess</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="s">target = "áàâãçéêíóôõúüÁÀÂÃÇÉÊÍÓÔÕÚÜºª"</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="s">name = sys.argv[1] if len(sys.argv) &gt; 1 else "8bitoperator"</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="s">out = subprocess.run(['fc-list'], capture_output=True, text=True).stdout</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="s">path = next((l.split(':')[0] for l in out.splitlines() if name.lower() in l.lower()), None)</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="s">if not path:</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="s">    print("font not installed:", name); raise SystemExit</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="s">d = open(path, 'rb').read()</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="s">tabs = {}</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="s">for i in range(struct.unpack('&gt;H', d[4:6])[0]):</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="s">    o = 12 + 16*i</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="s">    tabs[d[o:o+4].decode('latin1')] = struct.unpack('&gt;II', d[o+8:o+16])</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="s">off = tabs['cmap'][0]</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="s">chars = set()</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="s">for i in range(struct.unpack('&gt;H', d[off+2:off+4])[0]):</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="s">    _, _, so = struct.unpack('&gt;HHI', d[off+4+8*i:off+12+8*i])</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="s">    t = off + so</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="s">    fmt = struct.unpack('&gt;H', d[t:t+2])[0]</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="s">    if fmt == 4:</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="s">        segX2 = struct.unpack('&gt;H', d[t+6:t+8])[0]; seg = segX2//2</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="s">        ends   = struct.unpack('&gt;%dH' % seg, d[t+14:t+14+segX2])</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="s">        starts = struct.unpack('&gt;%dH' % seg, d[t+16+segX2:t+16+2*segX2])</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="s">        for s, e in zip(starts, ends):</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="s">            if e != 0xFFFF: chars.update(range(s, e+1))</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="s">    elif fmt == 6:</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="s">        first, cnt = struct.unpack('&gt;HH', d[t+6:t+10]); chars.update(range(first, first+cnt))</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="s">    elif fmt == 0:</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="s">        chars.update(c for c in range(256) if d[t+6+c])</span>
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="s">missing = [c for c in target if ord(c) not in chars]</span>
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="s">print(path)</span>
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="s">print("glyphs in font:", len(chars))</span>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="s">print("MISSING:", ''.join(missing) if missing else "(none) — safe to use")</span>
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="s">EOF</span>
+</code></pre></div>
+<p>Pass a different name to test another: <code>... EOF "crypt of tomorrow"</code>.</p>
+<hr />
+<h2 id="quick-reference">Quick reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Accent range:        192–255       (or 160–255 to include º ª « » ¿)
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>á=225  ã=227  ç=231  é=233  í=237  ó=243  õ=245  ú=250
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>The THREE text fonts:
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>  signs / cutscenes / ACT text   loc_font("text")  -&gt; font_main_mono
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>  enemy bubble (in battle)       loc_font("enc")   -&gt; font_dotumche
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>  menus / names / HP / TP        loc_font("main")  -&gt; font_main
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>Font map:            datafiles/loc/fonts.json
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>Order that works:
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>  install ttf -&gt; restart IDE -&gt; change Font -&gt; widen range
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>  -&gt; force regen (Size 12-&gt;13-&gt;12) -&gt; save -&gt; close project -&gt; advance script
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>Undo:                git checkout -- fonts/
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

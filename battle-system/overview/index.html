@@ -1,0 +1,1778 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../../overworld/tiles-and-tilesets/">
+      
+      
+        <link rel="next" href="../your-first-enemy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 6: How a Fight Works - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-a-fight-works" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 6: How a Fight Works
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-the-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 — The design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 — The design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#every-fight-is-a-conversation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every fight is a conversation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mercy-the-hidden-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MERCY, the hidden bar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acts-are-where-the-character-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACTs are where the character lives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dodging-phase-does-two-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The dodging phase does two jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bullet-colours-are-rules-not-physics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bullet colours are rules, not physics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-loop-in-one-sentence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The loop, in one sentence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-the-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 — The implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 — The implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-owns-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Who owns what
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o_enc-the-conductor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        o_enc — the conductor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-real-order-of-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The real order of events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The box
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-soul" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The soul
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-bullet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The bullet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-turn-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The turn object
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to go next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-the-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 — The design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 — The design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#every-fight-is-a-conversation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every fight is a conversation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mercy-the-hidden-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MERCY, the hidden bar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acts-are-where-the-character-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACTs are where the character lives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dodging-phase-does-two-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The dodging phase does two jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bullet-colours-are-rules-not-physics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bullet colours are rules, not physics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-loop-in-one-sentence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The loop, in one sentence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-the-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 — The implementation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 — The implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-owns-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Who owns what
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o_enc-the-conductor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        o_enc — the conductor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-real-order-of-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The real order of events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The box
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-soul" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The soul
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-bullet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The bullet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-turn-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The turn object
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to go next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="how-a-fight-works">How a fight works<a class="headerlink" href="#how-a-fight-works" title="Permanent link">&para;</a></h1>
+<p>Before any code: this genre makes assumptions that are invisible from the outside. If you have never played DELTARUNE or Undertale, the engine's design will look arbitrary until you understand what it is modelling.</p>
+<hr />
+<h2 id="part-1-the-design">Part 1 — The design<a class="headerlink" href="#part-1-the-design" title="Permanent link">&para;</a></h2>
+<h3 id="every-fight-is-a-conversation">Every fight is a conversation<a class="headerlink" href="#every-fight-is-a-conversation" title="Permanent link">&para;</a></h3>
+<p>A tlDR battle is a hybrid of two things that do not normally mix: a <strong>turn-based menu</strong> and a <strong>bullet hell</strong> — a real-time dodging game.</p>
+<p>The important difference from a traditional RPG is that <strong>you are almost never required to kill anything</strong>. Every fight has two endings:</p>
+<ul>
+<li><strong>Violent</strong> — reduce the enemy's HP to zero (<code>Fight</code>).</li>
+<li><strong>Peaceful</strong> — convince the enemy to stop fighting and spare it (<code>Act</code> + <code>Spare</code>).</li>
+</ul>
+<p>The genre is designed so the peaceful route is <em>equally valid</em>, sometimes more interesting. That changes the player's question from "how do I win" to "how do I make this creature stop fighting me".</p>
+<h3 id="the-menu">The menu<a class="headerlink" href="#the-menu" title="Permanent link">&para;</a></h3>
+<p>Each party member gets a row of <strong>five buttons</strong> (<code>objects/o_enc/Create_0.gml:82</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FIGHT</strong></td>
+<td>Real damage. Reduces <code>hp</code>.</td>
+</tr>
+<tr>
+<td><strong>ACT</strong> <em>or</em> <strong>MAGIC</strong></td>
+<td>One shared slot. It is <strong>ACT</strong> for a character who has the <code>item_s_act</code> spell, and <strong>MAGIC</strong> otherwise.</td>
+</tr>
+<tr>
+<td><strong>ITEM</strong></td>
+<td>Use an inventory item.</td>
+</tr>
+<tr>
+<td><strong>SPARE</strong></td>
+<td>Only usable when some enemy has <code>mercy &gt;= 100</code>. Ends the fight peacefully.</td>
+</tr>
+<tr>
+<td><strong>DEFEND</strong></td>
+<td>Damage taken drops to 2/3 and the turn gets shorter.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Only Kris has ACT</p>
+<p>In the shipped party data, only Kris carries <code>item_s_act</code> (<code>scripts/party_init/party_init.gml:152</code>). Susie, Ralsei and Noelle show <strong>MAGIC</strong> in that slot instead. If you test a fight with Susie selected and cannot find the ACT button, that is why — not a bug.</p>
+<p>To give the other characters an enemy-specific action, use the sibling field <code>acts_special</code>, which has one entry per character name and appears inside their MAGIC menu. There is a worked example on the virovirokun in <code>scripts/enc_enemies/enc_enemies.gml:239</code>.</p>
+</div>
+<p>Choices are resolved in a fixed order regardless of the order you picked them (<code>objects/o_enc/Create_0.gml:126</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>act → item → power → spare → fight → defend
+</code></pre></div>
+<h3 id="mercy-the-hidden-bar">MERCY, the hidden bar<a class="headerlink" href="#mercy-the-hidden-bar" title="Permanent link">&para;</a></h3>
+<p>Every enemy has an internal <strong>MERCY</strong> value from 0 to 100. At 100, <strong>SPARE</strong> becomes usable.</p>
+<p>Two things are easy to confuse:</p>
+<ul>
+<li><strong><code>mercy</code></strong> (number, 0–100) — this is what <strong>enables the SPARE button</strong>. The engine literally checks <code>_enemy.mercy &gt;= 100</code> (<code>objects/o_enc/Create_0.gml:184</code>).</li>
+<li><strong><code>can_spare</code></strong> (<strong>boolean</strong>, default <code>true</code>) — whether this enemy is sparable <em>in principle</em>. If <code>false</code>, the MERCY bar is drawn crossed out and SPARE never works, whatever the mercy value.</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title"><code>can_spare</code> must be a bool, not a function</p>
+<p>The engine reads it in direct boolean context, every frame, while drawing the bar (<code>objects/o_enc/Draw_64.gml:229</code>) and again in <code>scripts/enc_actions/enc_actions.gml:369</code>. A method there crashes at runtime. If you want "only sparable when full", that is already the default — leave <code>can_spare = true</code>.</p>
+</div>
+<p>What raises MERCY:</p>
+<ul>
+<li>Using the <strong>right ACT</strong> for that specific enemy, sometimes several in sequence.</li>
+<li>Leaving the enemy at <strong>low HP</strong> without killing it. With <code>low_hp_tired = true</code> (the default) and HP below <code>low_hp_tired_threshold</code> (default <code>1/2</code>), it becomes <strong>TIRED</strong> — a state that mercy spells look for.</li>
+<li>Failing to spare: if <code>can_spare</code> is true, each failed attempt still adds <code>mercy_add_pity_percent</code> (default <strong>20</strong>).</li>
+</ul>
+<h3 id="acts-are-where-the-character-lives">ACTs are where the character lives<a class="headerlink" href="#acts-are-where-the-character-lives" title="Permanent link">&para;</a></h3>
+<p>An ACT is not a generic verb. It is written <strong>for that creature</strong>, and it is usually funny, strange, or revealing.</p>
+<p>Think of it as an interactive mini-dialogue disguised as a menu: instead of <em>reading</em> about the enemy, the player <em>investigates</em> it by trying things until something works. That is the whole puzzle.</p>
+<h3 id="the-dodging-phase-does-two-jobs">The dodging phase does two jobs<a class="headerlink" href="#the-dodging-phase-does-two-jobs" title="Permanent link">&para;</a></h3>
+<p>Once everyone has chosen, the fight goes visual — the black box, the soul, the bullets. That phase is:</p>
+<ol>
+<li><strong>Mechanical</strong> — the enemy's turn. It attacks with a bullet pattern you have to dodge.</li>
+<li><strong>Characterisation</strong> — the <em>shape of the pattern</em> reflects the creature. A nervous enemy fires slowly and without aim. A furious one fires fast and dense. A playful one makes something silly and almost decorative.</li>
+</ol>
+<p>The bullet pattern is not just a reflex test. It is the enemy talking.</p>
+<h3 id="bullet-colours-are-rules-not-physics">Bullet colours are rules, not physics<a class="headerlink" href="#bullet-colours-are-rules-not-physics" title="Permanent link">&para;</a></h3>
+<p>This is where tlDR differs most from what people assume.</p>
+<p><strong>The soul never changes.</strong> It is always red and always moves the same way: free in four directions, no gravity, no jump (<code>enum SOUL_COLOR { RED }</code>, <code>objects/o_enc_soul/Create_0.gml:23</code>). <strong>There is no platforming mode.</strong></p>
+<p>What has colour is the <strong>bullet</strong>, and the colour is a rule about <strong>when that bullet hurts</strong> (<code>objects/o_enc_bullet/Other_10.gml</code>):</p>
+<table>
+<thead>
+<tr>
+<th><code>BULLET_COLOR</code></th>
+<th>Hurts when</th>
+<th>What it demands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>SOLID</code></strong> (default)</td>
+<td>always, on contact</td>
+<td>dodge — get out of the way</td>
+</tr>
+<tr>
+<td><strong><code>BLUE</code></strong></td>
+<td>only if the soul is <strong>moving</strong></td>
+<td><strong>stand still</strong> while it passes</td>
+</tr>
+<tr>
+<td><strong><code>ORANGE</code></strong></td>
+<td>only if the soul is <strong>still</strong></td>
+<td><strong>keep moving</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>BLUE</code> and <code>ORANGE</code> are mirror images. The player's mental model is "freeze" versus "never stop", and that gives you rhythm variety without inventing new mechanics.</p>
+<p>Three non-obvious consequences:</p>
+<ul>
+<li><strong><code>destroy</code> only applies to <code>SOLID</code>.</strong> A blue or orange bullet passes through the soul and keeps existing after hitting.</li>
+<li><strong>Only <code>SOLID</code> bullets grant graze</strong> (<code>objects/o_enc_soul_grazer/Step_0.gml:12</code>), so blue and orange give no TP and do not shorten the turn.</li>
+<li>Colours mix freely in one turn. Each bullet carries its own rule.</li>
+</ul>
+<h3 id="the-loop-in-one-sentence">The loop, in one sentence<a class="headerlink" href="#the-loop-in-one-sentence" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><em>"Choose an action → see the result → dodge the counterattack → repeat, until the enemy is ready to be spared (or out of HP)."</em></p>
+</blockquote>
+<p>Conscious decision followed by real-time reflex. That is why the genre is sometimes called <strong>turn-based bullet hell</strong>: an RPG in your head, a shooter in your fingers.</p>
+<hr />
+<h2 id="part-2-the-implementation">Part 2 — The implementation<a class="headerlink" href="#part-2-the-implementation" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">The game runs at 30 FPS</p>
+<p><code>options/main/options_main.yy</code> sets <code>option_game_speed: 30</code>, and nothing calls <code>game_set_speed</code> anywhere. Every frame count in this book assumes 30. <code>timer_end = 60</code> is <strong>two</strong> seconds, not one.</p>
+</div>
+<h3 id="who-owns-what">Who owns what<a class="headerlink" href="#who-owns-what" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The menu</td>
+<td><code>o_enc</code></td>
+</tr>
+<tr>
+<td>The arena (visual + surface)</td>
+<td><code>o_enc_box</code></td>
+</tr>
+<tr>
+<td>The arena walls</td>
+<td><code>o_enc_box_solid</code> — <code>o_enc_box</code>'s parent</td>
+</tr>
+<tr>
+<td>The heart</td>
+<td><code>o_enc_soul</code></td>
+</tr>
+<tr>
+<td>The graze ring around it</td>
+<td><code>o_enc_soul_grazer</code></td>
+</tr>
+<tr>
+<td>The bullets</td>
+<td><code>o_enc_bullet</code>, one instance each</td>
+</tr>
+<tr>
+<td>One enemy's attack</td>
+<td><code>turn_object</code> (<code>o_turn_*</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="o_enc-the-conductor"><code>o_enc</code> — the conductor<a class="headerlink" href="#o_enc-the-conductor" title="Permanent link">&para;</a></h3>
+<p><code>enc_start(set)</code> creates an <code>o_enc_anim</code>, which leads to <code>o_enc</code>. It lives from the first frame of the fight to the last and holds the state:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>o_enc.turn_count      // which round (0, 1, 2…)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>o_enc.encounter_data  // the enc_set() in use, with its enemies[] array
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>o_enc.tp              // the magic bar, 0–100, fed by grazing
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>o_enc.turn_objects    // one turn object per enemy
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>o_enc.mybox           // the arena instance for this turn
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>o_enc.mysoul          // the soul instance for this turn
+</code></pre></div>
+<h3 id="the-real-order-of-events">The real order of events<a class="headerlink" href="#the-real-order-of-events" title="Permanent link">&para;</a></h3>
+<p>This is the exact sequence from <code>objects/o_enc/Step_0.gml</code>, and it is worth memorising because the intuitive version is wrong in two places:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>MENU        → you pick actions
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>EXEC        → actions run (fixed order: act, item, power, spare, fight, defend)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>              → ev_party_exec
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>DIALOGUE    → turn_objects are CREATED     ← the instances already exist here
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>              → User Event 0 on each turn_object   ("init")
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>              → ev_dialogue
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>              → attack targets are chosen
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>TURN        → o_enc_box and o_enc_soul are created
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>              → User Event 2 on each turn_object   ("box is created")
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>              → User Event 1 on each turn_object   ("turn starts")
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>              → ev_turn_start
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>              → … the turn runs …
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>              → ends when EVERY turn_object has been destroyed
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>              → the box closes
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>POST_TURN   → turn_count ++                ← already incremented
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>              → ev_post_turn
+</code></pre></div>
+<p>Two traps:</p>
+<ul>
+<li><strong>The turn object is created before <code>ev_turn_start</code></strong>, not after. If you need to configure it from an enemy hook, the right place is <code>ev_dialogue</code> — or the turn object's own User Events.</li>
+<li><strong><code>turn_count</code> has already been incremented when <code>ev_post_turn</code> runs.</strong> Inside that hook it holds the <em>next</em> round's number.</li>
+</ul>
+<p>And note what ends a turn: not a timer on <code>o_enc</code>, but <strong>every turn object being destroyed</strong>. While one is alive, the box stays open.</p>
+<h3 id="the-box">The box<a class="headerlink" href="#the-box" title="Permanent link">&para;</a></h3>
+<p><code>o_enc_box</code> is created centred, 75 × 75 by default:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>o_enc_box.x        // centre X
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>o_enc_box.y        // centre Y
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>o_enc_box.width    // 75
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>o_enc_box.height   // 75
+</code></pre></div>
+<p>The walls are <strong><code>o_enc_box_solid</code></strong>, which is <code>o_enc_box</code>'s <em>parent</em> — the soul collides against the parent object, so any extra <code>o_enc_box_solid</code> instance becomes a wall inside the arena. The box's mask is a <strong>hollow</strong> outline (<code>spr_enc_box_mask</code>); a filled mask would leave nowhere to stand.</p>
+<p><strong>Bullets ignore the walls entirely.</strong> Nothing keeps a bullet inside the box. What decides whether it is <em>drawn</em> clipped is the <code>inside</code> field, not its position.</p>
+<h3 id="the-soul">The soul<a class="headerlink" href="#the-soul" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>o_enc_soul.x / .y     // position — aim at this
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>o_enc_soul.moving     // true only if input was given AND the soul actually moved
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>o_enc_soul.i_frames   // invincibility frames remaining
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>o_enc_soul.spd        // base speed (8); holding cancel halves it
+</code></pre></div>
+<p>Collision is detected by the <strong>soul</strong>, not the bullet — there is no Collision event:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// objects/o_enc_soul/Step_0.gml
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>if place_meeting(x, y, o_enc_bullet) {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    with instance_place(x, y, o_enc_bullet) {
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        event_user(0);     // the bullet's "I hit something" event
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    }
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>}
+</code></pre></div>
+<p>So <strong>User Event 0 on <code>o_enc_bullet</code> is the hit event</strong>. That is where the colour rule is checked, i-frames applied and damage dealt.</p>
+<h3 id="graze">Graze<a class="headerlink" href="#graze" title="Permanent link">&para;</a></h3>
+<p>A second object, <strong><code>o_enc_soul_grazer</code></strong>, follows the soul with a larger area. A <strong><code>SOLID</code></strong> bullet touching the ring but not the heart counts as a graze, and pays twice:</p>
+<ol>
+<li><strong>TP</strong> — the bullet's <code>graze</code> value (default 2) is added to <code>o_enc.tp</code>, capped at 100. TP pays for spells.</li>
+<li><strong>A shorter turn</strong> — the bullet's <code>time_points</code> (default 5) is subtracted from <code>timer_end</code> on every turn object with <code>shorten_by_tension = true</code>.</li>
+</ol>
+<p>Rules the engine enforces:</p>
+<ul>
+<li>Only <code>SOLID</code> bullets. Blue and orange are worth nothing.</li>
+<li>Grazing the same bullet again pays <code>graze/12</code> and <code>time_points/30</code> — you cannot farm one bullet.</li>
+<li>No grazing while invincible (<code>i_frames &gt; 0</code>), and none in the first 10 frames of a turn.</li>
+<li>The ring's <strong>size</strong> comes from the grazer sprite's scale, and grows with equipped items (<code>item_a_pink_ribbon</code> +20%, <code>item_a_twin_ribbon</code> +25%, capped at 2.5×).</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Why graze exists</p>
+<p>Without it, the optimal play in a bullet hell is to run to the emptiest corner and wait. That is boring — the player becomes a spectator. Graze inverts the incentive: getting close pays. The dodging phase becomes a decision instead of a wait.</p>
+</div>
+<h3 id="the-bullet">The bullet<a class="headerlink" href="#the-bullet" title="Permanent link">&para;</a></h3>
+<p>The <code>Step</code> event of <code>o_enc_bullet</code> is <strong>empty</strong>: movement is GameMaker's native <code>speed</code>/<code>direction</code>. The defaults (<code>objects/o_enc_bullet/Create_0.gml</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>enum BULLET_COLOR { SOLID, BLUE, ORANGE }   // defined in the bullet's own Create
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>graze       = 2                     // TP granted when grazed
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>att         = 6                     // attack STAT, not damage
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>inv         = global.enc_soul_inv   // i-frames granted on hit (40)
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>time_points = 5                     // frames a graze cuts from the turn
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>color       = BULLET_COLOR.SOLID
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>destroy     = true                  // vanish on hit — SOLID only
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>element     = ""
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>inside      = false                 // draw clipped inside the box?
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>att</code> is not damage</p>
+<p>Damage is <code>5 * att</code>, minus the target's defence, times 2/3 if they are defending (<code>scripts/party_hp/party_hp.gml:225</code>). So <code>att: 4</code> costs about 20 HP, not 4. Think of it on the same scale as an enemy's <code>attack</code> stat.</p>
+</div>
+<p><code>inside</code> does <strong>not</strong> control where a bullet spawns. It controls whether it is drawn onto the box's surface — that is, <strong>clipped by the walls</strong> (<code>objects/o_enc_bullet/Draw_0.gml</code>). Draw order comes from depth:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>DEPTH_ENCOUNTER.BULLETS_OUTSIDE  // -6500 — in front of everything, soul included
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>DEPTH_ENCOUNTER.SOUL             // -6400
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>DEPTH_ENCOUNTER.BOX              // -6300
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>DEPTH_ENCOUNTER.BULLETS_INSIDE   // -6200 — behind the box frame
+</code></pre></div>
+<p>The bullet's <strong>drawing</strong> lives in User Event 1 (<code>Other_11.gml</code>), not <code>Draw</code>. In a child bullet object: override <code>Other_11</code> for looks, <code>Other_10</code> for the hit, <code>Step_0</code> for movement.</p>
+<h3 id="the-turn-object">The turn object<a class="headerlink" href="#the-turn-object" title="Permanent link">&para;</a></h3>
+<p>This is the object <strong>you</strong> write. It inherits from <code>o_turn</code>, is created during <code>DIALOGUE</code>, and <strong>destroying it is how a turn ends</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>File</th>
+<th>When</th>
+<th>For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create</td>
+<td><code>Create_0.gml</code></td>
+<td>once, on birth</td>
+<td>your variables</td>
+</tr>
+<tr>
+<td>User Event 0</td>
+<td><code>Other_10.gml</code></td>
+<td>once, right after Create</td>
+<td><strong>init</strong> — <code>timer_end</code>, <code>pattern_pool</code></td>
+</tr>
+<tr>
+<td>User Event 2</td>
+<td><code>Other_12.gml</code></td>
+<td>once, when box and soul exist</td>
+<td>the arena; the base picks <code>pattern</code> here</td>
+</tr>
+<tr>
+<td>User Event 1</td>
+<td><code>Other_11.gml</code></td>
+<td>once, when the turn actually starts</td>
+<td><strong>spawn bullets</strong></td>
+</tr>
+<tr>
+<td>Step</td>
+<td><code>Step_0.gml</code></td>
+<td>every frame</td>
+<td>continuous logic</td>
+</tr>
+<tr>
+<td>Destroy</td>
+<td><code>Destroy_0.gml</code></td>
+<td>on destruction</td>
+<td>clean up</td>
+</tr>
+</tbody>
+</table>
+<p>Two separate mechanisms end a turn, and they are easy to confuse:</p>
+<p><strong><code>timer_end</code></strong> lives in the <em>parent's</em> Step, inherited via <code>event_inherited()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>// objects/o_turn/Step_0.gml
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>if turn_started
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    timer ++
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>if !is_undefined(timer_end) &amp;&amp; timer &gt; timer_end
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    instance_destroy()
+</code></pre></div>
+<p><code>timer</code> counts <strong>up</strong>, and only after User Event 1. With <code>timer_end = undefined</code> the turn never ends on its own.</p>
+<p><strong><code>__support_destroy_check()</code></strong> does <strong>not</strong> look at <code>timer_end</code>. It exists for support enemies (<code>am_support = true</code>): it destroys this turn when no <em>main</em> turn is left (<code>objects/o_turn/Create_0.gml:31</code>). On a normal turn it does nothing.</p>
+<div class="admonition danger">
+<p class="admonition-title">Nothing collects orphaned bullets</p>
+<p>Bullets that leave the box keep existing. Every turn object is responsible for its own cleanup, in its Destroy event — the engine does this in <code>o_ex_turn_complex_box/Destroy_0.gml</code>. Skip it and the next round starts with last round's litter flying across the screen.</p>
+</div>
+<h2 id="where-to-go-next">Where to go next<a class="headerlink" href="#where-to-go-next" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../your-first-enemy/">Your first enemy</a> — build one end to end.</li>
+<li><a href="../the-arena/">The arena</a> — make the box part of the performance.</li>
+<li><a href="../../reference/enemy-struct/">Reference</a> — the field tables.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

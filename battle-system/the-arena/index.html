@@ -1,0 +1,2228 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../your-first-enemy/">
+      
+      
+        <link rel="next" href="../advanced-patterns/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 8: The Arena - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-arena" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 8: The Arena
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: The Arena
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before you start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-where-you-touch-the-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Where you touch the arena
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1 — Where you touch the arena">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-can-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you can change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-two-minute-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A two-minute experiment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-the-arena-reacts-to-the-mood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — The arena reacts to the mood
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-the-arena-shakes-and-turns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — The arena shakes and turns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-changing-the-arenas-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Changing the arena's shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-obstacles-inside-the-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Obstacles inside the arena
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-the-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — The background
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6 — The background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-how-the-default-background-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 How the default background works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-level-1-recolour-the-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Level 1 — recolour the grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-level-2-your-own-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Level 2 — your own background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-the-dark-veil-as-a-dramatic-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 The dark veil, as a dramatic tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-the-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing the background
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-two-sonsos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — Two Sonsos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7 — Two Sonsos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-surprising-part-they-do-not-attack-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The surprising part: they do not attack twice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-your-own-win-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8 — Your own win condition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-where-the-party-stands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9 — Where the party stands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-test-each-thing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to test each thing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before you start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-where-you-touch-the-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Where you touch the arena
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1 — Where you touch the arena">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-can-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you can change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-two-minute-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A two-minute experiment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-the-arena-reacts-to-the-mood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — The arena reacts to the mood
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-the-arena-shakes-and-turns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — The arena shakes and turns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-changing-the-arenas-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Changing the arena's shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-obstacles-inside-the-arena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Obstacles inside the arena
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-the-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — The background
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6 — The background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-how-the-default-background-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 How the default background works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-level-1-recolour-the-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Level 1 — recolour the grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-level-2-your-own-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Level 2 — your own background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-the-dark-veil-as-a-dramatic-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 The dark veil, as a dramatic tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-the-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing the background
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-two-sonsos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — Two Sonsos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7 — Two Sonsos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-surprising-part-they-do-not-attack-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The surprising part: they do not attack twice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-your-own-win-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8 — Your own win condition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-where-the-party-stands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9 — Where the party stands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-test-each-thing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to test each thing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="the-arena">The arena<a class="headerlink" href="#the-arena" title="Permanent link">&para;</a></h1>
+<p>Direct continuation of <a href="../your-first-enemy/">Your first enemy</a>. There, Sonso got a personality through his ACTs and bullet patterns. Here he gets <strong>a place</strong>: the box the soul moves in stops being a neutral square and starts acting alongside him.</p>
+<p>Nine steps, each testable on its own. You can stop at any of them.</p>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<p>You need Sonso working: <code>rpg_enemy_sonso()</code>, <code>rpg_enc_set_sonso()</code> and the <code>o_turn_sonso</code> object with its four events. If <span class="keys"><kbd class="key-tab">Tab</kbd></span> → <code>encounter_select</code> → <code>sonso</code> opens the fight and the cat attacks, you are ready.</p>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>In the first chapter, Sonso's mood changed the <strong>bullet pattern</strong>. Here it will also change <strong>the size, tilt and contents of the arena</strong>.</p>
+<p>This matters because the box is the player's personal space. Shrinking it is not "raising the difficulty" — it is the cat getting too close. Rotating it is not a pretty effect — it is you losing your footing. The player feels it before understanding it.</p>
+<table>
+<thead>
+<tr>
+<th>Mood</th>
+<th>What the arena does</th>
+<th>What it says</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calm</code></td>
+<td>plain square, 75×75</td>
+<td>he is relaxed</td>
+</tr>
+<tr>
+<td><code>annoyed</code></td>
+<td>shrinks to 55×55 and shakes</td>
+<td>he has cornered you</td>
+</tr>
+<tr>
+<td><code>curious</code></td>
+<td>grows to 90×90 and turns slowly</td>
+<td>he is circling you</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-1-where-you-touch-the-arena">Step 1 — Where you touch the arena<a class="headerlink" href="#step-1-where-you-touch-the-arena" title="Permanent link">&para;</a></h2>
+<p>The box is the instance <strong><code>o_enc.mybox</code></strong> (object <code>o_enc_box</code>), created by the engine at the start of each defence turn. It exists from the moment the box opens until it closes.</p>
+<p>The right place to configure it is your turn object's <strong>User Event 2</strong> — the event the engine describes as <em>"box is created"</em>, called right after the box and soul are born and <strong>before</strong> the turn starts.</p>
+<p>If you followed the first chapter, <code>o_turn_sonso</code> does not have that event yet. Add it: <strong>Add Event → Other → User Events → User Event 2</strong> (file <code>Other_12.gml</code>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Call the parent in this event</p>
+<p>The <code>o_turn</code> base uses User Event 2 to draw <code>pattern</code> from <code>pattern_pool</code>. Overriding it without <code>event_inherited()</code> breaks pattern selection for any enemy that uses a pool. The first line is always <code>event_inherited()</code>.</p>
+</div>
+<h3 id="what-you-can-change">What you can change<a class="headerlink" href="#what-you-can-change" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code> / <code>height</code></td>
+<td>arena size (default 75×75)</td>
+</tr>
+<tr>
+<td><code>x</code> / <code>y</code></td>
+<td>where it sits on screen</td>
+</tr>
+<tr>
+<td><code>image_angle</code></td>
+<td>tilt</td>
+</tr>
+<tr>
+<td><code>sprite_index</code> + <code>mask_index</code> + <code>sprite_back</code></td>
+<td>the arena's shape</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>frame colour</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a-two-minute-experiment">A two-minute experiment<a class="headerlink" href="#a-two-minute-experiment" title="Permanent link">&para;</a></h3>
+<p>Write this and run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// Other_12.gml — User Event 2 ("box is created")
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>event_inherited()
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>o_enc.mybox.width  = 140
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>o_enc.mybox.height = 50
+</code></pre></div>
+<p>You should get a wide, short arena, like a slot. Put it back to <code>75</code>/<code>75</code> after checking — step 2 does it properly.</p>
+<div class="admonition info">
+<p class="admonition-title">Why not in Create or User Event 0</p>
+<p>In those two events the box <strong>does not exist yet</strong> — <code>o_enc.mybox</code> only appears when the battle state turns <code>TURN</code>. Reading it earlier does not give you <code>noone</code>; it raises a <em>variable not set</em> error and stops the game.</p>
+</div>
+<hr />
+<h2 id="step-2-the-arena-reacts-to-the-mood">Step 2 — The arena reacts to the mood<a class="headerlink" href="#step-2-the-arena-reacts-to-the-mood" title="Permanent link">&para;</a></h2>
+<p>Now wiring the arena to the character. In the same <code>Other_12.gml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Other_12.gml — User Event 2
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>event_inherited()
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>switch pattern {                    // remember: pattern IS the cat's mood
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    case "annoyed":
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        o_enc.mybox.width  = 55     // he corners you
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        o_enc.mybox.height = 55
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        break
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    case "curious":
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        o_enc.mybox.width  = 90     // he circles you, with room to spare
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        o_enc.mybox.height = 90
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        break
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    default:
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        o_enc.mybox.width  = 75
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        o_enc.mybox.height = 75
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        break
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>}
+</code></pre></div>
+<p><code>pattern</code> was set in User Event 0 (<code>pattern = enemy_struct.mood</code>), and User Event 2 runs after it, so it already holds the right mood.</p>
+<p><strong>Test:</strong> enter the fight, use <code>Call</code>, and notice the next round's arena is visibly smaller. Use <code>Ignore</code> and it opens up. If you built the <code>DEBUG</code> ACT from the first chapter, it is faster still.</p>
+<div class="admonition tip">
+<p class="admonition-title">Shrinking beats speeding up</p>
+<p>A 55×55 arena with the same bullets is tenser than a 75×75 arena with bullets 30% faster — and it is more legible, because the player <strong>sees</strong> the change before feeling it. Prefer changing space before changing speed.</p>
+</div>
+<hr />
+<h2 id="step-3-the-arena-shakes-and-turns">Step 3 — The arena shakes and turns<a class="headerlink" href="#step-3-the-arena-shakes-and-turns" title="Permanent link">&para;</a></h2>
+<p>Size is a state; movement is an emotion. Let us make the box shake when the cat is annoyed and turn slowly when he is curious.</p>
+<p>This goes in the <strong>Step</strong>, since it happens every frame. But the Step needs a guard that User Event 2 did not:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Step_0.gml of o_turn_sonso
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>event_inherited()
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>if timer == 0
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    exit                    // the box and soul do not exist yet
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>if pattern == "annoyed"
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    o_enc.mybox.image_angle = sine(4, 2)        // fast, tight tremor
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>else if pattern == "curious"
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    o_enc.mybox.image_angle = sine(40, 12)      // slow, wide sway
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>// ... the bullet patterns from the first chapter continue here ...
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>__support_destroy_check()
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title"><code>if timer == 0 exit</code> is not decoration</p>
+<p>The <code>turn_object</code> is <strong>born before the box</strong>: it is created during <code>DIALOGUE</code>, and <code>o_enc.mybox</code> only exists once the state turns <code>TURN</code> (<code>objects/o_enc/Step_0.gml:321</code>). Since <code>mybox</code> is not even initialised in <code>o_enc</code>'s Create, reading it early does not return <code>noone</code> — it raises a <strong>variable not set error</strong> and the game stops.</p>
+<p>The guard works because <code>timer</code> only starts counting after User Event 1, which runs <strong>after</strong> the box is born. If <code>timer &gt; 0</code>, the box certainly exists. It is the engine's own idiom — see <code>objects/o_turn_default_dark/Step_0.gml</code>.</p>
+<p>The first chapter's code escaped this by accident: every bullet pattern sat inside conditions like <code>timer % 30 == 0 &amp;&amp; timer &gt; 0</code> or <code>timer == 10</code>, which already required <code>timer &gt; 0</code>. Add any bare line to the Step and the guard becomes necessary.</p>
+</div>
+<p><code>sine(divisor, multiplier)</code> is an engine function (<code>scripts/custom/custom.gml:491</code>): it returns a sine based on <code>o_world.frames</code>. Smaller divisor = faster; larger multiplier = wider.</p>
+<div class="admonition info">
+<p class="admonition-title">The soul is carried along, for free</p>
+<p>Rotating the box does not let the player pass through the wall. <code>o_enc_box_solid</code> measures its own displacement, rotation and scale change every frame (<code>objects/o_enc_box_solid/Step_1.gml</code>), and <code>o_enc_soul/Step_1.gml</code> uses those values to push and rotate the soul with the arena.</p>
+<p>It works for all three: moving, turning and resizing. A wall that advances <strong>pushes</strong> the player instead of swallowing them.</p>
+</div>
+<p><strong>Test:</strong> the difference between <code>sine(4, 2)</code> and <code>sine(40, 12)</code> is the whole point. Run both and notice how the same bullet pattern acquires a different feel.</p>
+<hr />
+<h2 id="step-4-changing-the-arenas-shape">Step 4 — Changing the arena's shape<a class="headerlink" href="#step-4-changing-the-arenas-shape" title="Permanent link">&para;</a></h2>
+<p>So far the box is still rectangular. Changing the shape properly takes <strong>three</strong> sprites:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Other_12.gml
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>o_enc.mybox.sprite_index = spr_ex_box_complex        // the frame
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>o_enc.mybox.mask_index   = spr_ex_box_complex_mask   // the walls (collision)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>o_enc.mybox.sprite_back  = spr_ex_box_complex_back_2x // the interior fill
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>with o_enc.mybox {
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    sprite_w = sprite_get_width(sprite_index)
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    sprite_h = sprite_get_height(sprite_index)
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>}
+</code></pre></div>
+<p>The three must move together:</p>
+<table>
+<thead>
+<tr>
+<th>Sprite</th>
+<th>Role</th>
+<th>Watch out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sprite_index</code></td>
+<td>the visible frame</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>mask_index</code></td>
+<td><strong>where the soul collides</strong></td>
+<td>must be the <strong>hollow</strong> frame — only the border is solid, the middle is a hole</td>
+</tr>
+<tr>
+<td><code>sprite_back</code></td>
+<td>the interior fill</td>
+<td>if you use nine-slice, it must be 2x</td>
+</tr>
+</tbody>
+</table>
+<p>The trailing <code>with</code> is mandatory: the box's Step recalculates scale as <code>image_xscale = width / sprite_w</code>, and if <code>sprite_w</code> still holds the old sprite's value the size comes out wrong.</p>
+<div class="admonition warning">
+<p class="admonition-title">The mask is hollow, not filled</p>
+<p>The soul moves where there is <strong>no</strong> collision (<code>o_enc_soul/Step_0.gml</code>). A filled rectangle mask leaves it nowhere to stand. That is why the default <code>spr_enc_box_mask</code> is just an outline. When drawing your own, draw <strong>the walls</strong>, not the room.</p>
+</div>
+<p>The ready-made example in the engine is <strong><code>o_ex_turn_complex_box</code></strong> — worth opening and running (<code>encounter_select</code>) before you draw your own.</p>
+<hr />
+<h2 id="step-5-obstacles-inside-the-arena">Step 5 — Obstacles inside the arena<a class="headerlink" href="#step-5-obstacles-inside-the-arena" title="Permanent link">&para;</a></h2>
+<p>Here is a detail that opens a lot up: <strong><code>o_enc_box</code> is a child of <code>o_enc_box_solid</code></strong>, and the soul tests collision against the <strong>parent</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>if !place_meeting(x + xstep + sign(xstep)*1.5, y, o_enc_box_solid)
+</code></pre></div>
+<p>So <strong>any extra <code>o_enc_box_solid</code> instance becomes a solid wall inside the arena.</strong> Pillars, corridors, a wall that descends mid-turn.</p>
+<p>For Sonso, the idea: when he is annoyed, he knocks <strong>cardboard boxes</strong> into the arena.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// Create_0.gml — keep the list so you can clean up later
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>event_inherited()
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>_side  = choose(-1, 1)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>_boxes = []
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// Other_12.gml — after what you already have
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>if pattern == "annoyed" {
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    repeat (2) {
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        var _c = instance_create(o_enc_box_solid,
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>            o_enc_box.x + irandom_range(-25, 25),
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            o_enc_box.y + irandom_range(-25, 25),
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            DEPTH_ENCOUNTER.BOX - 1)
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        _c.sprite_index = spr_pixel
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        _c.image_xscale = 14
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        _c.image_yscale = 14
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        _c.image_blend  = c_olive
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        _c.visible      = true      // o_enc_box_solid is born invisible
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        array_push(_boxes, _c)
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    }
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>// Destroy_0.gml
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>event_inherited()
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>instance_destroy(o_enc_bullet)
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>for (var i = 0; i &lt; array_length(_boxes); i ++)
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    if instance_exists(_boxes[i])
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        instance_destroy(_boxes[i])
+</code></pre></div>
+<p>Three details:</p>
+<p><strong><code>o_enc_box_solid</code> is born invisible</strong> (<code>"visible": false</code> in its <code>.yy</code>) and without a sprite. It needs <code>sprite_index</code> and <code>visible = true</code> to become something the player can see — otherwise you have made a ghost wall, which is miserable to play against.</p>
+<p><strong><code>spr_pixel</code> is 1×1</strong>, so <code>image_xscale</code> is literally the size in pixels. Handy for prototyping; swap in a real sprite later.</p>
+<p><strong>Cleaning up in Destroy is not optional.</strong> Nothing in the engine collects these objects, exactly as with bullets. Without it, round two starts with round one's boxes still there.</p>
+<div class="admonition tip">
+<p class="admonition-title">A moving obstacle pushes</p>
+<p>Because <code>o_enc_box_solid</code> tracks its own movement, an obstacle you animate with <code>animate(...)</code> <strong>pushes the soul</strong> rather than passing through it. A wall creeping in from one side is an entire attack with no bullets at all.</p>
+</div>
+<hr />
+<h2 id="step-6-the-background">Step 6 — The background<a class="headerlink" href="#step-6-the-background" title="Permanent link">&para;</a></h2>
+<p>The background is the one part of the battle the engine draws <strong>behind</strong> everything, and it changes the mood with the least effort. Before replacing it, it is worth understanding what is there.</p>
+<h3 id="61-how-the-default-background-works">6.1 How the default background works<a class="headerlink" href="#61-how-the-default-background-works" title="Permanent link">&para;</a></h3>
+<p>It all comes from one object, <strong><code>o_eff_bg</code></strong>, created by the engine at depth <code>DEPTH_ENCOUNTER.BACKGROUND</code> when the fight starts (<code>o_enc_anim/Alarm_1.gml:72</code>). Its <code>Draw</code> stacks <strong>three layers</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it is</th>
+<th>Controlled by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Black curtain</td>
+<td>a black rectangle covering the screen, hiding the overworld</td>
+<td><code>image_alpha</code> (rises 0 → 1 on its own, 0.1 per frame)</td>
+</tr>
+<tr>
+<td>2. The grid</td>
+<td><code>spr_enc_bg</code> drawn <strong>twice</strong>, at different speeds and opacities — that is where the sense of depth comes from</td>
+<td><code>image_blend</code>, and only exists if <code>bg_type == ENC_BG.GRID</code></td>
+</tr>
+<tr>
+<td>3. The veil</td>
+<td>another black rectangle over everything</td>
+<td><code>fade</code> — the engine animates it to <code>0.75</code> when the defence turn starts</td>
+</tr>
+</tbody>
+</table>
+<p>Layers 1 and 2 only appear with <code>bg_type = ENC_BG.GRID</code>. Layer 3 <strong>always</strong> exists, even with <code>NONE</code> — it is what darkens the scene when the box opens, and you probably want to keep it.</p>
+<div class="admonition info">
+<p class="admonition-title">The background is drawn in room coordinates, not GUI</p>
+<p>The battle happens in a <strong>320×240</strong> window anchored to the camera. That is why every background draw adds <code>guipos_x()</code> and <code>guipos_y()</code>, which are the camera's position (<code>scripts/custom/custom.gml:2</code>). Without that offset your background sits in the wrong corner as soon as the camera is not at the origin.</p>
+<p>Do not confuse this with the interface (names, HP, buttons), drawn in <code>Draw GUI</code> at 640×480 — twice the size.</p>
+</div>
+<h3 id="62-level-1-recolour-the-grid">6.2 Level 1 — recolour the grid<a class="headerlink" href="#62-level-1-recolour-the-grid" title="Permanent link">&para;</a></h3>
+<p>The grid is drawn with <code>image_blend</code>, so changing the colour of the whole background is <strong>one line</strong>. And since Sonso already has moods, you can tie the two together.</p>
+<p>In <code>o_turn_sonso</code>'s <code>Step_0.gml</code>, alongside the arena block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>// ---------- the arena reacts to the mood ----------
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>if pattern == "annoyed" {
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    o_enc.mybox.image_angle = sine(4, 2)
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    o_eff_bg.image_blend = make_color_rgb(255, 120, 90)   // the world heats up
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>}
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>else if pattern == "curious" {
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    o_enc.mybox.image_angle = sine(40, 12)
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    o_eff_bg.image_blend = make_color_rgb(150, 190, 255)  // and cools down
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>}
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>else
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    o_eff_bg.image_blend = c_white                        // neutral
+</code></pre></div>
+<p>Two test rounds and you will see how much this changes the reading of the scene without a single new bullet. It is the highest return per line in this whole chapter.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>o_eff_bg</code> does not exist outside a battle</p>
+<p>It is born with the fight and destroys itself at the end. Inside a <code>turn_object</code> that is safe — if the turn exists, the battle exists. Anywhere else, guard with <code>if instance_exists(o_eff_bg)</code>.</p>
+</div>
+<h3 id="63-level-2-your-own-background">6.3 Level 2 — your own background<a class="headerlink" href="#63-level-2-your-own-background" title="Permanent link">&para;</a></h3>
+<p>When the grid does not fit, turn it off and draw your own.</p>
+<p><strong>First, turn the grid off</strong> in <code>enc_set()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    bg_type = ENC_BG.NONE
+</code></pre></div>
+<p>That kills layers 1 and 2. Layer 3, the veil, remains — and it is still what gives the arena focus.</p>
+<p><strong>Then create the object.</strong> A night rooftop for the cat, with no new sprites at all — everything with <code>spr_pixel</code>, which is 1×1 with its origin at the corner, so <code>image_xscale</code> is literally the width in pixels:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>// ---------- o_bg_rooftop / Create_0.gml ----------
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>depth = DEPTH_ENCOUNTER.BACKGROUND + 10   // LARGER number = further back
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>// the stars are rolled once, not every frame
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>stars = []
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>repeat (40)
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    array_push(stars, {
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>        xx:    random(320),
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        yy:    random(150),
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        phase: random(360)
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    })
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>// ---------- o_bg_rooftop / Draw_0.gml ----------
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>var _ox = guipos_x()
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>var _oy = guipos_y()
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>// the sky
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>draw_sprite_ext(spr_pixel, 0, _ox, _oy, 320, 240, 0, make_color_rgb(14, 16, 34), 1)
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>// the stars, twinkling out of phase
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>for (var i = 0; i &lt; array_length(stars); i ++) {
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    var _s = stars[i]
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    var _bright = 0.35 + 0.35 * dsin(o_world.frames * 2 + _s.phase)
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    draw_sprite_ext(spr_pixel, 0, _ox + _s.xx, _oy + _s.yy, 1, 1, 0, c_white, _bright)
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>}
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>// the rooftop silhouette
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>draw_sprite_ext(spr_pixel, 0, _ox, _oy + 170, 320, 70, 0, make_color_rgb(6, 7, 16), 1)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>// ---------- o_bg_rooftop / Step_0.gml ----------
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>if !instance_exists(o_enc)
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    instance_destroy()
+</code></pre></div>
+<p><strong>Finally, have it created</strong> in <code>enc_set()</code>'s <code>ev_init</code> hook, which runs one frame after <code>o_enc</code> exists:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    ev_init = function() {
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        instance_create(o_bg_rooftop)
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    }
+</code></pre></div>
+<p>Three decisions worth explaining:</p>
+<p><strong>The stars are born in Create, not Draw.</strong> Rolling positions inside <code>Draw</code> would make them flicker to new places every frame. Storing them in an array and only reading at draw time is the pattern for any static decoration.</p>
+<p><strong>The self-destroying Step.</strong> Without it the background survives the fight and shows up in the overworld. Tying its life to <code>o_enc</code>'s existence covers every ending — victory, flight, defeat — without handling each one.</p>
+<p><strong>The depth is <code>BACKGROUND + 10</code>, not <code>- 10</code>.</strong> In GameMaker, <strong>a larger depth is further back</strong>. This is the classic mistake here: a smaller number puts your background in front of the enemies.</p>
+<table>
+<thead>
+<tr>
+<th>Depth</th>
+<th>What lives there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-6500</code> <code>BULLETS_OUTSIDE</code></td>
+<td>bullets in front of everything</td>
+</tr>
+<tr>
+<td><code>-6400</code> <code>SOUL</code></td>
+<td>the soul</td>
+</tr>
+<tr>
+<td><code>-6300</code> <code>BOX</code></td>
+<td>the arena frame</td>
+</tr>
+<tr>
+<td><code>-6200</code> <code>BULLETS_INSIDE</code></td>
+<td>clipped bullets, behind the frame</td>
+</tr>
+<tr>
+<td><code>-6100</code> <code>ACTORS</code></td>
+<td>the enemies and the party</td>
+</tr>
+<tr>
+<td><code>-6000</code> <code>BACKGROUND</code></td>
+<td><code>o_eff_bg</code> — grid and veil</td>
+</tr>
+<tr>
+<td><code>-5990</code></td>
+<td><strong>your background</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-the-dark-veil-as-a-dramatic-tool">6.4 The dark veil, as a dramatic tool<a class="headerlink" href="#64-the-dark-veil-as-a-dramatic-tool" title="Permanent link">&para;</a></h3>
+<p>Layer 3 (<code>o_eff_bg.fade</code>) is a black rectangle over everything. The engine animates it to <code>0.75</code> when the defence turn starts (<code>o_enc/Step_0.gml:241</code>) and back to <code>0</code> when it ends.</p>
+<p>Since it is just a variable, you can use it deliberately. Darken further when the cat is annoyed, for instance — the world disappears and only the arena is left:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>// in Other_12.gml, after configuring the box
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>if pattern == "annoyed"
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    animate(o_eff_bg.fade, 0.92, 20, anime_curve.sine_out, o_eff_bg, "fade")
+</code></pre></div>
+<p><code>animate(from, to, frames, curve, instance, "field")</code> is the engine's animation function (<code>scripts/anime_custom/anime_custom.gml:17</code>). No need to undo it: the engine returns <code>fade</code> to zero at the end of the turn.</p>
+<h3 id="testing-the-background">Testing the background<a class="headerlink" href="#testing-the-background" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Do this</th>
+<th>What it proves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Set <code>o_eff_bg.image_blend = c_red</code> and run</td>
+<td>if it does not go red, <code>bg_type</code> is already <code>NONE</code> or your code is in the wrong event</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Switch to <code>ENC_BG.NONE</code> with no object at all</td>
+<td>the background must go <strong>black</strong> with the veil; if the grid persists, you edited the wrong <code>enc_set()</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create <code>o_bg_rooftop</code> with a garish colour (<code>c_lime</code>)</td>
+<td>if it does not appear, it is the depth; if it appears <strong>in front of</strong> the enemies, also the depth</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Move the camera before entering the fight</td>
+<td>if the background slides, you forgot <code>guipos_x()</code> / <code>guipos_y()</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Win or flee the fight</td>
+<td>the background must vanish with it; if it lingers in the overworld, the <code>Step</code> is missing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-7-two-sonsos">Step 7 — Two Sonsos<a class="headerlink" href="#step-7-two-sonsos" title="Permanent link">&para;</a></h2>
+<p>More enemies is just the array in <code>enc_set()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>function rpg_enc_set_sonso_double() : enc_set() constructor {
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    debug_name = "sonso_double"
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    enemies = [
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        new rpg_enemy_sonso(),
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        new rpg_enemy_sonso(),
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    ]
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    enemies_pos = [
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>        [ -10, -14, true ],     // [x, y, relative to the default spot]
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        [  10,  14, true ],
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    ]
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>    bgm = mus_battle
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>}
+</code></pre></div>
+<p>Each <code>new</code> is an independent struct: the two cats have their own mood, HP and MERCY.</p>
+<h3 id="the-surprising-part-they-do-not-attack-twice">The surprising part: they do not attack twice<a class="headerlink" href="#the-surprising-part-they-do-not-attack-twice" title="Permanent link">&para;</a></h3>
+<p>You expect two bullet turns and get <strong>one</strong>. That is not a bug. Look at the <code>o_turn</code> base's User Event 0:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>with object_index {
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    count ++
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    if id != iid &amp;&amp; !allow_same_turns
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        instance_destroy()      // duplicate turns destroy themselves
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>}
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>buff = count - 1                // and the survivor gains "buff"
+</code></pre></div>
+<p>With <code>allow_same_turns = false</code> (the default), two enemies of the same type produce <strong>one</strong> turn object with <code>buff = 1</code>. The engine assumes two identical simultaneous attacks become visual soup — so instead it hands you a counter to <strong>intensify</strong> the attack with.</p>
+<p>Use <code>buff</code> in <code>Step_0.gml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>if pattern == "calm" {
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    var _period = clamp(30 - 8 * buff, 14, 30)   // with 2 cats: 22 instead of 30
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    if timer % _period == 0 &amp;&amp; timer &lt; timer_end - 30 {
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        // ... the usual swipes
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    }
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>}
+</code></pre></div>
+<p>That is the same trick <code>o_turn_default_dark</code> uses.</p>
+<div class="admonition warning">
+<p class="admonition-title">Only one mood is in charge</p>
+<p>Since a single turn object survives, <code>pattern = enemy_struct.mood</code> in User Event 0 reads <strong>one</strong> of the cats' moods. If you want both to count, read them all in User Event 0:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>var _any_annoyed = false
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>for (var i = 0; i &lt; array_length(o_enc.encounter_data.enemies); i ++)
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    if enc_enemy_is_fighting(i) &amp;&amp; o_enc.encounter_data.enemies[i].mood == "annoyed"
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>        _any_annoyed = true
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>pattern = _any_annoyed ? "annoyed" : enemy_struct.mood
+</code></pre></div>
+<p>If you genuinely want <strong>two independent turns</strong>, set <code>allow_same_turns = true</code> in <code>o_turn_sonso</code>'s Create. Then brace yourself: two patterns at once in the same box.</p>
+</div>
+<p><strong>Test:</strong> <code>encounter_select</code> → <code>sonso_double</code>. Check that two names appear in the list, that you can choose which to attack, and that the attack got denser than with one cat.</p>
+<div class="admonition info">
+<p class="admonition-title">How many fit?</p>
+<p>There is no limit in the code, but the enemy name list is drawn at <code>375 + 30*i</code> in a 480px-tall interface (<code>o_enc/Draw_64.gml:190</code>). In practice: <strong>3 comfortably, 4 tight</strong>. The engine's examples use 2.</p>
+</div>
+<hr />
+<h2 id="step-8-your-own-win-condition">Step 8 — Your own win condition<a class="headerlink" href="#step-8-your-own-win-condition" title="Permanent link">&para;</a></h2>
+<p>By default the fight ends when every enemy has left the field. But <code>win_condition</code> is your function — you can end it for any reason.</p>
+<p>A Sonso who just wants to be left alone: survive three rounds without attacking him and he leaves on his own.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>// in enc_set()
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    win_condition = function() {
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>        if o_enc.turn_count &gt;= 3
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>            return true
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        for (var i = 0; i &lt; array_length(o_enc.encounter_data.enemies); ++i)
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>            if enc_enemy_is_fighting(i)
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>                return false
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        return true    // the default rule: nobody left fighting
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    }
+</code></pre></div>
+<p>The engine evaluates this while executing actions (<code>o_enc/Step_0.gml:216</code>), so the fight ends on the round after the condition is met.</p>
+<p>Other conditions the same structure allows: survive until <code>o_enc.turn_count == N</code>, accumulate TP (<code>o_enc.tp &gt;= 100</code>), defeat one specific enemy, or a flag an ACT flips.</p>
+<hr />
+<h2 id="step-9-where-the-party-stands">Step 9 — Where the party stands<a class="headerlink" href="#step-9-where-the-party-stands" title="Permanent link">&para;</a></h2>
+<p>The team is positionable too, from <code>enc_set()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>    party_pos = function(i) {           // i = the member's index
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>        return [
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>            guipos_x() + 52,
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>            guipos_y() + 130 - 22 * party_length() + i*44,
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        ]
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    }
+</code></pre></div>
+<p>That is the default — a column on the left, vertically centred according to party size. For a different staging, return other coordinates:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>    party_pos = function(i) {           // a horizontal row along the bottom
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>        return [
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>            guipos_x() + 90 + i*60,
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>            guipos_y() + 190,
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        ]
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    }
+</code></pre></div>
+<p><code>guipos_x()</code> and <code>guipos_y()</code> are the interface corner — always add them, or the positions drift when the camera moves.</p>
+<hr />
+<h2 id="how-to-test-each-thing">How to test each thing<a class="headerlink" href="#how-to-test-each-thing" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>What you changed</th>
+<th>Fastest way to confirm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arena size</td>
+<td>enter the fight and compare against a sample encounter (<code>encounter_select</code>)</td>
+</tr>
+<tr>
+<td>size <strong>per mood</strong></td>
+<td>use the <code>DEBUG</code> ACT from the first chapter to force each mood</td>
+</tr>
+<tr>
+<td>rotation / shake</td>
+<td>exaggerate first: <code>sine(2, 25)</code>. If nothing moves, the code is in the wrong event</td>
+</tr>
+<tr>
+<td>shape (sprites)</td>
+<td>walk into the wall in all four directions. If the soul escapes, the mask is wrong</td>
+</tr>
+<tr>
+<td>obstacles</td>
+<td>they must be <strong>visible</strong>; an invisible wall is a bug, not a challenge</td>
+</tr>
+<tr>
+<td>your own background</td>
+<td><code>bg_type = ENC_BG.NONE</code> first; if the grid persists, you edited the wrong <code>enc_set()</code></td>
+</tr>
+<tr>
+<td>two enemies</td>
+<td>check the attack got denser — if it is identical, <code>buff</code> is not being used</td>
+</tr>
+<tr>
+<td><code>win_condition</code></td>
+<td>force <code>return true</code> and watch the fight end immediately</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">The test worth more than all the others</p>
+<p>Play Sonso's three rounds back to back and ask: <strong>can you tell his mood without reading any text?</strong> If the arena shrank and shook, the answer is yes — and the customisation has done its job, which is to perform alongside the character.</p>
+</div>
+<hr />
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instance-not-found error when touching the box</td>
+<td>you configured it in Create or User Event 0; the box only exists from User Event 2</td>
+</tr>
+<tr>
+<td>Variable-not-set error in Step, right as the fight starts</td>
+<td>missing <code>if timer == 0 exit</code> — the turn object runs several frames before the box exists</td>
+</tr>
+<tr>
+<td><code>pattern_pool</code> stopped choosing</td>
+<td>you overrode User Event 2 without <code>event_inherited()</code></td>
+</tr>
+<tr>
+<td>The arena is the wrong size after swapping sprites</td>
+<td>you did not recalculate <code>sprite_w</code> / <code>sprite_h</code></td>
+</tr>
+<tr>
+<td>The soul cannot get into the arena</td>
+<td>the mask is filled; it must be hollow</td>
+</tr>
+<tr>
+<td>The soul passes through the wall when the box turns</td>
+<td>you changed <code>image_angle</code> on something that is not the box</td>
+</tr>
+<tr>
+<td>Invisible obstacles</td>
+<td><code>o_enc_box_solid</code> is born with <code>visible = false</code> and no sprite</td>
+</tr>
+<tr>
+<td>Last round's obstacles are still there</td>
+<td>you did not destroy them in the turn object's Destroy</td>
+</tr>
+<tr>
+<td>Two identical enemies attack as one</td>
+<td>expected — use <code>buff</code>, or <code>allow_same_turns = true</code></td>
+</tr>
+<tr>
+<td>Your background does not appear</td>
+<td><code>bg_type</code> is still <code>GRID</code>, or the object was not created in <code>ev_init</code></td>
+</tr>
+<tr>
+<td>The background appears <strong>in front of</strong> the enemies</td>
+<td>depth is lower than <code>DEPTH_ENCOUNTER.BACKGROUND</code> — in GameMaker, larger is further back</td>
+</tr>
+<tr>
+<td>The background drifts when the camera is not at the origin</td>
+<td>you forgot <code>guipos_x()</code> / <code>guipos_y()</code> in the drawing</td>
+</tr>
+<tr>
+<td>The background stays on screen after the fight</td>
+<td>the <code>Step</code> that self-destroys is missing</td>
+</tr>
+<tr>
+<td>Stars (or other decoration) jitter around</td>
+<td>you roll positions inside <code>Draw</code>; roll them in <code>Create</code> and store an array</td>
+</tr>
+<tr>
+<td>The fight never ends</td>
+<td><code>win_condition</code> never returns <code>true</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick-reference">Quick reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">In the Step, always after <code>if timer == 0 exit</code></p>
+<p>The box only exists from User Event 2 onward. In the Step, put <code>if timer == 0 exit</code> right after <code>event_inherited()</code> before touching <code>o_enc.mybox</code>.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title"><code>o_enc_box</code> and <code>o_enc.mybox</code> are the same box</p>
+<p>The engine uses both forms: <code>o_turn_default</code> writes <code>o_enc_box.x</code>, <code>o_ex_turn_complex_box</code> writes <code>o_enc.mybox.x</code>. There is only one instance per turn, so it makes no difference. Use <code>o_enc.mybox</code> when you want to make clear it is <em>this</em> battle's box.</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>// the box (exists from the turn object's User Event 2 onward)
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>o_enc.mybox.width / .height      // size, default 75x75
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>o_enc.mybox.x / .y               // position
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>o_enc.mybox.image_angle          // tilt
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>o_enc.mybox.sprite_index         // frame
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>o_enc.mybox.mask_index           // walls (HOLLOW mask)
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>o_enc.mybox.sprite_back          // interior fill
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>o_enc.mybox.color                // frame colour
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>// after swapping sprites: recalculate sprite_w / sprite_h
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>// obstacles: any extra o_enc_box_solid becomes a wall
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>instance_create(o_enc_box_solid, xx, yy, DEPTH_ENCOUNTER.BOX - 1)
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>// remember sprite_index, visible = true, and destroying them in Destroy
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>// in enc_set()
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>enemies             // how many and which
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>enemies_pos         // [[x, y, relative], ...] or function(i, xx, yy)
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a>party_pos           // function(i) -&gt; [x, y]
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>bg_type             // ENC_BG.GRID | ENC_BG.NONE
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>win_condition       // function() -&gt; bool
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>target_calculation  // ENC_TARGET.RANDOM | ANY | ALL
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>display_target      // show who is about to be hit
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>bgm / bgm_pitch / bgm_gain
+<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a>
+<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>// in the turn object
+<a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a>buff                // how many identical enemies attack together (0 = just one)
+<a id="__codelineno-22-27" name="__codelineno-22-27" href="#__codelineno-22-27"></a>allow_same_turns    // false: duplicate turns become buff; true: independent turns
+<a id="__codelineno-22-28" name="__codelineno-22-28" href="#__codelineno-22-28"></a>
+<a id="__codelineno-22-29" name="__codelineno-22-29" href="#__codelineno-22-29"></a>// utilities
+<a id="__codelineno-22-30" name="__codelineno-22-30" href="#__codelineno-22-30"></a>sine(divisor, amplitude)                            // per-frame sine
+<a id="__codelineno-22-31" name="__codelineno-22-31" href="#__codelineno-22-31"></a>animate(from, to, frames, curve, inst, "field")     // animate any variable
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

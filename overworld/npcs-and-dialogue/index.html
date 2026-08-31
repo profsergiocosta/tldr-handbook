@@ -1,0 +1,1653 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../rooms-and-collision/">
+      
+      
+        <link rel="next" href="../tiles-and-tilesets/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 4: NPCs and Dialogue - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#npcs-and-dialogue" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 4: NPCs and Dialogue
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-interaction-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How interaction works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two families
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A sign
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-npc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An NPC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialogue-markup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialogue markup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dialogue markup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appearance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appearance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characters-and-voices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characters and voices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-function-starts-the-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which function starts the text?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chests-and-other-props" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chests and other props
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-interaction-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How interaction works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two families
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A sign
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-npc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An NPC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialogue-markup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialogue markup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dialogue markup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appearance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appearance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characters-and-voices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characters and voices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-function-starts-the-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which function starts the text?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chests-and-other-props" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chests and other props
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="npcs-and-dialogue">NPCs and dialogue<a class="headerlink" href="#npcs-and-dialogue" title="Permanent link">&para;</a></h1>
+<p>Everything the player can talk to, read or open goes through one mechanism. Learn it once and signs, NPCs, chests and examinable scenery all work the same way.</p>
+<h2 id="how-interaction-works">How interaction works<a class="headerlink" href="#how-interaction-works" title="Permanent link">&para;</a></h2>
+<p>When the player presses the confirm key, <code>o_actor</code> scans <strong>ahead of itself</strong>, 2 to 15 pixels in the direction it is facing, for anything interactable (<code>objects/o_actor/Step_0.gml:98</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>if InputPressed(INPUT_VERB.SELECT) {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    for (var w = 2; w &lt; 15; w ++) {
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        var __xw = -lengthdir_x(w, dir + 90)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        var __yw =  lengthdir_y(w, dir + 90)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        var __interactable_instances = instance_place_list_ext(x + __xw, y + __yw,
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            array_concat([o_ow_interactable, o_actor_interactable], interactable_instances), false)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        for (var i = 0; i &lt; array_length(__interactable_instances); i ++) {
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            with __interactable_instances[i] {
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                if other._checkmove()
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                    event_user(0)
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            }
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        }
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        if array_length(__interactable_instances) &gt; 0
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>            break;
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    }
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>}
+</code></pre></div>
+<p>Three consequences worth internalising:</p>
+<ul>
+<li><strong>It scans forwards, not overlapping.</strong> The player has to be facing the thing. Standing on top of it is not enough.</li>
+<li><strong>The nearest ring wins.</strong> The loop breaks at the first distance that finds anything, so a sign right in front takes priority over an NPC slightly further away.</li>
+<li><strong>User Event 0 is the interaction event.</strong> Everything below is just different ways of filling it in.</li>
+</ul>
+<h2 id="the-two-families">The two families<a class="headerlink" href="#the-two-families" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parent</th>
+<th>Use for</th>
+<th>Blocks movement?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>o_ow_interactable</code></strong></td>
+<td>props: signs, chests, scenery</td>
+<td>inherits from <code>o_ow_depthobj</code>, which sorts by depth</td>
+</tr>
+<tr>
+<td><strong><code>o_actor_interactable</code></strong></td>
+<td>characters that walk, animate, or need actor behaviour</td>
+<td>yes — <code>collide = true</code> by default</td>
+</tr>
+</tbody>
+</table>
+<p>Both define the same two fields in their Create event:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>interaction_code = function() {}
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>interaction_args = []
+</code></pre></div>
+<p>and both call it from User Event 0:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>method_call(interaction_code, interaction_args)
+</code></pre></div>
+<p>So the pattern is always the same: <strong>place the instance, fill in <code>interaction_code</code> in its Instance Creation Code.</strong></p>
+<h2 id="a-sign">A sign<a class="headerlink" href="#a-sign" title="Permanent link">&para;</a></h2>
+<p><code>o_ow_sign</code> is the minimum case. Its whole implementation is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// objects/o_ow_sign/Create_0.gml
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>text = "* Undefined sign."
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>// objects/o_ow_sign/Other_10.gml
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>dialogue_start(text)
+</code></pre></div>
+<p>So all you do in the room is set the text:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Instance Creation Code
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>text = "{col(y)}* Welcome to the test square.{col(w)}{p}{e}"
+</code></pre></div>
+<h2 id="an-npc">An NPC<a class="headerlink" href="#an-npc" title="Permanent link">&para;</a></h2>
+<p><code>o_ow_npc</code> inherits from <code>o_ow_interactable</code> and adds a talking animation: while <code>talking</code> is true it plays its sprite, and when the text stops it returns to frame 0 (<code>objects/o_ow_npc/Step_0.gml</code>).</p>
+<p>For anything beyond a single line, open a <strong>cutscene</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// Instance Creation Code of an o_ow_npc
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>interaction_code = function() {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    cutscene_create()
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    if memory_get("npcs", id)
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        cutscene_dialogue("{char(gerson, 1)}* You again?{p}{e}")
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    else {
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        cutscene_dialogue("{char(gerson, 0)}* Hello, stranger.{p}{e}")
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        cutscene_func(memory_set, ["npcs", id, true])
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    }
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    cutscene_play()
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>}
+</code></pre></div>
+<p>That is the whole shape of NPC scripting in this engine:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cutscene_create()</code></td>
+<td>begins a new cutscene</td>
+</tr>
+<tr>
+<td><code>cutscene_dialogue(text)</code></td>
+<td>queues a dialogue box and waits for it</td>
+</tr>
+<tr>
+<td><code>cutscene_func(fn, [args])</code></td>
+<td>queues a function call</td>
+</tr>
+<tr>
+<td><code>cutscene_sleep(frames)</code></td>
+<td>queues a pause</td>
+</tr>
+<tr>
+<td><code>cutscene_play()</code></td>
+<td>runs the queue</td>
+</tr>
+</tbody>
+</table>
+<p><code>memory_get</code> / <code>memory_set</code> give you persistent flags keyed by category and id — the natural way to make an NPC remember it has met you.</p>
+<div class="admonition tip">
+<p class="admonition-title">Linking the talking animation</p>
+<p>The <code>{link(...)}</code> markup tag ties the typing text to an NPC so it animates while speaking, and <code>{unlink(...)}</code> stops it. See <code>objects/o_text_typer/Other_10.gml:182</code>.</p>
+</div>
+<h2 id="dialogue-markup">Dialogue markup<a class="headerlink" href="#dialogue-markup" title="Permanent link">&para;</a></h2>
+<p>Text is not plain — it is a small language interpreted by <code>o_text_typer</code> as it types. Tags are written in braces. The full list is in <code>objects/o_text_typer/Other_10.gml</code>; these are the ones you will actually use.</p>
+<h3 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{p}</code></td>
+<td>pause and wait for the player to press confirm</td>
+</tr>
+<tr>
+<td><code>{c}</code></td>
+<td>clear the box and continue</td>
+</tr>
+<tr>
+<td><code>{e}</code></td>
+<td>end the dialogue</td>
+</tr>
+<tr>
+<td><code>{stop}</code></td>
+<td>stop typing, leave the text up</td>
+</tr>
+<tr>
+<td><code>{s(frames)}</code></td>
+<td>sleep for N frames</td>
+</tr>
+<tr>
+<td><code>{br}</code></td>
+<td>line break</td>
+</tr>
+<tr>
+<td><code>{resetx}</code></td>
+<td>reset the horizontal position</td>
+</tr>
+<tr>
+<td><code>{instant}</code></td>
+<td>print the rest without typing animation</td>
+</tr>
+</tbody>
+</table>
+<p><code>{br}{resetx}</code> is the pair the engine uses everywhere to start a new line at the left margin. <code>{p}{e}</code> is the standard ending for a single box.</p>
+<h3 id="appearance">Appearance<a class="headerlink" href="#appearance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{col(c)}</code> / <code>{color(c)}</code></td>
+<td>text colour — <code>y</code> for yellow, <code>w</code> for white, or a colour name</td>
+</tr>
+<tr>
+<td><code>{reset_col}</code></td>
+<td>back to the previous colour</td>
+</tr>
+<tr>
+<td><code>{font(name)}</code></td>
+<td>switch font</td>
+</tr>
+<tr>
+<td><code>{shadow(bool)}</code></td>
+<td>drop shadow on/off</td>
+</tr>
+<tr>
+<td><code>{scale(n)}</code>, <code>{xscale(n)}</code>, <code>{yscale(n)}</code></td>
+<td>size</td>
+</tr>
+<tr>
+<td><code>{xspace(n)}</code>, <code>{yspace(n)}</code></td>
+<td>letter and line spacing</td>
+</tr>
+<tr>
+<td><code>{spr(sprite)}</code></td>
+<td>draw a sprite inline with the text</td>
+</tr>
+<tr>
+<td><code>{eff(name, …)}</code></td>
+<td>apply a per-character effect until <code>{eff_reset}</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="characters-and-voices">Characters and voices<a class="headerlink" href="#characters-and-voices" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{char(name, expression)}</code></td>
+<td>set the speaking character's portrait and expression</td>
+</tr>
+<tr>
+<td><code>{face(name, expression)}</code></td>
+<td>portrait only</td>
+</tr>
+<tr>
+<td><code>{f_ex(expression)}</code></td>
+<td>change the expression mid-line</td>
+</tr>
+<tr>
+<td><code>{voice(sound)}</code></td>
+<td>the blip sound while typing</td>
+</tr>
+<tr>
+<td><code>{speed(n)}</code></td>
+<td>typing speed</td>
+</tr>
+<tr>
+<td><code>{mini(text, …)}</code></td>
+<td>a small secondary box</td>
+</tr>
+</tbody>
+</table>
+<h3 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{choice(a, b, …)}</code></td>
+<td>present a choice box to the player</td>
+</tr>
+<tr>
+<td><code>{preset(name)}</code></td>
+<td>apply a whole style preset: <code>enemy_text</code>, <code>god_text</code>, <code>light_world</code></td>
+</tr>
+<tr>
+<td><code>{box_pos(bool)}</code></td>
+<td>move the box to the top or bottom of the screen</td>
+</tr>
+<tr>
+<td><code>{link(id)}</code> / <code>{unlink(id)}</code></td>
+<td>animate an NPC while this text types</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title"><code>{preset(...)}</code> changes the font</p>
+<p><code>{preset(enemy_text)}</code> sets <code>font = loc_font("enc")</code> (<code>objects/o_text_typer/Other_10.gml:98</code>), which resolves to a <strong>different font asset</strong> from ordinary dialogue. If some text renders without accents while the rest is fine, look for a preset. See <a href="../../getting-started/fonts-and-accents/">Fonts and accents</a>.</p>
+</div>
+<h2 id="which-function-starts-the-text">Which function starts the text?<a class="headerlink" href="#which-function-starts-the-text" title="Permanent link">&para;</a></h2>
+<p>Three entry points, and they behave differently:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Use when</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dialogue_start(text)</code></td>
+<td>a single box from a prop</td>
+<td>returns the instance; freezes the player unless you pass <code>allow_movement</code></td>
+</tr>
+<tr>
+<td><code>cutscene_dialogue(text)</code></td>
+<td>inside a cutscene</td>
+<td>queued, waits for the player</td>
+</tr>
+<tr>
+<td><code>encounter_scene_dialogue(text)</code></td>
+<td><strong>inside a battle</strong></td>
+<td>wraps the text in a cutscene that pauses the fight</td>
+</tr>
+</tbody>
+</table>
+<p>Using the wrong one is a classic bug: <code>dialogue_start()</code> inside a battle opens the overworld box in the wrong place. In combat, always <code>encounter_scene_dialogue()</code>.</p>
+<h2 id="chests-and-other-props">Chests and other props<a class="headerlink" href="#chests-and-other-props" title="Permanent link">&para;</a></h2>
+<p><code>o_ow_chest</code> follows the same recipe — it is an <code>o_ow_interactable</code> whose <code>interaction_code</code> gives an item and remembers it was opened. When you need a new kind of prop, the fastest route is:</p>
+<ol>
+<li>Create an object, parent it to <strong><code>o_ow_interactable</code></strong>.</li>
+<li><code>event_inherited()</code> first line of Create.</li>
+<li>Set <code>interaction_code</code> per instance in the room, or once in the object's Create if every instance behaves the same.</li>
+</ol>
+<p>If the prop should also block movement or animate like a character, parent it to <strong><code>o_actor_interactable</code></strong> instead.</p>
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nothing happens when you press confirm</td>
+<td>the object is not parented to <code>o_ow_interactable</code> or <code>o_actor_interactable</code></td>
+</tr>
+<tr>
+<td>It only works from one side</td>
+<td>expected — the scan is directional; the player must face it</td>
+</tr>
+<tr>
+<td>The dialogue box opens in the wrong place during a fight</td>
+<td>used <code>dialogue_start()</code> instead of <code>encounter_scene_dialogue()</code></td>
+</tr>
+<tr>
+<td>The NPC does not animate while talking</td>
+<td><code>talking</code> is never set — use the <code>{link(...)}</code> tag</td>
+</tr>
+<tr>
+<td>The text prints the tags literally</td>
+<td>a typo in the tag name; unknown commands are not errors</td>
+</tr>
+<tr>
+<td>The NPC forgets it met you</td>
+<td><code>memory_set</code> was never called, or it ran outside the cutscene queue</td>
+</tr>
+<tr>
+<td>Accents missing only in battle bubbles</td>
+<td><code>{preset(enemy_text)}</code> uses a different font — see <a href="../../getting-started/fonts-and-accents/">Fonts and accents</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

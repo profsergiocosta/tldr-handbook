@@ -1,0 +1,1614 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../../getting-started/fonts-and-accents/">
+      
+      
+        <link rel="next" href="../npcs-and-dialogue/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 3: Rooms and Collision - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rooms-and-collision" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 3: Rooms and Collision
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-objects-every-room-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three objects every room needs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#walls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Walls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-collide-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The collide flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-movement-resolves-collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How movement resolves collisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moving-between-rooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving between rooms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Moving between rooms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-simple-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The simple way
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The proper way: warp triggers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Triggers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-stretch-the-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Stretch the instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-o_trigger-fires-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. o_trigger fires once
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The player must be in control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-objects-every-room-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three objects every room needs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#walls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Walls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-collide-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The collide flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-movement-resolves-collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How movement resolves collisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moving-between-rooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving between rooms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Moving between rooms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-simple-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The simple way
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The proper way: warp triggers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Triggers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-stretch-the-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Stretch the instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-o_trigger-fires-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. o_trigger fires once
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The player must be in control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="rooms-and-collision">Rooms and collision<a class="headerlink" href="#rooms-and-collision" title="Permanent link">&para;</a></h1>
+<p>A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.</p>
+<h2 id="the-three-objects-every-room-needs">The three objects every room needs<a class="headerlink" href="#the-three-objects-every-room-needs" title="Permanent link">&para;</a></h2>
+<p>Drop these into any new room and it will boot:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>o_dev_world</code></strong></td>
+<td>The controller. It calls <code>world_switch(world)</code> on creation, which sets <code>global.world</code> and converts party equipment accordingly. Without it, nothing initialises.</td>
+</tr>
+<tr>
+<td><strong><code>o_dev_playermarker</code></strong></td>
+<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them.</td>
+</tr>
+<tr>
+<td><strong><code>o_camera</code></strong></td>
+<td>The camera. It follows the leader and confines itself to the room bounds.</td>
+</tr>
+</tbody>
+</table>
+<p><code>o_dev_world</code> has one Variable Definition worth knowing: <strong><code>world</code></strong>, which is <code>WORLD_TYPE.DARK</code> by default. Set it to <code>WORLD_TYPE.LIGHT</code> for Light World rooms — party sprites and equipment switch accordingly (<code>scripts/party_scripts/party_scripts.gml:240</code>).</p>
+<div class="admonition tip">
+<p class="admonition-title">Start from an example room</p>
+<p><code>room_ex_city</code>, <code>room_ex_church</code> and <code>room_ex_dforest</code> are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.</p>
+</div>
+<h2 id="layer-layout">Layer layout<a class="headerlink" href="#layer-layout" title="Permanent link">&para;</a></h2>
+<p>Rooms are organised by depth, and the engine's own rooms follow a consistent order. This is <code>room_ex_city</code>, top to bottom:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Depth</th>
+<th>Layer</th>
+<th>Kind</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><code>-4000</code></td>
+<td><code>t_foreground</code></td>
+<td>tiles</td>
+<td>tiles drawn <strong>over</strong> the player — awnings, treetops, foreground clutter</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>0</code></td>
+<td><code>collisions</code></td>
+<td>instances</td>
+<td><code>o_block</code> and <code>o_block_diag</code> — the walls</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>200</code></td>
+<td><code>decor</code></td>
+<td>instances</td>
+<td>props that do not block</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>300</code></td>
+<td><code>Instances</code></td>
+<td>instances</td>
+<td>NPCs, triggers, the player marker, <code>o_dev_world</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>400</code></td>
+<td><code>area</code></td>
+<td>folder</td>
+<td>grouping only</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>500</code></td>
+<td><code>t_buildingstop</code></td>
+<td>tiles</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>600</code></td>
+<td><code>t_buildings</code></td>
+<td>tiles</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>700</code></td>
+<td><code>t_grounddecor</code></td>
+<td>tiles</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>800</code></td>
+<td><code>t_roaddecor</code></td>
+<td>tiles</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>1000</code></td>
+<td><code>t_road</code></td>
+<td>tiles</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>1200</code></td>
+<td><code>Background</code></td>
+<td>background</td>
+<td>flat colour behind everything</td>
+</tr>
+</tbody>
+</table>
+<p>Remember: <strong>in GameMaker, a larger depth is further back.</strong> The foreground tile layer is at <code>-4000</code> precisely so it draws in front of the party.</p>
+<p>You do not have to match this exactly, but keeping collisions at <code>0</code> and instances around <code>300</code> means you can copy code and creation snippets between rooms without surprises.</p>
+<h2 id="walls">Walls<a class="headerlink" href="#walls" title="Permanent link">&para;</a></h2>
+<p>Collision is instance-based, not tile-based. Two objects do the work:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>o_block</code></strong></td>
+<td>Axis-aligned rectangles. The workhorse.</td>
+</tr>
+<tr>
+<td><strong><code>o_block_diag</code></strong></td>
+<td>Diagonals — slopes the player slides along.</td>
+</tr>
+</tbody>
+</table>
+<p>Place them on the <code>collisions</code> layer, stretch them over whatever should be solid, and that is it. They are invisible at runtime.</p>
+<h3 id="the-collide-flag">The <code>collide</code> flag<a class="headerlink" href="#the-collide-flag" title="Permanent link">&para;</a></h3>
+<p><code>o_block</code> has exactly one variable, set in its Create event:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// objects/o_block/Create_0.gml
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>collide = true
+</code></pre></div>
+<p>The player's movement code checks it on every instance it touches (<code>objects/o_actor/Step_0.gml:180</code>), which means <strong>you can turn a wall off at runtime</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// a door that opens
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>with (my_door_block)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    collide = false;
+</code></pre></div>
+<p>This is much simpler than destroying and recreating instances, and it keeps the wall in the room editor where you can see it.</p>
+<h3 id="how-movement-resolves-collisions">How movement resolves collisions<a class="headerlink" href="#how-movement-resolves-collisions" title="Permanent link">&para;</a></h3>
+<p>Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (<code>objects/o_actor/Step_0.gml:176</code> and <code>:194</code>). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.</p>
+<p>Diagonal blocks get a second pass (<code>:229</code>) that also checks whether a regular <code>o_block</code> is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.</p>
+<div class="admonition warning">
+<p class="admonition-title">Blocks are not for the battle arena</p>
+<p>The soul inside a battle collides with <code>o_enc_box_solid</code>, not <code>o_block</code>. They are separate systems — see <a href="../../battle-system/the-arena/">The arena</a>.</p>
+</div>
+<h2 id="moving-between-rooms">Moving between rooms<a class="headerlink" href="#moving-between-rooms" title="Permanent link">&para;</a></h2>
+<h3 id="the-simple-way">The simple way<a class="headerlink" href="#the-simple-way" title="Permanent link">&para;</a></h3>
+<p>Anywhere you can run code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>room_goto(room_my_next_area);
+</code></pre></div>
+<p>Fine for prototyping, but the party will spawn at that room's <code>o_dev_playermarker</code>, which is rarely where you want them to arrive.</p>
+<h3 id="the-proper-way-warp-triggers">The proper way: warp triggers<a class="headerlink" href="#the-proper-way-warp-triggers" title="Permanent link">&para;</a></h3>
+<p>Use <strong><code>o_trigger_warp</code></strong>. It fades out, changes room, and then places the leader at a <strong>landing marker</strong> with a chosen facing direction (<code>objects/o_trigger_warp/Alarm_0.gml</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir);
+</code></pre></div>
+<p>So the recipe for a doorway is:</p>
+<ol>
+<li>Put an <strong><code>o_dev_marker_land</code></strong> in the destination room where the player should appear, and give it an <code>m_id</code>.</li>
+<li>Put an <strong><code>o_trigger_warp</code></strong> in the source room over the doorway.</li>
+<li>Fill in its Variable Definitions: the target room, the target marker's <code>m_id</code>, and the facing direction on arrival.</li>
+<li>Stretch it (see below).</li>
+</ol>
+<p><code>MARKER_LAND</code> is just the string <code>"land"</code> (<code>scripts/macro_markers/macro_markers.gml:4</code>) — markers are grouped by kind, and landing spots are one kind.</p>
+<h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h2>
+<p><code>o_trigger</code> runs your code when the player walks into it. It is the general-purpose "something happens here" object. Put the code in the instance's <strong>Instance Creation Code</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>trigger_code = function() {
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    cutscene_create();
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    cutscene_dialogue("* (The floor creaks.)");
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    cutscene_play();
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>}
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>trigger_exit_code = function() {
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    triggered = false;      // re-arm when the player leaves
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>}
+</code></pre></div>
+<p>Three things about triggers cause almost all the confusion, and none of them are about the code.</p>
+<h3 id="1-stretch-the-instance">1. Stretch the instance<a class="headerlink" href="#1-stretch-the-instance" title="Permanent link">&para;</a></h3>
+<p><code>spr_trigger</code> is <strong>20×20 pixels</strong> with its origin at the top-left corner, and <code>o_trigger</code> is invisible at runtime. A default-sized trigger is a tiny invisible square the player walks straight past.</p>
+<p>The engine's own triggers are all stretched. In <code>room_ex_church</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Instance</th>
+<th>scaleX</th>
+<th>scaleY</th>
+<th>Actual size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inst_64FAB75A</code></td>
+<td>7.0</td>
+<td>2.0</td>
+<td>140 × 40</td>
+</tr>
+<tr>
+<td><code>inst_2B13ACD5</code></td>
+<td>7.0</td>
+<td>2.0</td>
+<td>140 × 40</td>
+</tr>
+<tr>
+<td><code>inst_2838B310</code></td>
+<td>5.0</td>
+<td>2.0</td>
+<td>100 × 40</td>
+</tr>
+</tbody>
+</table>
+<p>Drag the instance handles in the room editor until it covers the whole passage.</p>
+<h3 id="2-o_trigger-fires-once">2. <code>o_trigger</code> fires once<a class="headerlink" href="#2-o_trigger-fires-once" title="Permanent link">&para;</a></h3>
+<p>The entry event sets <code>triggered = true</code> and <strong>nothing in the engine sets it back</strong>. The exit event only touches <code>trigger_exit</code> (<code>objects/o_trigger/Other_11.gml</code>). If you want it to fire again, reset it yourself in <code>trigger_exit_code</code>, as in the snippet above — this is the engine's own idiom (<code>rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13</code>).</p>
+<p>One-shot is often what you want, though. A trigger that starts a boss fight should not restart it when the player walks back.</p>
+<h3 id="3-the-player-must-be-in-control">3. The player must be in control<a class="headerlink" href="#3-the-player-must-be-in-control" title="Permanent link">&para;</a></h3>
+<p>With <code>controlled_activation = true</code> (the default), the trigger only fires when <code>get_leader()._checkmove()</code> is true (<code>objects/o_trigger/Step_0.gml:4</code>). That function requires <code>moveable_console</code>, <code>moveable_dialogue</code>, <code>moveable_battle</code> and several others to all be true (<code>objects/o_actor/Create_0.gml:197</code>).</p>
+<p>In practice: <strong>with the console open (<span class="keys"><kbd class="key-tab">Tab</kbd></span>), no trigger fires.</strong> If you want a trigger that works regardless — room edges, for instance — set <code>controlled_activation = false</code> in the Creation Code.</p>
+<div class="admonition tip">
+<p class="admonition-title">30-second diagnosis</p>
+<p>Put <code>show_debug_message("&gt;&gt;&gt; TRIGGER FIRED")</code> as the first line of <code>trigger_code</code>. If it never prints in the Output window while you walk over it, the problem is collision (1) or control (3), not your code.</p>
+</div>
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The room is black and nothing responds</td>
+<td>no <code>o_dev_world</code> in the room</td>
+</tr>
+<tr>
+<td>The party never appears</td>
+<td>no <code>o_dev_playermarker</code></td>
+</tr>
+<tr>
+<td>The player walks through a wall</td>
+<td>the <code>o_block</code> is on a layer the player does not collide with, or <code>collide</code> was set to <code>false</code></td>
+</tr>
+<tr>
+<td>A trigger never fires</td>
+<td>the instance is still 20×20 — stretch it</td>
+</tr>
+<tr>
+<td>A trigger fires once and never again</td>
+<td>expected; reset <code>triggered</code> in <code>trigger_exit_code</code></td>
+</tr>
+<tr>
+<td>No trigger fires while you are testing</td>
+<td>the console is open</td>
+</tr>
+<tr>
+<td>Foreground tiles draw behind the player</td>
+<td>depth is positive; foreground needs a negative depth</td>
+</tr>
+<tr>
+<td>Warping lands the party in the wrong spot</td>
+<td>the destination has no <code>o_dev_marker_land</code> with the <code>m_id</code> you referenced</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
