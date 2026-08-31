@@ -523,10 +523,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-three-objects-every-room-needs" class="md-nav__link">
+  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The three objects every room needs
+        The two objects every room needs
       
     </span>
   </a>
@@ -748,6 +748,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../your-first-room/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: Your First Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -823,7 +851,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 6: How a Fight Works
+    Ch 7: How a Fight Works
   
 
     
@@ -851,7 +879,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 7: Your First Enemy
+    Ch 8: Your First Enemy
   
 
     
@@ -879,7 +907,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 8: The Arena
+    Ch 9: The Arena
   
 
     
@@ -907,7 +935,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 9: Advanced Patterns
+    Ch 10: Advanced Patterns
   
 
     
@@ -1100,10 +1128,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-three-objects-every-room-needs" class="md-nav__link">
+  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The three objects every room needs
+        The two objects every room needs
       
     </span>
   </a>
@@ -1279,7 +1307,7 @@
 
 <h1 id="rooms-and-collision">Rooms and collision<a class="headerlink" href="#rooms-and-collision" title="Permanent link">&para;</a></h1>
 <p>A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.</p>
-<h2 id="the-three-objects-every-room-needs">The three objects every room needs<a class="headerlink" href="#the-three-objects-every-room-needs" title="Permanent link">&para;</a></h2>
+<h2 id="the-two-objects-every-room-needs">The two objects every room needs<a class="headerlink" href="#the-two-objects-every-room-needs" title="Permanent link">&para;</a></h2>
 <p>Drop these into any new room and it will boot:</p>
 <table>
 <thead>
@@ -1295,15 +1323,16 @@
 </tr>
 <tr>
 <td><strong><code>o_dev_playermarker</code></strong></td>
-<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them.</td>
-</tr>
-<tr>
-<td><strong><code>o_camera</code></strong></td>
-<td>The camera. It follows the leader and confines itself to the room bounds.</td>
+<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them, and automatically points the camera at the leader.</td>
 </tr>
 </tbody>
 </table>
 <p><code>o_dev_world</code> has one Variable Definition worth knowing: <strong><code>world</code></strong>, which is <code>WORLD_TYPE.DARK</code> by default. Set it to <code>WORLD_TYPE.LIGHT</code> for Light World rooms — party sprites and equipment switch accordingly (<code>scripts/party_scripts/party_scripts.gml:240</code>).</p>
+<div class="admonition danger">
+<p class="admonition-title">Do NOT place <code>o_camera</code> in your rooms</p>
+<p><code>o_camera</code> is a <strong>persistent singleton</strong> spawned globally by <code>o_world</code> at game startup (<code>objects/o_world/Other_2.gml:6</code>). Placing a manual instance of <code>o_camera</code> inside a room creates a second camera whose target is <code>noone</code> at <code>(0, 0)</code>, which steals <code>view_camera[0]</code> and <strong>turns the entire screen pitch black</strong>.</p>
+<p>Leave the camera to the engine — <code>o_dev_playermarker</code> automatically finds the global camera and binds it to your party leader.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Start from an example room</p>
 <p><code>room_ex_city</code>, <code>room_ex_church</code> and <code>room_ex_dforest</code> are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.</p>
@@ -1516,6 +1545,10 @@
 <tr>
 <td>The room is black and nothing responds</td>
 <td>no <code>o_dev_world</code> in the room</td>
+</tr>
+<tr>
+<td>The screen is pitch black even with <code>o_dev_world</code></td>
+<td>you placed an <code>o_camera</code> in the room — delete it (<code>o_camera</code> is a global singleton)</td>
 </tr>
 <tr>
 <td>The party never appears</td>

@@ -1,0 +1,1844 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../tiles-and-tilesets/">
+      
+      
+        <link rel="next" href="../../battle-system/overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 6: Your First Room - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#your-first-room" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 6: Your First Room
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: Your First Room
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: Your First Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-are-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What we are building
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-0-create-the-room-and-layer-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — Create the room and layer stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 0 — Create the room and layer stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-the-layer-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set up the layer hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-the-two-essential-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The two essential objects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1 — The two essential objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test now
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-laying-the-floor-and-solid-walls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Laying the floor and solid walls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Laying the floor and solid walls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-draw-the-floor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Draw the floor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-place-collision-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Place collision blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-a-readable-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — A readable sign
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — A readable sign">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-the-markup-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the markup works:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-a-guide-npc-with-memory-and-portrait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — A guide NPC with memory and portrait
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — A guide NPC with memory and portrait">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this works:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-the-prophecy-mural" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — The prophecy mural
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-the-atmospheric-altar-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — The atmospheric altar trigger
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6 — The atmospheric altar trigger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The result:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-the-doorway-to-the-next-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — The doorway to the next area
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 10: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-are-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What we are building
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-0-create-the-room-and-layer-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — Create the room and layer stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 0 — Create the room and layer stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-the-layer-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set up the layer hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-the-two-essential-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The two essential objects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1 — The two essential objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test now
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-laying-the-floor-and-solid-walls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Laying the floor and solid walls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Laying the floor and solid walls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-draw-the-floor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Draw the floor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-place-collision-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Place collision blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-a-readable-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — A readable sign
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — A readable sign">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-the-markup-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the markup works:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-a-guide-npc-with-memory-and-portrait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — A guide NPC with memory and portrait
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — A guide NPC with memory and portrait">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this works:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-the-prophecy-mural" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — The prophecy mural
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-the-atmospheric-altar-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — The atmospheric altar trigger
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6 — The atmospheric altar trigger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The result:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-the-doorway-to-the-next-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — The doorway to the next area
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="your-first-room">Your first room<a class="headerlink" href="#your-first-room" title="Permanent link">&para;</a></h1>
+<p>From an empty canvas to a living overworld area, in eight steps. Every step ends with something you can <strong>run and walk through</strong>, bringing together collision, signs, an NPC with memory, a glowing prophecy mural with atmospheric lighting, and a doorway to the next area.</p>
+<p>If you have read <a href="../rooms-and-collision/">Rooms and collision</a>, <a href="../npcs-and-dialogue/">NPCs and dialogue</a>, and <a href="../tiles-and-tilesets/">Tiles and tilesets</a>, this chapter puts those pieces into one complete, playable room.</p>
+<hr />
+<h2 id="what-we-are-building">What we are building<a class="headerlink" href="#what-we-are-building" title="Permanent link">&para;</a></h2>
+<p>A quiet sanctuary called <strong><code>room_sanctuary</code></strong>.</p>
+<p>The party arrives at the bottom of the room. On the left sits an introductory sign; in the middle, a friendly NPC greets the player and remembers if they speak again. Walking toward the altar at the top of the room triggers an atmospheric shift: the room dims with warm golden light, the camera frames the shrine, and a glowing prophecy mural materializes above the wall. Finally, an archway on the right leads to the next area.</p>
+<table>
+<thead>
+<tr>
+<th>Area element</th>
+<th>Object</th>
+<th>What it demonstrates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The Controller</td>
+<td><code>o_dev_world</code></td>
+<td>World initialization and dark/light mode switch</td>
+</tr>
+<tr>
+<td>The Party Spawn</td>
+<td><code>o_dev_playermarker</code></td>
+<td>Party follower formation and camera attachment</td>
+</tr>
+<tr>
+<td>The Walls</td>
+<td><code>o_block</code></td>
+<td>Sub-pixel collision and diagonal sliding</td>
+</tr>
+<tr>
+<td>The Sign</td>
+<td><code>o_ow_sign</code></td>
+<td>Simple dialogue with color formatting</td>
+</tr>
+<tr>
+<td>The Guide NPC</td>
+<td><code>o_ow_npc</code></td>
+<td>Cutscenes, portraits, and memory flags</td>
+</tr>
+<tr>
+<td>The Prophecy Mural</td>
+<td><code>o_ow_prophecy</code></td>
+<td>Surface shaders, animated auras, floating text</td>
+</tr>
+<tr>
+<td>The Altar Trigger</td>
+<td><code>o_trigger</code></td>
+<td>Ambient lighting (<code>lighting_on</code>) and camera panning</td>
+</tr>
+<tr>
+<td>The Exit Door</td>
+<td><code>o_trigger_warp</code></td>
+<td>Room transition with landing marker</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-0-create-the-room-and-layer-stack">Step 0 — Create the room and layer stack<a class="headerlink" href="#step-0-create-the-room-and-layer-stack" title="Permanent link">&para;</a></h2>
+<ol>
+<li>In the <strong>Asset Browser</strong>, right-click your rooms folder → <strong>Create → Room</strong>. Name it <strong><code>room_sanctuary</code></strong>.</li>
+<li>In the Room Settings inspector, set the room dimensions: <strong>Width: <code>640</code></strong>, <strong>Height: <code>480</code></strong> (exactly 2×2 default game screens).</li>
+<li>Set the grid to <strong>20 × 20 pixels</strong> (Snap: <code>20</code> X, <code>20</code> Y).</li>
+</ol>
+<h3 id="set-up-the-layer-hierarchy">Set up the layer hierarchy<a class="headerlink" href="#set-up-the-layer-hierarchy" title="Permanent link">&para;</a></h3>
+<p>Organize your layers by depth in the Room Editor's layer panel. Follow the engine's canonical depth convention:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Layer Name          Type        Depth      Contents
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>─────────────────────────────────────────────────────────────────────────────
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>t_foreground        Tiles       -4000      Awnings, pillars, canopy over player
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>collisions          Instances       0      o_block (invisible solid walls)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>decor               Instances     200      Props that do not block
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Instances           Instances     300      Controllers, player, NPCs, signs, triggers
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>t_buildingstop      Tiles         500      Top of walls and roofs
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>t_buildings         Tiles         600      Walls and vertical structures
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>t_grounddecor       Tiles         700      Carpets, weeds, decorative tiles
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>t_ground            Tiles        1000      Walkable floor tiles
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Background          Background   1200      Solid background color (#161224)
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Why depth order matters</p>
+<p>Remember: <strong>larger numbers are further back</strong>. Placing <code>t_foreground</code> at <code>-4000</code> ensures it draws over the party and NPCs, while <code>Instances</code> at <code>300</code> ensures characters walk in front of the floor (<code>1000</code>) but behind the tops of walls (<code>500</code>).</p>
+</div>
+<hr />
+<h2 id="step-1-the-two-essential-objects">Step 1 — The two essential objects<a class="headerlink" href="#step-1-the-two-essential-objects" title="Permanent link">&para;</a></h2>
+<p>Switch to the <strong><code>Instances</code></strong> layer (depth <code>300</code>) and place these two objects:</p>
+<ol>
+<li><strong><code>o_dev_world</code></strong>: Drop it anywhere in the room (e.g. at <code>(20, 20)</code>).</li>
+<li>In its <strong>Variables</strong> panel, ensure <code>world</code> is set to <code>WORLD_TYPE.DARK</code> (or <code>WORLD_TYPE.LIGHT</code> if your room is in the Light World).</li>
+<li><strong><code>o_dev_playermarker</code></strong>: Place it at <code>(320, 380)</code> where the party should spawn.</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Do NOT place <code>o_camera</code> in your room</p>
+<p>In the tlDR Engine, <code>o_camera</code> is a <strong>persistent global singleton</strong> created automatically on game start (<code>objects/o_world/Other_2.gml:6</code>). Placing a manual <code>o_camera</code> inside a room creates a duplicate instance with <code>target = noone</code> at <code>(0, 0)</code> that steals the view and <strong>turns the screen completely black</strong>.</p>
+<p>Leave camera tracking to <code>o_dev_playermarker</code>, which automatically finds the global camera and binds it to the party leader on creation.</p>
+</div>
+<h3 id="test-now">Test now<a class="headerlink" href="#test-now" title="Permanent link">&para;</a></h3>
+<p>Press <strong>Run</strong> (<span class="keys"><kbd class="key-f5">F5</kbd></span>). Open the console with <span class="keys"><kbd class="key-tab">Tab</kbd></span>, type <code>room_select</code>, and pick <code>room_sanctuary</code>.</p>
+<p>You should see Kris (and your party members) standing in the middle of a blank room, able to walk in four directions with smooth camera follow.</p>
+<hr />
+<h2 id="step-2-laying-the-floor-and-solid-walls">Step 2 — Laying the floor and solid walls<a class="headerlink" href="#step-2-laying-the-floor-and-solid-walls" title="Permanent link">&para;</a></h2>
+<h3 id="21-draw-the-floor">2.1 Draw the floor<a class="headerlink" href="#21-draw-the-floor" title="Permanent link">&para;</a></h3>
+<p>Select the <strong><code>t_ground</code></strong> layer (depth <code>1000</code>), open your tileset (e.g., <code>tile_ex_church</code> or <code>tile_ex_ow_city</code>), and paint a central hall roughly 20 tiles wide and 16 tiles high.</p>
+<h3 id="22-place-collision-blocks">2.2 Place collision blocks<a class="headerlink" href="#22-place-collision-blocks" title="Permanent link">&para;</a></h3>
+<p>Switch to the <strong><code>collisions</code></strong> layer (depth <code>0</code>):</p>
+<ol>
+<li>Drag <strong><code>o_block</code></strong> from the Asset Browser to the room.</li>
+<li>Stretch the instances along the top, left, right, and bottom boundaries of the walkable hall.</li>
+<li>If your room has diagonal corners, place <strong><code>o_block_diag</code></strong> and rotate or flip them to match the slope.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    ┌──────────────────[ o_block ]──────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    │                                               │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[ o_block ]         (Walkable Area)             [ o_block ]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    │                                               │
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    └──────────────────[ o_block ]──────────────────┘
+</code></pre></div>
+<p><strong>Test:</strong> Run the game. Walk directly into the walls and push diagonally against them. The party should slide along the edges without getting stuck or clipping outside.</p>
+<hr />
+<h2 id="step-3-a-readable-sign">Step 3 — A readable sign<a class="headerlink" href="#step-3-a-readable-sign" title="Permanent link">&para;</a></h2>
+<p>Place a sign near the entrance so the player has something to inspect.</p>
+<ol>
+<li>Select the <strong><code>Instances</code></strong> layer (depth <code>300</code>).</li>
+<li>Drag <strong><code>o_ow_sign</code></strong> into the room at <code>(220, 360)</code>.</li>
+<li>Open its <strong>Instance Creation Code</strong> and enter:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>text = "{col(y)}* Sanctuary of the Ancients.{br}{resetx}* Seekers of the prophecy may proceed north.{col(w)}{p}{e}"
+</code></pre></div>
+<h3 id="how-the-markup-works">How the markup works:<a class="headerlink" href="#how-the-markup-works" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>{col(y)}</code> sets the text to yellow.</li>
+<li><code>{br}{resetx}</code> moves to the next line at the left margin.</li>
+<li><code>{col(w)}</code> restores white text.</li>
+<li><code>{p}</code> pauses until the player presses the confirm key.</li>
+<li><code>{e}</code> cleanly ends the dialogue box.</li>
+</ul>
+<p><strong>Test:</strong> Approach the sign from below, face it, and press confirm (<span class="keys"><kbd class="key-z">Z</kbd></span> / <span class="keys"><kbd class="key-enter">Enter</kbd></span>). The text typer opens, renders the text, and closes on confirm.</p>
+<hr />
+<h2 id="step-4-a-guide-npc-with-memory-and-portrait">Step 4 — A guide NPC with memory and portrait<a class="headerlink" href="#step-4-a-guide-npc-with-memory-and-portrait" title="Permanent link">&para;</a></h2>
+<p>Let us add a friendly guide NPC who gives directions and remembers when you speak to them again.</p>
+<ol>
+<li>On the <strong><code>Instances</code></strong> layer, drag an <strong><code>o_ow_npc</code></strong> into the room at <code>(400, 320)</code>.</li>
+<li>In its inspector properties, set <strong>Sprite</strong> to <code>spr_ralsei_d</code> (or any NPC sprite of your choice).</li>
+<li>Open its <strong>Instance Creation Code</strong> and paste:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>interaction_code = function() {
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    cutscene_create()
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    if memory_get("sanctuary", "guide_met") {
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        cutscene_dialogue("{char(ralsei, 2)}* The prophecy is just ahead of you, Kris.{p}{e}")
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    } else {
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        cutscene_dialogue(
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            "{char(ralsei, 0)}* Welcome to the inner sanctuary!{br}{resetx}"
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>          + "* Walk up to the altar to view the sacred mural.{p}{e}"
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        )
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        cutscene_func(memory_set, ["sanctuary", "guide_met", true])
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    }
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    cutscene_play()
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>}
+</code></pre></div>
+<h3 id="why-this-works">Why this works:<a class="headerlink" href="#why-this-works" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>memory_get(category, key)</code> checks a persistent flag.</li>
+<li><code>cutscene_func(memory_set, ["sanctuary", "guide_met", true])</code> queues the flag update inside the cutscene sequence so it only sets once the line finishes.</li>
+<li><code>{char(name, expression)}</code> loads the character's portrait and facial expression in the text box.</li>
+</ul>
+<p><strong>Test:</strong> Talk to the NPC. On the first interaction, they give the welcome speech. Talk to them a second time, and they give the shorter follow-up line.</p>
+<hr />
+<h2 id="step-5-the-prophecy-mural">Step 5 — The prophecy mural<a class="headerlink" href="#step-5-the-prophecy-mural" title="Permanent link">&para;</a></h2>
+<p>Now we create the visual centerpiece: an ancient mural embedded into the north wall.</p>
+<ol>
+<li>On the <strong><code>Instances</code></strong> layer, drag an <strong><code>o_ow_prophecy</code></strong> to the top center wall at <code>(320, 160)</code>.</li>
+<li>In the instance's <strong>Variables</strong> panel (or Creation Code), set:</li>
+<li><code>prophecy_text</code>:
+     <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>THREE HEROES APPEAR AT WORLDS' END.\nTO SEAL THE FOUNTAINS AND ASCEND.
+</code></pre></div></li>
+<li><code>sprite_index</code>: <code>spr_ow_prophecy_heroes</code> (or <code>spr_ex_ow_prophecy_main2</code>).</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Why the mural is invisible right now</p>
+<p>If you run the game immediately, the prophecy will appear invisible or black. That is expected! In <code>o_ow_prophecy/Step_0.gml</code>, the object sets its <code>image_alpha</code> equal to <code>o_eff_lighting_controller.lighting_alpha</code>. In normal room lighting, <code>lighting_alpha</code> is <code>0</code>. It only fades into view when the room's lighting is turned on.</p>
+</div>
+<hr />
+<h2 id="step-6-the-atmospheric-altar-trigger">Step 6 — The atmospheric altar trigger<a class="headerlink" href="#step-6-the-atmospheric-altar-trigger" title="Permanent link">&para;</a></h2>
+<p>To reveal the mural, place an <code>o_trigger</code> on the floor in front of the altar that activates the lighting and pans the camera when the party approaches.</p>
+<ol>
+<li>On the <strong><code>Instances</code></strong> layer, drag an <strong><code>o_trigger</code></strong> at <code>(250, 180)</code> (just below the mural).</li>
+<li><strong>Stretch the trigger</strong> across the entire walkway (e.g. set <code>scaleX = 7.0</code> and <code>scaleY = 2.0</code> in the inspector, making it 140 × 40 px).</li>
+<li>Open the trigger's <strong>Instance Creation Code</strong> and paste:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>trigger_code = function() {
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    // Lock vertical camera follow and pan up to frame the mural
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    o_camera.follow_y = false
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    camera_pan(undefined, y - 34, 40, "sine_out", true)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    // Turn on the mystic golden lighting
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    lighting_on(0xFFD042, 0xFF392A)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>}
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>trigger_exit_code = function() {
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    // Turn off lighting (smooth automatic fade out)
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    lighting_off()
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    // Restore camera tracking to the party leader
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    o_camera.follow_y = true
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    camera_unpan(get_leader(), 40, "cubic_out")
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    // Allow re-activation when the player steps back in
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    triggered = false
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>}
+</code></pre></div>
+<h3 id="the-result">The result:<a class="headerlink" href="#the-result" title="Permanent link">&para;</a></h3>
+<ul>
+<li>When the player steps into the trigger area:</li>
+<li><code>lighting_on(0xFFD042, 0xFF392A)</code> ramps up <code>lighting_alpha</code> from 0 to 1.</li>
+<li>The room darkens into a golden glow, and the mural smoothly fades in with a shimmering animated aura and glowing text.</li>
+<li>The camera pans upward to frame the full artwork.</li>
+<li>When the player steps backward out of the trigger:</li>
+<li><code>lighting_off()</code> fades <code>lighting_alpha</code> back to 0 (mural vanishes).</li>
+<li><code>camera_unpan()</code> returns focus to the leader.</li>
+<li><code>triggered = false</code> re-arms the trigger for future visits.</li>
+</ul>
+<p><strong>Test:</strong> Walk up to the mural. Watch the room dim, the camera tilt, and the text shimmer into view. Step backward and watch the sanctuary return to normal.</p>
+<hr />
+<h2 id="step-7-the-doorway-to-the-next-area">Step 7 — The doorway to the next area<a class="headerlink" href="#step-7-the-doorway-to-the-next-area" title="Permanent link">&para;</a></h2>
+<p>Finally, let us add a doorway on the right wall that transports the party to another room (such as <code>room_ex_city</code>).</p>
+<ol>
+<li>Place an <strong><code>o_trigger_warp</code></strong> at <code>(580, 240)</code> over the right corridor exit.</li>
+<li>Stretch it vertically (<code>scaleX = 1.0</code>, <code>scaleY = 3.0</code>).</li>
+<li>In its <strong>Variables</strong> panel, configure:</li>
+<li><code>target_room</code>: <code>room_ex_city</code> (or any other room asset in your project).</li>
+<li><code>target_marker</code>: <code>"entrance"</code> (the <code>m_id</code> of the landing marker in that room).</li>
+<li><code>exit_direction</code>: <code>DIR.RIGHT</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">The destination landing spot</p>
+<p>Make sure the destination room has an <strong><code>o_dev_marker_land</code></strong> instance with its variable <code>m_id = "entrance"</code>. When warping, the engine finds that marker and places the party directly on it.</p>
+</div>
+<hr />
+<h2 id="testing-checklist">Testing checklist<a class="headerlink" href="#testing-checklist" title="Permanent link">&para;</a></h2>
+<p>Play through your new room and verify each interaction:</p>
+<ul>
+<li>[ ] <strong>Spawning:</strong> The party spawns at <code>o_dev_playermarker</code> and follows in a line.</li>
+<li>[ ] <strong>Collision:</strong> You cannot walk through <code>o_block</code> walls; diagonal movement slides cleanly.</li>
+<li>[ ] <strong>Sign:</strong> Facing <code>o_ow_sign</code> and pressing confirm displays the formatted text box.</li>
+<li>[ ] <strong>NPC Memory:</strong> The NPC gives the initial speech first, and switches to the short dialogue on repeated visits.</li>
+<li>[ ] <strong>Prophecy &amp; Lighting:</strong> Walking into the altar area smoothly dims the room into golden light, frames the camera, and renders the shimmering mural text.</li>
+<li>[ ] <strong>Exit Transition:</strong> Walking into <code>o_trigger_warp</code> fades the screen and warps cleanly to the destination room.</li>
+</ul>
+<hr />
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The room is pitch black and input does not respond</td>
+<td>Missing <code>o_dev_world</code> on the <code>Instances</code> layer</td>
+</tr>
+<tr>
+<td>The screen is pitch black even with <code>o_dev_world</code></td>
+<td>You placed <code>o_camera</code> in the room — delete it (<code>o_camera</code> is a global singleton)</td>
+</tr>
+<tr>
+<td>The party never appears</td>
+<td>Missing <code>o_dev_playermarker</code></td>
+</tr>
+<tr>
+<td>The player walks through the wall</td>
+<td><code>o_block</code> is on an inactive layer, or its <code>collide</code> variable was set to <code>false</code></td>
+</tr>
+<tr>
+<td>The trigger never activates</td>
+<td>The trigger is still 20×20 px — select it and stretch its <code>scaleX</code> and <code>scaleY</code></td>
+</tr>
+<tr>
+<td>The trigger fires once and never again</td>
+<td>Missing <code>triggered = false</code> inside <code>trigger_exit_code</code></td>
+</tr>
+<tr>
+<td>The prophecy mural is always black/invisible</td>
+<td>The trigger did not call <code>lighting_on()</code> or <code>o_eff_lighting_controller</code> was disabled</td>
+</tr>
+<tr>
+<td>The NPC does not turn or speak</td>
+<td>The instance is not parented to <code>o_ow_npc</code> or <code>o_ow_interactable</code></td>
+</tr>
+<tr>
+<td>Warping lands the player at the origin <code>(0, 0)</code></td>
+<td>The target room is missing an <code>o_dev_marker_land</code> with matching <code>m_id</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="what-next">What next?<a class="headerlink" href="#what-next" title="Permanent link">&para;</a></h2>
+<p>Now that your overworld room is built and connected, head into <strong>Part 3</strong> to build your battle system:</p>
+<ul>
+<li><a href="../../battle-system/overview/">How a fight works</a> — The core concepts behind DELTARUNE-style combat.</li>
+<li><a href="../../battle-system/your-first-enemy/">Your first enemy</a> — Build a complete, custom creature from scratch.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

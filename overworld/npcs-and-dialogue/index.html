@@ -667,6 +667,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#environmental-text-the-prophecy-mural-o_ow_prophecy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environmental text: the prophecy mural (o_ow_prophecy)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#chests-and-other-props" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -712,6 +723,34 @@
     
   
     Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../your-first-room/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: Your First Room
   
 
     
@@ -800,7 +839,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 6: How a Fight Works
+    Ch 7: How a Fight Works
   
 
     
@@ -828,7 +867,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 7: Your First Enemy
+    Ch 8: Your First Enemy
   
 
     
@@ -856,7 +895,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 8: The Arena
+    Ch 9: The Arena
   
 
     
@@ -884,7 +923,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 9: Advanced Patterns
+    Ch 10: Advanced Patterns
   
 
     
@@ -1186,6 +1225,17 @@
     <span class="md-ellipsis">
       
         Which function starts the text?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environmental-text-the-prophecy-mural-o_ow_prophecy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environmental text: the prophecy mural (o_ow_prophecy)
       
     </span>
   </a>
@@ -1539,6 +1589,21 @@
 </tbody>
 </table>
 <p>Using the wrong one is a classic bug: <code>dialogue_start()</code> inside a battle opens the overworld box in the wrong place. In combat, always <code>encounter_scene_dialogue()</code>.</p>
+<h2 id="environmental-text-the-prophecy-mural-o_ow_prophecy">Environmental text: the prophecy mural (<code>o_ow_prophecy</code>)<a class="headerlink" href="#environmental-text-the-prophecy-mural-o_ow_prophecy" title="Permanent link">&para;</a></h2>
+<p>Not all writing in the overworld appears inside a dialogue box. Murals and sacred inscriptions use <strong><code>o_ow_prophecy</code></strong> (<code>objects/o_ow_prophecy/</code>), which renders floating text directly over an illustrated mural with an animated shimmering aura.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// Variable Definitions on the o_ow_prophecy instance
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>prophecy_text = "BUT LO, ON HOPES AND DREAMS THEY SEND.\nTHREE HEROES AT THE WORLD'S END."
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>sprite_index  = spr_ow_prophecy_heroes
+</code></pre></div>
+<p>Key mechanics:</p>
+<ul>
+<li><strong>Depth-sorted</strong>: Inherits from <code>o_ow_depthobj</code>, so it sorts naturally with walls and props.</li>
+<li><strong>Floating text</strong>: <code>prophecy_text</code> accepts raw text with <code>\n</code> or a localization key from <code>datafiles/loc/text.json</code> (resolved via <code>loc()</code>). It is drawn in <code>font_prophecy</code> (mapped via <code>loc_font("prophecy")</code>).</li>
+<li><strong>Autonomous shaders and surfaces</strong>: In <code>Draw_0.gml</code>, the object manages its own surfaces, subtractive sprite masks, edge gradients (<code>spr_gradient</code>), and pulsing sine-wave auras (<code>spr_depth_blur_loop</code>).</li>
+<li><strong>Lighting-reactive alpha</strong>: In <code>Step_0.gml</code>, <code>image_alpha = o_eff_lighting_controller.lighting_alpha</code>. When room lighting is off (<code>lighting_off()</code>), the mural is <strong>completely invisible</strong> (<code>alpha = 0</code>).</li>
+<li><strong>Activation via trigger</strong>: It does not wait for the player to press confirm. Entering an <code>o_trigger</code> that calls <code>lighting_on(0xFFD042, 0xFF392A)</code> smoothly fades in both the room's golden darkness and the glowing prophecy.</li>
+</ul>
+<p>We build a complete, working prophecy altar in <a href="../your-first-room/">Your first room</a>.</p>
 <h2 id="chests-and-other-props">Chests and other props<a class="headerlink" href="#chests-and-other-props" title="Permanent link">&para;</a></h2>
 <p><code>o_ow_chest</code> follows the same recipe — it is an <code>o_ow_interactable</code> whose <code>interaction_code</code> gives an item and remembers it was opened. When you need a new kind of prop, the fastest route is:</p>
 <ol>
