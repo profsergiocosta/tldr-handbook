@@ -334,6 +334,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#who-is-writing-this-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🙋 Who is writing this, and why
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thanks-to-the-tldr-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🙏 Thanks to the tlDR Engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#structure" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1053,6 +1075,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#who-is-writing-this-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🙋 Who is writing this, and why
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thanks-to-the-tldr-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🙏 Thanks to the tlDR Engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#structure" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1166,6 +1210,10 @@
 <h1 id="the-tldr-engine-handbook">The tlDR Engine Handbook<a class="headerlink" href="#the-tldr-engine-handbook" title="Permanent link">&para;</a></h1>
 <p>Welcome to a practical guide to building a game with the <strong><a href="https://github.com/profsergiocosta/tldr-engine">tlDR Engine</a></strong> — an independent, 1:1 DELTARUNE engine written in GameMaker. This book is not a feature list: it is a set of walkthroughs that each end with something <strong>running on your screen</strong>, followed by a reference you can come back to when you forget a field name.</p>
 <p>Part of the <strong><a href="https://lambdageo.github.io/ebooks/">LambdaGeo</a></strong> collection of open textbooks.</p>
+<div class="admonition note">
+<p class="admonition-title">A work in progress, written by a beginner</p>
+<p>I am not a game developer — I am the father of a DELTARUNE fan, learning GameMaker and writing down what I find. This book is unfinished, it changes often, and corrections are genuinely welcome. There is more about that <a href="#who-is-writing-this-and-why">below</a>.</p>
+</div>
 <hr />
 <h2 id="about-this-book">📋 About this book<a class="headerlink" href="#about-this-book" title="Permanent link">&para;</a></h2>
 <table>
@@ -1189,6 +1237,10 @@
 <td>9 chapters in 3 parts, plus 3 reference pages</td>
 </tr>
 <tr>
+<td><strong>Status</strong></td>
+<td>Work in progress — written as I learn, and still moving</td>
+</tr>
+<tr>
 <td><strong>Engine version</strong></td>
 <td>Verified against tlDR Engine commit <code>7308e305</code></td>
 </tr>
@@ -1199,6 +1251,31 @@
 </tbody>
 </table>
 <p>If you have never played DELTARUNE or Undertale, start with <strong><a href="battle-system/overview/">How a fight works</a></strong>. The genre makes assumptions that are invisible from the outside, and every design decision in the battle system follows from them.</p>
+<hr />
+<h2 id="who-is-writing-this-and-why">🙋 Who is writing this, and why<a class="headerlink" href="#who-is-writing-this-and-why" title="Permanent link">&para;</a></h2>
+<p>I am not a game developer. I have never shipped a game, and until recently I had never opened GameMaker.</p>
+<p>I am the <strong>father of a DELTARUNE fan</strong>. My kid wanted to make something in that world, so I went looking for a way in, found the tlDR Engine, and started taking notes as I worked out how it fits together. This book is those notes, cleaned up.</p>
+<p>That matters for two reasons, and you should know both before you rely on anything here.</p>
+<p><strong>The first is that I ask beginner questions.</strong> Why does my accent not show up? Where exactly does this code go? Why does my trigger do nothing? Those are not interesting questions to someone who already knows the engine, which is precisely why they are rarely written down — and why every one of them cost me an afternoon. They are answered here.</p>
+<p><strong>The second is that I cannot trust my instincts</strong>, because I have none yet. So I check everything. Every claim in this book was traced back to a specific line of engine source, which is why you keep seeing references like <code>objects/o_enc/Step_0.gml:321</code>. When something surprised me, I went and read the code instead of guessing — and several times the guess would have been wrong.</p>
+<p>That verification work was done with the help of <strong>Claude</strong>, an AI assistant, reading the engine source alongside me. The writing, the structure, the decisions about what deserves a chapter, and every mistake that survived, are mine.</p>
+<div class="admonition warning">
+<p class="admonition-title">This book is under construction</p>
+<p>Chapters are written as I learn, in the order I needed them. Some parts are thorough because I got stuck there for days; others are thin because I have not needed them yet. Things will move, get rewritten, and occasionally be wrong.</p>
+<p>If you find an error, or a step that did not work when you followed it, please <a href="https://github.com/profsergiocosta/tldr-handbook/issues">open an issue</a> — a correction from someone who actually hit the problem is worth more than anything I could write from the outside. Contributions of whole chapters are very welcome too.</p>
+</div>
+<hr />
+<h2 id="thanks-to-the-tldr-engine">🙏 Thanks to the tlDR Engine<a class="headerlink" href="#thanks-to-the-tldr-engine" title="Permanent link">&para;</a></h2>
+<p>None of this would be worth writing about if the engine were not so carefully built. Coming from software engineering rather than game development, what struck me most was how much of the design is genuinely <em>good architecture</em>, not just working code:</p>
+<ul>
+<li><strong>Enemies and encounters are structs with sensible defaults.</strong> You inherit from <code>enemy()</code> or <code>enc_set()</code> and override only what you care about. A working enemy is fifteen lines.</li>
+<li><strong>The object hierarchy does real work.</strong> Your attack inherits from <code>o_turn</code> and gets its timing for free; <code>o_enc_box</code> inherits from <code>o_enc_box_solid</code>, which is why dropping an extra wall into the arena simply works, with no extra system.</li>
+<li><strong>Hooks are inert until you use them.</strong> Every <code>ev_*</code> field sits at <code>-1</code> doing nothing until you assign a function. No callbacks to register, no interfaces to implement.</li>
+<li><strong>Localization is a layer, not a sprinkle.</strong> Text and font choices resolve through <code>loc()</code> and a JSON map, so a whole game can change language without touching a line of GML.</li>
+<li><strong>Examples are separated from the engine.</strong> Everything demonstrative is prefixed <code>ex_</code>, leaving your own scripts clean and engine updates easy to pull.</li>
+<li><strong>There is real tooling.</strong> The in-game console — <code>encounter_select</code>, <code>room_select</code>, <code>party_select</code> — turns a twenty-minute test cycle into a five-second one. Someone thought hard about the experience of <em>building</em> with this, not just playing it.</li>
+</ul>
+<p>Thank you to <strong>tweenko</strong> and everyone who contributed to it. This book is only an attempt to lower the first step for the next person who arrives the way I did.</p>
 <hr />
 <h2 id="structure">🎯 Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h2>
 <h3 id="part-1-getting-started">📘 Part 1 — Getting Started<a class="headerlink" href="#part-1-getting-started" title="Permanent link">&para;</a></h3>
