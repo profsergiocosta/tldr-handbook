@@ -88,7 +88,7 @@ Pushing to `main` publishes to GitHub Pages automatically
 | Part | |
 |---|---|
 | **Getting Started** | installing the project; getting accented characters to render |
-| **The Overworld** | rooms, collision, NPCs, dialogue, tiles |
+| **The Overworld** | rooms, collision, NPCs, dialogue, tiles, a complete worked room |
 | **The Battle System** | how a fight works; a complete worked enemy; the arena; advanced patterns |
 | **Reference** | `enemy()`, `enc_set()`, the turn object |
 

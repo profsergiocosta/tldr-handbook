@@ -75,12 +75,13 @@ nav:
     - "Ch 3: Rooms and Collision":       overworld/rooms-and-collision.md
     - "Ch 4: NPCs and Dialogue":         overworld/npcs-and-dialogue.md
     - "Ch 5: Tiles and Tilesets":        overworld/tiles-and-tilesets.md
+    - "Ch 6: Your First Room":           overworld/your-first-room.md
 
   - Part 3 — The Battle System:
-    - "Ch 6: How a Fight Works":         battle-system/overview.md
-    - "Ch 7: Your First Enemy":          battle-system/your-first-enemy.md
-    - "Ch 8: The Arena":                 battle-system/the-arena.md
-    - "Ch 9: Advanced Patterns":         battle-system/advanced-patterns.md
+    - "Ch 7: How a Fight Works":         battle-system/overview.md
+    - "Ch 8: Your First Enemy":          battle-system/your-first-enemy.md
+    - "Ch 9: The Arena":                 battle-system/the-arena.md
+    - "Ch 10: Advanced Patterns":        battle-system/advanced-patterns.md
 
   - Reference:
     - "enemy()":                         reference/enemy-struct.md

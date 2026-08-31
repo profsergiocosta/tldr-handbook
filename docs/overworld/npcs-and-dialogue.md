@@ -178,6 +178,26 @@ Three entry points, and they behave differently:
 
 Using the wrong one is a classic bug: `dialogue_start()` inside a battle opens the overworld box in the wrong place. In combat, always `encounter_scene_dialogue()`.
 
+## Environmental text: the prophecy mural (`o_ow_prophecy`)
+
+Not all writing in the overworld appears inside a dialogue box. Murals and sacred inscriptions use **`o_ow_prophecy`** (`objects/o_ow_prophecy/`), which renders floating text directly over an illustrated mural with an animated shimmering aura.
+
+```gml
+// Variable Definitions on the o_ow_prophecy instance
+prophecy_text = "BUT LO, ON HOPES AND DREAMS THEY SEND.\nTHREE HEROES AT THE WORLD'S END."
+sprite_index  = spr_ow_prophecy_heroes
+```
+
+Key mechanics:
+
+- **Depth-sorted**: Inherits from `o_ow_depthobj`, so it sorts naturally with walls and props.
+- **Floating text**: `prophecy_text` accepts raw text with `\n` or a localization key from `datafiles/loc/text.json` (resolved via `loc()`). It is drawn in `font_prophecy` (mapped via `loc_font("prophecy")`).
+- **Autonomous shaders and surfaces**: In `Draw_0.gml`, the object manages its own surfaces, subtractive sprite masks, edge gradients (`spr_gradient`), and pulsing sine-wave auras (`spr_depth_blur_loop`).
+- **Lighting-reactive alpha**: In `Step_0.gml`, `image_alpha = o_eff_lighting_controller.lighting_alpha`. When room lighting is off (`lighting_off()`), the mural is **completely invisible** (`alpha = 0`).
+- **Activation via trigger**: It does not wait for the player to press confirm. Entering an `o_trigger` that calls `lighting_on(0xFFD042, 0xFF392A)` smoothly fades in both the room's golden darkness and the glowing prophecy.
+
+We build a complete, working prophecy altar in [Your first room](your-first-room.md).
+
 ## Chests and other props
 
 `o_ow_chest` follows the same recipe — it is an `o_ow_interactable` whose `interaction_code` gives an item and remembers it was opened. When you need a new kind of prop, the fastest route is:
