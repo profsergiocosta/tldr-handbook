@@ -1,6 +1,6 @@
 # The arena
 
-Direct continuation of [Your first enemy](your-first-enemy.md). There, Sonso got a personality through his ACTs and bullet patterns. Here he gets **a place**: the box the soul moves in stops being a neutral square and starts acting alongside him.
+Direct continuation of [Your first enemy](your-first-enemy.md). There, Sonso became the guardian of our sanctuary. Here the battle space stops being an abstract green grid and transforms into the **Sanctuary Shrine**: the box the soul moves in, the obstacles inside it, and the atmospheric background all reflect the sacred hall we built in [Your first room](../overworld/your-first-room.md).
 
 Nine steps, each testable on its own. You can stop at any of them.
 
@@ -10,15 +10,15 @@ You need Sonso working: `rpg_enemy_sonso()`, `rpg_enc_set_sonso()` and the `o_tu
 
 ## The idea
 
-In the first chapter, Sonso's mood changed the **bullet pattern**. Here it will also change **the size, tilt and contents of the arena**.
+In the previous chapter, Sonso's mood changed the **bullet pattern**. Here it will also change **the size, tilt and contents of the arena**.
 
-This matters because the box is the player's personal space. Shrinking it is not "raising the difficulty" — it is the cat getting too close. Rotating it is not a pretty effect — it is you losing your footing. The player feels it before understanding it.
+This matters because the box is the player's personal space. Shrinking it is not "raising the difficulty" — it is the cat cornering you against the sanctuary altar. Rotating it is not a pretty effect — it is you losing your footing. The player feels it before understanding it.
 
 | Mood | What the arena does | What it says |
 |---|---|---|
 | `calm` | plain square, 75×75 | he is relaxed |
-| `annoyed` | shrinks to 55×55 and shakes | he has cornered you |
-| `curious` | grows to 90×90 and turns slowly | he is circling you |
+| `annoyed` | shrinks to 55×55, shakes, drops altar stones | he has cornered you at the altar |
+| `curious` | grows to 90×90 and turns slowly | he is circling you under the skylight |
 
 ---
 
@@ -181,14 +181,14 @@ if !place_meeting(x + xstep + sign(xstep)*1.5, y, o_enc_box_solid)
 
 So **any extra `o_enc_box_solid` instance becomes a solid wall inside the arena.** Pillars, corridors, a wall that descends mid-turn.
 
-For Sonso, the idea: when he is annoyed, he knocks **cardboard boxes** into the arena.
+For Sonso, the idea: when he is annoyed, he knocks **ancient altar stones** into the arena.
 
 ```gml
 // Create_0.gml — keep the list so you can clean up later
 event_inherited()
 
 _side  = choose(-1, 1)
-_boxes = []
+_stones = []
 ```
 
 ```gml
@@ -203,10 +203,10 @@ if pattern == "annoyed" {
         _c.sprite_index = spr_pixel
         _c.image_xscale = 14
         _c.image_yscale = 14
-        _c.image_blend  = c_olive
+        _c.image_blend  = make_color_rgb(180, 160, 140) // ancient altar stone
         _c.visible      = true      // o_enc_box_solid is born invisible
 
-        array_push(_boxes, _c)
+        array_push(_stones, _c)
     }
 }
 ```
@@ -216,9 +216,9 @@ if pattern == "annoyed" {
 event_inherited()
 instance_destroy(o_enc_bullet)
 
-for (var i = 0; i < array_length(_boxes); i ++)
-    if instance_exists(_boxes[i])
-        instance_destroy(_boxes[i])
+for (var i = 0; i < array_length(_stones); i ++)
+    if instance_exists(_stones[i])
+        instance_destroy(_stones[i])
 ```
 
 Three details:
@@ -292,13 +292,13 @@ When the grid does not fit, turn it off and draw your own.
 
 That kills layers 1 and 2. Layer 3, the veil, remains — and it is still what gives the arena focus.
 
-**Then create the object.** A night rooftop for the cat, with no new sprites at all — everything with `spr_pixel`, which is 1×1 with its origin at the corner, so `image_xscale` is literally the width in pixels:
+**Then create the object.** A night sanctuary shrine for the cat, with no new sprites at all — everything with `spr_pixel`, which is 1×1 with its origin at the corner, so `image_xscale` is literally the width in pixels:
 
 ```gml
-// ---------- o_bg_rooftop / Create_0.gml ----------
+// ---------- o_bg_sanctuary / Create_0.gml ----------
 depth = DEPTH_ENCOUNTER.BACKGROUND + 10   // LARGER number = further back
 
-// the stars are rolled once, not every frame
+// the stars/motes of light are rolled once, not every frame
 stars = []
 repeat (40)
     array_push(stars, {
@@ -309,27 +309,27 @@ repeat (40)
 ```
 
 ```gml
-// ---------- o_bg_rooftop / Draw_0.gml ----------
+// ---------- o_bg_sanctuary / Draw_0.gml ----------
 var _ox = guipos_x()
 var _oy = guipos_y()
 
-// the sky
-draw_sprite_ext(spr_pixel, 0, _ox, _oy, 320, 240, 0, make_color_rgb(14, 16, 34), 1)
+// the sanctuary dome ceiling (matching room_sanctuary's palette)
+draw_sprite_ext(spr_pixel, 0, _ox, _oy, 320, 240, 0, make_color_rgb(22, 18, 36), 1)
 
-// the stars, twinkling out of phase
+// mystical light motes, drifting out of phase
 for (var i = 0; i < array_length(stars); i ++) {
     var _s = stars[i]
     var _bright = 0.35 + 0.35 * dsin(o_world.frames * 2 + _s.phase)
 
-    draw_sprite_ext(spr_pixel, 0, _ox + _s.xx, _oy + _s.yy, 1, 1, 0, c_white, _bright)
+    draw_sprite_ext(spr_pixel, 0, _ox + _s.xx, _oy + _s.yy, 1, 1, 0, make_color_rgb(255, 240, 170), _bright)
 }
 
-// the rooftop silhouette
-draw_sprite_ext(spr_pixel, 0, _ox, _oy + 170, 320, 70, 0, make_color_rgb(6, 7, 16), 1)
+// the sacred altar silhouette along the bottom
+draw_sprite_ext(spr_pixel, 0, _ox, _oy + 170, 320, 70, 0, make_color_rgb(10, 8, 18), 1)
 ```
 
 ```gml
-// ---------- o_bg_rooftop / Step_0.gml ----------
+// ---------- o_bg_sanctuary / Step_0.gml ----------
 if !instance_exists(o_enc)
     instance_destroy()
 ```
@@ -338,7 +338,7 @@ if !instance_exists(o_enc)
 
 ```gml
     ev_init = function() {
-        instance_create(o_bg_rooftop)
+        instance_create(o_bg_sanctuary)
     }
 ```
 
@@ -380,7 +380,7 @@ if pattern == "annoyed"
 |---|---|---|
 | 1 | Set `o_eff_bg.image_blend = c_red` and run | if it does not go red, `bg_type` is already `NONE` or your code is in the wrong event |
 | 2 | Switch to `ENC_BG.NONE` with no object at all | the background must go **black** with the veil; if the grid persists, you edited the wrong `enc_set()` |
-| 3 | Create `o_bg_rooftop` with a garish colour (`c_lime`) | if it does not appear, it is the depth; if it appears **in front of** the enemies, also the depth |
+| 3 | Create `o_bg_sanctuary` with a garish colour (`c_lime`) | if it does not appear, it is the depth; if it appears **in front of** the enemies, also the depth |
 | 4 | Move the camera before entering the fight | if the background slides, you forgot `guipos_x()` / `guipos_y()` |
 | 5 | Win or flee the fight | the background must vanish with it; if it lingers in the overworld, the `Step` is missing |
 
