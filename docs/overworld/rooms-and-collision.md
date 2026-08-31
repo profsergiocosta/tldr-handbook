@@ -2,17 +2,21 @@
 
 A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.
 
-## The three objects every room needs
+## The two objects every room needs
 
 Drop these into any new room and it will boot:
 
 | Object | Why |
 |---|---|
 | **`o_dev_world`** | The controller. It calls `world_switch(world)` on creation, which sets `global.world` and converts party equipment accordingly. Without it, nothing initialises. |
-| **`o_dev_playermarker`** | Where the party spawns. It creates the leader with `party_leader_create(...)` and then every other member behind them. |
-| **`o_camera`** | The camera. It follows the leader and confines itself to the room bounds. |
+| **`o_dev_playermarker`** | Where the party spawns. It creates the leader with `party_leader_create(...)` and then every other member behind them, and automatically points the camera at the leader. |
 
 `o_dev_world` has one Variable Definition worth knowing: **`world`**, which is `WORLD_TYPE.DARK` by default. Set it to `WORLD_TYPE.LIGHT` for Light World rooms — party sprites and equipment switch accordingly (`scripts/party_scripts/party_scripts.gml:240`).
+
+!!! danger "Do NOT place `o_camera` in your rooms"
+    `o_camera` is a **persistent singleton** spawned globally by `o_world` at game startup (`objects/o_world/Other_2.gml:6`). Placing a manual instance of `o_camera` inside a room creates a second camera whose target is `noone` at `(0, 0)`, which steals `view_camera[0]` and **turns the entire screen pitch black**.
+
+    Leave the camera to the engine — `o_dev_playermarker` automatically finds the global camera and binds it to your party leader.
 
 !!! tip "Start from an example room"
     `room_ex_city`, `room_ex_church` and `room_ex_dforest` are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.
@@ -159,6 +163,7 @@ In practice: **with the console open (++tab++), no trigger fires.** If you want 
 | Symptom | Cause |
 |---|---|
 | The room is black and nothing responds | no `o_dev_world` in the room |
+| The screen is pitch black even with `o_dev_world` | you placed an `o_camera` in the room — delete it (`o_camera` is a global singleton) |
 | The party never appears | no `o_dev_playermarker` |
 | The player walks through a wall | the `o_block` is on a layer the player does not collide with, or `collide` was set to `false` |
 | A trigger never fires | the instance is still 20×20 — stretch it |

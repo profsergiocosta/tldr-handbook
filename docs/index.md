@@ -15,7 +15,7 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 |---|---|
 | **Who it is for** | Anyone who can read a `for` loop in GML and wants to build a game rather than study an engine |
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
-| **Structure** | 9 chapters in 3 parts, plus 3 reference pages |
+| **Structure** | 10 chapters in 3 parts, plus 3 reference pages |
 | **Status** | Work in progress — written as I learn, and still moving |
 | **Engine version** | Verified against tlDR Engine commit `7308e305` |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
@@ -76,6 +76,7 @@ Everything outside of combat: the rooms the player walks through and the things 
 * **[Rooms and collision](overworld/rooms-and-collision.md)** — the three objects every room needs, the layer-depth convention, walls, warps and triggers
 * **[NPCs and dialogue](overworld/npcs-and-dialogue.md)** — the interaction scan, cutscenes, and the full dialogue markup language
 * **[Tiles and tilesets](overworld/tiles-and-tilesets.md)** — the 20×20 grid, layer ordering, and a practical order for building a room
+* **[Your first room](overworld/your-first-room.md)** — an eight-step walkthrough building a sanctuary with collision, signs, an NPC, a glowing prophecy mural, and transitions
 
 ### 📗 Part 3 — The Battle System
 

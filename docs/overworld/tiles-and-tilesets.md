@@ -90,3 +90,7 @@ Parallax is a background layer job, not a tile layer job — put it behind every
 | Tiles have hairline gaps when the camera moves | the camera is at a fractional position, or the room size is not a multiple of the tile size |
 | A prop always draws in front of the player | it is not parented to `o_ow_depthobj` |
 | A new tileset looks blurry or doubled | authored at 1× instead of 2× — match the existing tilesets |
+
+## Next
+
+Put all three overworld pieces — collision, NPCs, and tiles — together into a playable area in [Your first room](your-first-room.md).
