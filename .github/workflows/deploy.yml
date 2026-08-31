@@ -1,23 +1,43 @@
-name: Deploy handbook
+name: Publish Book (GitHub Pages via gh-pages)
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
+# Needed to create and update the gh-pages branch
 permissions:
   contents: write
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          python-version: "3.x"
+          fetch-depth: 0 # keeps revision history available to Git-based plugins
 
-      - run: pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
 
-      - run: mkdocs gh-deploy --force
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build only (validation)
+        # On pull requests, just check that the site compiles
+        if: github.event_name == 'pull_request'
+        run: mkdocs build
+
+      - name: Build and deploy to gh-pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: mkdocs gh-deploy --force

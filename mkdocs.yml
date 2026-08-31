@@ -1,77 +1,88 @@
-# tlDR Engine — documentation site
-#
-#   pip install mkdocs-material
-#   mkdocs serve      # preview at http://127.0.0.1:8000
-#   mkdocs build      # static site in ./site
-#
-# If you would rather not install Material, change `theme.name` to `readthedocs`
-# and delete the `palette`/`features` keys below.
+site_name: The tlDR Engine Handbook
+site_description: >
+  A practical guide to building a DELTARUNE-style game with the tlDR Engine:
+  the overworld, the battle system, and a field reference.
+site_author: "Sergio Souza Costa"
 
-site_name: tlDR Engine Handbook
-site_description: A practical guide to building a DELTARUNE-style game with the tlDR Engine.
-site_url: https://profsergiocosta.github.io/tldr-engine/
-repo_url: https://github.com/profsergiocosta/tldr-handbook
-repo_name: profsergiocosta/tldr-handbook
-edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site
 
 theme:
   name: material
   language: en
+  font: false
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.sections
+    - navigation.expand
     - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.annotate
     - content.code.copy
+    - content.tabs.link
+    - content.tooltips
     - toc.follow
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: deep purple
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
-        icon: material/weather-night
+        icon: material/weather-sunny
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep purple
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
-        icon: material/weather-sunny
+        icon: material/weather-night
         name: Switch to light mode
 
+plugins:
+  - search
+
 markdown_extensions:
-  - admonition
   - attr_list
+  - admonition
   - def_list
   - footnotes
-  - tables
-  - toc:
-      permalink: true
   - pymdownx.details
-  - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.keys
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/lambdageo.css
 
 nav:
-  - Home: index.md
-  - Getting started:
-      - Installation: getting-started/installation.md
-      - Fonts and accents: getting-started/fonts-and-accents.md
-  - Overworld:
-      - Rooms and collision: overworld/rooms-and-collision.md
-      - NPCs and dialogue: overworld/npcs-and-dialogue.md
-      - Tiles and tilesets: overworld/tiles-and-tilesets.md
-  - Battle system:
-      - How a fight works: battle-system/overview.md
-      - Your first enemy: battle-system/your-first-enemy.md
-      - The arena: battle-system/the-arena.md
-      - Advanced patterns: battle-system/advanced-patterns.md
+  - "⇦ Coleção LambdaGeo": https://lambdageo.github.io/ebooks/
+  - Introduction: index.md
+
+  - Part 1 — Getting Started:
+    - "Ch 1: Installation":              getting-started/installation.md
+    - "Ch 2: Fonts and Accents":         getting-started/fonts-and-accents.md
+
+  - Part 2 — The Overworld:
+    - "Ch 3: Rooms and Collision":       overworld/rooms-and-collision.md
+    - "Ch 4: NPCs and Dialogue":         overworld/npcs-and-dialogue.md
+    - "Ch 5: Tiles and Tilesets":        overworld/tiles-and-tilesets.md
+
+  - Part 3 — The Battle System:
+    - "Ch 6: How a Fight Works":         battle-system/overview.md
+    - "Ch 7: Your First Enemy":          battle-system/your-first-enemy.md
+    - "Ch 8: The Arena":                 battle-system/the-arena.md
+    - "Ch 9: Advanced Patterns":         battle-system/advanced-patterns.md
+
   - Reference:
-      - enemy(): reference/enemy-struct.md
-      - enc_set(): reference/enc-set.md
-      - turn_object: reference/turn-object.md
+    - "enemy()":                         reference/enemy-struct.md
+    - "enc_set()":                       reference/enc-set.md
+    - "turn_object":                     reference/turn-object.md
