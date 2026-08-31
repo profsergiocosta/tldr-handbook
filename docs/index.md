@@ -4,6 +4,9 @@ Welcome to a practical guide to building a game with the **[tlDR Engine](https:/
 
 Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of open textbooks.
 
+!!! note "A work in progress, written by a beginner"
+    I am not a game developer — I am the father of a DELTARUNE fan, learning GameMaker and writing down what I find. This book is unfinished, it changes often, and corrections are genuinely welcome. There is more about that [below](#who-is-writing-this-and-why).
+
 ---
 
 ## 📋 About this book
@@ -13,10 +16,47 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 | **Who it is for** | Anyone who can read a `for` loop in GML and wants to build a game rather than study an engine |
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
 | **Structure** | 9 chapters in 3 parts, plus 3 reference pages |
+| **Status** | Work in progress — written as I learn, and still moving |
 | **Engine version** | Verified against tlDR Engine commit `7308e305` |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
 
 If you have never played DELTARUNE or Undertale, start with **[How a fight works](battle-system/overview.md)**. The genre makes assumptions that are invisible from the outside, and every design decision in the battle system follows from them.
+
+---
+
+## 🙋 Who is writing this, and why
+
+I am not a game developer. I have never shipped a game, and until recently I had never opened GameMaker.
+
+I am the **father of a DELTARUNE fan**. My kid wanted to make something in that world, so I went looking for a way in, found the tlDR Engine, and started taking notes as I worked out how it fits together. This book is those notes, cleaned up.
+
+That matters for two reasons, and you should know both before you rely on anything here.
+
+**The first is that I ask beginner questions.** Why does my accent not show up? Where exactly does this code go? Why does my trigger do nothing? Those are not interesting questions to someone who already knows the engine, which is precisely why they are rarely written down — and why every one of them cost me an afternoon. They are answered here.
+
+**The second is that I cannot trust my instincts**, because I have none yet. So I check everything. Every claim in this book was traced back to a specific line of engine source, which is why you keep seeing references like `objects/o_enc/Step_0.gml:321`. When something surprised me, I went and read the code instead of guessing — and several times the guess would have been wrong.
+
+That verification work was done with the help of **Claude**, an AI assistant, reading the engine source alongside me. The writing, the structure, the decisions about what deserves a chapter, and every mistake that survived, are mine.
+
+!!! warning "This book is under construction"
+    Chapters are written as I learn, in the order I needed them. Some parts are thorough because I got stuck there for days; others are thin because I have not needed them yet. Things will move, get rewritten, and occasionally be wrong.
+
+    If you find an error, or a step that did not work when you followed it, please [open an issue](https://github.com/profsergiocosta/tldr-handbook/issues) — a correction from someone who actually hit the problem is worth more than anything I could write from the outside. Contributions of whole chapters are very welcome too.
+
+---
+
+## 🙏 Thanks to the tlDR Engine
+
+None of this would be worth writing about if the engine were not so carefully built. Coming from software engineering rather than game development, what struck me most was how much of the design is genuinely *good architecture*, not just working code:
+
+* **Enemies and encounters are structs with sensible defaults.** You inherit from `enemy()` or `enc_set()` and override only what you care about. A working enemy is fifteen lines.
+* **The object hierarchy does real work.** Your attack inherits from `o_turn` and gets its timing for free; `o_enc_box` inherits from `o_enc_box_solid`, which is why dropping an extra wall into the arena simply works, with no extra system.
+* **Hooks are inert until you use them.** Every `ev_*` field sits at `-1` doing nothing until you assign a function. No callbacks to register, no interfaces to implement.
+* **Localization is a layer, not a sprinkle.** Text and font choices resolve through `loc()` and a JSON map, so a whole game can change language without touching a line of GML.
+* **Examples are separated from the engine.** Everything demonstrative is prefixed `ex_`, leaving your own scripts clean and engine updates easy to pull.
+* **There is real tooling.** The in-game console — `encounter_select`, `room_select`, `party_select` — turns a twenty-minute test cycle into a five-second one. Someone thought hard about the experience of *building* with this, not just playing it.
+
+Thank you to **tweenko** and everyone who contributed to it. This book is only an attempt to lower the first step for the next person who arrives the way I did.
 
 ---
 
