@@ -1464,11 +1464,10 @@
 <hr />
 <h2 id="building-a-climb-section-step-by-step">Building a climb section step-by-step<a class="headerlink" href="#building-a-climb-section-step-by-step" title="Permanent link">&para;</a></h2>
 <p>Let's build a vertical tower climb inspired by <code>room_test_climbing</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["Floor: o_dev_climb_auto / interact"] --&gt;|Jump onto wall| B["o_dev_climb_tile (Vertical Wall Grid)"]
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Climb &amp; Hop Gaps| C["o_dev_climb_catcher (Summit trigger)"]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt;|Auto Jump &amp; Land| D["o_dev_marker_climb (Solid Floor Destination)"]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    A["Floor: o_dev_climb_auto / interact"] --&gt;|Jump onto wall| B["o_dev_climb_tile (Vertical Wall Grid)"]
+    B --&gt;|Climb &amp; Hop Gaps| C["o_dev_climb_catcher (Summit trigger)"]
+    C --&gt;|Auto Jump &amp; Land| D["o_dev_marker_climb (Solid Floor Destination)"]</code></pre>
 <h3 id="step-1-lay-out-the-climbable-tiles-o_dev_climb_tile">Step 1 — Lay out the climbable tiles (<code>o_dev_climb_tile</code>)<a class="headerlink" href="#step-1-lay-out-the-climbable-tiles-o_dev_climb_tile" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Open your room in the GameMaker Room Editor.</li>
@@ -1477,15 +1476,15 @@
 <li>Stretch <code>scaleX</code> and <code>scaleY</code> to cover the entire climbable surface.</li>
 </ol>
 <p>Each <code>o_dev_climb_tile</code> has two built-in variables (<code>objects/o_dev_climb_tile/Create_0.gml</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>can_climb = true;        // Set to false in Creation Code to create slippery/unclimbable zones
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>display_outline = true;  // Highlights the grip border in debug mode
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>can_climb = true;        // Set to false in Creation Code to create slippery/unclimbable zones
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>display_outline = true;  // Highlights the grip border in debug mode
 </code></pre></div>
 <h3 id="step-2-place-the-entrance-trigger">Step 2 — Place the entrance trigger<a class="headerlink" href="#step-2-place-the-entrance-trigger" title="Permanent link">&para;</a></h3>
 <p>Choose between automatic entry or prompt-based entry:</p>
 <h4 id="option-a-automatic-entry-o_dev_climb_auto">Option A: Automatic entry (<code>o_dev_climb_auto</code>)<a class="headerlink" href="#option-a-automatic-entry-o_dev_climb_auto" title="Permanent link">&para;</a></h4>
 <p>Place <code>o_dev_climb_auto</code> at the base of the wall. When the player walks onto this trigger, the engine automatically calls <code>climb_start_nearest()</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// The player hops with a "swoosh" sound onto the nearest o_dev_climb_tile
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>climb_start_nearest();
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// The player hops with a "swoosh" sound onto the nearest o_dev_climb_tile
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>climb_start_nearest();
 </code></pre></div>
 <h4 id="option-b-interactive-prompt-o_dev_climb_interact">Option B: Interactive prompt (<code>o_dev_climb_interact</code>)<a class="headerlink" href="#option-b-interactive-prompt-o_dev_climb_interact" title="Permanent link">&para;</a></h4>
 <p>If the climb should only start when the player investigates a ladder or vine, place <code>o_dev_climb_interact</code>. The player must stand next to it and press <code>[Z]</code> / <code>[ENTER]</code>.</p>
@@ -1536,16 +1535,16 @@
 <hr />
 <h2 id="scripting-custom-climb-events">Scripting custom climb events<a class="headerlink" href="#scripting-custom-climb-events" title="Permanent link">&para;</a></h2>
 <p>You can inspect or trigger climbing states from your own GML scripts:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Check if the player is currently climbing
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>if climb_check() {
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    // Disable certain menus or hazards during climb
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>}
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>// Programmatically start a climb towards the closest wall
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>climb_start_nearest();
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>// Programmatically eject the player to the nearest ground marker
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>climb_stop_nearest();
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Check if the player is currently climbing
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>if climb_check() {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    // Disable certain menus or hazards during climb
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>}
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>// Programmatically start a climb towards the closest wall
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>climb_start_nearest();
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>// Programmatically eject the player to the nearest ground marker
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>climb_stop_nearest();
 </code></pre></div>
 <hr />
 <h2 id="slippery-surfaces-and-hazards">Slippery surfaces and hazards<a class="headerlink" href="#slippery-surfaces-and-hazards" title="Permanent link">&para;</a></h2>
@@ -1554,7 +1553,7 @@
 <li>Place an <code>o_dev_climb_tile</code> over the hazard.</li>
 <li>In its <strong>Instance Creation Code</strong>, set <code>can_climb = false</code>:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>can_climb = false;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>can_climb = false;
 </code></pre></div>
 <p>When Kris attempts to move onto this tile, they will lose their grip and slide downward until grabbing a valid climb tile below or hitting the ground catcher.</p>
 <hr />

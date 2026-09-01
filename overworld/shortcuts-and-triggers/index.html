@@ -1419,11 +1419,10 @@
 <hr />
 <h2 id="1-fast-travel-shortcut-doors-o_ow_shortcut_door">1. Fast-travel shortcut doors (<code>o_ow_shortcut_door</code>)<a class="headerlink" href="#1-fast-travel-shortcut-doors-o_ow_shortcut_door" title="Permanent link">&para;</a></h2>
 <p>DELTARUNE's signature shortcut door is an interactive wooden door framed by flickering magical flames (<code>spr_ow_shortcut_door_fire</code>). Investigating it opens a multi-choice destination prompt.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["Interact with o_ow_shortcut_door"] --&gt; B["Dialogue Choice: [Test City, Test Forest, Test Church]"]
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Select Target Room| C["snd_dooropen &amp; Fade Out"]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt; D["room_goto(target_room) &amp; Fade In"]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    A["Interact with o_ow_shortcut_door"] --&gt; B["Dialogue Choice: [Test City, Test Forest, Test Church]"]
+    B --&gt;|Select Target Room| C["snd_dooropen &amp; Fade Out"]
+    C --&gt; D["room_goto(target_room) &amp; Fade In"]</code></pre>
 <h3 id="configuring-a-shortcut-door">Configuring a shortcut door<a class="headerlink" href="#configuring-a-shortcut-door" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Place an instance of <strong><code>o_ow_shortcut_door</code></strong> on your <code>Instances</code> layer (depth <code>200</code>).</li>
@@ -1504,29 +1503,29 @@
 <p>tlDR Engine includes generic and timed switches for environmental puzzles (such as the traffic lights in <code>room_ex_city</code> and church switches in <code>room_ex_church</code>).</p>
 <h3 id="timed-traffic-switches-o_ex_ow_city_traffic_switch">Timed traffic switches (<code>o_ex_ow_city_traffic_switch</code>)<a class="headerlink" href="#timed-traffic-switches-o_ex_ow_city_traffic_switch" title="Permanent link">&para;</a></h3>
 <p>In <code>room_ex_city</code>, pressing a walk switch halts oncoming traffic for a countdown timer:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Instance Creation Code of the switch
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>switch_id = 1;
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>label = "walk";
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>time = 8; // Halts cars for 8 seconds
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// Instance Creation Code of the switch
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>switch_id = 1;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>label = "walk";
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>time = 8; // Halts cars for 8 seconds
 </code></pre></div>
 <p>The switch broadcasts its state to all <code>o_ex_ow_city_traffic_light</code> instances sharing <code>switch_id = 1</code>, turning them red and pausing car spawners.</p>
 <h3 id="toggling-obstacles-and-doors-at-runtime">Toggling obstacles and doors at runtime<a class="headerlink" href="#toggling-obstacles-and-doors-at-runtime" title="Permanent link">&para;</a></h3>
 <p>To make a switch open a passage, modify the <code>collide</code> variable of the target <code>o_block</code> walls:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Instance Creation Code of an interactive switch
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>interaction_code = function() {
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    audio_play(snd_switch);
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    image_index = 1; // Flip switch sprite
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    // Deactivate the barrier wall
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    with (inst_gate_block) {
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        collide = false;
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    }
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    // Play a rumble effect or dialogue
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    cutscene_create();
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    cutscene_dialogue("* The iron gate opened somewhere nearby!");
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    cutscene_play();
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>};
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Instance Creation Code of an interactive switch
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>interaction_code = function() {
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    audio_play(snd_switch);
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    image_index = 1; // Flip switch sprite
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    // Deactivate the barrier wall
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    with (inst_gate_block) {
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        collide = false;
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    }
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    // Play a rumble effect or dialogue
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    cutscene_create();
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    cutscene_dialogue("* The iron gate opened somewhere nearby!");
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    cutscene_play();
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>};
 </code></pre></div>
 <hr />
 <h2 id="4-seamless-infinite-looping-rooms">4. Seamless infinite looping rooms<a class="headerlink" href="#4-seamless-infinite-looping-rooms" title="Permanent link">&para;</a></h2>
@@ -1536,30 +1535,30 @@
 <li>Place <code>o_trigger</code> instances along all four edges of the room (<code>inst_edge_left</code>, <code>inst_edge_right</code>, <code>inst_edge_top</code>, <code>inst_edge_bottom</code>).</li>
 <li>In the room's <strong>Room Creation Code</strong>, define a transposition helper that shifts the camera and all party members simultaneously:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Room Creation Code
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>global.__transpose_player = function(dx, dy) {
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    o_camera.x += dx;
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    o_camera.y += dy;
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    for (var i = 0; i &lt; party_length(true); i++) {
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        var inst = party_get_inst(global.party_names[i]);
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        inst.x += dx;
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        inst.y += dy;
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        party_member_interpolate(global.party_names[i]);
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    }
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>};
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Room Creation Code
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>global.__transpose_player = function(dx, dy) {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    o_camera.x += dx;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    o_camera.y += dy;
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    for (var i = 0; i &lt; party_length(true); i++) {
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        var inst = party_get_inst(global.party_names[i]);
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        inst.x += dx;
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        inst.y += dy;
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        party_member_interpolate(global.party_names[i]);
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    }
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>};
 </code></pre></div>
 <ol>
 <li>In the left edge trigger's <strong>Instance Creation Code</strong>, shift the player to the right edge:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Left Edge Trigger
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>trigger_code = function() {
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    triggered = false;
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    // If player is walking left across the border, wrap to right side
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    if (get_leader().x - get_leader().xprevious) &lt; 0 {
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        global.__transpose_player(room_width - 80, 0);
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    }
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>};
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Left Edge Trigger
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>trigger_code = function() {
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    triggered = false;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    // If player is walking left across the border, wrap to right side
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    if (get_leader().x - get_leader().xprevious) &lt; 0 {
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        global.__transpose_player(room_width - 80, 0);
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    }
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>};
 </code></pre></div>
 <p>Because camera, leader, followers, and interpolation history are shifted by the exact same delta on the same frame, the wrap is <strong>completely imperceptible</strong> to the player.</p>
 <hr />

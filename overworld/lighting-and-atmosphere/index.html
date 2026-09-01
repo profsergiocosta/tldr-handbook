@@ -1445,11 +1445,10 @@
 <hr />
 <h2 id="1-dynamic-darkness-light-sources">1. Dynamic darkness &amp; light sources<a class="headerlink" href="#1-dynamic-darkness-light-sources" title="Permanent link">&para;</a></h2>
 <p>In dark zones (like <code>room_lb_dark_lighting</code>), the entire room is submerged in darkness, and light only shines where you place light sources.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["o_lb_dl_controller (Depth -4000)"] --&gt;|Draw black surface overlay| B["Darkened Screen"]
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    C["o_lb_dl_light_source (Torches, Lanterns)"] --&gt;|bm_subtract blend mode| B
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    B --&gt;|Result| D["Clear, glowing circles of light around torches and player"]
-</code></pre></div>
+<pre class="mermaid"><code>graph TD
+    A["o_lb_dl_controller (Depth -4000)"] --&gt;|Draw black surface overlay| B["Darkened Screen"]
+    C["o_lb_dl_light_source (Torches, Lanterns)"] --&gt;|bm_subtract blend mode| B
+    B --&gt;|Result| D["Clear, glowing circles of light around torches and player"]</code></pre>
 <h3 id="setting-up-dark-lighting">Setting up dark lighting<a class="headerlink" href="#setting-up-dark-lighting" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Place <strong><code>o_lb_dl_controller</code></strong> anywhere in your room on the <code>Instances</code> layer. It automatically creates a drawing surface at depth <code>-4000</code> (above all tiles and actors).</li>
@@ -1462,17 +1461,17 @@
 <p>In rooms with dramatic centerpieces (like the prophecy altar in <code>room_ex_church</code> or <code>room_meu_jogo_vila</code>), the engine allows you to smoothly transition into a focused lighting state.</p>
 <h3 id="activating-lighting-via-script">Activating lighting via script<a class="headerlink" href="#activating-lighting-via-script" title="Permanent link">&para;</a></h3>
 <p>Call <code>lighting_on()</code> (<code>scripts/lighting/lighting.gml:4</code>) inside a trigger or cutscene:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/// lighting_on(highlight_color, [fade_color])
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lighting_on(c_yellow, c_navy);
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/// lighting_on(highlight_color, [fade_color])
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lighting_on(c_yellow, c_navy);
 </code></pre></div>
 <p>To return to normal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lighting_off();
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lighting_off();
 </code></pre></div>
 <h3 id="how-props-react-lighting_darken_self">How props react (<code>lighting_darken_self</code>)<a class="headerlink" href="#how-props-react-lighting_darken_self" title="Permanent link">&para;</a></h3>
 <p>When <code>lighting_on()</code> is called, objects that call <code>lighting_darken_self()</code> in their Draw event will darken so the illuminated prop (e.g. <code>o_ow_prophecy</code>) stands out brilliantly:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Draw Event of background prop
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>draw_self();
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>lighting_darken_self();
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Draw Event of background prop
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>draw_self();
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>lighting_darken_self();
 </code></pre></div>
 <hr />
 <h2 id="3-water-and-floor-reflections-o_reflection_manager">3. Water and floor reflections (<code>o_reflection_manager</code>)<a class="headerlink" href="#3-water-and-floor-reflections-o_reflection_manager" title="Permanent link">&para;</a></h2>
@@ -1530,8 +1529,8 @@
 <hr />
 <h2 id="5-decorative-window-borders-o_dev_border">5. Decorative window borders (<code>o_dev_border</code>)<a class="headerlink" href="#5-decorative-window-borders-o_dev_border" title="Permanent link">&para;</a></h2>
 <p>DELTARUNE wraps the 4:3 gameplay viewport with illustrated decorative borders on widescreen displays. Place <strong><code>o_dev_border</code></strong> to set the active border graphic for the room:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Variable Definition: _border_name
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>_border_name = "border_simple"; // Options: "border_simple", "ex_border_titan", "border_none"
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Variable Definition: _border_name
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>_border_name = "border_simple"; // Options: "border_simple", "ex_border_titan", "border_none"
 </code></pre></div>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>

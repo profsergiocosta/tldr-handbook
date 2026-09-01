@@ -1453,11 +1453,10 @@
 <hr />
 <h2 id="1-overworld-enemy-actors-o_actor_e">1. Overworld enemy actors (<code>o_actor_e</code>)<a class="headerlink" href="#1-overworld-enemy-actors-o_actor_e" title="Permanent link">&para;</a></h2>
 <p>An enemy on the map is an instance of <strong><code>o_actor_e</code></strong> (or a specialized child like <code>o_actor_e_killercar</code> or <code>o_actor_e_virovirokun</code>).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph LR
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["Idle Patrol: idle_path"] --&gt;|Player enters chase_dist| B["Alert: snd_exclamation"]
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Chase: chase_spd| C["Contact!"]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt;|Trigger Encounter| D["enc_start(encounter)"]
-</code></pre></div>
+<pre class="mermaid"><code>graph LR
+    A["Idle Patrol: idle_path"] --&gt;|Player enters chase_dist| B["Alert: snd_exclamation"]
+    B --&gt;|Chase: chase_spd| C["Contact!"]
+    C --&gt;|Trigger Encounter| D["enc_start(encounter)"]</code></pre>
 <h3 id="configurable-variable-definitions">Configurable Variable Definitions<a class="headerlink" href="#configurable-variable-definitions" title="Permanent link">&para;</a></h3>
 <p>Every <code>o_actor_e</code> instance exposes these key variables in the GameMaker Inspector (<code>objects/o_actor_e/Create_0.gml</code>):</p>
 <table>
@@ -1512,7 +1511,7 @@
 <ol>
 <li>Place <code>o_actor_e</code> on the <code>Instances</code> layer.</li>
 <li>In its <strong>Variable Definitions</strong>, assign your encounter:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>encounter = new enc_set_my_custom_fight();
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>encounter = new enc_set_my_custom_fight();
 </code></pre></div></li>
 <li>(Optional) Assign a Path asset to <code>idle_path</code> so the enemy paces back and forth along a hallway.</li>
 </ol>
@@ -1536,14 +1535,14 @@
 <li>Place an instance of <strong><code>o_trigger_dodge</code></strong> and scale it over the hazard zone (e.g. a street crossing or a puzzle floor).</li>
 <li>That is it! <code>o_trigger_dodge</code> automatically handles entering and leaving:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// objects/o_trigger_dodge/Create_0.gml
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>trigger_code = function() {
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    dodge_on(); // Spawns o_dodge_soul and turns on hazard collision
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>};
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>trigger_exit_code = function() {
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    dodge_off(); // Removes SOUL and restores normal overworld state
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>};
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// objects/o_trigger_dodge/Create_0.gml
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>trigger_code = function() {
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    dodge_on(); // Spawns o_dodge_soul and turns on hazard collision
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>};
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>trigger_exit_code = function() {
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    dodge_off(); // Removes SOUL and restores normal overworld state
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>};
 </code></pre></div>
 <hr />
 <h2 id="3-creating-overworld-bullets-hazards">3. Creating overworld bullets &amp; hazards<a class="headerlink" href="#3-creating-overworld-bullets-hazards" title="Permanent link">&para;</a></h2>
@@ -1554,42 +1553,42 @@
 - <strong>Graze:</strong> If the SOUL passes close to the bullet, plays <code>snd_graze</code> and grants TP.</p>
 <h3 id="example-a-moving-traffic-car-hazard">Example: A moving traffic car hazard<a class="headerlink" href="#example-a-moving-traffic-car-hazard" title="Permanent link">&para;</a></h3>
 <p>Here is how the speeding cars in <code>room_ex_city</code> (<code>objects/o_ex_ow_city_traffic_car/</code>) are constructed:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Create Event
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>event_inherited(); // Inherits o_dodge_bullet collision
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>spd = 6;
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>dir = DIR.LEFT;
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>// Step Event
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>x += lengthdir_x(spd, dir * 90);
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>y += lengthdir_y(spd, dir * 90);
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>// Destroy when offscreen
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>if x &lt; -50 || x &gt; room_width + 50
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    instance_destroy();
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Create Event
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>event_inherited(); // Inherits o_dodge_bullet collision
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>spd = 6;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>dir = DIR.LEFT;
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>// Step Event
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>x += lengthdir_x(spd, dir * 90);
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>y += lengthdir_y(spd, dir * 90);
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>// Destroy when offscreen
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>if x &lt; -50 || x &gt; room_width + 50
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    instance_destroy();
 </code></pre></div>
 <h3 id="example-spawning-waves-of-hazards-along-paths">Example: Spawning waves of hazards along paths<a class="headerlink" href="#example-spawning-waves-of-hazards-along-paths" title="Permanent link">&para;</a></h3>
 <p>In <code>room_ex_dforest</code>, dancing shadow monsters spawn along paths using <code>o_ex_dodge_dforest_dancerspawn</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Instance Creation Code of the spawner
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>path = path_ex_dforest_dancers1;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>pattern = [1, 1, 0, 1, 0, 0, 1]; // 1 = spawn dancer, 0 = gap
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Instance Creation Code of the spawner
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>path = path_ex_dforest_dancers1;
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>pattern = [1, 1, 0, 1, 0, 0, 1]; // 1 = spawn dancer, 0 = gap
 </code></pre></div>
 <hr />
 <h2 id="4-darkening-objects-during-overworld-battles">4. Darkening objects during overworld battles<a class="headerlink" href="#4-darkening-objects-during-overworld-battles" title="Permanent link">&para;</a></h2>
 <p>To make trees, signs, and background props react to the overworld dodge mode (dimming when the battle zone activates), call <code>dodge_darken_self()</code> in their <strong>Draw Event</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// Draw Event of custom overworld prop
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>draw_self();
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>dodge_darken_self(); // Applies dark overlay when dodge_mode is active
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Draw Event of custom overworld prop
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>draw_self();
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>dodge_darken_self(); // Applies dark overlay when dodge_mode is active
 </code></pre></div>
 <hr />
 <h2 id="overworld-game-over-dodge_gameover">Overworld Game Over (<code>dodge_gameover</code>)<a class="headerlink" href="#overworld-game-over-dodge_gameover" title="Permanent link">&para;</a></h2>
 <p>If the party leader takes fatal damage during overworld dodging:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// scripts/dodge/dodge.gml:34
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>function dodge_gameover() {
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    // 1. Captures application_surface as a frozen screenshot
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    // 2. Plays snd_hurt and cuts music
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    // 3. Spawns o_gameover soul shatter effect
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    // 4. Transitions directly to room_gameover
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// scripts/dodge/dodge.gml:34
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>function dodge_gameover() {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    // 1. Captures application_surface as a frozen screenshot
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    // 2. Plays snd_hurt and cuts music
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    // 3. Spawns o_gameover soul shatter effect
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    // 4. Transitions directly to room_gameover
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>}
 </code></pre></div>
 <p>This guarantees an immediate, seamless game-over sequence matching DELTARUNE's exact presentation.</p>
 <hr />
