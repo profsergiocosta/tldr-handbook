@@ -6,147 +6,162 @@ tlDR Engine implements both systems:
 1. **Enemy Overworld Actors** (`o_actor_e`, `o_trigger_enemy_chase`) — patrol paths, line-of-sight chasing, and battle initialization.
 2. **Overworld Dodging System** (`scripts/dodge/dodge.gml`, `o_trigger_dodge`, `o_dodge_controller`) — real-time red SOUL control, ambient bullet collision, and map darken shaders.
 
+This chapter explains both systems, followed by a hands-on tutorial to set up an enemy patrol and a real-time hazard street crossing.
+
 ---
 
-## 1. Overworld enemy actors (`o_actor_e`)
-
-An enemy on the map is an instance of **`o_actor_e`** (or a specialized child like `o_actor_e_killercar` or `o_actor_e_virovirokun`).
+## How overworld enemies and dodging work
 
 ```mermaid
 graph LR
-    A["Idle Patrol: idle_path"] -->|Player enters chase_dist| B["Alert: snd_exclamation"]
-    B -->|Chase: chase_spd| C["Contact!"]
-    C -->|Trigger Encounter| D["enc_start(encounter)"]
+    A["Patrol: o_actor_e on Path"] -->|Player enters chase_dist| B["Alert: snd_exclamation"]
+    B -->|Chase Player| C["Contact: enc_start()"]
+    D["Step into o_trigger_dodge"] -->|dodge_on()| E["Red SOUL appears on Map"]
+    E -->|Dodge o_dodge_bullet| F["Real-time Graze & Damage"]
 ```
 
-### Configurable Variable Definitions
+1. **Enemy roaming:** An `o_actor_e` instance moves back and forth along a predefined Path. If the party leader enters `chase_dist` (or enters an `o_trigger_enemy_chase`), the enemy alerts with `snd_exclamation` and sprints toward Kris. Touching the enemy starts the battle encounter (`enc_start`).
+2. **Real-time dodging:** Stepping into an `o_trigger_dodge` activates `dodge_on()`. Kris's red SOUL (`o_dodge_soul`) appears on the map, background elements dim (`dodge_darken_self()`), and hazards parented to `o_dodge_bullet` damage party HP directly in real-time.
 
-Every `o_actor_e` instance exposes these key variables in the GameMaker Inspector (`objects/o_actor_e/Create_0.gml`):
+---
 
-| Variable | Type | Default | Description |
-|---|---|---|---|
-| **`encounter`** | Expression | `new enc_set_ex()` | The encounter struct initialized when the enemy touches the party. |
-| **`idle_path`** | Path Asset | `noone` | A GameMaker Path resource the enemy follows back and forth while idle. |
-| **`idle_path_spd`** | Real | `2` | Speed along the idle path. |
-| **`chase_dist`** | Real | `60` | Detection radius in pixels. If the leader enters this radius, chase begins. |
-| **`chase_spd`** | Real | `4` | Movement speed while pursuing the player. |
-| **`idle_path_autopos`** | Boolean | `true` | Snaps the enemy to the nearest point along its path on room start. |
+## Tutorial: Your first hazard and chase in 5 steps
 
-### Adding an enemy to your room
+Let's build a hazardous hallway with two connected challenges:
+1. A roaming enemy patrolling back and forth along a hallway that chases the player when spotted.
+2. A street crossing where stepping onto the asphalt spawns the red SOUL to dodge oncoming hazards.
 
-1. Place `o_actor_e` on the `Instances` layer.
-2. In its **Variable Definitions**, assign your encounter:
+---
+
+### Step 0 — Create the patrol path asset
+
+1. In the GameMaker **Asset Browser**, right-click `Paths` $ightarrow$ **Create** $ightarrow$ **Path**.
+2. Name it **`path_corridor_patrol`**.
+3. In the Path Editor:
+   - Click to add Point 0 at `(0, 0)`.
+   - Click to add Point 1 at `(180, 0)`.
+   - Set **Connection** to `Straight Lines` and **Closed** to `Reverse` (or `Closed`).
+   - Precision: `1`.
+
+This creates a 180-pixel horizontal patrol line.
+
+---
+
+### Step 1 — Place the roaming enemy (`o_actor_e`)
+
+1. Open your room in the Room Editor and select the **`Instances`** layer (depth `300`).
+2. Drag an instance of **`o_actor_e`** (or `o_actor_e_killercar`) into your hallway.
+3. In the Inspector, open its **Variable Definitions**:
+
+| Variable | Value | Explanation |
+|---|---|---|
+| **`idle_path`** | `path_corridor_patrol` | The path created in Step 0. |
+| **`idle_path_spd`** | `2` | Pacing speed. |
+| **`chase_dist`** | `60` | Detection radius in pixels. |
+| **`chase_spd`** | `4` | Sprint speed when chasing Kris. |
+| **`encounter`** | `new enc_set_ex()` | The encounter struct triggered on contact. |
+
+When the room boots, the enemy walks back and forth along the path. If Kris walks within 60px, it alerts with an exclamation mark and chases Kris until touching or losing sight.
+
+---
+
+### Step 2 — Place the dodge zone (`o_trigger_dodge`)
+
+1. In the next section of the hallway (e.g. a road or obstacle floor), select the **`Instances`** layer.
+2. Drag an instance of **`o_trigger_dodge`** onto the floor.
+3. Stretch its bounding box (`scaleX` and `scaleY`) to cover the entire hazardous floor.
+
+`o_trigger_dodge` handles all state management automatically (`objects/o_trigger_dodge/Create_0.gml`):
+- **Entering:** Calls `dodge_on()` $ightarrow$ Spawns `o_dodge_soul` over Kris and enables real-time damage.
+- **Exiting:** Calls `dodge_off()` $ightarrow$ Destroys `o_dodge_soul` and restores normal overworld control.
+
+---
+
+### Step 3 — Create an overworld hazard bullet (`o_hazard_car`)
+
+Let's make a simple moving obstacle that crosses the road and damages the red SOUL:
+
+1. In the Asset Browser, create an Object named **`o_hazard_car`**.
+2. Set its **Parent** to **`o_dodge_bullet`** (`objects/o_dodge_bullet/`).
+3. Set its **Sprite** (e.g. `spr_ex_ow_city_car_left` or any hazard sprite).
+4. Add a **Create Event**:
    ```gml
-   encounter = new enc_set_my_custom_fight();
+   event_inherited(); // Inherits collision and graze code
+   spd = 5;
+   dir = DIR.LEFT;
    ```
-3. (Optional) Assign a Path asset to `idle_path` so the enemy paces back and forth along a hallway.
-
-### Zone-based chasing with `o_trigger_enemy_chase`
-
-Instead of relying purely on circular distance, you can define an entire ambush room using **`o_trigger_enemy_chase`**.
-
-1. Place `o_trigger_enemy_chase` and stretch its bounding box across a doorway or corridor.
-2. When the player steps into the trigger, every `o_actor_e` linked to the area alerts (`snd_exclamation`) and begins sprinting toward the party leader.
+5. Add a **Step Event**:
+   ```gml
+   event_inherited();
+   
+   // Move horizontally across the road
+   x -= spd;
+   
+   // Destroy when offscreen
+   if x < -50
+       instance_destroy();
+   ```
 
 ---
 
-## 2. Real-time overworld dodging (`o_trigger_dodge`)
+### Step 4 — Place a hazard spawner in the room
 
-In rooms like `room_ex_city` and `room_ex_dforest`, the party encounters hazards that damage HP in real-time.
-
-When dodging mode is enabled:
-- The screen subtly darkens (`dodge_darken_self()`).
-- Kris's red **SOUL** appears over the leader (`o_dodge_soul`).
-- Grazing and damage mechanics activate in the overworld.
-- If party HP reaches zero, the engine executes `dodge_gameover()`, captures a freeze-frame surface, and transitions to `room_gameover`.
-
-### Setting up a dodge zone
-
-1. Select the `Instances` layer.
-2. Place an instance of **`o_trigger_dodge`** and scale it over the hazard zone (e.g. a street crossing or a puzzle floor).
-3. That is it! `o_trigger_dodge` automatically handles entering and leaving:
+1. In your room, place an `o_trigger` or simple controller at the right edge of the road.
+2. In its **Instance Creation Code**, spawn cars periodically:
 
 ```gml
-// objects/o_trigger_dodge/Create_0.gml
+// Instance Creation Code of spawner
 trigger_code = function() {
-    dodge_on(); // Spawns o_dodge_soul and turns on hazard collision
-};
-
-trigger_exit_code = function() {
-    dodge_off(); // Removes SOUL and restores normal overworld state
+    // Spawns a hazard car moving left every 40 frames
+    time_source = time_source_create(time_source_game, 40, time_source_units_frames, function() {
+        if instance_exists(o_dodge_controller) && o_dodge_controller.dodge_mode {
+            instance_create(o_hazard_car, x, y, depth, {});
+        }
+    }, [], -1);
+    time_source_start(time_source);
 };
 ```
 
 ---
 
-## 3. Creating overworld bullets & hazards
+### Step 5 — Test and verify checklist
 
-Any object that should damage the player during overworld dodging inherits from **`o_dodge_bullet`** (`objects/o_dodge_bullet/`).
+Run your game (`F5`) and test both mechanics:
 
-### How `o_dodge_bullet` works
-
-`o_dodge_bullet` automatically handles collision with `o_dodge_soul`:
-- **Collision:** Plays `snd_hurt`, reduces leader HP, flashes the SOUL with invulnerability frames (`inv = 30`), and screenshakes.
-- **Graze:** If the SOUL passes close to the bullet, plays `snd_graze` and grants TP.
-
-### Example: A moving traffic car hazard
-
-Here is how the speeding cars in `room_ex_city` (`objects/o_ex_ow_city_traffic_car/`) are constructed:
-
-```gml
-// Create Event
-event_inherited(); // Inherits o_dodge_bullet collision
-spd = 6;
-dir = DIR.LEFT;
-
-// Step Event
-x += lengthdir_x(spd, dir * 90);
-y += lengthdir_y(spd, dir * 90);
-
-// Destroy when offscreen
-if x < -50 || x > room_width + 50
-    instance_destroy();
-```
-
-### Example: Spawning waves of hazards along paths
-
-In `room_ex_dforest`, dancing shadow monsters spawn along paths using `o_ex_dodge_dforest_dancerspawn`:
-
-```gml
-// Instance Creation Code of the spawner
-path = path_ex_dforest_dancers1;
-pattern = [1, 1, 0, 1, 0, 0, 1]; // 1 = spawn dancer, 0 = gap
-```
+- [ ] The enemy paces smoothly back and forth along its path.
+- [ ] Approaching the enemy triggers `snd_exclamation` and starts an active pursuit.
+- [ ] Touching the enemy transitions cleanly into the turn-based battle encounter (`enc_set_ex`).
+- [ ] Stepping into `o_trigger_dodge` summons Kris's red SOUL and dims the background.
+- [ ] Touching an oncoming hazard car flashes the SOUL with invulnerability frames and reduces party HP.
+- [ ] Passing very close to the car plays `snd_graze` and rewards TP.
+- [ ] Stepping out of `o_trigger_dodge` smoothly removes the SOUL and brightens the screen.
 
 ---
 
-## 4. Darkening objects during overworld battles
+## Darkening background props (`dodge_darken_self`)
 
-To make trees, signs, and background props react to the overworld dodge mode (dimming when the battle zone activates), call `dodge_darken_self()` in their **Draw Event**:
+To make trees, signs, and background buildings visually react to the overworld dodge mode (dimming when the battle zone activates, just like in Cyber City), call `dodge_darken_self()` in their **Draw Event**:
 
 ```gml
-// Draw Event of custom overworld prop
+// Draw Event of your custom prop or sign
 draw_self();
-dodge_darken_self(); // Applies dark overlay when dodge_mode is active
+dodge_darken_self(); // Applies the overworld combat dark shader overlay
 ```
 
 ---
 
 ## Overworld Game Over (`dodge_gameover`)
 
-If the party leader takes fatal damage during overworld dodging:
+If party HP reaches zero during overworld dodging, the engine executes `dodge_gameover()` (`scripts/dodge/dodge.gml:34`):
 
 ```gml
-// scripts/dodge/dodge.gml:34
 function dodge_gameover() {
     // 1. Captures application_surface as a frozen screenshot
-    // 2. Plays snd_hurt and cuts music
-    // 3. Spawns o_gameover soul shatter effect
+    // 2. Plays snd_hurt and cuts all music
+    // 3. Spawns the soul shatter particle effect
     // 4. Transitions directly to room_gameover
 }
 ```
-
-This guarantees an immediate, seamless game-over sequence matching DELTARUNE's exact presentation.
 
 ---
 

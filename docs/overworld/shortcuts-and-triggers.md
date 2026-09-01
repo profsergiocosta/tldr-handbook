@@ -2,13 +2,11 @@
 
 Overworld exploration in DELTARUNE features physical, tactile environmental mechanisms: fast-travel shortcut doors, steep dust slopes that slide the whole party downhill, timed traffic switches, and endless looping rooms.
 
-This chapter covers how to implement these mechanisms in your rooms using the tlDR Engine's built-in objects.
+This chapter explains how each mechanism works, followed by a step-by-step tutorial to build a functioning fast-travel door, a cliff dust slide, and an interactive switch puzzle.
 
 ---
 
-## 1. Fast-travel shortcut doors (`o_ow_shortcut_door`)
-
-DELTARUNE's signature shortcut door is an interactive wooden door framed by flickering magical flames (`spr_ow_shortcut_door_fire`). Investigating it opens a multi-choice destination prompt.
+## How overworld mechanisms work
 
 ```mermaid
 graph TD
@@ -17,124 +15,137 @@ graph TD
     C --> D["room_goto(target_room) & Fade In"]
 ```
 
-### Configuring a shortcut door
-
-1. Place an instance of **`o_ow_shortcut_door`** on your `Instances` layer (depth `200`).
-2. Open its **Variable Definitions** in the GameMaker Inspector:
-
-| Variable | Type | Example | Description |
-|---|---|---|---|
-| **`current_room_name`** | String | `"Test Zone"` | The name of the current area (disabled/greyed out in menu). |
-| **`room_1`** | Room Asset | `room_ex_dforest` | Destination Room 1. |
-| **`room_1_name`** | String | `"Bake Sale Forest"` | Label displayed for destination 1. |
-| **`room_2`** | Room Asset | `room_ex_city` | Destination Room 2. |
-| **`room_2_name`** | String | `"Cyber City"` | Label displayed for destination 2. |
-| **`room_3`** | Room Asset | `room_ex_church` | Destination Room 3. |
-| **`room_3_name`** | String | `"Sanctuary"` | Label displayed for destination 3. |
-
-The door automatically resolves string labels through the localization system `loc()`, opens a formatted choice dialogue (`{choice(...)}`), plays opening/closing door audio (`snd_dooropen`, `snd_doorclose`), and fades smoothly between rooms.
+1. **Shortcut Doors:** An `o_ow_shortcut_door` displays animated flaming borders (`spr_ow_shortcut_door_fire`). When investigated, it queries its room list, opens a formatted dialogue choice, plays door sound effects, and transitions cleanly between rooms.
+2. **Dust Sliders:** Stepping onto `o_trigger_slide` pulls the leader downward at `global.slide_speed`, forces followers into their sliding poses (`s_slide`), and continuously spawns dust particles (`spr_eff_slidedust`).
+3. **Interactive Switches:** Triggers and NPCs toggle variables at runtime (e.g. flipping `collide = false` on an `o_block` to open a locked gate).
 
 ---
 
-## 2. Slope and cliff sliding (`o_trigger_slide`)
+## Tutorial: Your first shortcut door & dust slide in 5 steps
 
-In rooms like `room_test_loopback`, walking over a cliff slope automatically locks the party into a high-speed downward slide (`objects/o_trigger_slide/`).
-
-### How `o_trigger_slide` works
-
-When the player enters an `o_trigger_slide` instance:
-1. **Leader movement:** The leader is pulled downwards at `global.slide_speed` (default `12` px/frame).
-2. **Followers join:** Followers immediately switch to their sliding sprites (`s_slide`, e.g. `spr_susie_slide`), align horizontally, and slide down together.
-3. **Puff animation:** Slidedust particles (`spr_eff_slidedust`) spawn periodically under everyone's feet.
-4. **Exit & Recovery:** When exiting the bottom of the trigger, followers smoothly interpolate back into line (`party_member_interpolate()`) and normal walking resumes.
-
-### Setting up a slide trigger
-
-1. Place **`o_trigger_slide`** on your `Instances` layer.
-2. Stretch its width to match your slope and its height from the cliff ledge down to the landing floor.
-3. No code is required — placing the trigger is all it takes.
+Let's build a sanctuary hub containing two core DELTARUNE mechanisms:
+1. A flaming fast-travel shortcut door that links to two destination rooms.
+2. A steep hill slope where walking over the ledge sends Kris and Susie sliding downward with dust clouds.
 
 ---
 
-## 3. Interactive switches & timed puzzles
+### Step 0 — Prepare the room
 
-tlDR Engine includes generic and timed switches for environmental puzzles (such as the traffic lights in `room_ex_city` and church switches in `room_ex_church`).
+1. Open your room in the Room Editor.
+2. Ensure you have your standard layers (`collisions` at depth `0`, `decor` at depth `200`, `Instances` at depth `300`).
 
-### Timed traffic switches (`o_ex_ow_city_traffic_switch`)
+---
 
-In `room_ex_city`, pressing a walk switch halts oncoming traffic for a countdown timer:
+### Step 1 — Place the shortcut door (`o_ow_shortcut_door`)
+
+1. Select the **`Instances`** layer (or `decor` at depth `200`).
+2. Drag an instance of **`o_ow_shortcut_door`** against a north wall.
+3. Open its **Variable Definitions** in the Inspector:
+
+| Variable | Value | Explanation |
+|---|---|---|
+| **`current_room_name`** | `"Sanctuary"` | The label for this room (greyed out if selected). |
+| **`room_1`** | `room_test_main` | Destination Room 1 asset. |
+| **`room_1_name`** | `"Test Zone Entrance"` | Label displayed in the choice menu for Room 1. |
+| **`room_2`** | `room_ex_city` | Destination Room 2 asset. |
+| **`room_2_name`** | `"Cyber City"` | Label displayed in the choice menu for Room 2. |
+
+When the player investigates the door, the engine automatically compiles the choices into `{choice("`Test Zone Entrance`", "`Cyber City`", "`Sanctuary`")}`, fades the screen with `fader_fade()`, plays `snd_dooropen` and `snd_doorclose`, and warps cleanly to the destination.
+
+---
+
+### Step 2 — Place a landing marker in destination rooms
+
+For the warp to position Kris properly:
+1. Open each target room (e.g. `room_test_main`).
+2. Ensure there is an **`o_dev_marker_land`** with `m_id = 0` on the `Instances` layer.
+
+---
+
+### Step 3 — Build a slope dust slide (`o_trigger_slide`)
+
+1. Back in your hub room, place a cliff ledge with floor tiles at the top and floor tiles at the bottom.
+2. Select the **`Instances`** layer.
+3. Drag an instance of **`o_trigger_slide`** onto the slope.
+4. Stretch its bounding box so it spans the entire width of the ledge and the full height down to the lower floor.
+
+`o_trigger_slide` requires **zero code**:
+- As soon as Kris steps onto it, the leader is locked into downward movement.
+- Susie, Ralsei, and other party members automatically switch to their sliding sprites (`spr_susie_slide`).
+- Slidedust particles (`spr_eff_slidedust`) emit under everyone's feet.
+- When reaching the bottom, followers smoothly interpolate back into following line (`party_member_interpolate()`).
+
+---
+
+### Step 4 — Add an interactive switch that opens a gate
+
+Let's place a switch that unlocks a passage by removing collision:
+
+1. Select the **`collisions`** layer and place an `o_block` across an archway. Name this instance `inst_iron_gate`.
+2. Select the **`Instances`** layer and place an `o_ow_npc` (or sign/switch). Set its sprite to `spr_ex_ow_church_switch`.
+3. In its **Instance Creation Code**, write:
 
 ```gml
-// Instance Creation Code of the switch
-switch_id = 1;
-label = "walk";
-time = 8; // Halts cars for 8 seconds
-```
-
-The switch broadcasts its state to all `o_ex_ow_city_traffic_light` instances sharing `switch_id = 1`, turning them red and pausing car spawners.
-
-### Toggling obstacles and doors at runtime
-
-To make a switch open a passage, modify the `collide` variable of the target `o_block` walls:
-
-```gml
-// Instance Creation Code of an interactive switch
 interaction_code = function() {
+    // Flip switch sprite frame
+    image_index = 1;
     audio_play(snd_switch);
-    image_index = 1; // Flip switch sprite
     
-    // Deactivate the barrier wall
-    with (inst_gate_block) {
+    // Open the iron gate by turning off collision
+    with (inst_iron_gate) {
         collide = false;
     }
     
-    // Play a rumble effect or dialogue
+    // Play a brief dialogue
     cutscene_create();
-    cutscene_dialogue("* The iron gate opened somewhere nearby!");
+    cutscene_dialogue("* The iron gate clicked and unlocked!");
     cutscene_play();
 };
 ```
 
 ---
 
-## 4. Seamless infinite looping rooms
+### Step 5 — Test and verify checklist
 
-`room_ex_infinity_room` demonstrates how to create a room that wraps endlessly in all directions without loading new rooms.
+Run your game (`F5`) and test the mechanisms:
 
-### How wrapping works
+- [ ] Approaching `o_ow_shortcut_door` and pressing confirm opens the destination choice box.
+- [ ] Selecting a destination plays door audio, fades out, and spawns the party in the new room.
+- [ ] Walking over the cliff ledge activates `o_trigger_slide`.
+- [ ] Kris and followers slide together with dust puff particles.
+- [ ] Exiting the slide restores normal top-down walking smoothly.
+- [ ] Interacting with the switch unlocks the iron gate wall without errors.
 
-1. Place `o_trigger` instances along all four edges of the room (`inst_edge_left`, `inst_edge_right`, `inst_edge_top`, `inst_edge_bottom`).
-2. In the room's **Room Creation Code**, define a transposition helper that shifts the camera and all party members simultaneously:
+---
 
-```gml
-// Room Creation Code
-global.__transpose_player = function(dx, dy) {
-    o_camera.x += dx;
-    o_camera.y += dy;
-    
-    for (var i = 0; i < party_length(true); i++) {
-        var inst = party_get_inst(global.party_names[i]);
-        inst.x += dx;
-        inst.y += dy;
-        party_member_interpolate(global.party_names[i]);
-    }
-};
-```
+## Endless looping rooms (`room_ex_infinity_room`)
 
-3. In the left edge trigger's **Instance Creation Code**, shift the player to the right edge:
+To create an infinite wrapping room where walking off the right edge wraps smoothly to the left:
 
-```gml
-// Left Edge Trigger
-trigger_code = function() {
-    triggered = false;
-    // If player is walking left across the border, wrap to right side
-    if (get_leader().x - get_leader().xprevious) < 0 {
-        global.__transpose_player(room_width - 80, 0);
-    }
-};
-```
+1. In the room's **Room Creation Code**, define the coordinate transposition:
+   ```gml
+   global.__transpose_player = function(dx, dy) {
+       o_camera.x += dx;
+       o_camera.y += dy;
+       
+       for (var i = 0; i < party_length(true); i++) {
+           var inst = party_get_inst(global.party_names[i]);
+           inst.x += dx;
+           inst.y += dy;
+           party_member_interpolate(global.party_names[i]);
+       }
+   };
+   ```
 
-Because camera, leader, followers, and interpolation history are shifted by the exact same delta on the same frame, the wrap is **completely imperceptible** to the player.
+2. Place an `o_trigger` on the left border (`inst_edge_left`):
+   ```gml
+   trigger_code = function() {
+       triggered = false;
+       if (get_leader().x - get_leader().xprevious) < 0 {
+           global.__transpose_player(room_width - 80, 0);
+       }
+   };
+   ```
 
 ---
 
@@ -146,3 +157,4 @@ Because camera, leader, followers, and interpolation history are shifted by the 
 | Player gets stuck sliding at the bottom of a slope | `o_trigger_slide` was placed overlapping an `o_block` collision wall |
 | Party members desync after sliding | `party_member_interpolate()` was interrupted or followers lacked `s_slide` sprite |
 | Infinite room wrap causes visual jitter | Camera was not transposed by the exact same `(dx, dy)` as party members |
+| Switch opens gate, but player cannot walk through | `inst_iron_gate` was not found or `collide = false` was called on the wrong instance |
