@@ -8,9 +8,9 @@ If you have not read [How a fight works](overview.md), read at least Part 1 firs
 
 ## What we are building
 
-A stray cat called **SONSO**.
+In [Your first room](../overworld/your-first-room.md), we built a quiet sanctuary with an altar and a glowing prophecy mural. Now let us give it a guardian: **SONSO**, a stray cat who decided the sanctuary belongs to him.
 
-He is not a monster. He is a cat — and the design joke is that **the obvious button is the wrong one**. The player will try to `Call` the cat ("here, kitty"), because that is what you do with a cat. Sonso will turn his back, offended, and attack harder.
+He is not a monster. He is a cat guarding the sacred altar — and the design joke is that **the obvious button is the wrong one**. The player will try to `Call` the cat ("here, kitty"), because that is what you do with a cat. Sonso will turn his back, offended, and attack harder.
 
 What works is the opposite: **`Ignore`**. Look away. Then he comes to you on his own.
 
@@ -95,7 +95,7 @@ function rpg_enc_set_sonso() : enc_set() constructor {
 
     enemies = [ new rpg_enemy_sonso() ]     // note the `new`
 
-    flavor = "* A cat is blocking the way. Technically."
+    flavor = "* A cat is blocking the sanctuary altar."
 
     enemies_pos = [ [0, 0, true] ]          // [x, y, relative to default spot]
     bgm = mus_battle
@@ -168,12 +168,12 @@ The encounter's `flavor` can react too. Back in `enc_set()`:
 ```gml
     flavor = function() {
         if o_enc.turn_count == 0
-            return "* A cat is blocking the way. Technically."
+            return "* A cat is blocking the sanctuary altar."
 
         switch o_enc.encounter_data.enemies[0].mood {
-            case "annoyed": return "* The air is tense. And furry."
-            case "curious": return "* Sonso is closer than he was."
-            default:        return "* Smells like a warm roof."
+            case "annoyed": return "* The sanctuary air is tense. And furry."
+            case "curious": return "* Sonso approaches from the altar steps."
+            default:        return "* The altar smells faintly of catnip."
         }
     }
 ```
@@ -622,23 +622,28 @@ Once both work, play the whole fight once with **no** debug and answer: *can you
 
 ## Step 9 — Putting the cat in the world
 
-Only now is it worth touching a room. There are three ways to start the fight, each with its own gotchas.
+Only now is it worth returning to **`room_sanctuary`**, the room we built in [Your first room](../overworld/your-first-room.md). There are three ways to place Sonso in the sanctuary hall.
 
 ### A. From an actor on the map (the canonical way)
 
-Drag an **`o_actor_e`** into the room, select it, and in the inspector's *Variable Definitions* fill **`encounter`** with:
+Open **`room_sanctuary`** in the Room Editor:
 
-```gml
-new rpg_enc_set_sonso()
-```
+1. Select the **`Instances`** layer (depth `300`).
+2. Drag an **`o_actor_e`** into the central aisle at `(320, 240)` (guarding the path to the prophecy altar).
+3. In its inspector properties, set **Sprite** to `spr_ex_e_tasque`.
+4. In its **Variable Definitions**, configure:
+   - **`encounter`**: `new rpg_enc_set_sonso()`
+   - **`enable_chasing`**: `true` (optional: the cat rushes the party when Kris approaches)
+   - **`chase_dist`**: `60`
 
-Touching it starts the fight. Other useful variables in the same panel: `enable_chasing`, `chase_spd`, `chase_dist`, `idle_path` (patrol along a Path asset) and `sprite_facing_dir`.
+Touching the cat starts the fight. A bonus of this route: the actor on the map **is reused** as the battle enemy (`o_enc_anim/Alarm_4.gml` tries `actor_find` before creating a new one), so the transition into combat is seamless.
 
-A bonus of this route: the actor already in the room **is reused** as the battle enemy (`o_enc_anim/Alarm_4.gml` tries `actor_find` before creating a new one), so the transition from overworld to fight is continuous.
+### B. From an altar trigger
 
-### B. From a trigger
+If you prefer an ambush when approaching the prophecy mural:
 
-Drag an **`o_trigger`** into the room and put this in its *Instance Creation Code*:
+1. In **`room_sanctuary`**, drag an **`o_trigger`** across the walkway at `(250, 210)`.
+2. Open its **Instance Creation Code**:
 
 ```gml
 trigger_code = function() {
@@ -652,7 +657,7 @@ trigger_exit_code = function() {
 
 The code is the easy part. What usually makes a trigger "not work" is **three configuration details**, none of them GML:
 
-**1. Stretch the instance.** `spr_trigger` is **20×20 px** with its origin at the top-left, and `o_trigger` is `visible: false` — you placed an invisible little square the player walks straight past. The engine's own triggers are all stretched: in `room_ex_church` they use `scaleX` between 5 and 7 and `scaleY` 2, giving 100–140 × 40 px.
+**1. Stretch the instance.** `spr_trigger` is **20×20 px** with its origin at the top-left, and `o_trigger` is `visible: false` — stretch it across the walkway.
 
 **2. `o_trigger` fires exactly once.** The entry event sets `triggered = true` and **nothing sets it back** — the exit event only touches `trigger_exit`. Hence the `trigger_exit_code` above. This bites especially hard in a battle: when the fight ends, the party returns to where it started — **standing on the trigger**. Without the re-arm it never fires again until the room reloads. The idiom comes from the engine itself, `rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13`.
 

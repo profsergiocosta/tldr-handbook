@@ -15,7 +15,7 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 |---|---|
 | **Who it is for** | Anyone who can read a `for` loop in GML and wants to build a game rather than study an engine |
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
-| **Structure** | 10 chapters in 3 parts, plus 3 reference pages |
+| **Structure** | 15 chapters in 3 parts, plus 3 reference pages |
 | **Status** | Work in progress — written as I learn, and still moving |
 | **Engine version** | Verified against tlDR Engine commit `7308e305` |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
@@ -77,6 +77,11 @@ Everything outside of combat: the rooms the player walks through and the things 
 * **[NPCs and dialogue](overworld/npcs-and-dialogue.md)** — the interaction scan, cutscenes, and the full dialogue markup language
 * **[Tiles and tilesets](overworld/tiles-and-tilesets.md)** — the 20×20 grid, layer ordering, and a practical order for building a room
 * **[Your first room](overworld/your-first-room.md)** — an eight-step walkthrough building a sanctuary with collision, signs, an NPC, a glowing prophecy mural, and transitions
+* **[Cutscenes and camera](overworld/cutscenes.md)** — the asynchronous event queue, actor movement, dialogue synchronization, camera choreography, and memory flags
+* **[Climbing and traversal](overworld/climbing.md)** — building Chapter-2-style vertical walls, auto and interactive triggers, summit landings, and ledge hopping
+* **[Hazards, chases, and dodging](overworld/hazards-and-chases.md)** — roaming overworld enemies, patrol paths, and real-time SOUL dodging zones
+* **[Shortcut doors and mechanisms](overworld/shortcuts-and-triggers.md)** — multi-destination fast travel doors, slope dust sliders, timed traffic switches, and infinite room wrapping
+* **[Lighting and atmosphere](overworld/lighting-and-atmosphere.md)** — dark lighting surfaces, torch cones, altar spotlights, water reflections, footstep soundscapes, and widescreen borders
 
 ### 📗 Part 3 — The Battle System
 
