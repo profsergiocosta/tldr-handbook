@@ -92,7 +92,14 @@ nav:
     - "Ch 14: The Arena":                battle-system/the-arena.md
     - "Ch 15: Advanced Patterns":        battle-system/advanced-patterns.md
 
+  - Part 4 — Systems and Economy:
+    - "Ch 16: Items and Equipment":      systems/items-and-equipment.md
+    - "Ch 17: Shops and Vendors":        systems/shops-and-vendors.md
+    - "Ch 18: Party and the Light World": systems/party-and-light-world.md
+
   - Reference:
     - "enemy()":                         reference/enemy-struct.md
     - "enc_set()":                       reference/enc-set.md
     - "turn_object":                     reference/turn-object.md
+    - "item()":                          reference/item-struct.md
+    - "shop()":                          reference/shop-struct.md

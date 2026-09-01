@@ -15,7 +15,7 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 |---|---|
 | **Who it is for** | Anyone who can read a `for` loop in GML and wants to build a game rather than study an engine |
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
-| **Structure** | 15 chapters in 3 parts, plus 3 reference pages |
+| **Structure** | 18 chapters in 4 parts, plus 5 reference pages |
 | **Status** | Work in progress — written as I learn, and still moving |
 | **Engine version** | Verified against tlDR Engine commit `7308e305` |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
@@ -92,9 +92,17 @@ The heart of the engine, built up from concepts to a complete, playable enemy.
 * **[The arena](battle-system/the-arena.md)** — making the box, the background and the enemy count part of the performance
 * **[Advanced patterns](battle-system/advanced-patterns.md)** — custom bullets, animated paths, support enemies, and scaling difficulty
 
+### 🎒 Part 4 — Systems and Economy
+
+Inventory management, commercial vendors, character growth, and dual-world mechanics.
+
+* **[Items, equipment, and spells](systems/items-and-equipment.md)** — consumable items, equippable weapons and armors, magic spells, and treasure chests
+* **[Shops and vendors](systems/shops-and-vendors.md)** — full dedicated shop rooms, contextual dialogue reactions, conversational talk topics, and overworld vending machines
+* **[Party management and the Light World](systems/party-and-light-world.md)** — adding/removing companions, Light World rules, dual-world item transformations, and enemy recruits
+
 ### 📕 Reference
 
-Field-by-field tables for the three structures you will write most often: **[`enemy()`](reference/enemy-struct.md)**, **[`enc_set()`](reference/enc-set.md)** and the **[turn object](reference/turn-object.md)**.
+Field-by-field tables for the core structs: **[`enemy()`](reference/enemy-struct.md)**, **[`enc_set()`](reference/enc-set.md)**, **[turn object](reference/turn-object.md)**, **[`item()`](reference/item-struct.md)**, and **[`shop()`](reference/shop-struct.md)**.
 
 ---
 
