@@ -8,11 +8,11 @@ tlDR Engine provides dedicated subsystems for each of these elements:
 3. **Floor Reflections** (`o_reflection_manager`) — mirrored silhouettes on shiny water or polished marble.
 4. **Soundscapes and Borders** (`o_dev_ambiance`, `o_dev_music`, `o_dev_border`).
 
+This chapter explains each system, followed by a hands-on tutorial to build a dark cavern with glowing lanterns, reflective water puddles, and an altar spotlight.
+
 ---
 
-## 1. Dynamic darkness & light sources
-
-In dark zones (like `room_lb_dark_lighting`), the entire room is submerged in darkness, and light only shines where you place light sources.
+## How dynamic lighting and atmosphere work
 
 ```mermaid
 graph TD
@@ -21,88 +21,125 @@ graph TD
     B -->|Result| D["Clear, glowing circles of light around torches and player"]
 ```
 
-### Setting up dark lighting
-
-1. Place **`o_lb_dl_controller`** anywhere in your room on the `Instances` layer. It automatically creates a drawing surface at depth `-4000` (above all tiles and actors).
-2. Place instances of **`o_lb_dl_light_source`** wherever light should shine (e.g. over street lamps, crystals, or lanterns).
-3. Scale `scaleX` and `scaleY` in the Room Editor to adjust the radius of each light circle.
-4. Tint `image_blend` to give specific lights warm amber, eerie cyan, or neon purple glows.
+1. **Surface-based Dark Lighting:** The `o_lb_dl_controller` object sits at depth `-4000` (above all sprites). Every frame, it draws a semi-transparent black surface, then uses `gpu_set_blendmode(bm_subtract)` to cut clean circular holes wherever an `o_lb_dl_light_source` is placed.
+2. **Global Altar Lighting:** Calling `lighting_on(color, fade_color)` dims non-essential props via `lighting_darken_self()` and casts a dramatic color tint over the scene.
+3. **Water Reflections:** `o_reflection_manager` scans for actors with `can_reflect = true` and renders vertically flipped, translucent silhouettes on reflective floor tiles.
 
 ---
 
-## 2. Altar spotlights and prophecy highlights
+## Tutorial: Your first dark room with lanterns and reflections in 5 steps
 
-In rooms with dramatic centerpieces (like the prophecy altar in `room_ex_church` or `room_meu_jogo_vila`), the engine allows you to smoothly transition into a focused lighting state.
+Let's build a gloomy underground cavern containing:
+1. Complete ambient darkness (`o_lb_dl_controller`).
+2. Two warm glowing lanterns (`o_lb_dl_light_source`).
+3. A reflective water pool (`o_reflection_manager`).
+4. Footstep sound effects and ambient soundtrack (`o_dev_ambiance`, `o_dev_music`).
+5. An ancient altar trigger that bathes the room in golden light (`lighting_on`).
 
-### Activating lighting via script
+---
 
-Call `lighting_on()` (`scripts/lighting/lighting.gml:4`) inside a trigger or cutscene:
+### Step 0 — Prepare the cavern room
+
+1. Create a new room in GameMaker (e.g. `room_cavern`).
+2. Add your standard two objects on the `Instances` layer (depth `300`):
+   - **`o_dev_world`** (`world = WORLD_TYPE.DARK`)
+   - **`o_dev_playermarker`**
+3. Draw floor tiles and solid wall collision blocks (`o_block`).
+
+---
+
+### Step 1 — Submerge the room in darkness (`o_lb_dl_controller`)
+
+1. Select the **`Instances`** layer (depth `300`).
+2. Drag an instance of **`o_lb_dl_controller`** anywhere in the room.
+
+When you boot the game, the controller automatically covers the screen in a dark shadow overlay at depth `-4000`.
+
+---
+
+### Step 2 — Place glowing light sources (`o_lb_dl_light_source`)
+
+Now let's place light circles so the player can see:
+
+1. Drag an instance of **`o_lb_dl_light_source`** near the player spawn marker (`o_dev_playermarker`).
+2. Drag another instance of **`o_lb_dl_light_source`** over a torch or lantern prop on the wall.
+3. In the Room Editor, select the light source instances and adjust their properties:
+   - **Scale:** Stretch `scaleX` and `scaleY` to `2.0` or `3.0` to expand the light radius.
+   - **Color Blend:** In the Inspector, set **Color** to a warm amber/yellow tint (`#FFAA44`) or cool cyan (`#44AAFF`).
+
+When running, the controller uses `bm_subtract` to punch bright, colored light cones through the darkness overlay.
+
+---
+
+### Step 3 — Add water reflections (`o_reflection_manager`)
+
+1. Place water/reflective tiles on your floor (e.g. in the center of the cavern).
+2. Select the **`Instances`** layer.
+3. Drag an instance of **`o_reflection_manager`** directly over the water area.
+
+That is it! Whenever Kris, Susie, or any `o_actor` walks across the puddle, their inverted reflection renders under their boots automatically.
+
+---
+
+### Step 4 — Configure footsteps and music (`o_dev_ambiance`, `o_dev_music`)
+
+1. Drag **`o_dev_ambiance`** onto the `Instances` layer:
+   - Set **`footsteps = true`** in its Variable Definitions to enable echoing footstep audio.
+2. Drag **`o_dev_music`** onto the `Instances` layer:
+   - Set **`mus = mus_ex_church`** (or your cavern soundtrack asset).
+3. Drag **`o_dev_border`** onto the layer:
+   - Set **`_border_name = "border_simple"`** for widescreen border artwork.
+
+---
+
+### Step 5 — Build an altar spotlight trigger (`lighting_on`)
+
+Let's place a dramatic altar at the end of the cavern:
+
+1. Place a prop or sign at the altar (e.g. `o_ow_prophecy` or `o_ow_sign`).
+2. Place an **`o_trigger`** in front of the altar.
+3. In the trigger's **Instance Creation Code**, write:
 
 ```gml
-/// lighting_on(highlight_color, [fade_color])
-lighting_on(c_yellow, c_navy);
+trigger_code = function() {
+    // Wash the room in golden light with dark navy shadows
+    lighting_on(c_yellow, c_navy);
+    
+    // Play a brief dialogue
+    cutscene_create();
+    cutscene_dialogue("* A warm, ancient warmth radiates from the altar.");
+    cutscene_play();
+};
+
+trigger_exit_code = function() {
+    // Restore normal lighting when stepping away
+    lighting_off();
+};
 ```
 
-To return to normal:
+---
+
+## Testing checklist
+
+Run your game (`F5`) and test the atmosphere:
+
+- [ ] The room starts in gloomy darkness.
+- [ ] Circular light cones illuminate the player and wall lanterns.
+- [ ] Walking across the water puddle displays crisp, inverted character reflections.
+- [ ] Footsteps produce rhythmic tapping sound effects.
+- [ ] Stepping onto the altar trigger smoothly transitions the room into a golden spotlight.
+- [ ] Stepping away from the altar restores standard lighting.
+
+---
+
+## Prop reactivity (`lighting_darken_self`)
+
+To ensure custom background props darken appropriately when an altar spotlight activates, call `lighting_darken_self()` in their **Draw Event**:
 
 ```gml
-lighting_off();
-```
-
-### How props react (`lighting_darken_self`)
-
-When `lighting_on()` is called, objects that call `lighting_darken_self()` in their Draw event will darken so the illuminated prop (e.g. `o_ow_prophecy`) stands out brilliantly:
-
-```gml
-// Draw Event of background prop
+// Draw Event of your custom prop
 draw_self();
-lighting_darken_self();
-```
-
----
-
-## 3. Water and floor reflections (`o_reflection_manager`)
-
-For flooded caverns, shimmering lakes, or polished palace floors, **`o_reflection_manager`** renders mirrored reflections of every character walking above it (`objects/o_reflection_manager/Draw_0.gml`).
-
-### How to use reflections
-
-1. Place **`o_reflection_manager`** in the room on the `Instances` layer.
-2. Ensure your actor instances have `can_reflect = true` (standard party members and `o_actor` instances have this enabled by default).
-3. Place your water/reflective tiles on the floor.
-4. When the party walks near the reflection manager, the engine automatically draws their inverted, semi-transparent sprites below their feet.
-
----
-
-## 4. Audio ambiance and footsteps (`o_dev_ambiance`)
-
-Small audio cues make the overworld feel alive. Every room can configure footstep sounds and environmental background loops.
-
-### Enabling footstep sounds
-
-Place **`o_dev_ambiance`** on your `Instances` layer and configure its Variable Definitions:
-
-| Variable | Type | Default | Description |
-|---|---|---|---|
-| **`footsteps`** | Boolean | `true` | When true, walking plays rhythmic footstep audio matching the floor type. |
-
-### Background music (`o_dev_music`)
-
-Place **`o_dev_music`** to set the room's soundtrack:
-
-| Variable | Type | Example | Description |
-|---|---|---|---|
-| **`mus`** | Sound Asset | `mus_ex_church` | The music track to stream. The engine automatically loops and crossfades it. |
-
----
-
-## 5. Decorative window borders (`o_dev_border`)
-
-DELTARUNE wraps the 4:3 gameplay viewport with illustrated decorative borders on widescreen displays. Place **`o_dev_border`** to set the active border graphic for the room:
-
-```gml
-// Variable Definition: _border_name
-_border_name = "border_simple"; // Options: "border_simple", "ex_border_titan", "border_none"
+lighting_darken_self(); // Dims prop when lighting_on() is active
 ```
 
 ---
