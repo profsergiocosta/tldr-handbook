@@ -1,8 +1,8 @@
 # Cutscenes and camera
 
-In tlDR Engine, cinematic sequences are not hardcoded timers or complex timeline assets. They are built using a clean, asynchronous **event queue** (`scripts/cutscenes/cutscenes.gml`). You queue up a list of actions — dialogues, actor movements, sound effects, camera pans, variable changes — and the engine executes them sequentially frame-by-frame.
+In tlDR Engine, cinematic sequences are not hardcoded timers or complex timeline assets. They are built using an asynchronous **event queue** (`scripts/cutscenes/cutscenes.gml`). You queue up a list of actions — dialogues, actor movements, sound effects, camera pans, variable changes — and the engine executes them sequentially frame-by-frame.
 
-This chapter covers how the cutscene sequencer works, how to command party members, how to choreograph the camera, and how to make events trigger only once using the memory system.
+This chapter covers how the cutscene sequencer works, followed by a step-by-step tutorial to build your first scripted cutscene from scratch, and advanced camera choreography techniques.
 
 ---
 
@@ -41,10 +41,10 @@ cutscene_create();
 cutscene_player_canmove(false); // 1. Freeze player input
 cutscene_party_follow(false);   // 2. Detach followers so they don't fight custom movement
 
-// --- Your events go here ---
+// --- Your scripted events go here ---
 
-cutscene_party_follow(true);    // 3. Reattach party
-cutscene_party_interpolate();   // 4. Snap party trail history cleanly to new positions
+cutscene_party_follow(true);    // 3. Reattach party followers
+cutscene_party_interpolate();   // 4. Snap follower trail history cleanly to new positions
 cutscene_player_canmove(true);  // 5. Restore player input
 cutscene_play();                // 6. Launch the queue
 ```
@@ -54,66 +54,189 @@ cutscene_play();                // 6. Launch the queue
 
 ---
 
-## 1. Dialogue in cutscenes
+## Tutorial: Your first cutscene in 6 steps
 
-Unlike standard NPC interactions, cutscenes allow you to sequence dialogue boxes precisely between movements and animations (`scripts/cutscene_events/cutscene_events.gml:218`).
+Let's build a simple, classic DELTARUNE scene: as Kris walks down a hallway, Susie spots something, breaks formation, sprints ahead, turns around to face Kris, says a line with an emotion portrait, and then rejoins the party. The scene will only play once per save file.
 
-### Synchronous dialogue (Wait for confirm)
-
-By default, `cutscene_dialogue()` pauses the entire queue until the player finishes reading and dismisses the box:
-
-```gml
-cutscene_dialogue([
-    "{char(susie, 4)}* Hey Kris... what is this place?",
-    "{char(ralsei, 2)}* It looks like an ancient altar, Susie!"
-]);
+```mermaid
+graph LR
+    A["Kris steps on Trigger"] --> B["Freeze Input & Detach Followers"]
+    B --> C["Susie sprints forward (snd_exclamation)"]
+    C --> D["Susie faces Kris: Dialogue with portrait"]
+    D --> E["Reattach party & Restore control"]
 ```
 
-### Asynchronous dialogue (Talk while moving)
+### Step 0 — Place the trigger object in your room
 
-Pass `wait = false` as the third parameter to spawn the text box while subsequent queue events continue executing:
+1. Open your room in the GameMaker Room Editor (e.g. the sanctuary you built in [Your first room](your-first-room.md)).
+2. Select your **`Instances`** layer (depth `300`).
+3. Drag an instance of **`o_trigger`** onto the floor where the event should occur.
+4. Stretch its bounding box (`scaleX` and `scaleY`) so Kris cannot walk past without touching it.
+
+### Step 1 — Prevent repeat execution with memory
+
+Double-click the `o_trigger` instance to open its **Instance Creation Code**.
+
+Add a check at the very top using the engine's memory system (`scripts/memories/memories.gml`):
 
 ```gml
-// Susie starts talking, but the cutscene immediately continues to the walk step
+// If this cutscene already triggered in this save file, destroy the trigger immediately
+if memory_get("cutscenes", id) {
+    instance_destroy();
+    exit;
+}
+```
+
+### Step 2 — Define `trigger_code` and lock controls
+
+When Kris walks into the trigger, we record the memory flag and lock the player's movement:
+
+```gml
+trigger_code = function() {
+    // 1. Mark as completed in save memory
+    memory_set("cutscenes", id, true);
+    
+    // 2. Open the cutscene queue
+    cutscene_create();
+    cutscene_player_canmove(false); // Lock arrow keys
+    cutscene_party_follow(false);   // Detach Susie/Ralsei from automatic following
+```
+
+### Step 3 — Move Susie and play an alert sound
+
+We locate Susie using `party_get_inst("susie")`, play an exclamation sound, and command her to sprint 60 pixels ahead of Kris:
+
+```gml
+    var susie = party_get_inst("susie");
+    var leader = get_leader();
+    
+    // Play alert sound and move Susie forward
+    cutscene_audio_play(snd_exclamation);
+    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 4, false, "linear", DIR.RIGHT));
+    cutscene_sleep(10); // Brief pause when she stops
+```
+
+### Step 4 — Turn around and deliver dialogue
+
+Once Susie arrives, she turns around to face Kris (`DIR.LEFT`) and delivers a dialogue box with her characteristic portrait:
+
+```gml
+    // Turn Susie to face left towards Kris
+    cutscene_set_variable(susie, "dir", DIR.LEFT);
+    
+    // Deliver dialogue with portrait 4 (smug/curious)
+    cutscene_dialogue([
+        "{char(susie, 4)}* Hey Kris... you felt that breeze, right?",
+        "{char(susie, 2)}* Something big is up ahead. Let's move!"
+    ]);
+```
+
+### Step 5 — Reassemble the party and start playback
+
+Finally, re-enable party following, snap their history trail cleanly, restore movement, and call `cutscene_play()`:
+
+```gml
+    // 3. Clean wrap-up
+    cutscene_party_follow(true);
+    cutscene_party_interpolate();   // Critical: prevents followers from snapping/teleporting
+    cutscene_player_canmove(true);  // Restore player movement
+    cutscene_play();                // Execute the entire queue!
+    
+    // Destroy the trigger instance so it won't fire again in this room visit
+    instance_destroy();
+};
+```
+
+### Step 6 — The complete trigger code & test checklist
+
+Here is the entire script inside your `o_trigger` Creation Code:
+
+```gml
+// Instance Creation Code of o_trigger in your room
+if memory_get("cutscenes", id) {
+    instance_destroy();
+    exit;
+}
+
+trigger_code = function() {
+    memory_set("cutscenes", id, true);
+    
+    cutscene_create();
+    cutscene_player_canmove(false);
+    cutscene_party_follow(false);
+    
+    var susie = party_get_inst("susie");
+    var leader = get_leader();
+    
+    cutscene_audio_play(snd_exclamation);
+    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 4, false, "linear", DIR.RIGHT));
+    cutscene_sleep(10);
+    
+    cutscene_set_variable(susie, "dir", DIR.LEFT);
+    cutscene_dialogue([
+        "{char(susie, 4)}* Hey Kris... you felt that breeze, right?",
+        "{char(susie, 2)}* Something big is up ahead. Let's move!"
+    ]);
+    
+    cutscene_party_follow(true);
+    cutscene_party_interpolate();
+    cutscene_player_canmove(true);
+    cutscene_play();
+    
+    instance_destroy();
+};
+```
+
+Run your game (`F5`) and test the scene:
+- [ ] Walking into the trigger locks player controls immediately.
+- [ ] Susie sprints 60px ahead with `snd_exclamation`.
+- [ ] Susie turns left and displays her dialogue box with portrait.
+- [ ] Dismissing the dialogue returns control smoothly to Kris.
+- [ ] Susie steps back into follower formation without glitching or teleporting.
+- [ ] Leaving and re-entering the room does **not** replay the cutscene.
+
+---
+
+## Core building blocks & advanced techniques
+
+Once you understand the basic queue, you can combine these building blocks to craft complex cinematics.
+
+### 1. Dialogue control in cutscenes
+
+Unlike standard NPC dialogue, cutscenes offer granular timing (`scripts/cutscene_events/cutscene_events.gml:218`).
+
+#### Asynchronous dialogue (Talk while walking)
+Pass `wait = false` to spawn the text box while subsequent queue events continue executing simultaneously:
+
+```gml
+// Susie delivers a line while walking forward
 cutscene_dialogue("{char(susie, 7)}* Outta my way!", "{e}", false);
 cutscene_actor_move(party_get_inst("susie"), new actor_movement(320, 240, 4));
-cutscene_wait_dialogue_finish(); // Explicitly wait here before the next scene
+cutscene_wait_dialogue_finish(); // Explicitly pause here until the text box closes
 ```
 
-### Waiting for specific dialogue boxes
-
-If an array has multiple dialogue lines, you can wait for a specific number of boxes to be read using `cutscene_wait_dialogue_boxes(n)`:
+#### Waiting for specific dialogue boxes
+If an array contains multiple text boxes, pause the queue until a specific box is reached:
 
 ```gml
 cutscene_dialogue([
-    "{char(susie, 0)}* Line 1...",
-    "{char(susie, 2)}* Line 2...",
-    "{char(susie, 7)}* Line 3..."
+    "{char(susie, 0)}* Box 1...",
+    "{char(susie, 2)}* Box 2...",
+    "{char(susie, 7)}* Box 3..."
 ], "{p}{e}", false);
 
-cutscene_wait_dialogue_boxes(2); // Wait until player presses confirm past Line 2
-cutscene_audio_play(snd_bell);   // Play a sound effect on Line 3
+cutscene_wait_dialogue_boxes(2); // Wait until player confirms past Box 2
+cutscene_audio_play(snd_bell);   // Sound plays on Box 3
 cutscene_wait_dialogue_finish();
 ```
 
 ---
 
-## 2. Moving actors and party members
+### 2. Actor movement styles
 
-To move characters smoothly during a scene, use `cutscene_actor_move()` with the `actor_movement` struct (`scripts/actors_scr/actors_scr.gml:48`).
+Use `cutscene_actor_move()` with movement structs (`scripts/actors_scr/actors_scr.gml:48`):
 
-### Finding party members
-
-Get instance IDs reliably with `party_get_inst(name)` or `get_leader()`:
-
-```gml
-var susie_inst = party_get_inst("susie");
-var ralsei_inst = party_get_inst("ralsei");
-var leader_inst = get_leader();
-```
-
-### Linear movement (`actor_movement`)
-
+#### Linear movement (`actor_movement`)
 ```gml
 /// actor_movement(target_x, target_y, [speed], [relative], [ease], [facing_dir])
 cutscene_actor_move(
@@ -122,10 +245,7 @@ cutscene_actor_move(
 );
 ```
 
-### Jumping into position (`actor_movement_jump_into`)
-
-For dramatic entrances or hopping over ledges:
-
+#### Jumping onto ledges (`actor_movement_jump_into`)
 ```gml
 /// actor_movement_jump_into(target_x, target_y, jump_up, frames, [relative])
 cutscene_actor_move(
@@ -137,20 +257,9 @@ cutscene_audio_play(snd_jump);
 
 ---
 
-## 3. Controlling sprites and animations
+### 3. Sprite overrides & custom animations
 
-While a character is in a cutscene, you often need them to express emotion, face a direction, or play a custom sprite.
-
-### Facing direction
-
-```gml
-cutscene_set_variable(party_get_inst("susie"), "dir", DIR.LEFT);
-cutscene_set_variable(party_get_inst("noelle"), "dir", DIR.RIGHT);
-```
-
-### Overriding standard walk cycles (`cutscene_actor_override`)
-
-Actors automatically try to update their sprite based on their facing direction and movement. When you want an actor to play a fixed sprite (e.g. crossing arms, kneeling, or blushing), enable `s_override`:
+Actors automatically try to update their sprite based on walk cycles. To display a custom pose (e.g. crossing arms, kneeling, or casting a spell), set `s_override` using `cutscene_actor_override()`:
 
 ```gml
 // 1. Tell the actor system not to overwrite sprite_index
@@ -163,44 +272,34 @@ cutscene_set_variable(party_get_inst("susie"), "image_speed", 0);
 // 3. Deliver line
 cutscene_dialogue("{char(susie, 26)}* Heh. You might want to sit down for this.");
 
-// 4. Restore normal sprite control when done
+// 4. Restore normal sprite control
 cutscene_actor_override(party_get_inst("susie"), false);
 ```
 
 ---
 
-## 4. Camera choreography
+### 4. Camera choreography
 
 By default, the global camera (`o_camera`) locks onto `get_leader()`. In cutscenes, you can detach the camera and glide it anywhere across the room.
 
-### Panning the camera (`camera_pan`)
-
 ```gml
-// Detach target so camera doesn't fight the pan
+// 1. Detach target so camera doesn't fight the pan
 cutscene_set_variable(o_camera, "target", noone);
 
-// Pan to coordinates (x, y, duration_frames, easing)
+// 2. Pan to focal point (x, y, duration_frames, easing)
 cutscene_camera_pan(800, 300, 60, "sine_out");
-cutscene_sleep(40); // Linger on the focal point for 40 frames
+cutscene_sleep(40); // Linger on the landmark for 40 frames
 
-// Return camera to the party leader
+// 3. Return camera to party leader and rebind
 cutscene_camera_pan(get_leader().x, get_leader().y, 30, "sine_in_out");
 cutscene_set_variable(o_camera, "target", get_leader());
 ```
 
-### Locking an axis
-
-If you only want horizontal camera movement in a vertical hallway:
-
-```gml
-cutscene_set_variable(o_camera, "follow_y", false);
-```
-
 ---
 
-## 5. Running arbitrary GML (`cutscene_func`)
+### 5. Running arbitrary GML (`cutscene_func`)
 
-You can execute any GML function or inline lambda at an exact point in the queue using `cutscene_func(fn, [args])`:
+You can execute any custom GML function or inline lambda at an exact point in the queue:
 
 ```gml
 // Play music
@@ -213,108 +312,8 @@ cutscene_func(function() {
     });
 });
 
-// Heal the party
-cutscene_func(function() {
-    party_heal("kris", 50);
-});
-```
-
----
-
-## 6. One-time cutscenes with Memory
-
-Most cutscenes should only happen once when the player steps into an area. The engine provides `memory_get(category, key)` and `memory_set(category, key, value)` (`scripts/memories/memories.gml`).
-
-Place an `o_trigger` on the `Instances` layer and write this in its **Creation Code**:
-
-```gml
-// If this cutscene already played in this save file, destroy the trigger immediately
-if memory_get("cutscenes", id) {
-    instance_destroy();
-    exit;
-}
-
-trigger_code = function() {
-    // Flag this cutscene as complete
-    memory_set("cutscenes", id, true);
-    
-    cutscene_create();
-    cutscene_player_canmove(false);
-    cutscene_party_follow(false);
-    
-    // Susie walks forward
-    cutscene_actor_move(party_get_inst("susie"), new actor_movement(x + 60, y, 3));
-    cutscene_dialogue([
-        "{char(susie, 0)}* Look at this place.",
-        "{char(susie, 2)}* We must be getting close."
-    ]);
-    
-    cutscene_party_follow(true);
-    cutscene_party_interpolate();
-    cutscene_player_canmove(true);
-    cutscene_play();
-    
-    // Destroy the trigger instance so it cannot be touched again in this room visit
-    instance_destroy();
-};
-```
-
----
-
-## Complete walkthrough: A team discovery scene
-
-Here is a full cutscene script inspired by `room_test_cutscene` (`rooms/room_test_cutscene/InstanceCreationCode_inst_3CB25A36.gml`):
-
-```gml
-trigger_code = function() {
-    cutscene_create();
-    cutscene_player_canmove(false);
-    cutscene_party_follow(false);
-    
-    var susie = party_get_inst("susie");
-    var noelle = party_get_inst("noelle");
-    var leader = get_leader();
-    
-    // 1. Position party members
-    cutscene_set_variable(susie, "dir", DIR.LEFT);
-    cutscene_set_variable(noelle, "dir", DIR.RIGHT);
-    
-    // 2. Dialogue with emotion portraits
-    cutscene_dialogue([
-        "{char(susie, 4)}* If you were dreaming this whole time...",
-        "{char(susie, 4)}* Why is your HP not full??",
-        "{char(noelle, 1)}* Oh! Do you have any items?"
-    ]);
-    
-    // 3. Susie steps forward and casts a spell
-    cutscene_actor_override(susie, true);
-    cutscene_set_variable(susie, "sprite_index", spr_susie_heal);
-    cutscene_audio_play(snd_spellcast);
-    cutscene_sleep(15);
-    
-    // 4. Create visual healing beam
-    cutscene_func(function(susie, noelle) {
-        var beam = instance_create(o_dummy, susie.x + 20, susie.y - 20, susie.depth - 10, {
-            sprite_index: spr_eff_healsparkle
-        });
-        animate(beam.x, noelle.x, 25, "linear", beam, "x");
-    }, [susie, noelle]);
-    
-    cutscene_sleep(25);
-    cutscene_func(party_heal, ["noelle", 40]);
-    cutscene_audio_play(snd_heal);
-    
-    // 5. Wrap up
-    cutscene_actor_override(susie, false);
-    cutscene_dialogue([
-        "{char(noelle, 4)}* Um, thanks Susie! That felt refreshing!"
-    ]);
-    
-    cutscene_party_follow(true);
-    cutscene_party_interpolate();
-    cutscene_player_canmove(true);
-    cutscene_play();
-};
+// Heal party member
+cutscene_func(party_heal, ["kris", 50]);
 ```
 
 ---
