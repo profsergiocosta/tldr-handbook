@@ -14,10 +14,10 @@
       
       
       
-        <link rel="prev" href="../../systems/party-and-light-world/">
+        <link rel="prev" href="../items-and-equipment/">
       
       
-        <link rel="next" href="../enc-set/">
+        <link rel="next" href="../party-and-light-world/">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>enemy() - The tlDR Engine Handbook</title>
+        <title>Ch 17: Shops and Vendors - The tlDR Engine Handbook</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#reference-enemy" class="md-skip">
+        <a href="#shops-and-vendors" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              enemy()
+              Ch 17: Shops and Vendors
             
           </span>
         </div>
@@ -892,8 +892,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -904,13 +906,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -931,7 +931,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -949,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../systems/items-and-equipment/" class="md-nav__link">
+      <a href="../items-and-equipment/" class="md-nav__link">
         
   
   
@@ -974,10 +974,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../systems/shops-and-vendors/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 17: Shops and Vendors
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -993,6 +1020,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-shop-system-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the shop system works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How the shop system works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-4-standard-shop-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 4 Standard Shop Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-your-first-shop-in-5-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorial: Your first shop in 5 steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial: Your first shop in 5 steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-0-create-your-shop-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — Create your shop script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-shop-struct-shop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Define the shop struct (shop())
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configure-contextual-buy-and-sell-dialogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Configure contextual buy and sell dialogue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-add-conversational-talk-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Add conversational talk topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-build-the-overworld-storefront-shop_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Build the overworld storefront (shop_start)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overworld-vending-machines-shop_ow_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overworld Vending Machines (shop_ow_start)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-and-verify-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Test and verify checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animated-shopkeeper-portraits-o_shop_shopkeep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animated shopkeeper portraits (o_shop_shopkeep)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1005,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../systems/party-and-light-world/" class="md-nav__link">
+      <a href="../party-and-light-world/" class="md-nav__link">
         
   
   
@@ -1037,8 +1228,6 @@
       
   
   
-    
-  
   
   
     
@@ -1051,11 +1240,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
@@ -1076,7 +1267,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1091,37 +1282,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    enemy()
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
         
   
   
@@ -1137,175 +1301,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#identity" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Identity
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stats" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stats
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mercy-and-sparing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mercy and sparing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#acts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ACTs
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ACTs">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-shape-of-one-act" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The shape of one ACT
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-party-field" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The party field
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-exec-signature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The exec signature
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#text" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Text
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sprites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sprites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#battle-behaviour" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Battle behaviour
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hooks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        System fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Useful functions
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1318,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../enc-set/" class="md-nav__link">
+      <a href="../../reference/enc-set/" class="md-nav__link">
         
   
   
@@ -1346,7 +1341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../turn-object/" class="md-nav__link">
+      <a href="../../reference/turn-object/" class="md-nav__link">
         
   
   
@@ -1374,7 +1369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../item-struct/" class="md-nav__link">
+      <a href="../../reference/item-struct/" class="md-nav__link">
         
   
   
@@ -1402,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../shop-struct/" class="md-nav__link">
+      <a href="../../reference/shop-struct/" class="md-nav__link">
         
   
   
@@ -1457,77 +1452,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#identity" class="md-nav__link">
+  <a href="#how-the-shop-system-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Identity
+        How the shop system works
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stats" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stats
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mercy-and-sparing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mercy and sparing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#acts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ACTs
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ACTs">
+    <nav class="md-nav" aria-label="How the shop system works">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-shape-of-one-act" class="md-nav__link">
+  <a href="#the-4-standard-shop-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The shape of one ACT
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-party-field" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The party field
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-exec-signature" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The exec signature
+        The 4 Standard Shop Options
       
     </span>
   </a>
@@ -1540,10 +1480,104 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#text" class="md-nav__link">
+  <a href="#tutorial-your-first-shop-in-5-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Text
+        Tutorial: Your first shop in 5 steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial: Your first shop in 5 steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-0-create-your-shop-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — Create your shop script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-shop-struct-shop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Define the shop struct (shop())
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configure-contextual-buy-and-sell-dialogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Configure contextual buy and sell dialogue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-add-conversational-talk-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Add conversational talk topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-build-the-overworld-storefront-shop_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Build the overworld storefront (shop_start)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overworld-vending-machines-shop_ow_start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overworld Vending Machines (shop_ow_start)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-and-verify-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Test and verify checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animated-shopkeeper-portraits-o_shop_shopkeep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Animated shopkeeper portraits (o_shop_shopkeep)
       
     </span>
   </a>
@@ -1551,54 +1585,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sprites" class="md-nav__link">
+  <a href="#common-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Sprites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#battle-behaviour" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Battle behaviour
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hooks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        System fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Useful functions
+        Common problems
       
     </span>
   </a>
@@ -1622,425 +1612,231 @@
 
 
 
-<h1 id="reference-enemy">Reference: <code>enemy()</code><a class="headerlink" href="#reference-enemy" title="Permanent link">&para;</a></h1>
-<p>The struct that defines one creature. Base definition: <code>scripts/enc_enemies/enc_enemies.gml</code>.</p>
-<p>You define an enemy by inheriting from it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>function my_enemy() : enemy() constructor {
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    name = "Something"
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    // override only what you need — everything else has a usable default
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>}
-</code></pre></div>
-<div class="admonition danger">
-<p class="admonition-title">Misspelled fields never error</p>
-<p>GML structs accept any assignment. Writing <code>maxhp</code> creates a new field that nothing reads, with no warning. When a value seems to be ignored, check the spelling before anything else.</p>
-</div>
+<h1 id="shops-and-vendors">Shops and vendors<a class="headerlink" href="#shops-and-vendors" title="Permanent link">&para;</a></h1>
+<p>Shops in DELTARUNE are memorable character moments: cozy theme music, animated shopkeeper portraits, interactive item catalogs, and rich conversational dialogue.</p>
+<p>tlDR Engine implements two distinct shopping systems:
+1. <strong>Full Dedicated Shop Rooms</strong> (<code>shop_start()</code>) — transitions to the dedicated shop screen (<code>o_shop</code>) with an animated shopkeeper, buy/sell menus, conversation topics, and contextual dialogue reactions.
+2. <strong>Overworld Quick Shops / Vending Machines</strong> (<code>shop_ow_start()</code>) — opens a lightweight purchasing overlay directly in the overworld without leaving the current room.</p>
+<p>This chapter covers the shop architecture, followed by a step-by-step tutorial to create a custom vendor and vending machine.</p>
 <hr />
-<h2 id="identity">Identity<a class="headerlink" href="#identity" title="Permanent link">&para;</a></h2>
+<h2 id="how-the-shop-system-works">How the shop system works<a class="headerlink" href="#how-the-shop-system-works" title="Permanent link">&para;</a></h2>
+<p>A shop is defined as a struct inheriting from <strong><code>shop()</code></strong> (<code>scripts/shops/shops.gml</code>):</p>
+<pre class="mermaid"><code>graph TD
+    A["shop() Struct Definition"] --&gt; B["Full Shop Room: shop_start()"]
+    A --&gt; C["Overworld Vending: shop_ow_start()"]
+    B --&gt; D["Buy Menu (shop_option_buy)"]
+    B --&gt; E["Sell Menu (shop_option_sell)"]
+    B --&gt; F["Talk Menu (shop_option_talk)"]
+    B --&gt; G["Exit (shop_option_exit)"]</code></pre>
+<h3 id="the-4-standard-shop-options">The 4 Standard Shop Options<a class="headerlink" href="#the-4-standard-shop-options" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
+<th>Option Constructor</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>name</code></td>
-<td><code>"Test"</code></td>
-<td>Displayed name</td>
+<td><strong><code>new shop_option_buy(items, callback)</code></strong></td>
+<td>Catalog of items for sale, with dynamic dialogue reactions when purchasing, lacking funds, or when inventory is full.</td>
 </tr>
 <tr>
-<td><code>obj</code></td>
-<td><code>o_actor_e</code></td>
-<td>The actor object drawn on screen. Must inherit from <code>o_actor_e</code></td>
+<td><strong><code>new shop_option_sell([callback])</code></strong></td>
+<td>Allows the player to sell consumables, weapons, or armor for Dark Dollars ($).</td>
+</tr>
+<tr>
+<td><strong><code>new shop_option_talk(topics, [callback])</code></strong></td>
+<td>A submenu of lore topics and conversations that develop the shopkeeper's personality.</td>
+</tr>
+<tr>
+<td><strong><code>new shop_option_exit(leave_text)</code></strong></td>
+<td>Closes the shop and returns the player to the overworld.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="stats">Stats<a class="headerlink" href="#stats" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>hp</code></td>
-<td><code>170</code></td>
-<td>Current health</td>
-</tr>
-<tr>
-<td><code>max_hp</code></td>
-<td><code>170</code></td>
-<td>Maximum health — <strong>note the underscore</strong></td>
-</tr>
-<tr>
-<td><code>attack</code></td>
-<td><code>0</code></td>
-<td>Attack stat</td>
-</tr>
-<tr>
-<td><code>defense</code></td>
-<td><code>0</code></td>
-<td>Defence stat</td>
-</tr>
-<tr>
-<td><code>status_effect</code></td>
-<td><code>""</code></td>
-<td>Status text shown next to the name</td>
-</tr>
-<tr>
-<td><code>carrying_money</code></td>
-<td><code>0</code></td>
-<td>Money awarded on defeat</td>
-</tr>
-<tr>
-<td><code>element</code></td>
-<td><code>undefined</code></td>
-<td>Element, for resistance calculations</td>
-</tr>
-</tbody>
-</table>
-<h2 id="mercy-and-sparing">Mercy and sparing<a class="headerlink" href="#mercy-and-sparing" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>mercy</code></td>
-<td><code>0</code></td>
-<td>The MERCY bar, 0–100. <strong>At 100 the SPARE button becomes usable</strong></td>
-</tr>
-<tr>
-<td><code>can_spare</code></td>
-<td><code>true</code></td>
-<td>Whether this enemy is sparable at all. <strong>Must be a boolean</strong></td>
-</tr>
-<tr>
-<td><code>mercy_add_pity_percent</code></td>
-<td><code>20</code></td>
-<td>MERCY granted by a failed spare attempt</td>
-</tr>
-<tr>
-<td><code>no_mercy_text</code></td>
-<td><em>(a line)</em></td>
-<td>Shown when the player tries to spare too early</td>
-</tr>
-<tr>
-<td><code>tired</code></td>
-<td><code>false</code></td>
-<td>TIRED state. Mercy spells look for it</td>
-</tr>
-<tr>
-<td><code>low_hp_tired</code></td>
-<td><code>true</code></td>
-<td>Become TIRED automatically at low HP</td>
-</tr>
-<tr>
-<td><code>low_hp_tired_threshold</code></td>
-<td><code>1/2</code></td>
-<td>HP fraction below which that happens</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition danger">
-<p class="admonition-title"><code>can_spare</code> is a bool, never a function</p>
-<p>It is read in direct boolean context every frame while drawing the MERCY bar (<code>objects/o_enc/Draw_64.gml:229</code>) and again in <code>scripts/enc_actions/enc_actions.gml:369</code>. A method there crashes at runtime.</p>
-<p>"Only sparable when the bar is full" is already the default behaviour — the button is gated on <code>mercy &gt;= 100</code> (<code>objects/o_enc/Create_0.gml:184</code>), not on this field.</p>
-</div>
-<h2 id="acts">ACTs<a class="headerlink" href="#acts" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>acts</code></td>
-<td>one sample "Check"</td>
-<td>Array of ACT structs — the ACT submenu</td>
-</tr>
-<tr>
-<td><code>acts_special</code></td>
-<td><code>{}</code></td>
-<td>One entry per party member name, appearing in <strong>their</strong> MAGIC menu</td>
-</tr>
-<tr>
-<td><code>acts_special_desc</code></td>
-<td>localized</td>
-<td>Label for the special-action group</td>
-</tr>
-</tbody>
-</table>
-<h3 id="the-shape-of-one-act">The shape of one ACT<a class="headerlink" href="#the-shape-of-one-act" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    name: "Pet",                  // menu label
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    desc: "Scratch behind the ears",  // description panel
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    party: [],                    // who can use it — see below
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    tp_cost: 0,                   // optional, 0 by default
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    color: c_white,               // menu colour; may be callable
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    enabled: true,                // bool or function — greys the entry out
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    perform_act_anim: true,       // play the default ACT animation
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    return_to_idle_sprites: true, // restore idle sprites afterwards
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    exec: function(slot, user) { ... },
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    exec_args: []                 // extra arguments, appended after (slot, user)
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>}
+<hr />
+<h2 id="tutorial-your-first-shop-in-5-steps">Tutorial: Your first shop in 5 steps<a class="headerlink" href="#tutorial-your-first-shop-in-5-steps" title="Permanent link">&para;</a></h2>
+<p>Let's build a custom vendor — the <strong>Starlight Cafe</strong> — complete with items for sale, stock limits, conversational topics, and an overworld storefront.</p>
+<hr />
+<h3 id="step-0-create-your-shop-script">Step 0 — Create your shop script<a class="headerlink" href="#step-0-create-your-shop-script" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the GameMaker <strong>Asset Browser</strong>, right-click <code>scripts</code> $
+ightarrow$ <strong>Create</strong> $
+ightarrow$ <strong>Script</strong>.</li>
+<li>Name it <strong><code>my_game_shops</code></strong>.</li>
+</ol>
+<hr />
+<h3 id="step-1-define-the-shop-struct-shop">Step 1 — Define the shop struct (<code>shop()</code>)<a class="headerlink" href="#step-1-define-the-shop-struct-shop" title="Permanent link">&para;</a></h3>
+<p>In <code>my_game_shops.gml</code>, define your shop struct:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>function shop_starlight_cafe() : shop() constructor {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    // 1. Soundtrack and presentation
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    bgm = mus_ex_hip_shop;
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    bgm_gain = 0.95;
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    // 2. Greeting flavor text when entering the shop
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    flavor = "* Welcome to the Starlight Cafe! How can I help you today?";
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    // 3. Items available for purchase
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    var item1 = new item_star_candy();
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    var item2 = new item_star_cake();
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    var item3 = new item_w_starlight_sword();
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    // Set stock limits (infinity by default)
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    item3.shop_in_stock = 1; // Only 1 sword available in stock!
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    var shop_catalog = [item1, item2, item3];
 </code></pre></div>
-<h3 id="the-party-field">The <code>party</code> field<a class="headerlink" href="#the-party-field" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>[]</code></td>
-<td>Anyone can use it</td>
-</tr>
-<tr>
-<td><code>["susie"]</code></td>
-<td>Susie only</td>
-</tr>
-<tr>
-<td><code>["susie", "ralsei"]</code></td>
-<td>Joint ACT — requires <strong>both</strong> in the party, shows both icons</td>
-</tr>
-<tr>
-<td><code>-1</code></td>
-<td>Whole-party ACT</td>
-</tr>
-</tbody>
-</table>
-<p>Listing a character who is not in the party simply hides the entry, with no error.</p>
-<h3 id="the-exec-signature">The <code>exec</code> signature<a class="headerlink" href="#the-exec-signature" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>exec: function(slot, user) { ... }
+<hr />
+<h3 id="step-2-configure-contextual-buy-and-sell-dialogue">Step 2 — Configure contextual buy and sell dialogue<a class="headerlink" href="#step-2-configure-contextual-buy-and-sell-dialogue" title="Permanent link">&para;</a></h3>
+<p>Shopkeepers react dynamically to the player's actions via <code>SHOP_TALK_CONTEXT</code> enum values:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    options = [
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        // --- BUY MENU ---
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        new shop_option_buy(shop_catalog, function(context) {
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>            switch context {
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                case SHOP_TALK_CONTEXT.IDLE:
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                    return "* What catches your eye?";
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                case SHOP_TALK_CONTEXT.BOUGHT:
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                    return "* Thank you! A wonderful choice.";
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                case SHOP_TALK_CONTEXT.BOUGHT_STORAGE:
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                    return "* Your pockets were full, so I sent it to your STORAGE.";
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                case SHOP_TALK_CONTEXT.NOT_ENOUGH:
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                    return "* Oh dear... you don't have enough Dark Dollars for that.";
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                case SHOP_TALK_CONTEXT.NO_SPACE:
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>                    return "* You can't carry any more of that item!";
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                case SHOP_TALK_CONTEXT.CANCELED:
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                    return "* Changed your mind?";
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>            }
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        }),
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        // --- SELL MENU ---
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        new shop_option_sell(function(context) {
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>            switch context {
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                case SHOP_TALK_CONTEXT.IDLE:
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                    return "* Got something rare to trade in?";
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>                case SHOP_TALK_CONTEXT.SOLD:
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                    return "* Pleasure doing business with you!";
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>                case SHOP_TALK_CONTEXT.NO_ITEMS:
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>                    return "* You don't have anything to sell.";
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>                case SHOP_TALK_CONTEXT.REFUSE:
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>                    return "* I cannot buy key items from you.";
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>                case SHOP_TALK_CONTEXT.CANCELED:
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>                    return "* Keeping your gear? Smart.";
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>            }
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        }),
 </code></pre></div>
+<hr />
+<h3 id="step-3-add-conversational-talk-topics">Step 3 — Add conversational talk topics<a class="headerlink" href="#step-3-add-conversational-talk-topics" title="Permanent link">&para;</a></h3>
+<p>The <code>shop_option_talk</code> constructor takes an array of <code>__shop_talk_option(title, dialogue_text)</code> structs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>        // --- TALK MENU ---
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>        new shop_option_talk([
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>            new __shop_talk_option("About this cafe", [
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                "* This cafe was built from fallen stardust long ago.",
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                "* Travelers from all over the Dark World rest here."
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>            ]),
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            new __shop_talk_option("The Dark Fountain", [
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                "* The towering fountain to the east?",
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                "* It gives our world form... but beware the shadows near it."
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            ]),
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>            new __shop_talk_option("Your friends", [
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                "* That purple dragon girl looks fierce!",
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>                "* Make sure she gets plenty of snacks."
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>            ])
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        ], function(context) {
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            return "* What would you like to chat about?";
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        }),
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        // --- EXIT ---
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        new shop_option_exit("* Safe travels, Lightners! Come back soon.")
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    ];
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>}
+</code></pre></div>
+<hr />
+<h3 id="step-4-build-the-overworld-storefront-shop_start">Step 4 — Build the overworld storefront (<code>shop_start</code>)<a class="headerlink" href="#step-4-build-the-overworld-storefront-shop_start" title="Permanent link">&para;</a></h3>
+<p>Now let's place a shopkeeper NPC or stall in your overworld room that opens the shop:</p>
+<ol>
+<li>In your room on the <code>Instances</code> layer, place an <code>o_ow_npc</code> (or custom stand like <code>o_ex_ow_swatch_stand</code>).</li>
+<li>Set its sprite (e.g. <code>spr_ex_ow_npc_swatch</code>).</li>
+<li>In its <strong>Instance Creation Code</strong>, write:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Instance Creation Code of the shop NPC
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>return_marker = 1; // ID of the o_dev_marker_land where Kris spawns upon exiting
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>interaction_code = function() {
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    // Launch full shop room
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    shop_start(new shop_starlight_cafe(), room, return_marker);
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>};
+</code></pre></div>
+<p>Make sure there is an <strong><code>o_dev_marker_land</code></strong> with <code>m_id = 1</code> in your room so Kris lands in front of the counter when leaving the shop!</p>
+<hr />
+<h3 id="overworld-vending-machines-shop_ow_start">Overworld Vending Machines (<code>shop_ow_start</code>)<a class="headerlink" href="#overworld-vending-machines-shop_ow_start" title="Permanent link">&para;</a></h3>
+<p>For quick purchases (like soda machines or bake sale stands) where the player shouldn't leave the current overworld room:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Instance Creation Code of a vending machine (o_ex_ow_vending_machine)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>interaction_code = function() {
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    var quick_shop = new shop_starlight_cafe();
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    quick_shop.bgm = undefined;        // Don't interrupt room music
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    quick_shop.shopkeeper = undefined; // No shopkeeper portrait
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    // Open lightweight overworld shopping overlay
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    shop_ow_start(quick_shop);
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>};
+</code></pre></div>
+<hr />
+<h3 id="step-5-test-and-verify-checklist">Step 5 — Test and verify checklist<a class="headerlink" href="#step-5-test-and-verify-checklist" title="Permanent link">&para;</a></h3>
+<p>Run your game (<code>F5</code>) and test your new shop:</p>
 <ul>
-<li><code>slot</code> — the enemy's index in <code>o_enc.encounter_data.enemies</code></li>
-<li><code>user</code> — the <strong>name</strong> of the acting party member, a string (<code>"kris"</code>)</li>
-<li>Further arguments come from <code>exec_args</code>, in order</li>
+<li>[ ] Interacting with the shopkeeper transitions cleanly to the shop screen with <code>mus_ex_hip_shop</code>.</li>
+<li>[ ] The <strong>BUY</strong> menu displays the 3 items with their respective prices.</li>
+<li>[ ] Buying the <code>Starlight Sword</code> reduces stock to <code>0</code> and shows <code>SOLD OUT</code>.</li>
+<li>[ ] Attempting to buy without enough money displays the custom <code>NOT_ENOUGH</code> message.</li>
+<li>[ ] The <strong>TALK</strong> menu displays your 3 topics and renders the formatted dialogue.</li>
+<li>[ ] Selecting <strong>EXIT</strong> returns the party to <code>o_dev_marker_land</code> in the overworld.</li>
 </ul>
-<p>The engine calls it as <code>method_call(act.exec, array_concat([target, acting_member], exec_args))</code> (<code>scripts/enc_actions/enc_actions.gml:93</code>).</p>
-<div class="admonition warning">
-<p class="admonition-title"><code>self</code> is not the enemy inside <code>exec</code></p>
-<p>Unlike <code>dialogue</code>, <code>exec</code> lives inside a struct literal in an array, so it is not bound to the <code>enemy()</code>. Reach the enemy explicitly:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>var me = o_enc.encounter_data.enemies[slot];
-</code></pre></div>
-</div>
-<h2 id="text">Text<a class="headerlink" href="#text" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="animated-shopkeeper-portraits-o_shop_shopkeep">Animated shopkeeper portraits (<code>o_shop_shopkeep</code>)<a class="headerlink" href="#animated-shopkeeper-portraits-o_shop_shopkeep" title="Permanent link">&para;</a></h2>
+<p>To give your vendor an animated portrait in the shop screen:</p>
+<ol>
+<li>Create an object inheriting from <strong><code>o_shop_shopkeep</code></strong> (like <code>o_ex_shop_shopkeep_swatch</code>).</li>
+<li>Assign idle and talking sprites in its Create Event:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>event_inherited();
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>s_idle = spr_shopkeep_swatch_idle;
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>s_talk = spr_shopkeep_swatch_talk;
+</code></pre></div></li>
+<li>In your shop struct, assign the shopkeeper object:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>shopkeeper = o_my_custom_shopkeep;
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>shopkeeper_x = 160;
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>shopkeeper_y = 120;
+</code></pre></div></li>
+</ol>
+<p>When dialogue text scrolls, the shopkeeper automatically switches to <code>s_talk</code> and animates their mouth until the text pauses.</p>
+<hr />
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
+<th>Symptom</th>
+<th>Cause</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>dialogue</code></td>
-<td><code>"Test"</code></td>
-<td>The speech bubble each round. String, or a function</td>
+<td>Exiting the shop spawns Kris at <code>(0, 0)</code></td>
+<td>Missing <code>o_dev_marker_land</code> with matching <code>m_id</code> in the return room</td>
 </tr>
 <tr>
-<td><code>dia_bubble_off_x</code> / <code>_off_y</code></td>
-<td><code>0</code></td>
-<td>Bubble offset</td>
+<td>Shop items show cost 0</td>
+<td><code>buy_price</code> was omitted or set to 0 in the item struct definition</td>
 </tr>
 <tr>
-<td><code>dia_bubble_off_type</code></td>
-<td><code>BUBBLE_RELATIVE.TO_DEFAULT_POS</code></td>
-<td>What the offset is relative to</td>
+<td>Shop crashes on talk option</td>
+<td>Topic dialogue array was not formatted as string array or string</td>
 </tr>
 <tr>
-<td><code>dia_bubble_sprites</code></td>
-<td>box + spike</td>
-<td>Bubble sprites</td>
+<td>Vending machine crashes</td>
+<td>Used <code>shop_start()</code> instead of <code>shop_ow_start()</code> without setting return room</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title"><code>dialogue</code> receives no arguments</p>
-<p>The base's comment claims it can take the slot as arg0, but the call site is <code>variable_callable_to_value(enemies[i].dialogue)</code> — <strong>with no arguments</strong> (<code>objects/o_enc/Step_0.gml:254</code>). Writing <code>function(slot)</code> gives you <code>undefined</code>.</p>
-<p>If you need the index, use <code>self.slot</code>, which the engine fills in (<code>objects/o_enc_anim/Alarm_1.gml:69</code>). To read your own fields from inside, define it with <code>method(self, function() { ... })</code>.</p>
-</div>
-<div class="admonition info">
-<p class="admonition-title">The bubble uses a different font</p>
-<p>It is rendered with <code>{preset(enemy_text)}</code>, which switches the font to <code>loc_font("enc")</code> — a <strong>different asset</strong> from ordinary dialogue. See <a href="../../getting-started/fonts-and-accents/">Fonts and accents</a>.</p>
-</div>
-<h2 id="sprites">Sprites<a class="headerlink" href="#sprites" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>s_idle</code></td>
-<td>virovirokun</td>
-<td>Idle</td>
-</tr>
-<tr>
-<td><code>s_hurt</code></td>
-<td>virovirokun</td>
-<td>Taking damage</td>
-</tr>
-<tr>
-<td><code>s_spare</code></td>
-<td>virovirokun</td>
-<td>After being spared</td>
-</tr>
-</tbody>
-</table>
-<p><code>s_idle</code> is swapped to <code>s_spare</code> automatically when mercy reaches 100 (<code>scripts/enc_scripts/enc_scripts.gml:111</code>).</p>
-<h2 id="battle-behaviour">Battle behaviour<a class="headerlink" href="#battle-behaviour" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Default</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>turn_object</code></td>
-<td><code>o_turn_default</code></td>
-<td>The object that runs this enemy's attack</td>
-</tr>
-<tr>
-<td><code>freezable</code></td>
-<td><code>false</code></td>
-<td>Can be frozen</td>
-</tr>
-<tr>
-<td><code>defeat_marker</code></td>
-<td><code>0</code></td>
-<td><code>m_id</code> of the marker where it lands on defeat</td>
-</tr>
-<tr>
-<td><code>run_away</code></td>
-<td><code>true</code></td>
-<td>Flees on fatal damage; <code>false</code> means it dies</td>
-</tr>
-<tr>
-<td><code>hurt_sound</code></td>
-<td><code>snd_hurt</code></td>
-<td>Damage sound</td>
-</tr>
-<tr>
-<td><code>recruit</code></td>
-<td><code>new enemy_recruit()</code></td>
-<td>Recruitment data</td>
-</tr>
-</tbody>
-</table>
-<h2 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
-<p>All default to <code>-1</code> (disabled). Assign a function to activate.</p>
-<table>
-<thead>
-<tr>
-<th>Hook</th>
-<th>Called</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ev_init</code></td>
-<td>one frame after <code>o_enc</code> is created</td>
-</tr>
-<tr>
-<td><code>ev_pre_dialogue</code></td>
-<td>before the dialogue phase</td>
-</tr>
-<tr>
-<td><code>ev_party_exec</code></td>
-<td>when party actions execute</td>
-</tr>
-<tr>
-<td><code>ev_dialogue</code></td>
-<td>during the dialogue phase, after turn objects exist</td>
-</tr>
-<tr>
-<td><code>ev_turn</code></td>
-<td>during the turn</td>
-</tr>
-<tr>
-<td><code>ev_turn_start</code></td>
-<td>as the defence phase begins</td>
-</tr>
-<tr>
-<td><code>ev_post_turn</code></td>
-<td>after the turn — <strong><code>turn_count</code> has already been incremented</strong></td>
-</tr>
-<tr>
-<td><code>ev_win</code></td>
-<td>on victory</td>
-</tr>
-<tr>
-<td><code>ev_hurt</code></td>
-<td>when the enemy is hurt</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="admonition-title"><code>ev_hurt</code> runs before the damage is applied</p>
-<p>In <code>scripts/enc_scripts/enc_scripts.gml:31</code> the hook is called first, and <code>enemy_struct.hp -= hurt</code> comes after. The <code>hp</code> you read inside is the pre-hit value. It is also called with <strong>no arguments</strong>.</p>
-</div>
-<p>To read your own fields inside a hook, bind it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ev_hurt = method(self, function() {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    if hp &lt;= max_hp * 0.4
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        mood = "annoyed"
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>})
-</code></pre></div>
-<h2 id="system-fields">System fields<a class="headerlink" href="#system-fields" title="Permanent link">&para;</a></h2>
-<p>Set by the engine. Read them; do not assign them.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>actor_id</code></td>
-<td>The on-screen instance of this enemy</td>
-</tr>
-<tr>
-<td><code>slot</code></td>
-<td>This enemy's index in the encounter</td>
-</tr>
-</tbody>
-</table>
-<p><code>actor_id</code> is how you animate the creature during its own attack — the turn object reaches it through <code>enemy_struct.actor_id</code>.</p>
-<h2 id="useful-functions">Useful functions<a class="headerlink" href="#useful-functions" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>enc_enemy_add_spare(slot, percent, sfx)        // add MERCY
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>enc_enemy_add_spare_from_var(slot, inst, var)  // MERCY from a variable
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>enc_enemy_set_tired(slot, true)                // set TIRED
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>enc_hurt_enemy(slot, amount, user, sfx, fatal) // deal damage
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>enc_enemy_is_fighting(slot)                    // still in the fight?
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>enc_enemy_count(only_alive)                    // how many enemies
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>party_heal(name, amount, caller)               // heal a party member
-</code></pre></div>
 
 
 

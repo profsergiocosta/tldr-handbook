@@ -14,10 +14,10 @@
       
       
       
-        <link rel="prev" href="../../getting-started/fonts-and-accents/">
+        <link rel="prev" href="../turn-object/">
       
       
-        <link rel="next" href="../npcs-and-dialogue/">
+        <link rel="next" href="../shop-struct/">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 3: Rooms and Collision - The tlDR Engine Handbook</title>
+        <title>item() - The tlDR Engine Handbook</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rooms-and-collision" class="md-skip">
+        <a href="#reference-item" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 3: Rooms and Collision
+              item()
             
           </span>
         </div>
@@ -406,8 +406,6 @@
       
   
   
-    
-  
   
   
     
@@ -420,11 +418,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -445,7 +445,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -460,37 +460,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 3: Rooms and Collision
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../overworld/rooms-and-collision/" class="md-nav__link">
         
   
   
@@ -506,187 +479,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The two objects every room needs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Walls
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Walls">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The collide flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How movement resolves collisions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Moving between rooms
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Moving between rooms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Triggers
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Stretch the instance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. o_trigger fires once
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. The player must be in control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common problems
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -699,7 +491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../npcs-and-dialogue/" class="md-nav__link">
+      <a href="../../overworld/npcs-and-dialogue/" class="md-nav__link">
         
   
   
@@ -727,7 +519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tiles-and-tilesets/" class="md-nav__link">
+      <a href="../../overworld/tiles-and-tilesets/" class="md-nav__link">
         
   
   
@@ -755,7 +547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../your-first-room/" class="md-nav__link">
+      <a href="../../overworld/your-first-room/" class="md-nav__link">
         
   
   
@@ -783,7 +575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cutscenes/" class="md-nav__link">
+      <a href="../../overworld/cutscenes/" class="md-nav__link">
         
   
   
@@ -811,7 +603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../climbing/" class="md-nav__link">
+      <a href="../../overworld/climbing/" class="md-nav__link">
         
   
   
@@ -839,7 +631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hazards-and-chases/" class="md-nav__link">
+      <a href="../../overworld/hazards-and-chases/" class="md-nav__link">
         
   
   
@@ -867,7 +659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../shortcuts-and-triggers/" class="md-nav__link">
+      <a href="../../overworld/shortcuts-and-triggers/" class="md-nav__link">
         
   
   
@@ -895,7 +687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lighting-and-atmosphere/" class="md-nav__link">
+      <a href="../../overworld/lighting-and-atmosphere/" class="md-nav__link">
         
   
   
@@ -1245,8 +1037,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -1257,13 +1051,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
@@ -1284,7 +1076,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1302,7 +1094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/enemy-struct/" class="md-nav__link">
+      <a href="../enemy-struct/" class="md-nav__link">
         
   
   
@@ -1330,7 +1122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/enc-set/" class="md-nav__link">
+      <a href="../enc-set/" class="md-nav__link">
         
   
   
@@ -1358,7 +1150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/turn-object/" class="md-nav__link">
+      <a href="../turn-object/" class="md-nav__link">
         
   
   
@@ -1383,10 +1175,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../reference/item-struct/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    item()
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1402,6 +1221,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#identity-presentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identity &amp; Presentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage &amp; Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#equippables-weapons-item_weapon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equippables &amp; Weapons (item_weapon)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dual-world-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual-World Transformations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#economy-shops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Economy &amp; Shops
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1414,7 +1308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/shop-struct/" class="md-nav__link">
+      <a href="../shop-struct/" class="md-nav__link">
         
   
   
@@ -1469,10 +1363,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
+  <a href="#identity-presentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The two objects every room needs
+        Identity &amp; Presentation
       
     </span>
   </a>
@@ -1480,10 +1374,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
+  <a href="#usage-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer layout
+        Usage &amp; Execution
       
     </span>
   </a>
@@ -1491,138 +1385,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
+  <a href="#equippables-weapons-item_weapon" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Walls
+        Equippables &amp; Weapons (item_weapon)
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Walls">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The collide flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How movement resolves collisions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
+  <a href="#dual-world-transformations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Moving between rooms
+        Dual-World Transformations
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Moving between rooms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
+  <a href="#economy-shops" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Triggers
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Stretch the instance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. o_trigger fires once
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. The player must be in control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common problems
+        Economy &amp; Shops
       
     </span>
   </a>
@@ -1646,278 +1434,185 @@
 
 
 
-<h1 id="rooms-and-collision">Rooms and collision<a class="headerlink" href="#rooms-and-collision" title="Permanent link">&para;</a></h1>
-<p>A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.</p>
-<h2 id="the-two-objects-every-room-needs">The two objects every room needs<a class="headerlink" href="#the-two-objects-every-room-needs" title="Permanent link">&para;</a></h2>
-<p>Drop these into any new room and it will boot:</p>
-<table>
-<thead>
-<tr>
-<th>Object</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>o_dev_world</code></strong></td>
-<td>The controller. It calls <code>world_switch(world)</code> on creation, which sets <code>global.world</code> and converts party equipment accordingly. Without it, nothing initialises.</td>
-</tr>
-<tr>
-<td><strong><code>o_dev_playermarker</code></strong></td>
-<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them, and automatically points the camera at the leader.</td>
-</tr>
-</tbody>
-</table>
-<p><code>o_dev_world</code> has one Variable Definition worth knowing: <strong><code>world</code></strong>, which is <code>WORLD_TYPE.DARK</code> by default. Set it to <code>WORLD_TYPE.LIGHT</code> for Light World rooms — party sprites and equipment switch accordingly (<code>scripts/party_scripts/party_scripts.gml:240</code>).</p>
+<h1 id="reference-item">Reference: <code>item()</code><a class="headerlink" href="#reference-item" title="Permanent link">&para;</a></h1>
+<p>The base struct that defines all consumables, key items, weapons, armors, and spells. Defined in <code>scripts/item/item.gml</code>.</p>
+<p>You define an item by inheriting from <code>item()</code> (or <code>item_weapon()</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>function my_item() : item() constructor {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    name = ["MyItem", "My Item"];
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    // override only what you need — everything else has a usable default
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>}
+</code></pre></div>
 <div class="admonition danger">
-<p class="admonition-title">Do NOT place <code>o_camera</code> in your rooms</p>
-<p><code>o_camera</code> is a <strong>persistent singleton</strong> spawned globally by <code>o_world</code> at game startup (<code>objects/o_world/Other_2.gml:6</code>). Placing a manual instance of <code>o_camera</code> inside a room creates a second camera whose target is <code>noone</code> at <code>(0, 0)</code>, which steals <code>view_camera[0]</code> and <strong>turns the entire screen pitch black</strong>.</p>
-<p>Leave the camera to the engine — <code>o_dev_playermarker</code> automatically finds the global camera and binds it to your party leader.</p>
+<p class="admonition-title">Misspelled fields never error</p>
+<p>GML structs accept any assignment. Writing <code>buyprice</code> instead of <code>buy_price</code> creates a dead field that nothing reads, with no warning. When a value seems to be ignored, check the spelling first.</p>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Start from an example room</p>
-<p><code>room_ex_city</code>, <code>room_ex_church</code> and <code>room_ex_dforest</code> are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.</p>
-</div>
-<h2 id="layer-layout">Layer layout<a class="headerlink" href="#layer-layout" title="Permanent link">&para;</a></h2>
-<p>Rooms are organised by depth, and the engine's own rooms follow a consistent order. This is <code>room_ex_city</code>, top to bottom:</p>
+<hr />
+<h2 id="identity-presentation">Identity &amp; Presentation<a class="headerlink" href="#identity-presentation" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: right;">Depth</th>
-<th>Layer</th>
-<th>Kind</th>
-<th>Contents</th>
+<th>Field</th>
+<th>Default</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;"><code>-4000</code></td>
-<td><code>t_foreground</code></td>
-<td>tiles</td>
-<td>tiles drawn <strong>over</strong> the player — awnings, treetops, foreground clutter</td>
+<td><code>name</code></td>
+<td><code>["Item"]</code></td>
+<td>Name array: <code>[short_name, long_name]</code> or single string. Short name is used in menu grids.</td>
 </tr>
 <tr>
-<td style="text-align: right;"><code>0</code></td>
-<td><code>collisions</code></td>
-<td>instances</td>
-<td><code>o_block</code> and <code>o_block_diag</code> — the walls</td>
+<td><code>desc</code></td>
+<td><code>["..."]</code></td>
+<td>Description array: <code>[overworld_desc, battle_desc, action_desc, shop_desc]</code>.</td>
 </tr>
 <tr>
-<td style="text-align: right;"><code>200</code></td>
-<td><code>decor</code></td>
-<td>instances</td>
-<td>props that do not block</td>
+<td><code>type</code></td>
+<td><code>ITEM_TYPE.CONSUMABLE</code></td>
+<td>Type enum: <code>CONSUMABLE</code>, <code>KEY</code>, <code>WEAPON</code>, <code>ARMOR</code>, <code>SPELL</code>, <code>STORAGE</code>, <code>LIGHT</code>.</td>
 </tr>
 <tr>
-<td style="text-align: right;"><code>300</code></td>
-<td><code>Instances</code></td>
-<td>instances</td>
-<td>NPCs, triggers, the player marker, <code>o_dev_world</code></td>
+<td><code>icon</code></td>
+<td><code>spr_ui_menu_icon_exclamation</code></td>
+<td>Icon sprite rendered next to the item in menus.</td>
 </tr>
 <tr>
-<td style="text-align: right;"><code>400</code></td>
-<td><code>area</code></td>
-<td>folder</td>
-<td>grouping only</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>500</code></td>
-<td><code>t_buildingstop</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>600</code></td>
-<td><code>t_buildings</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>700</code></td>
-<td><code>t_grounddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>800</code></td>
-<td><code>t_roaddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1000</code></td>
-<td><code>t_road</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1200</code></td>
-<td><code>Background</code></td>
-<td>background</td>
-<td>flat colour behind everything</td>
+<td><code>color</code></td>
+<td><code>c_white</code></td>
+<td>Text color tint in inventory menus.</td>
 </tr>
 </tbody>
 </table>
-<p>Remember: <strong>in GameMaker, a larger depth is further back.</strong> The foreground tile layer is at <code>-4000</code> precisely so it draws in front of the party.</p>
-<p>You do not have to match this exactly, but keeping collisions at <code>0</code> and instances around <code>300</code> means you can copy code and creation snippets between rooms without surprises.</p>
-<h2 id="walls">Walls<a class="headerlink" href="#walls" title="Permanent link">&para;</a></h2>
-<p>Collision is instance-based, not tile-based. Two objects do the work:</p>
+<hr />
+<h2 id="usage-execution">Usage &amp; Execution<a class="headerlink" href="#usage-execution" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Object</th>
-<th>Shape</th>
+<th>Field</th>
+<th>Default</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong><code>o_block</code></strong></td>
-<td>Axis-aligned rectangles. The workhorse.</td>
+<td><code>use_type</code></td>
+<td><code>ITEM_USE.INDIVIDUAL</code></td>
+<td>Target scope: <code>ITEM_USE.INDIVIDUAL</code>, <code>ITEM_USE.EVERYONE</code>, or <code>ITEM_USE.ENEMY</code>.</td>
 </tr>
 <tr>
-<td><strong><code>o_block_diag</code></strong></td>
-<td>Diagonals — slopes the player slides along.</td>
+<td><code>can_use</code></td>
+<td><code>true</code></td>
+<td>Boolean or callable returning whether the item can currently be selected.</td>
+</tr>
+<tr>
+<td><code>use</code></td>
+<td><code>function(item_index, target_index, caller)</code></td>
+<td>Executed when used in Overworld or Battle. You must call <code>item_delete(item_index)</code> for consumables.</td>
+</tr>
+<tr>
+<td><code>tp_cost</code></td>
+<td><code>0</code></td>
+<td>Tension Points (0–100) required to cast (for spells).</td>
+</tr>
+<tr>
+<td><code>reactions</code></td>
+<td><code>{}</code></td>
+<td>Struct containing party comment quotes, e.g. <code>{ susie: "Yum!", ralsei: "Sweet!" }</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>Place them on the <code>collisions</code> layer, stretch them over whatever should be solid, and that is it. They are invisible at runtime.</p>
-<h3 id="the-collide-flag">The <code>collide</code> flag<a class="headerlink" href="#the-collide-flag" title="Permanent link">&para;</a></h3>
-<p><code>o_block</code> has exactly one variable, set in its Create event:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// objects/o_block/Create_0.gml
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>collide = true
-</code></pre></div>
-<p>The player's movement code checks it on every instance it touches (<code>objects/o_actor/Step_0.gml:180</code>), which means <strong>you can turn a wall off at runtime</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// a door that opens
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>with (my_door_block)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    collide = false;
-</code></pre></div>
-<p>This is much simpler than destroying and recreating instances, and it keeps the wall in the room editor where you can see it.</p>
-<h3 id="how-movement-resolves-collisions">How movement resolves collisions<a class="headerlink" href="#how-movement-resolves-collisions" title="Permanent link">&para;</a></h3>
-<p>Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (<code>objects/o_actor/Step_0.gml:176</code> and <code>:194</code>). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.</p>
-<p>Diagonal blocks get a second pass (<code>:229</code>) that also checks whether a regular <code>o_block</code> is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.</p>
-<div class="admonition warning">
-<p class="admonition-title">Blocks are not for the battle arena</p>
-<p>The soul inside a battle collides with <code>o_enc_box_solid</code>, not <code>o_block</code>. They are separate systems — see <a href="../../battle-system/the-arena/">The arena</a>.</p>
-</div>
-<h2 id="moving-between-rooms">Moving between rooms<a class="headerlink" href="#moving-between-rooms" title="Permanent link">&para;</a></h2>
-<h3 id="the-simple-way">The simple way<a class="headerlink" href="#the-simple-way" title="Permanent link">&para;</a></h3>
-<p>Anywhere you can run code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>room_goto(room_my_next_area);
-</code></pre></div>
-<p>Fine for prototyping, but the party will spawn at that room's <code>o_dev_playermarker</code>, which is rarely where you want them to arrive.</p>
-<h3 id="the-proper-way-warp-triggers">The proper way: warp triggers<a class="headerlink" href="#the-proper-way-warp-triggers" title="Permanent link">&para;</a></h3>
-<p>Use <strong><code>o_trigger_warp</code></strong>. It fades out, changes room, and then places the leader at a <strong>landing marker</strong> with a chosen facing direction (<code>objects/o_trigger_warp/Alarm_0.gml</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir);
-</code></pre></div>
-<p>So the recipe for a doorway is:</p>
-<ol>
-<li>Put an <strong><code>o_dev_marker_land</code></strong> in the destination room where the player should appear, and give it an <code>m_id</code>.</li>
-<li>Put an <strong><code>o_trigger_warp</code></strong> in the source room over the doorway.</li>
-<li>Fill in its Variable Definitions: the target room, the target marker's <code>m_id</code>, and the facing direction on arrival.</li>
-<li>Stretch it (see below).</li>
-</ol>
-<p><code>MARKER_LAND</code> is just the string <code>"land"</code> (<code>scripts/macro_markers/macro_markers.gml:4</code>) — markers are grouped by kind, and landing spots are one kind.</p>
-<h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h2>
-<p><code>o_trigger</code> runs your code when the player walks into it. It is the general-purpose "something happens here" object. Put the code in the instance's <strong>Instance Creation Code</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>trigger_code = function() {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    cutscene_create();
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    cutscene_dialogue("* (The floor creaks.)");
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    cutscene_play();
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>}
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>trigger_exit_code = function() {
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    triggered = false;      // re-arm when the player leaves
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>}
-</code></pre></div>
-<p>Three things about triggers cause almost all the confusion, and none of them are about the code.</p>
-<h3 id="1-stretch-the-instance">1. Stretch the instance<a class="headerlink" href="#1-stretch-the-instance" title="Permanent link">&para;</a></h3>
-<p><code>spr_trigger</code> is <strong>20×20 pixels</strong> with its origin at the top-left corner, and <code>o_trigger</code> is invisible at runtime. A default-sized trigger is a tiny invisible square the player walks straight past.</p>
-<p>The engine's own triggers are all stretched. In <code>room_ex_church</code>:</p>
+<hr />
+<h2 id="equippables-weapons-item_weapon">Equippables &amp; Weapons (<code>item_weapon</code>)<a class="headerlink" href="#equippables-weapons-item_weapon" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instance</th>
-<th>scaleX</th>
-<th>scaleY</th>
-<th>Actual size</th>
+<th>Field</th>
+<th>Default</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>inst_64FAB75A</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
+<td><code>stats</code></td>
+<td><code>{ attack: 0, defense: 0, magic: 0 }</code></td>
+<td>Struct with stat modifiers added to the character's base stats.</td>
 </tr>
 <tr>
-<td><code>inst_2B13ACD5</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
+<td><code>weapon_whitelist</code></td>
+<td><code>[]</code></td>
+<td>Array of party character names permitted to equip this weapon (e.g. <code>["kris", "susie"]</code>).</td>
 </tr>
 <tr>
-<td><code>inst_2838B310</code></td>
-<td>5.0</td>
-<td>2.0</td>
-<td>100 × 40</td>
+<td><code>effect</code></td>
+<td><code>undefined</code></td>
+<td>Struct with <code>{ text: "...", sprite: ... }</code> shown in the EQUIP status panel.</td>
+</tr>
+<tr>
+<td><code>apply</code></td>
+<td><code>function(party_name)</code></td>
+<td>Custom hook called when equipped.</td>
+</tr>
+<tr>
+<td><code>deapply</code></td>
+<td><code>function(party_name)</code></td>
+<td>Custom hook called when unequipped.</td>
 </tr>
 </tbody>
 </table>
-<p>Drag the instance handles in the room editor until it covers the whole passage.</p>
-<h3 id="2-o_trigger-fires-once">2. <code>o_trigger</code> fires once<a class="headerlink" href="#2-o_trigger-fires-once" title="Permanent link">&para;</a></h3>
-<p>The entry event sets <code>triggered = true</code> and <strong>nothing in the engine sets it back</strong>. The exit event only touches <code>trigger_exit</code> (<code>objects/o_trigger/Other_11.gml</code>). If you want it to fire again, reset it yourself in <code>trigger_exit_code</code>, as in the snippet above — this is the engine's own idiom (<code>rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13</code>).</p>
-<p>One-shot is often what you want, though. A trigger that starts a boss fight should not restart it when the player walks back.</p>
-<h3 id="3-the-player-must-be-in-control">3. The player must be in control<a class="headerlink" href="#3-the-player-must-be-in-control" title="Permanent link">&para;</a></h3>
-<p>With <code>controlled_activation = true</code> (the default), the trigger only fires when <code>get_leader()._checkmove()</code> is true (<code>objects/o_trigger/Step_0.gml:4</code>). That function requires <code>moveable_console</code>, <code>moveable_dialogue</code>, <code>moveable_battle</code> and several others to all be true (<code>objects/o_actor/Create_0.gml:197</code>).</p>
-<p>In practice: <strong>with the console open (<span class="keys"><kbd class="key-tab">Tab</kbd></span>), no trigger fires.</strong> If you want a trigger that works regardless — room edges, for instance — set <code>controlled_activation = false</code> in the Creation Code.</p>
-<div class="admonition tip">
-<p class="admonition-title">30-second diagnosis</p>
-<p>Put <code>show_debug_message("&gt;&gt;&gt; TRIGGER FIRED")</code> as the first line of <code>trigger_code</code>. If it never prints in the Output window while you walk over it, the problem is collision (1) or control (3), not your code.</p>
-</div>
-<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="dual-world-transformations">Dual-World Transformations<a class="headerlink" href="#dual-world-transformations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Symptom</th>
-<th>Cause</th>
+<th>Field</th>
+<th>Default</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>The room is black and nothing responds</td>
-<td>no <code>o_dev_world</code> in the room</td>
+<td><code>lw_counterpart</code></td>
+<td><code>undefined</code></td>
+<td>Script reference to the Light World item struct this item transforms into.</td>
 </tr>
 <tr>
-<td>The screen is pitch black even with <code>o_dev_world</code></td>
-<td>you placed an <code>o_camera</code> in the room — delete it (<code>o_camera</code> is a global singleton)</td>
+<td><code>dw_counterpart</code></td>
+<td><code>undefined</code></td>
+<td>Script reference to the Dark World item struct this item transforms into.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="economy-shops">Economy &amp; Shops<a class="headerlink" href="#economy-shops" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>buy_price</code></td>
+<td><code>0</code></td>
+<td>Cost in Dark Dollars ($) when purchased in shops.</td>
 </tr>
 <tr>
-<td>The party never appears</td>
-<td>no <code>o_dev_playermarker</code></td>
+<td><code>sell_price</code></td>
+<td><code>undefined</code></td>
+<td>Sale price when sold to vendors (defaults to half of <code>buy_price</code> if undefined).</td>
 </tr>
 <tr>
-<td>The player walks through a wall</td>
-<td>the <code>o_block</code> is on a layer the player does not collide with, or <code>collide</code> was set to <code>false</code></td>
+<td><code>shop_in_stock</code></td>
+<td><code>infinity</code></td>
+<td>Number of copies available for purchase in shop inventories.</td>
 </tr>
 <tr>
-<td>A trigger never fires</td>
-<td>the instance is still 20×20 — stretch it</td>
-</tr>
-<tr>
-<td>A trigger fires once and never again</td>
-<td>expected; reset <code>triggered</code> in <code>trigger_exit_code</code></td>
-</tr>
-<tr>
-<td>No trigger fires while you are testing</td>
-<td>the console is open</td>
-</tr>
-<tr>
-<td>Foreground tiles draw behind the player</td>
-<td>depth is positive; foreground needs a negative depth</td>
-</tr>
-<tr>
-<td>Warping lands the party in the wrong spot</td>
-<td>the destination has no <code>o_dev_marker_land</code> with the <code>m_id</code> you referenced</td>
+<td><code>can_sell</code></td>
+<td><code>true</code></td>
+<td>Whether vendors will accept this item for purchase.</td>
 </tr>
 </tbody>
 </table>
