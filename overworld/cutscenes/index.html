@@ -1,0 +1,1958 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../your-first-room/">
+      
+      
+        <link rel="next" href="../climbing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ch 7: Cutscenes and Camera - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cutscenes-and-camera" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 7: Cutscenes and Camera
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../your-first-room/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: Your First Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Cutscenes and Camera
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Cutscenes and Camera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-cutscene-queue-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the cutscene queue works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fundamental-rule-always-open-and-close-cleanly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fundamental rule: always open and close cleanly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-dialogue-in-cutscenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Dialogue in cutscenes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Dialogue in cutscenes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-dialogue-wait-for-confirm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronous dialogue (Wait for confirm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-dialogue-talk-while-moving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous dialogue (Talk while moving)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waiting-for-specific-dialogue-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for specific dialogue boxes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-moving-actors-and-party-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Moving actors and party members
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Moving actors and party members">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-party-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding party members
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linear-movement-actor_movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear movement (actor_movement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jumping-into-position-actor_movement_jump_into" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jumping into position (actor_movement_jump_into)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-controlling-sprites-and-animations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Controlling sprites and animations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Controlling sprites and animations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#facing-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facing direction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overriding-standard-walk-cycles-cutscene_actor_override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overriding standard walk cycles (cutscene_actor_override)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-camera-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Camera choreography
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Camera choreography">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panning-the-camera-camera_pan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panning the camera (camera_pan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locking-an-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locking an axis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-running-arbitrary-gml-cutscene_func" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Running arbitrary GML (cutscene_func)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-one-time-cutscenes-with-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. One-time cutscenes with Memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-walkthrough-a-team-discovery-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete walkthrough: A team discovery scene
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../climbing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: Climbing and Traversal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hazards-and-chases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Hazards and Dodging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortcuts-and-triggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 10: Shortcuts and Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lighting-and-atmosphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 11: Lighting and Atmosphere
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 12: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 13: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 14: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 15: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-cutscene-queue-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the cutscene queue works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fundamental-rule-always-open-and-close-cleanly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fundamental rule: always open and close cleanly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-dialogue-in-cutscenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Dialogue in cutscenes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Dialogue in cutscenes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-dialogue-wait-for-confirm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronous dialogue (Wait for confirm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-dialogue-talk-while-moving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous dialogue (Talk while moving)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waiting-for-specific-dialogue-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for specific dialogue boxes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-moving-actors-and-party-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Moving actors and party members
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Moving actors and party members">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-party-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding party members
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linear-movement-actor_movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear movement (actor_movement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jumping-into-position-actor_movement_jump_into" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jumping into position (actor_movement_jump_into)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-controlling-sprites-and-animations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Controlling sprites and animations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Controlling sprites and animations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#facing-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facing direction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overriding-standard-walk-cycles-cutscene_actor_override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overriding standard walk cycles (cutscene_actor_override)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-camera-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Camera choreography
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Camera choreography">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panning-the-camera-camera_pan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panning the camera (camera_pan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locking-an-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locking an axis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-running-arbitrary-gml-cutscene_func" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Running arbitrary GML (cutscene_func)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-one-time-cutscenes-with-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. One-time cutscenes with Memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-walkthrough-a-team-discovery-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete walkthrough: A team discovery scene
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cutscenes-and-camera">Cutscenes and camera<a class="headerlink" href="#cutscenes-and-camera" title="Permanent link">&para;</a></h1>
+<p>In tlDR Engine, cinematic sequences are not hardcoded timers or complex timeline assets. They are built using a clean, asynchronous <strong>event queue</strong> (<code>scripts/cutscenes/cutscenes.gml</code>). You queue up a list of actions — dialogues, actor movements, sound effects, camera pans, variable changes — and the engine executes them sequentially frame-by-frame.</p>
+<p>This chapter covers how the cutscene sequencer works, how to command party members, how to choreograph the camera, and how to make events trigger only once using the memory system.</p>
+<hr />
+<h2 id="how-the-cutscene-queue-works">How the cutscene queue works<a class="headerlink" href="#how-the-cutscene-queue-works" title="Permanent link">&para;</a></h2>
+<p>When you call <code>cutscene_create()</code>, the engine instantiates a <code>cutscene</code> struct (<code>scripts/cutscenes/cutscenes.gml:3</code>) and binds it as <code>global.current_cutscene</code>. Every subsequent <code>cutscene_*</code> helper pushes an event into its internal <code>queue</code> array.</p>
+<p>When you call <code>cutscene_play()</code>, the engine starts a continuous <code>time_source</code> loop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph LR
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["cutscene_create()"] --&gt; B["Queue Events: move, dialogue, camera..."]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt; C["cutscene_play()"]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt; D["Execute Event 0"]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    D --&gt; E{"Resume condition met?"}
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    E -- No --&gt; D
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    E -- Yes --&gt; F["Destroy Event 0 &amp; Pop next"]
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    F --&gt; D
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    F -- Queue empty --&gt; G["Destroy Cutscene &amp; Resume normal play"]
+</code></pre></div>
+<p>Each event has four optional stages (<code>scripts/cutscene_events/cutscene_events.gml:6</code>):
+1. <strong><code>call</code></strong>: Executed immediately when the event begins.
+2. <strong><code>step</code></strong>: Executed every single frame while the event is active.
+3. <strong><code>resume_condition</code></strong>: A function returning <code>true</code> when the event is finished (e.g. when a dialogue window closes or an actor arrives at its destination).
+4. <strong><code>finish</code></strong>: Executed right before the event is deleted from memory.</p>
+<hr />
+<h2 id="the-fundamental-rule-always-open-and-close-cleanly">The fundamental rule: always open and close cleanly<a class="headerlink" href="#the-fundamental-rule-always-open-and-close-cleanly" title="Permanent link">&para;</a></h2>
+<p>Every cutscene trigger follows this mandatory structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cutscene_create();
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cutscene_player_canmove(false); // 1. Freeze player input
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>cutscene_party_follow(false);   // 2. Detach followers so they don't fight custom movement
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>// --- Your events go here ---
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>cutscene_party_follow(true);    // 3. Reattach party
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>cutscene_party_interpolate();   // 4. Snap party trail history cleanly to new positions
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>cutscene_player_canmove(true);  // 5. Restore player input
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>cutscene_play();                // 6. Launch the queue
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Never forget <code>cutscene_play()</code></p>
+<p>Calling <code>cutscene_create()</code> and queuing actions does nothing on its own. If you forget <code>cutscene_play()</code> at the end of your trigger code, the events will sit in the queue forever and the player will walk away.</p>
+</div>
+<hr />
+<h2 id="1-dialogue-in-cutscenes">1. Dialogue in cutscenes<a class="headerlink" href="#1-dialogue-in-cutscenes" title="Permanent link">&para;</a></h2>
+<p>Unlike standard NPC interactions, cutscenes allow you to sequence dialogue boxes precisely between movements and animations (<code>scripts/cutscene_events/cutscene_events.gml:218</code>).</p>
+<h3 id="synchronous-dialogue-wait-for-confirm">Synchronous dialogue (Wait for confirm)<a class="headerlink" href="#synchronous-dialogue-wait-for-confirm" title="Permanent link">&para;</a></h3>
+<p>By default, <code>cutscene_dialogue()</code> pauses the entire queue until the player finishes reading and dismisses the box:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cutscene_dialogue([
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    "{char(susie, 4)}* Hey Kris... what is this place?",
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    "{char(ralsei, 2)}* It looks like an ancient altar, Susie!"
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>]);
+</code></pre></div>
+<h3 id="asynchronous-dialogue-talk-while-moving">Asynchronous dialogue (Talk while moving)<a class="headerlink" href="#asynchronous-dialogue-talk-while-moving" title="Permanent link">&para;</a></h3>
+<p>Pass <code>wait = false</code> as the third parameter to spawn the text box while subsequent queue events continue executing:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Susie starts talking, but the cutscene immediately continues to the walk step
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>cutscene_dialogue("{char(susie, 7)}* Outta my way!", "{e}", false);
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cutscene_actor_move(party_get_inst("susie"), new actor_movement(320, 240, 4));
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>cutscene_wait_dialogue_finish(); // Explicitly wait here before the next scene
+</code></pre></div>
+<h3 id="waiting-for-specific-dialogue-boxes">Waiting for specific dialogue boxes<a class="headerlink" href="#waiting-for-specific-dialogue-boxes" title="Permanent link">&para;</a></h3>
+<p>If an array has multiple dialogue lines, you can wait for a specific number of boxes to be read using <code>cutscene_wait_dialogue_boxes(n)</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cutscene_dialogue([
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    "{char(susie, 0)}* Line 1...",
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    "{char(susie, 2)}* Line 2...",
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    "{char(susie, 7)}* Line 3..."
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>], "{p}{e}", false);
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>cutscene_wait_dialogue_boxes(2); // Wait until player presses confirm past Line 2
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>cutscene_audio_play(snd_bell);   // Play a sound effect on Line 3
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>cutscene_wait_dialogue_finish();
+</code></pre></div>
+<hr />
+<h2 id="2-moving-actors-and-party-members">2. Moving actors and party members<a class="headerlink" href="#2-moving-actors-and-party-members" title="Permanent link">&para;</a></h2>
+<p>To move characters smoothly during a scene, use <code>cutscene_actor_move()</code> with the <code>actor_movement</code> struct (<code>scripts/actors_scr/actors_scr.gml:48</code>).</p>
+<h3 id="finding-party-members">Finding party members<a class="headerlink" href="#finding-party-members" title="Permanent link">&para;</a></h3>
+<p>Get instance IDs reliably with <code>party_get_inst(name)</code> or <code>get_leader()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>var susie_inst = party_get_inst("susie");
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>var ralsei_inst = party_get_inst("ralsei");
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>var leader_inst = get_leader();
+</code></pre></div>
+<h3 id="linear-movement-actor_movement">Linear movement (<code>actor_movement</code>)<a class="headerlink" href="#linear-movement-actor_movement" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/// actor_movement(target_x, target_y, [speed], [relative], [ease], [facing_dir])
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>cutscene_actor_move(
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    party_get_inst("susie"), 
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    new actor_movement(400, 220, 3, false, "linear", DIR.RIGHT)
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>);
+</code></pre></div>
+<h3 id="jumping-into-position-actor_movement_jump_into">Jumping into position (<code>actor_movement_jump_into</code>)<a class="headerlink" href="#jumping-into-position-actor_movement_jump_into" title="Permanent link">&para;</a></h3>
+<p>For dramatic entrances or hopping over ledges:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/// actor_movement_jump_into(target_x, target_y, jump_up, frames, [relative])
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cutscene_actor_move(
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    get_leader(),
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    new actor_movement_jump_into(300, 240, true, 20, false)
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>);
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>cutscene_audio_play(snd_jump);
+</code></pre></div>
+<hr />
+<h2 id="3-controlling-sprites-and-animations">3. Controlling sprites and animations<a class="headerlink" href="#3-controlling-sprites-and-animations" title="Permanent link">&para;</a></h2>
+<p>While a character is in a cutscene, you often need them to express emotion, face a direction, or play a custom sprite.</p>
+<h3 id="facing-direction">Facing direction<a class="headerlink" href="#facing-direction" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cutscene_set_variable(party_get_inst("susie"), "dir", DIR.LEFT);
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>cutscene_set_variable(party_get_inst("noelle"), "dir", DIR.RIGHT);
+</code></pre></div>
+<h3 id="overriding-standard-walk-cycles-cutscene_actor_override">Overriding standard walk cycles (<code>cutscene_actor_override</code>)<a class="headerlink" href="#overriding-standard-walk-cycles-cutscene_actor_override" title="Permanent link">&para;</a></h3>
+<p>Actors automatically try to update their sprite based on their facing direction and movement. When you want an actor to play a fixed sprite (e.g. crossing arms, kneeling, or blushing), enable <code>s_override</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>// 1. Tell the actor system not to overwrite sprite_index
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>cutscene_actor_override(party_get_inst("susie"), true);
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>// 2. Set the custom sprite
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_arm_cross);
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>cutscene_set_variable(party_get_inst("susie"), "image_speed", 0);
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>// 3. Deliver line
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>cutscene_dialogue("{char(susie, 26)}* Heh. You might want to sit down for this.");
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>// 4. Restore normal sprite control when done
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>cutscene_actor_override(party_get_inst("susie"), false);
+</code></pre></div>
+<hr />
+<h2 id="4-camera-choreography">4. Camera choreography<a class="headerlink" href="#4-camera-choreography" title="Permanent link">&para;</a></h2>
+<p>By default, the global camera (<code>o_camera</code>) locks onto <code>get_leader()</code>. In cutscenes, you can detach the camera and glide it anywhere across the room.</p>
+<h3 id="panning-the-camera-camera_pan">Panning the camera (<code>camera_pan</code>)<a class="headerlink" href="#panning-the-camera-camera_pan" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>// Detach target so camera doesn't fight the pan
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>cutscene_set_variable(o_camera, "target", noone);
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>// Pan to coordinates (x, y, duration_frames, easing)
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>cutscene_camera_pan(800, 300, 60, "sine_out");
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>cutscene_sleep(40); // Linger on the focal point for 40 frames
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>// Return camera to the party leader
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>cutscene_camera_pan(get_leader().x, get_leader().y, 30, "sine_in_out");
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>cutscene_set_variable(o_camera, "target", get_leader());
+</code></pre></div>
+<h3 id="locking-an-axis">Locking an axis<a class="headerlink" href="#locking-an-axis" title="Permanent link">&para;</a></h3>
+<p>If you only want horizontal camera movement in a vertical hallway:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>cutscene_set_variable(o_camera, "follow_y", false);
+</code></pre></div>
+<hr />
+<h2 id="5-running-arbitrary-gml-cutscene_func">5. Running arbitrary GML (<code>cutscene_func</code>)<a class="headerlink" href="#5-running-arbitrary-gml-cutscene_func" title="Permanent link">&para;</a></h2>
+<p>You can execute any GML function or inline lambda at an exact point in the queue using <code>cutscene_func(fn, [args])</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>// Play music
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>cutscene_func(music_play, [mus_ex_church]);
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>// Spawn a visual effect or particle
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>cutscene_func(function() {
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    instance_create(o_eff_generic_animation, 400, 200, 0, {
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        sprite_index: spr_eff_slidedust
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    });
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>});
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>// Heal the party
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>cutscene_func(function() {
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    party_heal("kris", 50);
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>});
+</code></pre></div>
+<hr />
+<h2 id="6-one-time-cutscenes-with-memory">6. One-time cutscenes with Memory<a class="headerlink" href="#6-one-time-cutscenes-with-memory" title="Permanent link">&para;</a></h2>
+<p>Most cutscenes should only happen once when the player steps into an area. The engine provides <code>memory_get(category, key)</code> and <code>memory_set(category, key, value)</code> (<code>scripts/memories/memories.gml</code>).</p>
+<p>Place an <code>o_trigger</code> on the <code>Instances</code> layer and write this in its <strong>Creation Code</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>// If this cutscene already played in this save file, destroy the trigger immediately
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>if memory_get("cutscenes", id) {
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    instance_destroy();
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    exit;
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>}
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>trigger_code = function() {
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    // Flag this cutscene as complete
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    memory_set("cutscenes", id, true);
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    cutscene_create();
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    cutscene_player_canmove(false);
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    cutscene_party_follow(false);
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    // Susie walks forward
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>    cutscene_actor_move(party_get_inst("susie"), new actor_movement(x + 60, y, 3));
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>    cutscene_dialogue([
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>        "{char(susie, 0)}* Look at this place.",
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>        "{char(susie, 2)}* We must be getting close."
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>    ]);
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>    cutscene_party_follow(true);
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>    cutscene_party_interpolate();
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>    cutscene_player_canmove(true);
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>    cutscene_play();
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    // Destroy the trigger instance so it cannot be touched again in this room visit
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>    instance_destroy();
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>};
+</code></pre></div>
+<hr />
+<h2 id="complete-walkthrough-a-team-discovery-scene">Complete walkthrough: A team discovery scene<a class="headerlink" href="#complete-walkthrough-a-team-discovery-scene" title="Permanent link">&para;</a></h2>
+<p>Here is a full cutscene script inspired by <code>room_test_cutscene</code> (<code>rooms/room_test_cutscene/InstanceCreationCode_inst_3CB25A36.gml</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>trigger_code = function() {
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    cutscene_create();
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    cutscene_player_canmove(false);
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    cutscene_party_follow(false);
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    var susie = party_get_inst("susie");
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    var noelle = party_get_inst("noelle");
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    var leader = get_leader();
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    // 1. Position party members
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    cutscene_set_variable(susie, "dir", DIR.LEFT);
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    cutscene_set_variable(noelle, "dir", DIR.RIGHT);
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    // 2. Dialogue with emotion portraits
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    cutscene_dialogue([
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        "{char(susie, 4)}* If you were dreaming this whole time...",
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        "{char(susie, 4)}* Why is your HP not full??",
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>        "{char(noelle, 1)}* Oh! Do you have any items?"
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    ]);
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>    // 3. Susie steps forward and casts a spell
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>    cutscene_actor_override(susie, true);
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>    cutscene_set_variable(susie, "sprite_index", spr_susie_heal);
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>    cutscene_audio_play(snd_spellcast);
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>    cutscene_sleep(15);
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>    // 4. Create visual healing beam
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>    cutscene_func(function(susie, noelle) {
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>        var beam = instance_create(o_dummy, susie.x + 20, susie.y - 20, susie.depth - 10, {
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>            sprite_index: spr_eff_healsparkle
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>        });
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>        animate(beam.x, noelle.x, 25, "linear", beam, "x");
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>    }, [susie, noelle]);
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>    cutscene_sleep(25);
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>    cutscene_func(party_heal, ["noelle", 40]);
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>    cutscene_audio_play(snd_heal);
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>    // 5. Wrap up
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a>    cutscene_actor_override(susie, false);
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>    cutscene_dialogue([
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>        "{char(noelle, 4)}* Um, thanks Susie! That felt refreshing!"
+<a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a>    ]);
+<a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>
+<a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>    cutscene_party_follow(true);
+<a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a>    cutscene_party_interpolate();
+<a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a>    cutscene_player_canmove(true);
+<a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a>    cutscene_play();
+<a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a>};
+</code></pre></div>
+<hr />
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cutscene does nothing when triggered</td>
+<td>Missing <code>cutscene_play()</code> at the end of the script</td>
+</tr>
+<tr>
+<td>Party members teleport or jitter after the scene</td>
+<td>Forgot to call <code>cutscene_party_interpolate()</code> when re-enabling <code>cutscene_party_follow(true)</code></td>
+</tr>
+<tr>
+<td>Player can walk away during dialogue</td>
+<td>Missing <code>cutscene_player_canmove(false)</code></td>
+</tr>
+<tr>
+<td>Actor walks in place forever</td>
+<td>The <code>target_x</code> or <code>target_y</code> in <code>actor_movement</code> is inside an <code>o_block</code> collision</td>
+</tr>
+<tr>
+<td>Sprite change is ignored by the character</td>
+<td>Did not call <code>cutscene_actor_override(inst, true)</code> before setting <code>sprite_index</code></td>
+</tr>
+<tr>
+<td>Cutscene repeats every time you walk into the room</td>
+<td>Did not save memory state with <code>memory_set("cutscenes", id, true)</code> and check <code>memory_get(...)</code></td>
+</tr>
+<tr>
+<td>Camera snaps violently instead of panning smoothly</td>
+<td>Forgot to set <code>o_camera.target = noone</code> before calling <code>cutscene_camera_pan()</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

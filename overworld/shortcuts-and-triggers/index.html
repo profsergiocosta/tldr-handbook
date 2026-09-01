@@ -14,10 +14,10 @@
       
       
       
-        <link rel="prev" href="../../getting-started/fonts-and-accents/">
+        <link rel="prev" href="../hazards-and-chases/">
       
       
-        <link rel="next" href="../npcs-and-dialogue/">
+        <link rel="next" href="../lighting-and-atmosphere/">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 3: Rooms and Collision - The tlDR Engine Handbook</title>
+        <title>Ch 10: Shortcuts and Mechanisms - The tlDR Engine Handbook</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rooms-and-collision" class="md-skip">
+        <a href="#shortcut-doors-and-mechanisms" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 3: Rooms and Collision
+              Ch 10: Shortcuts and Mechanisms
             
           </span>
         </div>
@@ -460,37 +460,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 3: Rooms and Collision
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../rooms-and-collision/" class="md-nav__link">
         
   
   
@@ -506,187 +479,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The two objects every room needs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Walls
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Walls">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The collide flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How movement resolves collisions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Moving between rooms
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Moving between rooms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Triggers
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Stretch the instance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. o_trigger fires once
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. The player must be in control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common problems
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -864,10 +656,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../shortcuts-and-triggers/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 10: Shortcuts and Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -883,6 +702,171 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-fast-travel-shortcut-doors-o_ow_shortcut_door" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Fast-travel shortcut doors (o_ow_shortcut_door)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Fast-travel shortcut doors (o_ow_shortcut_door)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-a-shortcut-door" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring a shortcut door
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-slope-and-cliff-sliding-o_trigger_slide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Slope and cliff sliding (o_trigger_slide)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Slope and cliff sliding (o_trigger_slide)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-o_trigger_slide-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How o_trigger_slide works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-a-slide-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up a slide trigger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-interactive-switches-timed-puzzles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Interactive switches &amp; timed puzzles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Interactive switches &amp; timed puzzles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#timed-traffic-switches-o_ex_ow_city_traffic_switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timed traffic switches (o_ex_ow_city_traffic_switch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toggling-obstacles-and-doors-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toggling obstacles and doors at runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-seamless-infinite-looping-rooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Seamless infinite looping rooms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Seamless infinite looping rooms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-wrapping-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How wrapping works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1268,55 +1252,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
+  <a href="#1-fast-travel-shortcut-doors-o_ow_shortcut_door" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The two objects every room needs
+        1. Fast-travel shortcut doors (o_ow_shortcut_door)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Walls
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Walls">
+    <nav class="md-nav" aria-label="1. Fast-travel shortcut doors (o_ow_shortcut_door)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
+  <a href="#configuring-a-shortcut-door" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The collide flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How movement resolves collisions
+        Configuring a shortcut door
       
     </span>
   </a>
@@ -1329,22 +1280,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
+  <a href="#2-slope-and-cliff-sliding-o_trigger_slide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Moving between rooms
+        2. Slope and cliff sliding (o_trigger_slide)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Moving between rooms">
+    <nav class="md-nav" aria-label="2. Slope and cliff sliding (o_trigger_slide)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
+  <a href="#how-o_trigger_slide-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The simple way
+        How o_trigger_slide works
       
     </span>
   </a>
@@ -1352,10 +1303,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
+  <a href="#setting-up-a-slide-trigger" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The proper way: warp triggers
+        Setting up a slide trigger
       
     </span>
   </a>
@@ -1368,22 +1319,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
+  <a href="#3-interactive-switches-timed-puzzles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Triggers
+        3. Interactive switches &amp; timed puzzles
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Triggers">
+    <nav class="md-nav" aria-label="3. Interactive switches &amp; timed puzzles">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
+  <a href="#timed-traffic-switches-o_ex_ow_city_traffic_switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Stretch the instance
+        Timed traffic switches (o_ex_ow_city_traffic_switch)
       
     </span>
   </a>
@@ -1391,21 +1342,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
+  <a href="#toggling-obstacles-and-doors-at-runtime" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. o_trigger fires once
+        Toggling obstacles and doors at runtime
       
     </span>
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-seamless-infinite-looping-rooms" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. The player must be in control
+        4. Seamless infinite looping rooms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Seamless infinite looping rooms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-wrapping-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How wrapping works
       
     </span>
   </a>
@@ -1445,234 +1413,156 @@
 
 
 
-<h1 id="rooms-and-collision">Rooms and collision<a class="headerlink" href="#rooms-and-collision" title="Permanent link">&para;</a></h1>
-<p>A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.</p>
-<h2 id="the-two-objects-every-room-needs">The two objects every room needs<a class="headerlink" href="#the-two-objects-every-room-needs" title="Permanent link">&para;</a></h2>
-<p>Drop these into any new room and it will boot:</p>
-<table>
-<thead>
-<tr>
-<th>Object</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>o_dev_world</code></strong></td>
-<td>The controller. It calls <code>world_switch(world)</code> on creation, which sets <code>global.world</code> and converts party equipment accordingly. Without it, nothing initialises.</td>
-</tr>
-<tr>
-<td><strong><code>o_dev_playermarker</code></strong></td>
-<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them, and automatically points the camera at the leader.</td>
-</tr>
-</tbody>
-</table>
-<p><code>o_dev_world</code> has one Variable Definition worth knowing: <strong><code>world</code></strong>, which is <code>WORLD_TYPE.DARK</code> by default. Set it to <code>WORLD_TYPE.LIGHT</code> for Light World rooms — party sprites and equipment switch accordingly (<code>scripts/party_scripts/party_scripts.gml:240</code>).</p>
-<div class="admonition danger">
-<p class="admonition-title">Do NOT place <code>o_camera</code> in your rooms</p>
-<p><code>o_camera</code> is a <strong>persistent singleton</strong> spawned globally by <code>o_world</code> at game startup (<code>objects/o_world/Other_2.gml:6</code>). Placing a manual instance of <code>o_camera</code> inside a room creates a second camera whose target is <code>noone</code> at <code>(0, 0)</code>, which steals <code>view_camera[0]</code> and <strong>turns the entire screen pitch black</strong>.</p>
-<p>Leave the camera to the engine — <code>o_dev_playermarker</code> automatically finds the global camera and binds it to your party leader.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Start from an example room</p>
-<p><code>room_ex_city</code>, <code>room_ex_church</code> and <code>room_ex_dforest</code> are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.</p>
-</div>
-<h2 id="layer-layout">Layer layout<a class="headerlink" href="#layer-layout" title="Permanent link">&para;</a></h2>
-<p>Rooms are organised by depth, and the engine's own rooms follow a consistent order. This is <code>room_ex_city</code>, top to bottom:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Depth</th>
-<th>Layer</th>
-<th>Kind</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><code>-4000</code></td>
-<td><code>t_foreground</code></td>
-<td>tiles</td>
-<td>tiles drawn <strong>over</strong> the player — awnings, treetops, foreground clutter</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>0</code></td>
-<td><code>collisions</code></td>
-<td>instances</td>
-<td><code>o_block</code> and <code>o_block_diag</code> — the walls</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>200</code></td>
-<td><code>decor</code></td>
-<td>instances</td>
-<td>props that do not block</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>300</code></td>
-<td><code>Instances</code></td>
-<td>instances</td>
-<td>NPCs, triggers, the player marker, <code>o_dev_world</code></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>400</code></td>
-<td><code>area</code></td>
-<td>folder</td>
-<td>grouping only</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>500</code></td>
-<td><code>t_buildingstop</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>600</code></td>
-<td><code>t_buildings</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>700</code></td>
-<td><code>t_grounddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>800</code></td>
-<td><code>t_roaddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1000</code></td>
-<td><code>t_road</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1200</code></td>
-<td><code>Background</code></td>
-<td>background</td>
-<td>flat colour behind everything</td>
-</tr>
-</tbody>
-</table>
-<p>Remember: <strong>in GameMaker, a larger depth is further back.</strong> The foreground tile layer is at <code>-4000</code> precisely so it draws in front of the party.</p>
-<p>You do not have to match this exactly, but keeping collisions at <code>0</code> and instances around <code>300</code> means you can copy code and creation snippets between rooms without surprises.</p>
-<h2 id="walls">Walls<a class="headerlink" href="#walls" title="Permanent link">&para;</a></h2>
-<p>Collision is instance-based, not tile-based. Two objects do the work:</p>
-<table>
-<thead>
-<tr>
-<th>Object</th>
-<th>Shape</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>o_block</code></strong></td>
-<td>Axis-aligned rectangles. The workhorse.</td>
-</tr>
-<tr>
-<td><strong><code>o_block_diag</code></strong></td>
-<td>Diagonals — slopes the player slides along.</td>
-</tr>
-</tbody>
-</table>
-<p>Place them on the <code>collisions</code> layer, stretch them over whatever should be solid, and that is it. They are invisible at runtime.</p>
-<h3 id="the-collide-flag">The <code>collide</code> flag<a class="headerlink" href="#the-collide-flag" title="Permanent link">&para;</a></h3>
-<p><code>o_block</code> has exactly one variable, set in its Create event:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// objects/o_block/Create_0.gml
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>collide = true
+<h1 id="shortcut-doors-and-mechanisms">Shortcut doors and mechanisms<a class="headerlink" href="#shortcut-doors-and-mechanisms" title="Permanent link">&para;</a></h1>
+<p>Overworld exploration in DELTARUNE features physical, tactile environmental mechanisms: fast-travel shortcut doors, steep dust slopes that slide the whole party downhill, timed traffic switches, and endless looping rooms.</p>
+<p>This chapter covers how to implement these mechanisms in your rooms using the tlDR Engine's built-in objects.</p>
+<hr />
+<h2 id="1-fast-travel-shortcut-doors-o_ow_shortcut_door">1. Fast-travel shortcut doors (<code>o_ow_shortcut_door</code>)<a class="headerlink" href="#1-fast-travel-shortcut-doors-o_ow_shortcut_door" title="Permanent link">&para;</a></h2>
+<p>DELTARUNE's signature shortcut door is an interactive wooden door framed by flickering magical flames (<code>spr_ow_shortcut_door_fire</code>). Investigating it opens a multi-choice destination prompt.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["Interact with o_ow_shortcut_door"] --&gt; B["Dialogue Choice: [Test City, Test Forest, Test Church]"]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Select Target Room| C["snd_dooropen &amp; Fade Out"]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt; D["room_goto(target_room) &amp; Fade In"]
 </code></pre></div>
-<p>The player's movement code checks it on every instance it touches (<code>objects/o_actor/Step_0.gml:180</code>), which means <strong>you can turn a wall off at runtime</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// a door that opens
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>with (my_door_block)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    collide = false;
-</code></pre></div>
-<p>This is much simpler than destroying and recreating instances, and it keeps the wall in the room editor where you can see it.</p>
-<h3 id="how-movement-resolves-collisions">How movement resolves collisions<a class="headerlink" href="#how-movement-resolves-collisions" title="Permanent link">&para;</a></h3>
-<p>Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (<code>objects/o_actor/Step_0.gml:176</code> and <code>:194</code>). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.</p>
-<p>Diagonal blocks get a second pass (<code>:229</code>) that also checks whether a regular <code>o_block</code> is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.</p>
-<div class="admonition warning">
-<p class="admonition-title">Blocks are not for the battle arena</p>
-<p>The soul inside a battle collides with <code>o_enc_box_solid</code>, not <code>o_block</code>. They are separate systems — see <a href="../../battle-system/the-arena/">The arena</a>.</p>
-</div>
-<h2 id="moving-between-rooms">Moving between rooms<a class="headerlink" href="#moving-between-rooms" title="Permanent link">&para;</a></h2>
-<h3 id="the-simple-way">The simple way<a class="headerlink" href="#the-simple-way" title="Permanent link">&para;</a></h3>
-<p>Anywhere you can run code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>room_goto(room_my_next_area);
-</code></pre></div>
-<p>Fine for prototyping, but the party will spawn at that room's <code>o_dev_playermarker</code>, which is rarely where you want them to arrive.</p>
-<h3 id="the-proper-way-warp-triggers">The proper way: warp triggers<a class="headerlink" href="#the-proper-way-warp-triggers" title="Permanent link">&para;</a></h3>
-<p>Use <strong><code>o_trigger_warp</code></strong>. It fades out, changes room, and then places the leader at a <strong>landing marker</strong> with a chosen facing direction (<code>objects/o_trigger_warp/Alarm_0.gml</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir);
-</code></pre></div>
-<p>So the recipe for a doorway is:</p>
+<h3 id="configuring-a-shortcut-door">Configuring a shortcut door<a class="headerlink" href="#configuring-a-shortcut-door" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Put an <strong><code>o_dev_marker_land</code></strong> in the destination room where the player should appear, and give it an <code>m_id</code>.</li>
-<li>Put an <strong><code>o_trigger_warp</code></strong> in the source room over the doorway.</li>
-<li>Fill in its Variable Definitions: the target room, the target marker's <code>m_id</code>, and the facing direction on arrival.</li>
-<li>Stretch it (see below).</li>
+<li>Place an instance of <strong><code>o_ow_shortcut_door</code></strong> on your <code>Instances</code> layer (depth <code>200</code>).</li>
+<li>Open its <strong>Variable Definitions</strong> in the GameMaker Inspector:</li>
 </ol>
-<p><code>MARKER_LAND</code> is just the string <code>"land"</code> (<code>scripts/macro_markers/macro_markers.gml:4</code>) — markers are grouped by kind, and landing spots are one kind.</p>
-<h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h2>
-<p><code>o_trigger</code> runs your code when the player walks into it. It is the general-purpose "something happens here" object. Put the code in the instance's <strong>Instance Creation Code</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>trigger_code = function() {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    cutscene_create();
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    cutscene_dialogue("* (The floor creaks.)");
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    cutscene_play();
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>}
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>trigger_exit_code = function() {
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    triggered = false;      // re-arm when the player leaves
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>}
-</code></pre></div>
-<p>Three things about triggers cause almost all the confusion, and none of them are about the code.</p>
-<h3 id="1-stretch-the-instance">1. Stretch the instance<a class="headerlink" href="#1-stretch-the-instance" title="Permanent link">&para;</a></h3>
-<p><code>spr_trigger</code> is <strong>20×20 pixels</strong> with its origin at the top-left corner, and <code>o_trigger</code> is invisible at runtime. A default-sized trigger is a tiny invisible square the player walks straight past.</p>
-<p>The engine's own triggers are all stretched. In <code>room_ex_church</code>:</p>
 <table>
 <thead>
 <tr>
-<th>Instance</th>
-<th>scaleX</th>
-<th>scaleY</th>
-<th>Actual size</th>
+<th>Variable</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>inst_64FAB75A</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
+<td><strong><code>current_room_name</code></strong></td>
+<td>String</td>
+<td><code>"Test Zone"</code></td>
+<td>The name of the current area (disabled/greyed out in menu).</td>
 </tr>
 <tr>
-<td><code>inst_2B13ACD5</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
+<td><strong><code>room_1</code></strong></td>
+<td>Room Asset</td>
+<td><code>room_ex_dforest</code></td>
+<td>Destination Room 1.</td>
 </tr>
 <tr>
-<td><code>inst_2838B310</code></td>
-<td>5.0</td>
-<td>2.0</td>
-<td>100 × 40</td>
+<td><strong><code>room_1_name</code></strong></td>
+<td>String</td>
+<td><code>"Bake Sale Forest"</code></td>
+<td>Label displayed for destination 1.</td>
+</tr>
+<tr>
+<td><strong><code>room_2</code></strong></td>
+<td>Room Asset</td>
+<td><code>room_ex_city</code></td>
+<td>Destination Room 2.</td>
+</tr>
+<tr>
+<td><strong><code>room_2_name</code></strong></td>
+<td>String</td>
+<td><code>"Cyber City"</code></td>
+<td>Label displayed for destination 2.</td>
+</tr>
+<tr>
+<td><strong><code>room_3</code></strong></td>
+<td>Room Asset</td>
+<td><code>room_ex_church</code></td>
+<td>Destination Room 3.</td>
+</tr>
+<tr>
+<td><strong><code>room_3_name</code></strong></td>
+<td>String</td>
+<td><code>"Sanctuary"</code></td>
+<td>Label displayed for destination 3.</td>
 </tr>
 </tbody>
 </table>
-<p>Drag the instance handles in the room editor until it covers the whole passage.</p>
-<h3 id="2-o_trigger-fires-once">2. <code>o_trigger</code> fires once<a class="headerlink" href="#2-o_trigger-fires-once" title="Permanent link">&para;</a></h3>
-<p>The entry event sets <code>triggered = true</code> and <strong>nothing in the engine sets it back</strong>. The exit event only touches <code>trigger_exit</code> (<code>objects/o_trigger/Other_11.gml</code>). If you want it to fire again, reset it yourself in <code>trigger_exit_code</code>, as in the snippet above — this is the engine's own idiom (<code>rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13</code>).</p>
-<p>One-shot is often what you want, though. A trigger that starts a boss fight should not restart it when the player walks back.</p>
-<h3 id="3-the-player-must-be-in-control">3. The player must be in control<a class="headerlink" href="#3-the-player-must-be-in-control" title="Permanent link">&para;</a></h3>
-<p>With <code>controlled_activation = true</code> (the default), the trigger only fires when <code>get_leader()._checkmove()</code> is true (<code>objects/o_trigger/Step_0.gml:4</code>). That function requires <code>moveable_console</code>, <code>moveable_dialogue</code>, <code>moveable_battle</code> and several others to all be true (<code>objects/o_actor/Create_0.gml:197</code>).</p>
-<p>In practice: <strong>with the console open (<span class="keys"><kbd class="key-tab">Tab</kbd></span>), no trigger fires.</strong> If you want a trigger that works regardless — room edges, for instance — set <code>controlled_activation = false</code> in the Creation Code.</p>
-<div class="admonition tip">
-<p class="admonition-title">30-second diagnosis</p>
-<p>Put <code>show_debug_message("&gt;&gt;&gt; TRIGGER FIRED")</code> as the first line of <code>trigger_code</code>. If it never prints in the Output window while you walk over it, the problem is collision (1) or control (3), not your code.</p>
-</div>
+<p>The door automatically resolves string labels through the localization system <code>loc()</code>, opens a formatted choice dialogue (<code>{choice(...)}</code>), plays opening/closing door audio (<code>snd_dooropen</code>, <code>snd_doorclose</code>), and fades smoothly between rooms.</p>
+<hr />
+<h2 id="2-slope-and-cliff-sliding-o_trigger_slide">2. Slope and cliff sliding (<code>o_trigger_slide</code>)<a class="headerlink" href="#2-slope-and-cliff-sliding-o_trigger_slide" title="Permanent link">&para;</a></h2>
+<p>In rooms like <code>room_test_loopback</code>, walking over a cliff slope automatically locks the party into a high-speed downward slide (<code>objects/o_trigger_slide/</code>).</p>
+<h3 id="how-o_trigger_slide-works">How <code>o_trigger_slide</code> works<a class="headerlink" href="#how-o_trigger_slide-works" title="Permanent link">&para;</a></h3>
+<p>When the player enters an <code>o_trigger_slide</code> instance:
+1. <strong>Leader movement:</strong> The leader is pulled downwards at <code>global.slide_speed</code> (default <code>12</code> px/frame).
+2. <strong>Followers join:</strong> Followers immediately switch to their sliding sprites (<code>s_slide</code>, e.g. <code>spr_susie_slide</code>), align horizontally, and slide down together.
+3. <strong>Puff animation:</strong> Slidedust particles (<code>spr_eff_slidedust</code>) spawn periodically under everyone's feet.
+4. <strong>Exit &amp; Recovery:</strong> When exiting the bottom of the trigger, followers smoothly interpolate back into line (<code>party_member_interpolate()</code>) and normal walking resumes.</p>
+<h3 id="setting-up-a-slide-trigger">Setting up a slide trigger<a class="headerlink" href="#setting-up-a-slide-trigger" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Place <strong><code>o_trigger_slide</code></strong> on your <code>Instances</code> layer.</li>
+<li>Stretch its width to match your slope and its height from the cliff ledge down to the landing floor.</li>
+<li>No code is required — placing the trigger is all it takes.</li>
+</ol>
+<hr />
+<h2 id="3-interactive-switches-timed-puzzles">3. Interactive switches &amp; timed puzzles<a class="headerlink" href="#3-interactive-switches-timed-puzzles" title="Permanent link">&para;</a></h2>
+<p>tlDR Engine includes generic and timed switches for environmental puzzles (such as the traffic lights in <code>room_ex_city</code> and church switches in <code>room_ex_church</code>).</p>
+<h3 id="timed-traffic-switches-o_ex_ow_city_traffic_switch">Timed traffic switches (<code>o_ex_ow_city_traffic_switch</code>)<a class="headerlink" href="#timed-traffic-switches-o_ex_ow_city_traffic_switch" title="Permanent link">&para;</a></h3>
+<p>In <code>room_ex_city</code>, pressing a walk switch halts oncoming traffic for a countdown timer:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Instance Creation Code of the switch
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>switch_id = 1;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>label = "walk";
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>time = 8; // Halts cars for 8 seconds
+</code></pre></div>
+<p>The switch broadcasts its state to all <code>o_ex_ow_city_traffic_light</code> instances sharing <code>switch_id = 1</code>, turning them red and pausing car spawners.</p>
+<h3 id="toggling-obstacles-and-doors-at-runtime">Toggling obstacles and doors at runtime<a class="headerlink" href="#toggling-obstacles-and-doors-at-runtime" title="Permanent link">&para;</a></h3>
+<p>To make a switch open a passage, modify the <code>collide</code> variable of the target <code>o_block</code> walls:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Instance Creation Code of an interactive switch
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>interaction_code = function() {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    audio_play(snd_switch);
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    image_index = 1; // Flip switch sprite
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    // Deactivate the barrier wall
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    with (inst_gate_block) {
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        collide = false;
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    }
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    // Play a rumble effect or dialogue
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    cutscene_create();
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    cutscene_dialogue("* The iron gate opened somewhere nearby!");
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    cutscene_play();
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>};
+</code></pre></div>
+<hr />
+<h2 id="4-seamless-infinite-looping-rooms">4. Seamless infinite looping rooms<a class="headerlink" href="#4-seamless-infinite-looping-rooms" title="Permanent link">&para;</a></h2>
+<p><code>room_ex_infinity_room</code> demonstrates how to create a room that wraps endlessly in all directions without loading new rooms.</p>
+<h3 id="how-wrapping-works">How wrapping works<a class="headerlink" href="#how-wrapping-works" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Place <code>o_trigger</code> instances along all four edges of the room (<code>inst_edge_left</code>, <code>inst_edge_right</code>, <code>inst_edge_top</code>, <code>inst_edge_bottom</code>).</li>
+<li>In the room's <strong>Room Creation Code</strong>, define a transposition helper that shifts the camera and all party members simultaneously:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Room Creation Code
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>global.__transpose_player = function(dx, dy) {
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    o_camera.x += dx;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    o_camera.y += dy;
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    for (var i = 0; i &lt; party_length(true); i++) {
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        var inst = party_get_inst(global.party_names[i]);
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        inst.x += dx;
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        inst.y += dy;
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        party_member_interpolate(global.party_names[i]);
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    }
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>};
+</code></pre></div>
+<ol>
+<li>In the left edge trigger's <strong>Instance Creation Code</strong>, shift the player to the right edge:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Left Edge Trigger
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>trigger_code = function() {
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    triggered = false;
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    // If player is walking left across the border, wrap to right side
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    if (get_leader().x - get_leader().xprevious) &lt; 0 {
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        global.__transpose_player(room_width - 80, 0);
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    }
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>};
+</code></pre></div>
+<p>Because camera, leader, followers, and interpolation history are shifted by the exact same delta on the same frame, the wrap is <strong>completely imperceptible</strong> to the player.</p>
+<hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1683,40 +1573,20 @@
 </thead>
 <tbody>
 <tr>
-<td>The room is black and nothing responds</td>
-<td>no <code>o_dev_world</code> in the room</td>
+<td>Shortcut door does not show destination names</td>
+<td>Target room asset is missing or invalid in Variable Definitions</td>
 </tr>
 <tr>
-<td>The screen is pitch black even with <code>o_dev_world</code></td>
-<td>you placed an <code>o_camera</code> in the room — delete it (<code>o_camera</code> is a global singleton)</td>
+<td>Player gets stuck sliding at the bottom of a slope</td>
+<td><code>o_trigger_slide</code> was placed overlapping an <code>o_block</code> collision wall</td>
 </tr>
 <tr>
-<td>The party never appears</td>
-<td>no <code>o_dev_playermarker</code></td>
+<td>Party members desync after sliding</td>
+<td><code>party_member_interpolate()</code> was interrupted or followers lacked <code>s_slide</code> sprite</td>
 </tr>
 <tr>
-<td>The player walks through a wall</td>
-<td>the <code>o_block</code> is on a layer the player does not collide with, or <code>collide</code> was set to <code>false</code></td>
-</tr>
-<tr>
-<td>A trigger never fires</td>
-<td>the instance is still 20×20 — stretch it</td>
-</tr>
-<tr>
-<td>A trigger fires once and never again</td>
-<td>expected; reset <code>triggered</code> in <code>trigger_exit_code</code></td>
-</tr>
-<tr>
-<td>No trigger fires while you are testing</td>
-<td>the console is open</td>
-</tr>
-<tr>
-<td>Foreground tiles draw behind the player</td>
-<td>depth is positive; foreground needs a negative depth</td>
-</tr>
-<tr>
-<td>Warping lands the party in the wrong spot</td>
-<td>the destination has no <code>o_dev_marker_land</code> with the <code>m_id</code> you referenced</td>
+<td>Infinite room wrap causes visual jitter</td>
+<td>Camera was not transposed by the exact same <code>(dx, dy)</code> as party members</td>
 </tr>
 </tbody>
 </table>

@@ -14,10 +14,10 @@
       
       
       
-        <link rel="prev" href="../../getting-started/fonts-and-accents/">
+        <link rel="prev" href="../cutscenes/">
       
       
-        <link rel="next" href="../npcs-and-dialogue/">
+        <link rel="next" href="../hazards-and-chases/">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 3: Rooms and Collision - The tlDR Engine Handbook</title>
+        <title>Ch 8: Climbing and Traversal - The tlDR Engine Handbook</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rooms-and-collision" class="md-skip">
+        <a href="#climbing-and-traversal" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 3: Rooms and Collision
+              Ch 8: Climbing and Traversal
             
           </span>
         </div>
@@ -460,37 +460,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 3: Rooms and Collision
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../rooms-and-collision/" class="md-nav__link">
         
   
   
@@ -506,187 +479,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The two objects every room needs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Walls
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Walls">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The collide flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How movement resolves collisions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Moving between rooms
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Moving between rooms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Triggers
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Stretch the instance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. o_trigger fires once
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. The player must be in control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common problems
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -808,10 +600,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../climbing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: Climbing and Traversal
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -827,6 +646,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-climbing-works-in-the-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How climbing works in the engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-five-climbing-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The five climbing objects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-climb-section-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a climb section step-by-step
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building a climb section step-by-step">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-lay-out-the-climbable-tiles-o_dev_climb_tile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Lay out the climbable tiles (o_dev_climb_tile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-place-the-entrance-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Place the entrance trigger
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Place the entrance trigger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-automatic-entry-o_dev_climb_auto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Automatic entry (o_dev_climb_auto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-interactive-prompt-o_dev_climb_interact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Interactive prompt (o_dev_climb_interact)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-place-the-exit-catcher-and-landing-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Place the exit catcher and landing marker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#climbing-controls-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Climbing controls &amp; mechanics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting-custom-climb-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scripting custom climb events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slippery-surfaces-and-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slippery surfaces and hazards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1268,10 +1251,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
+  <a href="#how-climbing-works-in-the-engine" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The two objects every room needs
+        How climbing works in the engine
       
     </span>
   </a>
@@ -1279,10 +1262,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
+  <a href="#the-five-climbing-objects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer layout
+        The five climbing objects
       
     </span>
   </a>
@@ -1290,22 +1273,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
+  <a href="#building-a-climb-section-step-by-step" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Walls
+        Building a climb section step-by-step
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Walls">
+    <nav class="md-nav" aria-label="Building a climb section step-by-step">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
+  <a href="#step-1-lay-out-the-climbable-tiles-o_dev_climb_tile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The collide flag
+        Step 1 — Lay out the climbable tiles (o_dev_climb_tile)
       
     </span>
   </a>
@@ -1313,10 +1296,49 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
+  <a href="#step-2-place-the-entrance-trigger" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How movement resolves collisions
+        Step 2 — Place the entrance trigger
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Place the entrance trigger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-automatic-entry-o_dev_climb_auto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Automatic entry (o_dev_climb_auto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-interactive-prompt-o_dev_climb_interact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Interactive prompt (o_dev_climb_interact)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-place-the-exit-catcher-and-landing-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Place the exit catcher and landing marker
       
     </span>
   </a>
@@ -1329,91 +1351,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
+  <a href="#climbing-controls-mechanics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Moving between rooms
+        Climbing controls &amp; mechanics
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Moving between rooms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
+  <a href="#scripting-custom-climb-events" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Triggers
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Stretch the instance
+        Scripting custom climb events
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#slippery-surfaces-and-hazards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. o_trigger fires once
+        Slippery surfaces and hazards
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. The player must be in control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1445,234 +1411,153 @@
 
 
 
-<h1 id="rooms-and-collision">Rooms and collision<a class="headerlink" href="#rooms-and-collision" title="Permanent link">&para;</a></h1>
-<p>A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.</p>
-<h2 id="the-two-objects-every-room-needs">The two objects every room needs<a class="headerlink" href="#the-two-objects-every-room-needs" title="Permanent link">&para;</a></h2>
-<p>Drop these into any new room and it will boot:</p>
-<table>
-<thead>
-<tr>
-<th>Object</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>o_dev_world</code></strong></td>
-<td>The controller. It calls <code>world_switch(world)</code> on creation, which sets <code>global.world</code> and converts party equipment accordingly. Without it, nothing initialises.</td>
-</tr>
-<tr>
-<td><strong><code>o_dev_playermarker</code></strong></td>
-<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them, and automatically points the camera at the leader.</td>
-</tr>
-</tbody>
-</table>
-<p><code>o_dev_world</code> has one Variable Definition worth knowing: <strong><code>world</code></strong>, which is <code>WORLD_TYPE.DARK</code> by default. Set it to <code>WORLD_TYPE.LIGHT</code> for Light World rooms — party sprites and equipment switch accordingly (<code>scripts/party_scripts/party_scripts.gml:240</code>).</p>
-<div class="admonition danger">
-<p class="admonition-title">Do NOT place <code>o_camera</code> in your rooms</p>
-<p><code>o_camera</code> is a <strong>persistent singleton</strong> spawned globally by <code>o_world</code> at game startup (<code>objects/o_world/Other_2.gml:6</code>). Placing a manual instance of <code>o_camera</code> inside a room creates a second camera whose target is <code>noone</code> at <code>(0, 0)</code>, which steals <code>view_camera[0]</code> and <strong>turns the entire screen pitch black</strong>.</p>
-<p>Leave the camera to the engine — <code>o_dev_playermarker</code> automatically finds the global camera and binds it to your party leader.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Start from an example room</p>
-<p><code>room_ex_city</code>, <code>room_ex_church</code> and <code>room_ex_dforest</code> are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.</p>
-</div>
-<h2 id="layer-layout">Layer layout<a class="headerlink" href="#layer-layout" title="Permanent link">&para;</a></h2>
-<p>Rooms are organised by depth, and the engine's own rooms follow a consistent order. This is <code>room_ex_city</code>, top to bottom:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Depth</th>
-<th>Layer</th>
-<th>Kind</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><code>-4000</code></td>
-<td><code>t_foreground</code></td>
-<td>tiles</td>
-<td>tiles drawn <strong>over</strong> the player — awnings, treetops, foreground clutter</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>0</code></td>
-<td><code>collisions</code></td>
-<td>instances</td>
-<td><code>o_block</code> and <code>o_block_diag</code> — the walls</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>200</code></td>
-<td><code>decor</code></td>
-<td>instances</td>
-<td>props that do not block</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>300</code></td>
-<td><code>Instances</code></td>
-<td>instances</td>
-<td>NPCs, triggers, the player marker, <code>o_dev_world</code></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>400</code></td>
-<td><code>area</code></td>
-<td>folder</td>
-<td>grouping only</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>500</code></td>
-<td><code>t_buildingstop</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>600</code></td>
-<td><code>t_buildings</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>700</code></td>
-<td><code>t_grounddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>800</code></td>
-<td><code>t_roaddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1000</code></td>
-<td><code>t_road</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1200</code></td>
-<td><code>Background</code></td>
-<td>background</td>
-<td>flat colour behind everything</td>
-</tr>
-</tbody>
-</table>
-<p>Remember: <strong>in GameMaker, a larger depth is further back.</strong> The foreground tile layer is at <code>-4000</code> precisely so it draws in front of the party.</p>
-<p>You do not have to match this exactly, but keeping collisions at <code>0</code> and instances around <code>300</code> means you can copy code and creation snippets between rooms without surprises.</p>
-<h2 id="walls">Walls<a class="headerlink" href="#walls" title="Permanent link">&para;</a></h2>
-<p>Collision is instance-based, not tile-based. Two objects do the work:</p>
-<table>
-<thead>
-<tr>
-<th>Object</th>
-<th>Shape</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>o_block</code></strong></td>
-<td>Axis-aligned rectangles. The workhorse.</td>
-</tr>
-<tr>
-<td><strong><code>o_block_diag</code></strong></td>
-<td>Diagonals — slopes the player slides along.</td>
-</tr>
-</tbody>
-</table>
-<p>Place them on the <code>collisions</code> layer, stretch them over whatever should be solid, and that is it. They are invisible at runtime.</p>
-<h3 id="the-collide-flag">The <code>collide</code> flag<a class="headerlink" href="#the-collide-flag" title="Permanent link">&para;</a></h3>
-<p><code>o_block</code> has exactly one variable, set in its Create event:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// objects/o_block/Create_0.gml
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>collide = true
-</code></pre></div>
-<p>The player's movement code checks it on every instance it touches (<code>objects/o_actor/Step_0.gml:180</code>), which means <strong>you can turn a wall off at runtime</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// a door that opens
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>with (my_door_block)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    collide = false;
-</code></pre></div>
-<p>This is much simpler than destroying and recreating instances, and it keeps the wall in the room editor where you can see it.</p>
-<h3 id="how-movement-resolves-collisions">How movement resolves collisions<a class="headerlink" href="#how-movement-resolves-collisions" title="Permanent link">&para;</a></h3>
-<p>Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (<code>objects/o_actor/Step_0.gml:176</code> and <code>:194</code>). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.</p>
-<p>Diagonal blocks get a second pass (<code>:229</code>) that also checks whether a regular <code>o_block</code> is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.</p>
-<div class="admonition warning">
-<p class="admonition-title">Blocks are not for the battle arena</p>
-<p>The soul inside a battle collides with <code>o_enc_box_solid</code>, not <code>o_block</code>. They are separate systems — see <a href="../../battle-system/the-arena/">The arena</a>.</p>
-</div>
-<h2 id="moving-between-rooms">Moving between rooms<a class="headerlink" href="#moving-between-rooms" title="Permanent link">&para;</a></h2>
-<h3 id="the-simple-way">The simple way<a class="headerlink" href="#the-simple-way" title="Permanent link">&para;</a></h3>
-<p>Anywhere you can run code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>room_goto(room_my_next_area);
-</code></pre></div>
-<p>Fine for prototyping, but the party will spawn at that room's <code>o_dev_playermarker</code>, which is rarely where you want them to arrive.</p>
-<h3 id="the-proper-way-warp-triggers">The proper way: warp triggers<a class="headerlink" href="#the-proper-way-warp-triggers" title="Permanent link">&para;</a></h3>
-<p>Use <strong><code>o_trigger_warp</code></strong>. It fades out, changes room, and then places the leader at a <strong>landing marker</strong> with a chosen facing direction (<code>objects/o_trigger_warp/Alarm_0.gml</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir);
-</code></pre></div>
-<p>So the recipe for a doorway is:</p>
+<h1 id="climbing-and-traversal">Climbing and traversal<a class="headerlink" href="#climbing-and-traversal" title="Permanent link">&para;</a></h1>
+<p>DELTARUNE Chapter 2 introduced vertical climbing sections — Kris scaling towering book shelves, castle spires, and wire fences while followers wait or cheer from below. tlDR Engine includes a dedicated, physics-based <strong>Climbing System</strong> (<code>scripts/climb/climb.gml</code>, <code>objects/o_dev_climb_controller/</code>) that handles vertical movement, wall hopping, falling physics, and smooth entry/exit transitions.</p>
+<p>This chapter explains how to construct climbing walls, wire up automatic and interactive start triggers, handle summit landings, and customize climb mechanics.</p>
+<hr />
+<h2 id="how-climbing-works-in-the-engine">How climbing works in the engine<a class="headerlink" href="#how-climbing-works-in-the-engine" title="Permanent link">&para;</a></h2>
+<p>When the player enters climbing mode, the engine shifts movement rules from top-down walking to a 2D wall-grid:</p>
 <ol>
-<li>Put an <strong><code>o_dev_marker_land</code></strong> in the destination room where the player should appear, and give it an <code>m_id</code>.</li>
-<li>Put an <strong><code>o_trigger_warp</code></strong> in the source room over the doorway.</li>
-<li>Fill in its Variable Definitions: the target room, the target marker's <code>m_id</code>, and the facing direction on arrival.</li>
-<li>Stretch it (see below).</li>
+<li><strong>Leader transitions:</strong> The party leader switches to their climbing sprite (<code>s_climb</code>, e.g. <code>spr_kris_climb</code>) and faces upward.</li>
+<li><strong>Followers fade out:</strong> Other party members smoothly fade out (<code>party_fade_out()</code>) so they do not clutter the vertical climb.</li>
+<li><strong>Wall grid navigation:</strong> The leader moves freely across instances of <code>o_dev_climb_tile</code>. If the player reaches an edge, they can leap across gaps to nearby climb tiles.</li>
+<li><strong>Summit exit:</strong> Touching an exit catcher (<code>o_dev_climb_catcher</code>) or calling <code>climb_stop_nearest()</code> makes the leader jump onto the landing marker (<code>o_dev_marker_climb</code>), reassembles the party, and restores normal walking.</li>
 </ol>
-<p><code>MARKER_LAND</code> is just the string <code>"land"</code> (<code>scripts/macro_markers/macro_markers.gml:4</code>) — markers are grouped by kind, and landing spots are one kind.</p>
-<h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h2>
-<p><code>o_trigger</code> runs your code when the player walks into it. It is the general-purpose "something happens here" object. Put the code in the instance's <strong>Instance Creation Code</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>trigger_code = function() {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    cutscene_create();
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    cutscene_dialogue("* (The floor creaks.)");
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    cutscene_play();
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>}
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>trigger_exit_code = function() {
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    triggered = false;      // re-arm when the player leaves
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>}
-</code></pre></div>
-<p>Three things about triggers cause almost all the confusion, and none of them are about the code.</p>
-<h3 id="1-stretch-the-instance">1. Stretch the instance<a class="headerlink" href="#1-stretch-the-instance" title="Permanent link">&para;</a></h3>
-<p><code>spr_trigger</code> is <strong>20×20 pixels</strong> with its origin at the top-left corner, and <code>o_trigger</code> is invisible at runtime. A default-sized trigger is a tiny invisible square the player walks straight past.</p>
-<p>The engine's own triggers are all stretched. In <code>room_ex_church</code>:</p>
+<hr />
+<h2 id="the-five-climbing-objects">The five climbing objects<a class="headerlink" href="#the-five-climbing-objects" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instance</th>
-<th>scaleX</th>
-<th>scaleY</th>
-<th>Actual size</th>
+<th>Object</th>
+<th>Layer</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>inst_64FAB75A</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
+<td><strong><code>o_dev_climb_tile</code></strong></td>
+<td><code>collisions</code> (depth 0)</td>
+<td>Defines the climbable surface area. Stretch these across your background wall.</td>
 </tr>
 <tr>
-<td><code>inst_2B13ACD5</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
+<td><strong><code>o_dev_climb_auto</code></strong></td>
+<td><code>Instances</code> (depth 300)</td>
+<td>A floor trigger that <strong>automatically</strong> launches the player onto the wall upon stepping on it.</td>
 </tr>
 <tr>
-<td><code>inst_2838B310</code></td>
-<td>5.0</td>
-<td>2.0</td>
-<td>100 × 40</td>
+<td><strong><code>o_dev_climb_interact</code></strong></td>
+<td><code>Instances</code> (depth 300)</td>
+<td>An interactable trigger requiring the player to press <strong>[CONFIRM]</strong> to start climbing.</td>
+</tr>
+<tr>
+<td><strong><code>o_dev_climb_catcher</code></strong></td>
+<td><code>Instances</code> (depth 300)</td>
+<td>Placed at the top or bottom of a climb path to detect arrival and trigger exit.</td>
+</tr>
+<tr>
+<td><strong><code>o_dev_marker_climb</code></strong></td>
+<td><code>Instances</code> (depth 300)</td>
+<td>The exact spot where the player lands on solid ground after finishing a climb.</td>
 </tr>
 </tbody>
 </table>
-<p>Drag the instance handles in the room editor until it covers the whole passage.</p>
-<h3 id="2-o_trigger-fires-once">2. <code>o_trigger</code> fires once<a class="headerlink" href="#2-o_trigger-fires-once" title="Permanent link">&para;</a></h3>
-<p>The entry event sets <code>triggered = true</code> and <strong>nothing in the engine sets it back</strong>. The exit event only touches <code>trigger_exit</code> (<code>objects/o_trigger/Other_11.gml</code>). If you want it to fire again, reset it yourself in <code>trigger_exit_code</code>, as in the snippet above — this is the engine's own idiom (<code>rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13</code>).</p>
-<p>One-shot is often what you want, though. A trigger that starts a boss fight should not restart it when the player walks back.</p>
-<h3 id="3-the-player-must-be-in-control">3. The player must be in control<a class="headerlink" href="#3-the-player-must-be-in-control" title="Permanent link">&para;</a></h3>
-<p>With <code>controlled_activation = true</code> (the default), the trigger only fires when <code>get_leader()._checkmove()</code> is true (<code>objects/o_trigger/Step_0.gml:4</code>). That function requires <code>moveable_console</code>, <code>moveable_dialogue</code>, <code>moveable_battle</code> and several others to all be true (<code>objects/o_actor/Create_0.gml:197</code>).</p>
-<p>In practice: <strong>with the console open (<span class="keys"><kbd class="key-tab">Tab</kbd></span>), no trigger fires.</strong> If you want a trigger that works regardless — room edges, for instance — set <code>controlled_activation = false</code> in the Creation Code.</p>
-<div class="admonition tip">
-<p class="admonition-title">30-second diagnosis</p>
-<p>Put <code>show_debug_message("&gt;&gt;&gt; TRIGGER FIRED")</code> as the first line of <code>trigger_code</code>. If it never prints in the Output window while you walk over it, the problem is collision (1) or control (3), not your code.</p>
-</div>
+<hr />
+<h2 id="building-a-climb-section-step-by-step">Building a climb section step-by-step<a class="headerlink" href="#building-a-climb-section-step-by-step" title="Permanent link">&para;</a></h2>
+<p>Let's build a vertical tower climb inspired by <code>room_test_climbing</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["Floor: o_dev_climb_auto / interact"] --&gt;|Jump onto wall| B["o_dev_climb_tile (Vertical Wall Grid)"]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Climb &amp; Hop Gaps| C["o_dev_climb_catcher (Summit trigger)"]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt;|Auto Jump &amp; Land| D["o_dev_marker_climb (Solid Floor Destination)"]
+</code></pre></div>
+<h3 id="step-1-lay-out-the-climbable-tiles-o_dev_climb_tile">Step 1 — Lay out the climbable tiles (<code>o_dev_climb_tile</code>)<a class="headerlink" href="#step-1-lay-out-the-climbable-tiles-o_dev_climb_tile" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Open your room in the GameMaker Room Editor.</li>
+<li>Select your <code>collisions</code> instance layer (depth <code>0</code>).</li>
+<li>Drag instances of <strong><code>o_dev_climb_tile</code></strong> over the walls or structures the player is allowed to grip.</li>
+<li>Stretch <code>scaleX</code> and <code>scaleY</code> to cover the entire climbable surface.</li>
+</ol>
+<p>Each <code>o_dev_climb_tile</code> has two built-in variables (<code>objects/o_dev_climb_tile/Create_0.gml</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>can_climb = true;        // Set to false in Creation Code to create slippery/unclimbable zones
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>display_outline = true;  // Highlights the grip border in debug mode
+</code></pre></div>
+<h3 id="step-2-place-the-entrance-trigger">Step 2 — Place the entrance trigger<a class="headerlink" href="#step-2-place-the-entrance-trigger" title="Permanent link">&para;</a></h3>
+<p>Choose between automatic entry or prompt-based entry:</p>
+<h4 id="option-a-automatic-entry-o_dev_climb_auto">Option A: Automatic entry (<code>o_dev_climb_auto</code>)<a class="headerlink" href="#option-a-automatic-entry-o_dev_climb_auto" title="Permanent link">&para;</a></h4>
+<p>Place <code>o_dev_climb_auto</code> at the base of the wall. When the player walks onto this trigger, the engine automatically calls <code>climb_start_nearest()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// The player hops with a "swoosh" sound onto the nearest o_dev_climb_tile
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>climb_start_nearest();
+</code></pre></div>
+<h4 id="option-b-interactive-prompt-o_dev_climb_interact">Option B: Interactive prompt (<code>o_dev_climb_interact</code>)<a class="headerlink" href="#option-b-interactive-prompt-o_dev_climb_interact" title="Permanent link">&para;</a></h4>
+<p>If the climb should only start when the player investigates a ladder or vine, place <code>o_dev_climb_interact</code>. The player must stand next to it and press <code>[Z]</code> / <code>[ENTER]</code>.</p>
+<h3 id="step-3-place-the-exit-catcher-and-landing-marker">Step 3 — Place the exit catcher and landing marker<a class="headerlink" href="#step-3-place-the-exit-catcher-and-landing-marker" title="Permanent link">&para;</a></h3>
+<p>At the top of your climbing path:</p>
+<ol>
+<li>Place an instance of <strong><code>o_dev_climb_catcher</code></strong> at the top edge of the climbable tiles.</li>
+<li>Place an instance of <strong><code>o_dev_marker_climb</code></strong> on the solid floor just beyond the ledge where Kris should land.</li>
+</ol>
+<p>When the leader climbs into the catcher's bounding box, <code>climb_stop_nearest()</code> fires automatically:
+- The leader hops cleanly onto the <code>o_dev_marker_climb</code>.
+- Normal top-down movement is restored.
+- Followers fade back in and line up behind the leader (<code>party_fade_in()</code>).</p>
+<hr />
+<h2 id="climbing-controls-mechanics">Climbing controls &amp; mechanics<a class="headerlink" href="#climbing-controls-mechanics" title="Permanent link">&para;</a></h2>
+<p>The climbing controller (<code>objects/o_dev_climb_controller/</code>) manages physics while on the wall:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Control</th>
+<th>Engine behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Up / Down / Left / Right</strong></td>
+<td>Arrow Keys</td>
+<td>Crawls across adjacent <code>o_dev_climb_tile</code> instances (<code>move_reach = 23</code>).</td>
+</tr>
+<tr>
+<td><strong>Wall Leap</strong></td>
+<td>Direction + Tap</td>
+<td>Jumps across gaps to another climb tile up to <code>jump_reach_max = 50</code> px away.</td>
+</tr>
+<tr>
+<td><strong>Speed Boost / Dash</strong></td>
+<td>Run Key</td>
+<td>Accelerates climbing speed temporarily (<code>speed_boost_timer</code>).</td>
+</tr>
+<tr>
+<td><strong>Falling</strong></td>
+<td>Release grip</td>
+<td>If the player moves into empty space without an adjacent tile, gravity applies (<code>leader_gravity = 0.2</code>, <code>leader_terminal_velocity = 6</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="scripting-custom-climb-events">Scripting custom climb events<a class="headerlink" href="#scripting-custom-climb-events" title="Permanent link">&para;</a></h2>
+<p>You can inspect or trigger climbing states from your own GML scripts:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Check if the player is currently climbing
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>if climb_check() {
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    // Disable certain menus or hazards during climb
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>}
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>// Programmatically start a climb towards the closest wall
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>climb_start_nearest();
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>// Programmatically eject the player to the nearest ground marker
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>climb_stop_nearest();
+</code></pre></div>
+<hr />
+<h2 id="slippery-surfaces-and-hazards">Slippery surfaces and hazards<a class="headerlink" href="#slippery-surfaces-and-hazards" title="Permanent link">&para;</a></h2>
+<p>To create obstacles on the climbing wall (such as crumbling bricks or electric hazards):</p>
+<ol>
+<li>Place an <code>o_dev_climb_tile</code> over the hazard.</li>
+<li>In its <strong>Instance Creation Code</strong>, set <code>can_climb = false</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>can_climb = false;
+</code></pre></div>
+<p>When Kris attempts to move onto this tile, they will lose their grip and slide downward until grabbing a valid climb tile below or hitting the ground catcher.</p>
+<hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1683,40 +1568,24 @@
 </thead>
 <tbody>
 <tr>
-<td>The room is black and nothing responds</td>
-<td>no <code>o_dev_world</code> in the room</td>
+<td>Player walks past the wall without climbing</td>
+<td><code>o_dev_climb_auto</code> trigger was not placed at the floor entry, or <code>o_dev_climb_tile</code> is too far away</td>
 </tr>
 <tr>
-<td>The screen is pitch black even with <code>o_dev_world</code></td>
-<td>you placed an <code>o_camera</code> in the room — delete it (<code>o_camera</code> is a global singleton)</td>
+<td>Calling <code>climb_stop_nearest()</code> crashes the game</td>
+<td>Missing <code>o_dev_marker_climb</code> in the room — the engine cannot find a landing destination</td>
 </tr>
 <tr>
-<td>The party never appears</td>
-<td>no <code>o_dev_playermarker</code></td>
+<td>Player gets stuck at the top ledge and cannot walk</td>
+<td><code>o_dev_climb_catcher</code> is missing or does not overlap the top <code>o_dev_climb_tile</code></td>
 </tr>
 <tr>
-<td>The player walks through a wall</td>
-<td>the <code>o_block</code> is on a layer the player does not collide with, or <code>collide</code> was set to <code>false</code></td>
+<td>Followers remain invisible after climbing</td>
+<td><code>climb_stop_nearest()</code> was bypassed or <code>party_fade_in()</code> was not called</td>
 </tr>
 <tr>
-<td>A trigger never fires</td>
-<td>the instance is still 20×20 — stretch it</td>
-</tr>
-<tr>
-<td>A trigger fires once and never again</td>
-<td>expected; reset <code>triggered</code> in <code>trigger_exit_code</code></td>
-</tr>
-<tr>
-<td>No trigger fires while you are testing</td>
-<td>the console is open</td>
-</tr>
-<tr>
-<td>Foreground tiles draw behind the player</td>
-<td>depth is positive; foreground needs a negative depth</td>
-</tr>
-<tr>
-<td>Warping lands the party in the wrong spot</td>
-<td>the destination has no <code>o_dev_marker_land</code> with the <code>m_id</code> you referenced</td>
+<td>Player cannot jump across a gap</td>
+<td>Gap between <code>o_dev_climb_tile</code> instances exceeds <code>jump_reach_max</code> (50 pixels)</td>
 </tr>
 </tbody>
 </table>

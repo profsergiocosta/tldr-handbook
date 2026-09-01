@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 8: Your First Enemy - The tlDR Engine Handbook</title>
+        <title>Ch 13: Your First Enemy - The tlDR Engine Handbook</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 8: Your First Enemy
+              Ch 13: Your First Enemy
             
           </span>
         </div>
@@ -568,6 +568,146 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/cutscenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Cutscenes and Camera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/climbing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: Climbing and Traversal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/hazards-and-chases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Hazards and Dodging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/shortcuts-and-triggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 10: Shortcuts and Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/lighting-and-atmosphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 11: Lighting and Atmosphere
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -643,7 +783,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 7: How a Fight Works
+    Ch 12: How a Fight Works
   
 
     
@@ -680,7 +820,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 8: Your First Enemy
+    Ch 13: Your First Enemy
   
 
     
@@ -698,7 +838,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 8: Your First Enemy
+    Ch 13: Your First Enemy
   
 
     
@@ -1135,10 +1275,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-from-a-trigger" class="md-nav__link">
+  <a href="#b-from-an-altar-trigger" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. From a trigger
+        B. From an altar trigger
       
     </span>
   </a>
@@ -1206,7 +1346,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 9: The Arena
+    Ch 14: The Arena
   
 
     
@@ -1234,7 +1374,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 10: Advanced Patterns
+    Ch 15: Advanced Patterns
   
 
     
@@ -1838,10 +1978,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-from-a-trigger" class="md-nav__link">
+  <a href="#b-from-an-altar-trigger" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. From a trigger
+        B. From an altar trigger
       
     </span>
   </a>
@@ -1908,8 +2048,8 @@
 <p>If you have not read <a href="../overview/">How a fight works</a>, read at least Part 1 first. This chapter assumes you know what MERCY and ACTs are for.</p>
 <hr />
 <h2 id="what-we-are-building">What we are building<a class="headerlink" href="#what-we-are-building" title="Permanent link">&para;</a></h2>
-<p>A stray cat called <strong>SONSO</strong>.</p>
-<p>He is not a monster. He is a cat — and the design joke is that <strong>the obvious button is the wrong one</strong>. The player will try to <code>Call</code> the cat ("here, kitty"), because that is what you do with a cat. Sonso will turn his back, offended, and attack harder.</p>
+<p>In <a href="../../overworld/your-first-room/">Your first room</a>, we built a quiet sanctuary with an altar and a glowing prophecy mural. Now let us give it a guardian: <strong>SONSO</strong>, a stray cat who decided the sanctuary belongs to him.</p>
+<p>He is not a monster. He is a cat guarding the sacred altar — and the design joke is that <strong>the obvious button is the wrong one</strong>. The player will try to <code>Call</code> the cat ("here, kitty"), because that is what you do with a cat. Sonso will turn his back, offended, and attack harder.</p>
 <p>What works is the opposite: <strong><code>Ignore</code></strong>. Look away. Then he comes to you on his own.</p>
 <p>That is the heart of this genre — the enemy is not a bag of HP, it is a small social puzzle. And the best part: his <strong>mood</strong> changes the <strong>bullet pattern</strong>. The player learns they made a mistake not by reading text, but because the attack got worse.</p>
 <table>
@@ -2025,7 +2165,7 @@
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    enemies = [ new rpg_enemy_sonso() ]     // note the `new`
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    flavor = "* A cat is blocking the way. Technically."
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    flavor = "* A cat is blocking the sanctuary altar."
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    enemies_pos = [ [0, 0, true] ]          // [x, y, relative to default spot]
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    bgm = mus_battle
@@ -2084,12 +2224,12 @@
 <p>The encounter's <code>flavor</code> can react too. Back in <code>enc_set()</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    flavor = function() {
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        if o_enc.turn_count == 0
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            return "* A cat is blocking the way. Technically."
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>            return "* A cat is blocking the sanctuary altar."
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        switch o_enc.encounter_data.enemies[0].mood {
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            case "annoyed": return "* The air is tense. And furry."
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            case "curious": return "* Sonso is closer than he was."
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            default:        return "* Smells like a warm roof."
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            case "annoyed": return "* The sanctuary air is tense. And furry."
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            case "curious": return "* Sonso approaches from the altar steps."
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            default:        return "* The altar smells faintly of catnip."
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        }
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    }
 </code></pre></div>
@@ -2483,25 +2623,35 @@
 </table>
 <hr />
 <h2 id="step-9-putting-the-cat-in-the-world">Step 9 — Putting the cat in the world<a class="headerlink" href="#step-9-putting-the-cat-in-the-world" title="Permanent link">&para;</a></h2>
-<p>Only now is it worth touching a room. There are three ways to start the fight, each with its own gotchas.</p>
+<p>Only now is it worth returning to <strong><code>room_sanctuary</code></strong>, the room we built in <a href="../../overworld/your-first-room/">Your first room</a>. There are three ways to place Sonso in the sanctuary hall.</p>
 <h3 id="a-from-an-actor-on-the-map-the-canonical-way">A. From an actor on the map (the canonical way)<a class="headerlink" href="#a-from-an-actor-on-the-map-the-canonical-way" title="Permanent link">&para;</a></h3>
-<p>Drag an <strong><code>o_actor_e</code></strong> into the room, select it, and in the inspector's <em>Variable Definitions</em> fill <strong><code>encounter</code></strong> with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>new rpg_enc_set_sonso()
-</code></pre></div>
-<p>Touching it starts the fight. Other useful variables in the same panel: <code>enable_chasing</code>, <code>chase_spd</code>, <code>chase_dist</code>, <code>idle_path</code> (patrol along a Path asset) and <code>sprite_facing_dir</code>.</p>
-<p>A bonus of this route: the actor already in the room <strong>is reused</strong> as the battle enemy (<code>o_enc_anim/Alarm_4.gml</code> tries <code>actor_find</code> before creating a new one), so the transition from overworld to fight is continuous.</p>
-<h3 id="b-from-a-trigger">B. From a trigger<a class="headerlink" href="#b-from-a-trigger" title="Permanent link">&para;</a></h3>
-<p>Drag an <strong><code>o_trigger</code></strong> into the room and put this in its <em>Instance Creation Code</em>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>trigger_code = function() {
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    enc_start(new rpg_enc_set_sonso())
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>}
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>trigger_exit_code = function() {
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    triggered = false     // re-arm when the player leaves the area
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>}
+<p>Open <strong><code>room_sanctuary</code></strong> in the Room Editor:</p>
+<ol>
+<li>Select the <strong><code>Instances</code></strong> layer (depth <code>300</code>).</li>
+<li>Drag an <strong><code>o_actor_e</code></strong> into the central aisle at <code>(320, 240)</code> (guarding the path to the prophecy altar).</li>
+<li>In its inspector properties, set <strong>Sprite</strong> to <code>spr_ex_e_tasque</code>.</li>
+<li>In its <strong>Variable Definitions</strong>, configure:</li>
+<li><strong><code>encounter</code></strong>: <code>new rpg_enc_set_sonso()</code></li>
+<li><strong><code>enable_chasing</code></strong>: <code>true</code> (optional: the cat rushes the party when Kris approaches)</li>
+<li><strong><code>chase_dist</code></strong>: <code>60</code></li>
+</ol>
+<p>Touching the cat starts the fight. A bonus of this route: the actor on the map <strong>is reused</strong> as the battle enemy (<code>o_enc_anim/Alarm_4.gml</code> tries <code>actor_find</code> before creating a new one), so the transition into combat is seamless.</p>
+<h3 id="b-from-an-altar-trigger">B. From an altar trigger<a class="headerlink" href="#b-from-an-altar-trigger" title="Permanent link">&para;</a></h3>
+<p>If you prefer an ambush when approaching the prophecy mural:</p>
+<ol>
+<li>In <strong><code>room_sanctuary</code></strong>, drag an <strong><code>o_trigger</code></strong> across the walkway at <code>(250, 210)</code>.</li>
+<li>Open its <strong>Instance Creation Code</strong>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>trigger_code = function() {
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    enc_start(new rpg_enc_set_sonso())
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>}
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>trigger_exit_code = function() {
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    triggered = false     // re-arm when the player leaves the area
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>}
 </code></pre></div>
 <p>The code is the easy part. What usually makes a trigger "not work" is <strong>three configuration details</strong>, none of them GML:</p>
-<p><strong>1. Stretch the instance.</strong> <code>spr_trigger</code> is <strong>20×20 px</strong> with its origin at the top-left, and <code>o_trigger</code> is <code>visible: false</code> — you placed an invisible little square the player walks straight past. The engine's own triggers are all stretched: in <code>room_ex_church</code> they use <code>scaleX</code> between 5 and 7 and <code>scaleY</code> 2, giving 100–140 × 40 px.</p>
+<p><strong>1. Stretch the instance.</strong> <code>spr_trigger</code> is <strong>20×20 px</strong> with its origin at the top-left, and <code>o_trigger</code> is <code>visible: false</code> — stretch it across the walkway.</p>
 <p><strong>2. <code>o_trigger</code> fires exactly once.</strong> The entry event sets <code>triggered = true</code> and <strong>nothing sets it back</strong> — the exit event only touches <code>trigger_exit</code>. Hence the <code>trigger_exit_code</code> above. This bites especially hard in a battle: when the fight ends, the party returns to where it started — <strong>standing on the trigger</strong>. Without the re-arm it never fires again until the room reloads. The idiom comes from the engine itself, <code>rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13</code>.</p>
 <p><strong>3. The player must be in control.</strong> With <code>controlled_activation = true</code> (the default), the Step only fires if <code>get_leader()._checkmove()</code> is true (<code>objects/o_trigger/Step_0.gml:4</code>), which requires <code>moveable_console</code>, <code>moveable_dialogue</code>, <code>moveable_battle</code> and friends to all be true. In practice: <strong>with the console open (<span class="keys"><kbd class="key-tab">Tab</kbd></span>), no trigger fires.</strong></p>
 <div class="admonition tip">
@@ -2513,10 +2663,10 @@
 <p>If the encounter is one-off — the cat was defeated and should not come back — just omit <code>trigger_exit_code</code>. One-shot is <code>o_trigger</code>'s default behaviour.</p>
 </div>
 <h3 id="c-from-code-anywhere">C. From code, anywhere<a class="headerlink" href="#c-from-code-anywhere" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>enc_start(new rpg_enc_set_sonso())
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>// exactly identical to:
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>new rpg_enc_set_sonso()._start()
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>enc_start(new rpg_enc_set_sonso())
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>// exactly identical to:
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>new rpg_enc_set_sonso()._start()
 </code></pre></div>
 <p><code>_start()</code> is only sugar: the method calls <code>enc_start(self)</code> (<code>scripts/enc_scripts/enc_scripts.gml:157</code>).</p>
 <hr />

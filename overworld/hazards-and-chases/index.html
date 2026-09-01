@@ -14,10 +14,10 @@
       
       
       
-        <link rel="prev" href="../../getting-started/fonts-and-accents/">
+        <link rel="prev" href="../climbing/">
       
       
-        <link rel="next" href="../npcs-and-dialogue/">
+        <link rel="next" href="../shortcuts-and-triggers/">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 3: Rooms and Collision - The tlDR Engine Handbook</title>
+        <title>Ch 9: Hazards and Dodging - The tlDR Engine Handbook</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rooms-and-collision" class="md-skip">
+        <a href="#hazards-chases-and-dodging" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 3: Rooms and Collision
+              Ch 9: Hazards and Dodging
             
           </span>
         </div>
@@ -460,37 +460,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 3: Rooms and Collision
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../rooms-and-collision/" class="md-nav__link">
         
   
   
@@ -506,187 +479,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The two objects every room needs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Walls
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Walls">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The collide flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How movement resolves collisions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Moving between rooms
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Moving between rooms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Triggers
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Triggers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Stretch the instance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. o_trigger fires once
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. The player must be in control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common problems
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -836,10 +628,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../hazards-and-chases/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Hazards and Dodging
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -855,6 +674,187 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overworld-enemy-actors-o_actor_e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overworld enemy actors (o_actor_e)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Overworld enemy actors (o_actor_e)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurable-variable-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurable Variable Definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-an-enemy-to-your-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding an enemy to your room
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zone-based-chasing-with-o_trigger_enemy_chase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone-based chasing with o_trigger_enemy_chase
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-real-time-overworld-dodging-o_trigger_dodge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Real-time overworld dodging (o_trigger_dodge)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Real-time overworld dodging (o_trigger_dodge)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-a-dodge-zone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up a dodge zone
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-overworld-bullets-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Creating overworld bullets &amp; hazards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Creating overworld bullets &amp; hazards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-o_dodge_bullet-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How o_dodge_bullet works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-a-moving-traffic-car-hazard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: A moving traffic car hazard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-spawning-waves-of-hazards-along-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Spawning waves of hazards along paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-darkening-objects-during-overworld-battles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Darkening objects during overworld battles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overworld-game-over-dodge_gameover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overworld Game Over (dodge_gameover)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1268,44 +1268,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-two-objects-every-room-needs" class="md-nav__link">
+  <a href="#1-overworld-enemy-actors-o_actor_e" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The two objects every room needs
+        1. Overworld enemy actors (o_actor_e)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layer-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Walls
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Walls">
+    <nav class="md-nav" aria-label="1. Overworld enemy actors (o_actor_e)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-collide-flag" class="md-nav__link">
+  <a href="#configurable-variable-definitions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The collide flag
+        Configurable Variable Definitions
       
     </span>
   </a>
@@ -1313,10 +1291,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-movement-resolves-collisions" class="md-nav__link">
+  <a href="#adding-an-enemy-to-your-room" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How movement resolves collisions
+        Adding an enemy to your room
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zone-based-chasing-with-o_trigger_enemy_chase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone-based chasing with o_trigger_enemy_chase
       
     </span>
   </a>
@@ -1329,33 +1318,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#moving-between-rooms" class="md-nav__link">
+  <a href="#2-real-time-overworld-dodging-o_trigger_dodge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Moving between rooms
+        2. Real-time overworld dodging (o_trigger_dodge)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Moving between rooms">
+    <nav class="md-nav" aria-label="2. Real-time overworld dodging (o_trigger_dodge)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-simple-way" class="md-nav__link">
+  <a href="#setting-up-a-dodge-zone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The simple way
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-proper-way-warp-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The proper way: warp triggers
+        Setting up a dodge zone
       
     </span>
   </a>
@@ -1368,22 +1346,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#triggers" class="md-nav__link">
+  <a href="#3-creating-overworld-bullets-hazards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Triggers
+        3. Creating overworld bullets &amp; hazards
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Triggers">
+    <nav class="md-nav" aria-label="3. Creating overworld bullets &amp; hazards">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-stretch-the-instance" class="md-nav__link">
+  <a href="#how-o_dodge_bullet-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Stretch the instance
+        How o_dodge_bullet works
       
     </span>
   </a>
@@ -1391,10 +1369,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-o_trigger-fires-once" class="md-nav__link">
+  <a href="#example-a-moving-traffic-car-hazard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. o_trigger fires once
+        Example: A moving traffic car hazard
       
     </span>
   </a>
@@ -1402,10 +1380,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-the-player-must-be-in-control" class="md-nav__link">
+  <a href="#example-spawning-waves-of-hazards-along-paths" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. The player must be in control
+        Example: Spawning waves of hazards along paths
       
     </span>
   </a>
@@ -1414,6 +1392,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-darkening-objects-during-overworld-battles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Darkening objects during overworld battles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overworld-game-over-dodge_gameover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overworld Game Over (dodge_gameover)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1445,234 +1445,154 @@
 
 
 
-<h1 id="rooms-and-collision">Rooms and collision<a class="headerlink" href="#rooms-and-collision" title="Permanent link">&para;</a></h1>
-<p>A tlDR room is a normal GameMaker room with a handful of conventions layered on top. This chapter covers the objects every room needs, how the layers are meant to be stacked, how walls work, and how to move the player between rooms.</p>
-<h2 id="the-two-objects-every-room-needs">The two objects every room needs<a class="headerlink" href="#the-two-objects-every-room-needs" title="Permanent link">&para;</a></h2>
-<p>Drop these into any new room and it will boot:</p>
+<h1 id="hazards-chases-and-dodging">Hazards, chases, and dodging<a class="headerlink" href="#hazards-chases-and-dodging" title="Permanent link">&para;</a></h1>
+<p>Overworld gameplay in DELTARUNE is dynamic and hazardous: enemies roam along patrol paths, spot the party with an exclamation mark, and chase you down. Furthermore, certain areas switch into a <strong>real-time bullet-dodging mode</strong> directly on the map — dodging speeding cars in Cyber City or dancing shadows in the Forest without opening the turn-based battle screen.</p>
+<p>tlDR Engine implements both systems:
+1. <strong>Enemy Overworld Actors</strong> (<code>o_actor_e</code>, <code>o_trigger_enemy_chase</code>) — patrol paths, line-of-sight chasing, and battle initialization.
+2. <strong>Overworld Dodging System</strong> (<code>scripts/dodge/dodge.gml</code>, <code>o_trigger_dodge</code>, <code>o_dodge_controller</code>) — real-time red SOUL control, ambient bullet collision, and map darken shaders.</p>
+<hr />
+<h2 id="1-overworld-enemy-actors-o_actor_e">1. Overworld enemy actors (<code>o_actor_e</code>)<a class="headerlink" href="#1-overworld-enemy-actors-o_actor_e" title="Permanent link">&para;</a></h2>
+<p>An enemy on the map is an instance of <strong><code>o_actor_e</code></strong> (or a specialized child like <code>o_actor_e_killercar</code> or <code>o_actor_e_virovirokun</code>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph LR
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A["Idle Patrol: idle_path"] --&gt;|Player enters chase_dist| B["Alert: snd_exclamation"]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Chase: chase_spd| C["Contact!"]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    C --&gt;|Trigger Encounter| D["enc_start(encounter)"]
+</code></pre></div>
+<h3 id="configurable-variable-definitions">Configurable Variable Definitions<a class="headerlink" href="#configurable-variable-definitions" title="Permanent link">&para;</a></h3>
+<p>Every <code>o_actor_e</code> instance exposes these key variables in the GameMaker Inspector (<code>objects/o_actor_e/Create_0.gml</code>):</p>
 <table>
 <thead>
 <tr>
-<th>Object</th>
-<th>Why</th>
+<th>Variable</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong><code>o_dev_world</code></strong></td>
-<td>The controller. It calls <code>world_switch(world)</code> on creation, which sets <code>global.world</code> and converts party equipment accordingly. Without it, nothing initialises.</td>
+<td><strong><code>encounter</code></strong></td>
+<td>Expression</td>
+<td><code>new enc_set_ex()</code></td>
+<td>The encounter struct initialized when the enemy touches the party.</td>
 </tr>
 <tr>
-<td><strong><code>o_dev_playermarker</code></strong></td>
-<td>Where the party spawns. It creates the leader with <code>party_leader_create(...)</code> and then every other member behind them, and automatically points the camera at the leader.</td>
+<td><strong><code>idle_path</code></strong></td>
+<td>Path Asset</td>
+<td><code>noone</code></td>
+<td>A GameMaker Path resource the enemy follows back and forth while idle.</td>
+</tr>
+<tr>
+<td><strong><code>idle_path_spd</code></strong></td>
+<td>Real</td>
+<td><code>2</code></td>
+<td>Speed along the idle path.</td>
+</tr>
+<tr>
+<td><strong><code>chase_dist</code></strong></td>
+<td>Real</td>
+<td><code>60</code></td>
+<td>Detection radius in pixels. If the leader enters this radius, chase begins.</td>
+</tr>
+<tr>
+<td><strong><code>chase_spd</code></strong></td>
+<td>Real</td>
+<td><code>4</code></td>
+<td>Movement speed while pursuing the player.</td>
+</tr>
+<tr>
+<td><strong><code>idle_path_autopos</code></strong></td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Snaps the enemy to the nearest point along its path on room start.</td>
 </tr>
 </tbody>
 </table>
-<p><code>o_dev_world</code> has one Variable Definition worth knowing: <strong><code>world</code></strong>, which is <code>WORLD_TYPE.DARK</code> by default. Set it to <code>WORLD_TYPE.LIGHT</code> for Light World rooms — party sprites and equipment switch accordingly (<code>scripts/party_scripts/party_scripts.gml:240</code>).</p>
-<div class="admonition danger">
-<p class="admonition-title">Do NOT place <code>o_camera</code> in your rooms</p>
-<p><code>o_camera</code> is a <strong>persistent singleton</strong> spawned globally by <code>o_world</code> at game startup (<code>objects/o_world/Other_2.gml:6</code>). Placing a manual instance of <code>o_camera</code> inside a room creates a second camera whose target is <code>noone</code> at <code>(0, 0)</code>, which steals <code>view_camera[0]</code> and <strong>turns the entire screen pitch black</strong>.</p>
-<p>Leave the camera to the engine — <code>o_dev_playermarker</code> automatically finds the global camera and binds it to your party leader.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Start from an example room</p>
-<p><code>room_ex_city</code>, <code>room_ex_church</code> and <code>room_ex_dforest</code> are the engine's own rooms and they are the real documentation. Duplicating one and gutting it is usually faster than building from an empty room.</p>
-</div>
-<h2 id="layer-layout">Layer layout<a class="headerlink" href="#layer-layout" title="Permanent link">&para;</a></h2>
-<p>Rooms are organised by depth, and the engine's own rooms follow a consistent order. This is <code>room_ex_city</code>, top to bottom:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Depth</th>
-<th>Layer</th>
-<th>Kind</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><code>-4000</code></td>
-<td><code>t_foreground</code></td>
-<td>tiles</td>
-<td>tiles drawn <strong>over</strong> the player — awnings, treetops, foreground clutter</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>0</code></td>
-<td><code>collisions</code></td>
-<td>instances</td>
-<td><code>o_block</code> and <code>o_block_diag</code> — the walls</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>200</code></td>
-<td><code>decor</code></td>
-<td>instances</td>
-<td>props that do not block</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>300</code></td>
-<td><code>Instances</code></td>
-<td>instances</td>
-<td>NPCs, triggers, the player marker, <code>o_dev_world</code></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>400</code></td>
-<td><code>area</code></td>
-<td>folder</td>
-<td>grouping only</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>500</code></td>
-<td><code>t_buildingstop</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>600</code></td>
-<td><code>t_buildings</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>700</code></td>
-<td><code>t_grounddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>800</code></td>
-<td><code>t_roaddecor</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1000</code></td>
-<td><code>t_road</code></td>
-<td>tiles</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1200</code></td>
-<td><code>Background</code></td>
-<td>background</td>
-<td>flat colour behind everything</td>
-</tr>
-</tbody>
-</table>
-<p>Remember: <strong>in GameMaker, a larger depth is further back.</strong> The foreground tile layer is at <code>-4000</code> precisely so it draws in front of the party.</p>
-<p>You do not have to match this exactly, but keeping collisions at <code>0</code> and instances around <code>300</code> means you can copy code and creation snippets between rooms without surprises.</p>
-<h2 id="walls">Walls<a class="headerlink" href="#walls" title="Permanent link">&para;</a></h2>
-<p>Collision is instance-based, not tile-based. Two objects do the work:</p>
-<table>
-<thead>
-<tr>
-<th>Object</th>
-<th>Shape</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>o_block</code></strong></td>
-<td>Axis-aligned rectangles. The workhorse.</td>
-</tr>
-<tr>
-<td><strong><code>o_block_diag</code></strong></td>
-<td>Diagonals — slopes the player slides along.</td>
-</tr>
-</tbody>
-</table>
-<p>Place them on the <code>collisions</code> layer, stretch them over whatever should be solid, and that is it. They are invisible at runtime.</p>
-<h3 id="the-collide-flag">The <code>collide</code> flag<a class="headerlink" href="#the-collide-flag" title="Permanent link">&para;</a></h3>
-<p><code>o_block</code> has exactly one variable, set in its Create event:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// objects/o_block/Create_0.gml
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>collide = true
-</code></pre></div>
-<p>The player's movement code checks it on every instance it touches (<code>objects/o_actor/Step_0.gml:180</code>), which means <strong>you can turn a wall off at runtime</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// a door that opens
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>with (my_door_block)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    collide = false;
-</code></pre></div>
-<p>This is much simpler than destroying and recreating instances, and it keeps the wall in the room editor where you can see it.</p>
-<h3 id="how-movement-resolves-collisions">How movement resolves collisions<a class="headerlink" href="#how-movement-resolves-collisions" title="Permanent link">&para;</a></h3>
-<p>Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (<code>objects/o_actor/Step_0.gml:176</code> and <code>:194</code>). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.</p>
-<p>Diagonal blocks get a second pass (<code>:229</code>) that also checks whether a regular <code>o_block</code> is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.</p>
-<div class="admonition warning">
-<p class="admonition-title">Blocks are not for the battle arena</p>
-<p>The soul inside a battle collides with <code>o_enc_box_solid</code>, not <code>o_block</code>. They are separate systems — see <a href="../../battle-system/the-arena/">The arena</a>.</p>
-</div>
-<h2 id="moving-between-rooms">Moving between rooms<a class="headerlink" href="#moving-between-rooms" title="Permanent link">&para;</a></h2>
-<h3 id="the-simple-way">The simple way<a class="headerlink" href="#the-simple-way" title="Permanent link">&para;</a></h3>
-<p>Anywhere you can run code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>room_goto(room_my_next_area);
-</code></pre></div>
-<p>Fine for prototyping, but the party will spawn at that room's <code>o_dev_playermarker</code>, which is rarely where you want them to arrive.</p>
-<h3 id="the-proper-way-warp-triggers">The proper way: warp triggers<a class="headerlink" href="#the-proper-way-warp-triggers" title="Permanent link">&para;</a></h3>
-<p>Use <strong><code>o_trigger_warp</code></strong>. It fades out, changes room, and then places the leader at a <strong>landing marker</strong> with a chosen facing direction (<code>objects/o_trigger_warp/Alarm_0.gml</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir);
-</code></pre></div>
-<p>So the recipe for a doorway is:</p>
+<h3 id="adding-an-enemy-to-your-room">Adding an enemy to your room<a class="headerlink" href="#adding-an-enemy-to-your-room" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Put an <strong><code>o_dev_marker_land</code></strong> in the destination room where the player should appear, and give it an <code>m_id</code>.</li>
-<li>Put an <strong><code>o_trigger_warp</code></strong> in the source room over the doorway.</li>
-<li>Fill in its Variable Definitions: the target room, the target marker's <code>m_id</code>, and the facing direction on arrival.</li>
-<li>Stretch it (see below).</li>
+<li>Place <code>o_actor_e</code> on the <code>Instances</code> layer.</li>
+<li>In its <strong>Variable Definitions</strong>, assign your encounter:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>encounter = new enc_set_my_custom_fight();
+</code></pre></div></li>
+<li>(Optional) Assign a Path asset to <code>idle_path</code> so the enemy paces back and forth along a hallway.</li>
 </ol>
-<p><code>MARKER_LAND</code> is just the string <code>"land"</code> (<code>scripts/macro_markers/macro_markers.gml:4</code>) — markers are grouped by kind, and landing spots are one kind.</p>
-<h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h2>
-<p><code>o_trigger</code> runs your code when the player walks into it. It is the general-purpose "something happens here" object. Put the code in the instance's <strong>Instance Creation Code</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>trigger_code = function() {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    cutscene_create();
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    cutscene_dialogue("* (The floor creaks.)");
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    cutscene_play();
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>}
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>trigger_exit_code = function() {
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    triggered = false;      // re-arm when the player leaves
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>}
+<h3 id="zone-based-chasing-with-o_trigger_enemy_chase">Zone-based chasing with <code>o_trigger_enemy_chase</code><a class="headerlink" href="#zone-based-chasing-with-o_trigger_enemy_chase" title="Permanent link">&para;</a></h3>
+<p>Instead of relying purely on circular distance, you can define an entire ambush room using <strong><code>o_trigger_enemy_chase</code></strong>.</p>
+<ol>
+<li>Place <code>o_trigger_enemy_chase</code> and stretch its bounding box across a doorway or corridor.</li>
+<li>When the player steps into the trigger, every <code>o_actor_e</code> linked to the area alerts (<code>snd_exclamation</code>) and begins sprinting toward the party leader.</li>
+</ol>
+<hr />
+<h2 id="2-real-time-overworld-dodging-o_trigger_dodge">2. Real-time overworld dodging (<code>o_trigger_dodge</code>)<a class="headerlink" href="#2-real-time-overworld-dodging-o_trigger_dodge" title="Permanent link">&para;</a></h2>
+<p>In rooms like <code>room_ex_city</code> and <code>room_ex_dforest</code>, the party encounters hazards that damage HP in real-time.</p>
+<p>When dodging mode is enabled:
+- The screen subtly darkens (<code>dodge_darken_self()</code>).
+- Kris's red <strong>SOUL</strong> appears over the leader (<code>o_dodge_soul</code>).
+- Grazing and damage mechanics activate in the overworld.
+- If party HP reaches zero, the engine executes <code>dodge_gameover()</code>, captures a freeze-frame surface, and transitions to <code>room_gameover</code>.</p>
+<h3 id="setting-up-a-dodge-zone">Setting up a dodge zone<a class="headerlink" href="#setting-up-a-dodge-zone" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Select the <code>Instances</code> layer.</li>
+<li>Place an instance of <strong><code>o_trigger_dodge</code></strong> and scale it over the hazard zone (e.g. a street crossing or a puzzle floor).</li>
+<li>That is it! <code>o_trigger_dodge</code> automatically handles entering and leaving:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// objects/o_trigger_dodge/Create_0.gml
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>trigger_code = function() {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    dodge_on(); // Spawns o_dodge_soul and turns on hazard collision
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>};
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>trigger_exit_code = function() {
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    dodge_off(); // Removes SOUL and restores normal overworld state
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>};
 </code></pre></div>
-<p>Three things about triggers cause almost all the confusion, and none of them are about the code.</p>
-<h3 id="1-stretch-the-instance">1. Stretch the instance<a class="headerlink" href="#1-stretch-the-instance" title="Permanent link">&para;</a></h3>
-<p><code>spr_trigger</code> is <strong>20×20 pixels</strong> with its origin at the top-left corner, and <code>o_trigger</code> is invisible at runtime. A default-sized trigger is a tiny invisible square the player walks straight past.</p>
-<p>The engine's own triggers are all stretched. In <code>room_ex_church</code>:</p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>scaleX</th>
-<th>scaleY</th>
-<th>Actual size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>inst_64FAB75A</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
-</tr>
-<tr>
-<td><code>inst_2B13ACD5</code></td>
-<td>7.0</td>
-<td>2.0</td>
-<td>140 × 40</td>
-</tr>
-<tr>
-<td><code>inst_2838B310</code></td>
-<td>5.0</td>
-<td>2.0</td>
-<td>100 × 40</td>
-</tr>
-</tbody>
-</table>
-<p>Drag the instance handles in the room editor until it covers the whole passage.</p>
-<h3 id="2-o_trigger-fires-once">2. <code>o_trigger</code> fires once<a class="headerlink" href="#2-o_trigger-fires-once" title="Permanent link">&para;</a></h3>
-<p>The entry event sets <code>triggered = true</code> and <strong>nothing in the engine sets it back</strong>. The exit event only touches <code>trigger_exit</code> (<code>objects/o_trigger/Other_11.gml</code>). If you want it to fire again, reset it yourself in <code>trigger_exit_code</code>, as in the snippet above — this is the engine's own idiom (<code>rooms/room_ex_church/InstanceCreationCode_inst_2B13ACD5.gml:13</code>).</p>
-<p>One-shot is often what you want, though. A trigger that starts a boss fight should not restart it when the player walks back.</p>
-<h3 id="3-the-player-must-be-in-control">3. The player must be in control<a class="headerlink" href="#3-the-player-must-be-in-control" title="Permanent link">&para;</a></h3>
-<p>With <code>controlled_activation = true</code> (the default), the trigger only fires when <code>get_leader()._checkmove()</code> is true (<code>objects/o_trigger/Step_0.gml:4</code>). That function requires <code>moveable_console</code>, <code>moveable_dialogue</code>, <code>moveable_battle</code> and several others to all be true (<code>objects/o_actor/Create_0.gml:197</code>).</p>
-<p>In practice: <strong>with the console open (<span class="keys"><kbd class="key-tab">Tab</kbd></span>), no trigger fires.</strong> If you want a trigger that works regardless — room edges, for instance — set <code>controlled_activation = false</code> in the Creation Code.</p>
-<div class="admonition tip">
-<p class="admonition-title">30-second diagnosis</p>
-<p>Put <code>show_debug_message("&gt;&gt;&gt; TRIGGER FIRED")</code> as the first line of <code>trigger_code</code>. If it never prints in the Output window while you walk over it, the problem is collision (1) or control (3), not your code.</p>
-</div>
+<hr />
+<h2 id="3-creating-overworld-bullets-hazards">3. Creating overworld bullets &amp; hazards<a class="headerlink" href="#3-creating-overworld-bullets-hazards" title="Permanent link">&para;</a></h2>
+<p>Any object that should damage the player during overworld dodging inherits from <strong><code>o_dodge_bullet</code></strong> (<code>objects/o_dodge_bullet/</code>).</p>
+<h3 id="how-o_dodge_bullet-works">How <code>o_dodge_bullet</code> works<a class="headerlink" href="#how-o_dodge_bullet-works" title="Permanent link">&para;</a></h3>
+<p><code>o_dodge_bullet</code> automatically handles collision with <code>o_dodge_soul</code>:
+- <strong>Collision:</strong> Plays <code>snd_hurt</code>, reduces leader HP, flashes the SOUL with invulnerability frames (<code>inv = 30</code>), and screenshakes.
+- <strong>Graze:</strong> If the SOUL passes close to the bullet, plays <code>snd_graze</code> and grants TP.</p>
+<h3 id="example-a-moving-traffic-car-hazard">Example: A moving traffic car hazard<a class="headerlink" href="#example-a-moving-traffic-car-hazard" title="Permanent link">&para;</a></h3>
+<p>Here is how the speeding cars in <code>room_ex_city</code> (<code>objects/o_ex_ow_city_traffic_car/</code>) are constructed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Create Event
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>event_inherited(); // Inherits o_dodge_bullet collision
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>spd = 6;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>dir = DIR.LEFT;
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>// Step Event
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>x += lengthdir_x(spd, dir * 90);
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>y += lengthdir_y(spd, dir * 90);
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>// Destroy when offscreen
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>if x &lt; -50 || x &gt; room_width + 50
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    instance_destroy();
+</code></pre></div>
+<h3 id="example-spawning-waves-of-hazards-along-paths">Example: Spawning waves of hazards along paths<a class="headerlink" href="#example-spawning-waves-of-hazards-along-paths" title="Permanent link">&para;</a></h3>
+<p>In <code>room_ex_dforest</code>, dancing shadow monsters spawn along paths using <code>o_ex_dodge_dforest_dancerspawn</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>// Instance Creation Code of the spawner
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>path = path_ex_dforest_dancers1;
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>pattern = [1, 1, 0, 1, 0, 0, 1]; // 1 = spawn dancer, 0 = gap
+</code></pre></div>
+<hr />
+<h2 id="4-darkening-objects-during-overworld-battles">4. Darkening objects during overworld battles<a class="headerlink" href="#4-darkening-objects-during-overworld-battles" title="Permanent link">&para;</a></h2>
+<p>To make trees, signs, and background props react to the overworld dodge mode (dimming when the battle zone activates), call <code>dodge_darken_self()</code> in their <strong>Draw Event</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// Draw Event of custom overworld prop
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>draw_self();
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>dodge_darken_self(); // Applies dark overlay when dodge_mode is active
+</code></pre></div>
+<hr />
+<h2 id="overworld-game-over-dodge_gameover">Overworld Game Over (<code>dodge_gameover</code>)<a class="headerlink" href="#overworld-game-over-dodge_gameover" title="Permanent link">&para;</a></h2>
+<p>If the party leader takes fatal damage during overworld dodging:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// scripts/dodge/dodge.gml:34
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>function dodge_gameover() {
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    // 1. Captures application_surface as a frozen screenshot
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    // 2. Plays snd_hurt and cuts music
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    // 3. Spawns o_gameover soul shatter effect
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    // 4. Transitions directly to room_gameover
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>}
+</code></pre></div>
+<p>This guarantees an immediate, seamless game-over sequence matching DELTARUNE's exact presentation.</p>
+<hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1683,40 +1603,24 @@
 </thead>
 <tbody>
 <tr>
-<td>The room is black and nothing responds</td>
-<td>no <code>o_dev_world</code> in the room</td>
+<td>Enemy touches player but battle never starts</td>
+<td><code>encounter</code> field on <code>o_actor_e</code> is not initialized or invalid</td>
 </tr>
 <tr>
-<td>The screen is pitch black even with <code>o_dev_world</code></td>
-<td>you placed an <code>o_camera</code> in the room — delete it (<code>o_camera</code> is a global singleton)</td>
+<td>Enemy does not chase when player approaches</td>
+<td><code>chase_dist</code> is too small, or the enemy is stuck inside an <code>o_block</code> collision</td>
 </tr>
 <tr>
-<td>The party never appears</td>
-<td>no <code>o_dev_playermarker</code></td>
+<td>Red SOUL does not appear in hazard zone</td>
+<td>Missing <code>o_trigger_dodge</code> or <code>o_dodge_controller</code> in the room</td>
 </tr>
 <tr>
-<td>The player walks through a wall</td>
-<td>the <code>o_block</code> is on a layer the player does not collide with, or <code>collide</code> was set to <code>false</code></td>
+<td>Dodging remains stuck on after leaving the area</td>
+<td><code>o_trigger_dodge</code> was deleted or did not execute <code>trigger_exit_code</code></td>
 </tr>
 <tr>
-<td>A trigger never fires</td>
-<td>the instance is still 20×20 — stretch it</td>
-</tr>
-<tr>
-<td>A trigger fires once and never again</td>
-<td>expected; reset <code>triggered</code> in <code>trigger_exit_code</code></td>
-</tr>
-<tr>
-<td>No trigger fires while you are testing</td>
-<td>the console is open</td>
-</tr>
-<tr>
-<td>Foreground tiles draw behind the player</td>
-<td>depth is positive; foreground needs a negative depth</td>
-</tr>
-<tr>
-<td>Warping lands the party in the wrong spot</td>
-<td>the destination has no <code>o_dev_marker_land</code> with the <code>m_id</code> you referenced</td>
+<td>Overworld bullets do not deal damage</td>
+<td>The bullet object was not parented to <code>o_dodge_bullet</code></td>
 </tr>
 </tbody>
 </table>

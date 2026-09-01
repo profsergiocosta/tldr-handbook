@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 9: The Arena - The tlDR Engine Handbook</title>
+        <title>Ch 14: The Arena - The tlDR Engine Handbook</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 9: The Arena
+              Ch 14: The Arena
             
           </span>
         </div>
@@ -568,6 +568,146 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/cutscenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Cutscenes and Camera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/climbing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: Climbing and Traversal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/hazards-and-chases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Hazards and Dodging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/shortcuts-and-triggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 10: Shortcuts and Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/lighting-and-atmosphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 11: Lighting and Atmosphere
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -643,7 +783,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 7: How a Fight Works
+    Ch 12: How a Fight Works
   
 
     
@@ -671,7 +811,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 8: Your First Enemy
+    Ch 13: Your First Enemy
   
 
     
@@ -708,7 +848,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 9: The Arena
+    Ch 14: The Arena
   
 
     
@@ -726,7 +866,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 9: The Arena
+    Ch 14: The Arena
   
 
     
@@ -1034,7 +1174,7 @@
   <span class="md-ellipsis">
     
   
-    Ch 10: Advanced Patterns
+    Ch 15: Advanced Patterns
   
 
     
@@ -1504,13 +1644,13 @@
 
 
 <h1 id="the-arena">The arena<a class="headerlink" href="#the-arena" title="Permanent link">&para;</a></h1>
-<p>Direct continuation of <a href="../your-first-enemy/">Your first enemy</a>. There, Sonso got a personality through his ACTs and bullet patterns. Here he gets <strong>a place</strong>: the box the soul moves in stops being a neutral square and starts acting alongside him.</p>
+<p>Direct continuation of <a href="../your-first-enemy/">Your first enemy</a>. There, Sonso became the guardian of our sanctuary. Here the battle space stops being an abstract green grid and transforms into the <strong>Sanctuary Shrine</strong>: the box the soul moves in, the obstacles inside it, and the atmospheric background all reflect the sacred hall we built in <a href="../../overworld/your-first-room/">Your first room</a>.</p>
 <p>Nine steps, each testable on its own. You can stop at any of them.</p>
 <h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <p>You need Sonso working: <code>rpg_enemy_sonso()</code>, <code>rpg_enc_set_sonso()</code> and the <code>o_turn_sonso</code> object with its four events. If <span class="keys"><kbd class="key-tab">Tab</kbd></span> → <code>encounter_select</code> → <code>sonso</code> opens the fight and the cat attacks, you are ready.</p>
 <h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
-<p>In the first chapter, Sonso's mood changed the <strong>bullet pattern</strong>. Here it will also change <strong>the size, tilt and contents of the arena</strong>.</p>
-<p>This matters because the box is the player's personal space. Shrinking it is not "raising the difficulty" — it is the cat getting too close. Rotating it is not a pretty effect — it is you losing your footing. The player feels it before understanding it.</p>
+<p>In the previous chapter, Sonso's mood changed the <strong>bullet pattern</strong>. Here it will also change <strong>the size, tilt and contents of the arena</strong>.</p>
+<p>This matters because the box is the player's personal space. Shrinking it is not "raising the difficulty" — it is the cat cornering you against the sanctuary altar. Rotating it is not a pretty effect — it is you losing your footing. The player feels it before understanding it.</p>
 <table>
 <thead>
 <tr>
@@ -1527,13 +1667,13 @@
 </tr>
 <tr>
 <td><code>annoyed</code></td>
-<td>shrinks to 55×55 and shakes</td>
-<td>he has cornered you</td>
+<td>shrinks to 55×55, shakes, drops altar stones</td>
+<td>he has cornered you at the altar</td>
 </tr>
 <tr>
 <td><code>curious</code></td>
 <td>grows to 90×90 and turns slowly</td>
-<td>he is circling you</td>
+<td>he is circling you under the skylight</td>
 </tr>
 </tbody>
 </table>
@@ -1703,12 +1843,12 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>if !place_meeting(x + xstep + sign(xstep)*1.5, y, o_enc_box_solid)
 </code></pre></div>
 <p>So <strong>any extra <code>o_enc_box_solid</code> instance becomes a solid wall inside the arena.</strong> Pillars, corridors, a wall that descends mid-turn.</p>
-<p>For Sonso, the idea: when he is annoyed, he knocks <strong>cardboard boxes</strong> into the arena.</p>
+<p>For Sonso, the idea: when he is annoyed, he knocks <strong>ancient altar stones</strong> into the arena.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// Create_0.gml — keep the list so you can clean up later
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>event_inherited()
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>_side  = choose(-1, 1)
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>_boxes = []
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>_stones = []
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// Other_12.gml — after what you already have
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>if pattern == "annoyed" {
@@ -1721,10 +1861,10 @@
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        _c.sprite_index = spr_pixel
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        _c.image_xscale = 14
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        _c.image_yscale = 14
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        _c.image_blend  = c_olive
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        _c.image_blend  = make_color_rgb(180, 160, 140) // ancient altar stone
 <a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        _c.visible      = true      // o_enc_box_solid is born invisible
 <a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        array_push(_boxes, _c)
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        array_push(_stones, _c)
 <a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    }
 <a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>}
 </code></pre></div>
@@ -1732,9 +1872,9 @@
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>event_inherited()
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>instance_destroy(o_enc_bullet)
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>for (var i = 0; i &lt; array_length(_boxes); i ++)
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    if instance_exists(_boxes[i])
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        instance_destroy(_boxes[i])
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>for (var i = 0; i &lt; array_length(_stones); i ++)
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    if instance_exists(_stones[i])
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        instance_destroy(_stones[i])
 </code></pre></div>
 <p>Three details:</p>
 <p><strong><code>o_enc_box_solid</code> is born invisible</strong> (<code>"visible": false</code> in its <code>.yy</code>) and without a sprite. It needs <code>sprite_index</code> and <code>visible = true</code> to become something the player can see — otherwise you have made a ghost wall, which is miserable to play against.</p>
@@ -1807,11 +1947,11 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    bg_type = ENC_BG.NONE
 </code></pre></div>
 <p>That kills layers 1 and 2. Layer 3, the veil, remains — and it is still what gives the arena focus.</p>
-<p><strong>Then create the object.</strong> A night rooftop for the cat, with no new sprites at all — everything with <code>spr_pixel</code>, which is 1×1 with its origin at the corner, so <code>image_xscale</code> is literally the width in pixels:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>// ---------- o_bg_rooftop / Create_0.gml ----------
+<p><strong>Then create the object.</strong> A night sanctuary shrine for the cat, with no new sprites at all — everything with <code>spr_pixel</code>, which is 1×1 with its origin at the corner, so <code>image_xscale</code> is literally the width in pixels:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>// ---------- o_bg_sanctuary / Create_0.gml ----------
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>depth = DEPTH_ENCOUNTER.BACKGROUND + 10   // LARGER number = further back
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>// the stars are rolled once, not every frame
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>// the stars/motes of light are rolled once, not every frame
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>stars = []
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>repeat (40)
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    array_push(stars, {
@@ -1820,31 +1960,31 @@
 <a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        phase: random(360)
 <a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    })
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>// ---------- o_bg_rooftop / Draw_0.gml ----------
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>// ---------- o_bg_sanctuary / Draw_0.gml ----------
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>var _ox = guipos_x()
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>var _oy = guipos_y()
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>// the sky
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>draw_sprite_ext(spr_pixel, 0, _ox, _oy, 320, 240, 0, make_color_rgb(14, 16, 34), 1)
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>// the sanctuary dome ceiling (matching room_sanctuary's palette)
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>draw_sprite_ext(spr_pixel, 0, _ox, _oy, 320, 240, 0, make_color_rgb(22, 18, 36), 1)
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>// the stars, twinkling out of phase
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>// mystical light motes, drifting out of phase
 <a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>for (var i = 0; i &lt; array_length(stars); i ++) {
 <a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    var _s = stars[i]
 <a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    var _bright = 0.35 + 0.35 * dsin(o_world.frames * 2 + _s.phase)
 <a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    draw_sprite_ext(spr_pixel, 0, _ox + _s.xx, _oy + _s.yy, 1, 1, 0, c_white, _bright)
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    draw_sprite_ext(spr_pixel, 0, _ox + _s.xx, _oy + _s.yy, 1, 1, 0, make_color_rgb(255, 240, 170), _bright)
 <a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>}
 <a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
-<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>// the rooftop silhouette
-<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>draw_sprite_ext(spr_pixel, 0, _ox, _oy + 170, 320, 70, 0, make_color_rgb(6, 7, 16), 1)
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>// the sacred altar silhouette along the bottom
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>draw_sprite_ext(spr_pixel, 0, _ox, _oy + 170, 320, 70, 0, make_color_rgb(10, 8, 18), 1)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>// ---------- o_bg_rooftop / Step_0.gml ----------
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>// ---------- o_bg_sanctuary / Step_0.gml ----------
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>if !instance_exists(o_enc)
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    instance_destroy()
 </code></pre></div>
 <p><strong>Finally, have it created</strong> in <code>enc_set()</code>'s <code>ev_init</code> hook, which runs one frame after <code>o_enc</code> exists:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    ev_init = function() {
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        instance_create(o_bg_rooftop)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        instance_create(o_bg_sanctuary)
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    }
 </code></pre></div>
 <p>Three decisions worth explaining:</p>
@@ -1919,7 +2059,7 @@
 </tr>
 <tr>
 <td>3</td>
-<td>Create <code>o_bg_rooftop</code> with a garish colour (<code>c_lime</code>)</td>
+<td>Create <code>o_bg_sanctuary</code> with a garish colour (<code>c_lime</code>)</td>
 <td>if it does not appear, it is the depth; if it appears <strong>in front of</strong> the enemies, also the depth</td>
 </tr>
 <tr>
