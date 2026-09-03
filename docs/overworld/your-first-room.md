@@ -219,19 +219,65 @@ trigger_exit_code = function() {
 
 ---
 
-## Step 7 — The doorway to the next area
+## Step 7 — Room exits: Corridors vs. Doors
 
-Finally, let us add a doorway on the right wall that transports the party to another room (such as `room_ex_city`).
+Finally, let us connect your sanctuary to the rest of the world. In tlDR Engine, room transitions (whether an open archway or a solid door) are powered by **`o_trigger_warp`**.
 
-1. Place an **`o_trigger_warp`** at `(580, 240)` over the right corridor exit.
-2. Stretch it vertically (`scaleX = 1.0`, `scaleY = 3.0`).
+### The two styles of transitions
+
+| Transition Type | Visual | Audio Settings | Typical Usage |
+|---|---|---|---|
+| **Open corridor / Archway** | Empty passageway on the map | No sounds (`enter_sound = ""` and `exit_sound = ""`) | Moving between roads, forest paths, or adjacent hallways |
+| **Door / Building entrance** | Door graphic on the wall | `enter_sound = snd_dooropen`<br>`exit_sound = snd_doorclose` | Entering shops, houses, temples, or closed chambers |
+
+---
+
+### Option A: Open corridor transition
+
+1. Place an **`o_trigger_warp`** at `(580, 240)` on the right wall over the open hallway.
+2. Stretch it vertically (`scaleX = 1.0`, `scaleY = 3.0`) so the player cannot slip past.
 3. In its **Variables** panel, configure:
-   - `target_room`: `room_ex_city` (or any other room asset in your project).
-   - `target_marker`: `"entrance"` (the `m_id` of the landing marker in that room).
-   - `exit_direction`: `DIR.RIGHT`.
+   - `target_room`: `room_ex_city` (or any room asset in your project).
+   - `target_marker`: `0` (or a string like `"entrance"`).
+   - `enter_sound`: *(leave empty)*.
+   - `exit_sound`: *(leave empty)*.
+   - `exit_direction`: `DIR.RIGHT` (the leader keeps walking right).
 
-!!! note "The destination landing spot"
-    Make sure the destination room has an **`o_dev_marker_land`** instance with its variable `m_id = "entrance"`. When warping, the engine finds that marker and places the party directly on it.
+---
+
+### Option B: Doorway with opening & closing sound effects
+
+If your exit represents a physical door (like entering a shop, house, or inner sanctum):
+
+1. **Draw the door:** Place your door tile on `t_buildings` or place a door prop sprite on `decor`.
+2. **Place the warp trigger:** Place an **`o_trigger_warp`** right at the threshold of the door.
+3. **Stretch the trigger:** Scale it to cover the width of the doorway (e.g. `scaleX = 2.0`, `scaleY = 1.0`).
+4. **Configure Variables in the Inspector:**
+   - `target_room`: The destination interior room (e.g. `room_test_shops` or `room_test_loopback`).
+   - `target_marker`: The `m_id` of the landing spot inside (e.g. `0`).
+   - `enter_sound`: **`snd_dooropen`** *(plays the door handle/creak when Kris touches the threshold)*.
+   - `exit_sound`: **`snd_doorclose`** *(plays the door shutting when the screen fades into the new room)*.
+   - `exit_direction`: **`DIR.DOWN`** *(characters step into the new room facing forward)*.
+
+> [!NOTE]
+> **How the engine executes the door transition**  
+> When the player touches `o_trigger_warp` (`objects/o_trigger_warp/Other_10.gml`), it immediately plays `enter_sound` (`snd_dooropen`), locks player input, and triggers a 7-frame screen fade (`fader_fade(0, 1, 7)`). In `Alarm[0]`, the room switches, `exit_sound` (`snd_doorclose`) plays, the party appears on the destination marker, and the screen fades back in!
+
+---
+
+### Setting up the destination landing marker (`o_dev_marker_land`)
+
+Whichever transition style you use, the destination room **must** know where the party should land:
+
+1. Open your destination room in the Room Editor.
+2. On the **`Instances`** layer, place an **`o_dev_marker_land`** right outside the doorway/corridor where the party should appear.
+3. In its **Variables** panel, set:
+   - `m_id`: The matching identifier configured in `target_marker` (e.g. `0` or `"entrance"`).
+
+---
+
+!!! tip "What about DELTARUNE's Fast-Travel Shortcut Door?"
+    If you are looking for the iconic black door wrapped in red fire that opens a menu with multiple destination choices (`{choice(...)}`), tlDR Engine provides a specialized object: **`o_ow_shortcut_door`**. We explore this in [Chapter 10: Shortcuts and Mechanisms](shortcuts-and-triggers.md).
 
 ---
 
@@ -244,7 +290,7 @@ Play through your new room and verify each interaction:
 - [ ] **Sign:** Facing `o_ow_sign` and pressing confirm displays the formatted text box.
 - [ ] **NPC Memory:** The NPC gives the initial speech first, and switches to the short dialogue on repeated visits.
 - [ ] **Prophecy & Lighting:** Walking into the altar area smoothly dims the room into golden light, frames the camera, and renders the shimmering mural text.
-- [ ] **Exit Transition:** Walking into `o_trigger_warp` fades the screen and warps cleanly to the destination room.
+- [ ] **Exit Transition:** Walking into `o_trigger_warp` fades the screen (playing `snd_dooropen` and `snd_doorclose` if configured as a door) and warps cleanly to the destination room marker.
 
 ---
 
