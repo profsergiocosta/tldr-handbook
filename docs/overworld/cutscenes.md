@@ -112,7 +112,7 @@ We locate Susie using `party_get_inst("susie")`, play an exclamation sound, and 
     
     // Play alert sound and move Susie forward
     cutscene_audio_play(snd_exclamation);
-    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 4, false, "linear", DIR.RIGHT));
+    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 20,,, DIR.RIGHT));
     cutscene_sleep(10); // Brief pause when she stops
 ```
 
@@ -169,7 +169,7 @@ trigger_code = function() {
     var leader = get_leader();
     
     cutscene_audio_play(snd_exclamation);
-    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 4, false, "linear", DIR.RIGHT));
+    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 20,,, DIR.RIGHT));
     cutscene_sleep(10);
     
     cutscene_set_variable(susie, "dir", DIR.LEFT);
@@ -211,7 +211,7 @@ Pass `wait = false` to spawn the text box while subsequent queue events continue
 ```gml
 // Susie delivers a line while walking forward
 cutscene_dialogue("{char(susie, 7)}* Outta my way!", "{e}", false);
-cutscene_actor_move(party_get_inst("susie"), new actor_movement(320, 240, 4));
+cutscene_actor_move(party_get_inst("susie"), new actor_movement(320, 240, 30));
 cutscene_wait_dialogue_finish(); // Explicitly pause here until the text box closes
 ```
 
@@ -234,25 +234,54 @@ cutscene_wait_dialogue_finish();
 
 ### 2. Actor movement styles
 
-Use `cutscene_actor_move()` with movement structs (`scripts/actors_scr/actors_scr.gml:48`):
+Use `cutscene_actor_move()` with movement structs (`scripts/actors_scr/actors_scr.gml:98`):
 
-#### Linear movement (`actor_movement`)
+#### Walking movement (`actor_movement`)
+
+Constructor signature:
 ```gml
-/// actor_movement(target_x, target_y, [speed], [relative], [ease], [facing_dir])
+new actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir = undefined, _absolute = true, _play_sfx = true)
+```
+
+- `_x`, `_y`: Target X and Y positions (or relative offsets if `_absolute = false`).
+- `_time`: Duration of the movement in frames (e.g. `20` or `30`). When `_spd` is left `undefined`, the engine automatically computes walking speed based on distance / time.
+- `_seed`: Animation seed string (`""` default for walking, `"jump"`, `"jump_into"`).
+- `_spd`: Speed constraint. Leave `undefined` (or use commas `,,,`) to constrain by `_time`.
+- `_char_dir`: Optional facing direction locked during movement (`DIR.UP`, `DIR.DOWN`, `DIR.LEFT`, `DIR.RIGHT`), or `undefined` to face movement angle automatically.
+- `_absolute`: Whether coordinates are absolute room positions (`true`, default) or relative offsets from current position (`false`).
+- `_play_sfx`: Whether to play sound effects (default `true`).
+
+```gml
+// Walk to absolute position (400, 220) in 30 frames, facing right:
 cutscene_actor_move(
     party_get_inst("susie"), 
-    new actor_movement(400, 220, 3, false, "linear", DIR.RIGHT)
+    new actor_movement(400, 220, 30,,, DIR.RIGHT)
+);
+
+// Walk 60 pixels to the right relative to current position in 20 frames:
+cutscene_actor_move(
+    party_get_inst("susie"), 
+    new actor_movement(60, 0, 20,,, DIR.RIGHT, false)
 );
 ```
 
-#### Jumping onto ledges (`actor_movement_jump_into`)
+#### Jumping movement (`actor_movement_jump` & `actor_movement_jump_into`)
+
+Jump constructors inherit from `actor_movement`:
 ```gml
-/// actor_movement_jump_into(target_x, target_y, jump_up, frames, [relative])
+new actor_movement_jump(_x, _y, _absolute = true, _time = 15, _play_sfx = true)
+new actor_movement_jump_into(_x, _y, _absolute = true, _time = 15, _play_sfx = true)
+```
+
+- `actor_movement_jump`: Jumps and plays the landing animation (`s_landed`).
+- `actor_movement_jump_into`: Jumps without landing animation (ideal for transitions or climbing onto ledges). Both play `snd_jump` automatically if `_play_sfx` is `true`.
+
+```gml
+// Jump to absolute (300, 240) in 20 frames:
 cutscene_actor_move(
     get_leader(),
-    new actor_movement_jump_into(300, 240, true, 20, false)
+    new actor_movement_jump_into(300, 240, true, 20)
 );
-cutscene_audio_play(snd_jump);
 ```
 
 ---
@@ -286,12 +315,12 @@ By default, the global camera (`o_camera`) locks onto `get_leader()`. In cutscen
 // 1. Detach target so camera doesn't fight the pan
 cutscene_set_variable(o_camera, "target", noone);
 
-// 2. Pan to focal point (x, y, duration_frames, easing)
-cutscene_camera_pan(800, 300, 60, "sine_out");
+// 2. Pan to focal point (x_dest, y_dest, time, wait = true, ease_type = "linear")
+cutscene_camera_pan(800, 300, 60, true, "sine_out");
 cutscene_sleep(40); // Linger on the landmark for 40 frames
 
 // 3. Return camera to party leader and rebind
-cutscene_camera_pan(get_leader().x, get_leader().y, 30, "sine_in_out");
+cutscene_camera_pan(get_leader().x, get_leader().y, 30, true, "sine_in_out");
 cutscene_set_variable(o_camera, "target", get_leader());
 ```
 
