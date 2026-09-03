@@ -54,6 +54,90 @@ cutscene_play();                // 6. Launch the queue
 
 ---
 
+## Actor movement API: `actor_movement` and `actor_move`
+
+Before creating your first cutscene, it is essential to understand how characters move in tlDR Engine. Character movement is governed by two systems: the **`actor_movement` struct** (the blueprint describing the movement) and the runner functions (**`actor_move`** and **`cutscene_actor_move`**).
+
+### `actor_move` vs `cutscene_actor_move`
+
+| Function | Context | Execution | Waiting behavior |
+|---|---|---|---|
+| **`actor_move(actor, movement)`** | Low-level / Any script | Executes immediately in real time | Does not pause; returns an `o_actor_mover` instance |
+| **`cutscene_actor_move(target, movement, wait=true)`** | Cutscene queue | Queued as a cutscene event | If `wait = true` (default), pauses the queue until arrival |
+
+- **`actor_move(_actor, movement)`** (`scripts/actors_scr/actors_scr.gml:128`): The core engine function. It spawns an `o_actor_mover` helper instance that handles step-by-step path interpolation, walking animations, and sound effects. You can use it anywhere in the game, even during regular gameplay or puzzle triggers.
+- **`cutscene_actor_move(target, movement, wait = true)`** (`scripts/cutscene_events/cutscene_events.gml:353`): The cutscene wrapper. When called during `cutscene_create()`, it schedules `actor_move` to execute when its turn arrives in the queue. If `wait` is `true`, the cutscene pauses until the character reaches its destination. If `wait` is `false`, subsequent cutscene events (like dialogue or camera pans) execute concurrently while the character walks.
+
+---
+
+### The `actor_movement` constructor
+
+Every movement command requires an `actor_movement` struct (`scripts/actors_scr/actors_scr.gml:98`):
+
+```gml
+new actor_movement(_x, _y, _time, [_seed = ""], [_spd = undefined], [_char_dir = undefined], [_absolute = true], [_play_sfx = true])
+```
+
+#### Parameter breakdown
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| **`_x`** | `real` | *(required)* | Target X position (or horizontal pixel offset if `_absolute = false`). |
+| **`_y`** | `real` | *(required)* | Target Y position (or vertical pixel offset if `_absolute = false`). |
+| **`_time`** | `real` | *(required)* | Duration of the movement in **frames** (e.g. `20` or `30` frames at 60 FPS). Speed is calculated automatically if `_spd` is omitted. |
+| **`_seed`** | `string` | `""` | Behavior seed: `""` (empty string) for normal walking, `"jump"` for jump with landing, `"jump_into"` for ledge leap without landing. |
+| **`_spd`** | `real \| undefined` | `undefined` | Optional fixed speed constraint. **Leave `undefined`** (using empty commas `,,,`) so the engine calculates speed automatically based on distance and `_time`. *(Never pass strings like `"linear"` here!)* |
+| **`_char_dir`** | `enum.DIR \| undefined` | `undefined` | Direction to lock the actor's facing sprite (`DIR.UP`, `DIR.DOWN`, `DIR.LEFT`, `DIR.RIGHT`). If `undefined`, the actor turns automatically towards the angle of movement. |
+| **`_absolute`** | `bool` | `true` | If `true`, `_x` and `_y` are absolute room coordinates. If `false`, they are relative offsets from the actor's current position. |
+| **`_play_sfx`** | `bool` | `true` | Whether movement sound effects (footsteps or jump sounds) should play. |
+
+> [!TIP]
+> **Skipping middle arguments with `,,,`**  
+> In GML, you can keep default values for middle arguments by omitting them between commas. For example, `new actor_movement(300, 200, 30,,, DIR.RIGHT)` skips `_seed` and `_spd`, passing `DIR.RIGHT` as the 6th argument (`_char_dir`).
+
+---
+
+### Common movement patterns
+
+#### 1. Absolute movement (Walk to room coordinate)
+```gml
+// Walk to room coordinate (240, 180) in 30 frames, facing down:
+cutscene_actor_move(susie, new actor_movement(240, 180, 30,,, DIR.DOWN));
+```
+
+#### 2. Relative movement (Walk an offset from current position)
+Set `_absolute = false` (7th parameter):
+```gml
+// Walk 60 pixels to the right of current position in 20 frames:
+cutscene_actor_move(susie, new actor_movement(60, 0, 20,,, DIR.RIGHT, false));
+```
+
+#### 3. Waypoint paths (Array of movements)
+Both `actor_move` and `cutscene_actor_move` accept an array of structs to execute multi-step paths sequentially:
+```gml
+// Susie walks down 40px, then turns and walks right 60px:
+cutscene_actor_move(susie, [
+    new actor_movement(0, 40, 20,,, DIR.DOWN, false),
+    new actor_movement(60, 0, 30,,, DIR.RIGHT, false)
+]);
+```
+
+#### 4. Jump constructors (`actor_movement_jump` & `actor_movement_jump_into`)
+For jumps, use the dedicated constructors:
+```gml
+new actor_movement_jump(_x, _y, _absolute = true, _time = 15, _play_sfx = true)
+new actor_movement_jump_into(_x, _y, _absolute = true, _time = 15, _play_sfx = true)
+```
+- `actor_movement_jump`: Jumps and plays the landing animation (`s_landed`).
+- `actor_movement_jump_into`: Jumps without landing animation (ideal for transitions or climbing onto ledges). Both play `snd_jump` automatically if `_play_sfx` is `true`.
+
+```gml
+// Jump to absolute (300, 240) in 20 frames:
+cutscene_actor_move(get_leader(), new actor_movement_jump_into(300, 240, true, 20));
+```
+
+---
+
 ## Tutorial: Your first cutscene in 6 steps
 
 Let's build a simple, classic DELTARUNE scene: as Kris walks down a hallway, Susie spots something, breaks formation, sprints ahead, turns around to face Kris, says a line with an emotion portrait, and then rejoins the party. The scene will only play once per save file.
@@ -112,7 +196,7 @@ We locate Susie using `party_get_inst("susie")`, play an exclamation sound, and 
     
     // Play alert sound and move Susie forward
     cutscene_audio_play(snd_exclamation);
-    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 4, false, "linear", DIR.RIGHT));
+    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 20,,, DIR.RIGHT));
     cutscene_sleep(10); // Brief pause when she stops
 ```
 
@@ -169,7 +253,7 @@ trigger_code = function() {
     var leader = get_leader();
     
     cutscene_audio_play(snd_exclamation);
-    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 4, false, "linear", DIR.RIGHT));
+    cutscene_actor_move(susie, new actor_movement(leader.x + 60, leader.y, 20,,, DIR.RIGHT));
     cutscene_sleep(10);
     
     cutscene_set_variable(susie, "dir", DIR.LEFT);
@@ -211,7 +295,7 @@ Pass `wait = false` to spawn the text box while subsequent queue events continue
 ```gml
 // Susie delivers a line while walking forward
 cutscene_dialogue("{char(susie, 7)}* Outta my way!", "{e}", false);
-cutscene_actor_move(party_get_inst("susie"), new actor_movement(320, 240, 4));
+cutscene_actor_move(party_get_inst("susie"), new actor_movement(320, 240, 30));
 cutscene_wait_dialogue_finish(); // Explicitly pause here until the text box closes
 ```
 
@@ -232,28 +316,26 @@ cutscene_wait_dialogue_finish();
 
 ---
 
-### 2. Actor movement styles
+### 2. Synchronized multi-actor movement
 
-Use `cutscene_actor_move()` with movement structs (`scripts/actors_scr/actors_scr.gml:48`):
+In classic DELTARUNE cutscenes, party members often walk into formation together rather than taking turns one by one. 
 
-#### Linear movement (`actor_movement`)
+Because `cutscene_actor_move(target, movement, wait)` pauses the queue when `wait = true`, queuing multiple actors with default arguments would force them to move sequentially. To make the entire party move **simultaneously**, pass `wait = false` to all members except the last one:
+
 ```gml
-/// actor_movement(target_x, target_y, [speed], [relative], [ease], [facing_dir])
-cutscene_actor_move(
-    party_get_inst("susie"), 
-    new actor_movement(400, 220, 3, false, "linear", DIR.RIGHT)
-);
+// Move all party members into a horizontal line concurrently
+for (var i = 0; i < party_length(true); i++) {
+    var member = party_get_inst(global.party_names[i]);
+    var target_x = 110 - (party_length(true) - 1) * 20 + i * 40;
+    var target_y = 150;
+    var is_last = (i == party_length(true) - 1);
+    
+    // Only the last member has wait = true, synchronizing group arrival
+    cutscene_actor_move(member, new actor_movement(target_x, target_y, 30,,, DIR.DOWN), is_last);
+}
 ```
 
-#### Jumping onto ledges (`actor_movement_jump_into`)
-```gml
-/// actor_movement_jump_into(target_x, target_y, jump_up, frames, [relative])
-cutscene_actor_move(
-    get_leader(),
-    new actor_movement_jump_into(300, 240, true, 20, false)
-);
-cutscene_audio_play(snd_jump);
-```
+This pattern (used in [`room_test_cutscene`](file:///home/sergio/GameMakerProjects/tldr-engine/rooms/room_test_cutscene/InstanceCreationCode_inst_172DAEE9.gml#L29-L35)) triggers all movements on the exact same frame, while keeping the cutscene queue paused until the full party reaches formation.
 
 ---
 
@@ -286,12 +368,12 @@ By default, the global camera (`o_camera`) locks onto `get_leader()`. In cutscen
 // 1. Detach target so camera doesn't fight the pan
 cutscene_set_variable(o_camera, "target", noone);
 
-// 2. Pan to focal point (x, y, duration_frames, easing)
-cutscene_camera_pan(800, 300, 60, "sine_out");
+// 2. Pan to focal point (x_dest, y_dest, time, wait = true, ease_type = "linear")
+cutscene_camera_pan(800, 300, 60, true, "sine_out");
 cutscene_sleep(40); // Linger on the landmark for 40 frames
 
 // 3. Return camera to party leader and rebind
-cutscene_camera_pan(get_leader().x, get_leader().y, 30, "sine_in_out");
+cutscene_camera_pan(get_leader().x, get_leader().y, 30, true, "sine_in_out");
 cutscene_set_variable(o_camera, "target", get_leader());
 ```
 
