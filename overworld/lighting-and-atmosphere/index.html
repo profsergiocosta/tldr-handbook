@@ -747,10 +747,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-dynamic-lighting-and-atmosphere-work" class="md-nav__link">
+  <a href="#the-two-lighting-systems-in-tldr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How dynamic lighting and atmosphere work
+        The two lighting systems in tlDR
       
     </span>
   </a>
@@ -758,22 +758,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tutorial-your-first-dark-room-with-lanterns-and-reflections-in-5-steps" class="md-nav__link">
+  <a href="#1-how-dark-lighting-works-under-the-hood" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tutorial: Your first dark room with lanterns and reflections in 5 steps
+        1. How Dark Lighting works under the hood
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Tutorial: Your first dark room with lanterns and reflections in 5 steps">
+    <nav class="md-nav" aria-label="1. How Dark Lighting works under the hood">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-0-prepare-the-cavern-room" class="md-nav__link">
+  <a href="#o_lb_dl_controller-the-shadow-canvas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 0 — Prepare the cavern room
+        o_lb_dl_controller (The shadow canvas)
       
     </span>
   </a>
@@ -781,10 +781,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-submerge-the-room-in-darkness-o_lb_dl_controller" class="md-nav__link">
+  <a href="#o_lb_dl_light_source-the-light-cutout-cookie" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1 — Submerge the room in darkness (o_lb_dl_controller)
+        o_lb_dl_light_source (The light cutout / cookie)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-your-first-dark-cavern-with-torches-lanterns-in-6-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorial: Your first dark cavern with torches &amp; lanterns in 6 steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial: Your first dark cavern with torches &amp; lanterns in 6 steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-0-prepare-the-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — Prepare the room
       
     </span>
   </a>
@@ -792,10 +820,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-place-glowing-light-sources-o_lb_dl_light_source" class="md-nav__link">
+  <a href="#step-1-create-a-dedicated-lighting-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2 — Place glowing light sources (o_lb_dl_light_source)
+        Step 1 — Create a dedicated Lighting layer
       
     </span>
   </a>
@@ -803,10 +831,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-add-water-reflections-o_reflection_manager" class="md-nav__link">
+  <a href="#step-2-place-and-configure-static-wall-torches-o_lb_dl_light_source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3 — Add water reflections (o_reflection_manager)
+        Step 2 — Place and configure static wall torches (o_lb_dl_light_source)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Place and configure static wall torches (o_lb_dl_light_source)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-selecting-the-light-sprite-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Selecting the Light Sprite (Shape)
       
     </span>
   </a>
@@ -814,10 +854,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-4-configure-footsteps-and-music-o_dev_ambiance-o_dev_music" class="md-nav__link">
+  <a href="#b-adjusting-light-radius-scale" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4 — Configure footsteps and music (o_dev_ambiance, o_dev_music)
+        B. Adjusting Light Radius (Scale)
       
     </span>
   </a>
@@ -825,10 +865,76 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-5-build-an-altar-spotlight-trigger-lighting_on" class="md-nav__link">
+  <a href="#c-setting-light-color-intensity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5 — Build an altar spotlight trigger (lighting_on)
+        C. Setting Light Color &amp; Intensity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-a-dynamic-lantern-that-follows-kris" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Create a dynamic lantern that follows Kris
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — Create a dynamic lantern that follows Kris">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-35-optional-give-the-lantern-an-actual-orange-tint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3.5 (optional) — Give the lantern an actual orange tint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-water-puddles-with-reflections-o_reflection_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Add water puddles with reflections (o_reflection_manager)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-configure-footsteps-and-music-o_dev_ambiance-o_dev_music" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Configure footsteps and music (o_dev_ambiance, o_dev_music)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-add-an-altar-spotlight-trigger-lighting_on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Add an altar spotlight trigger (lighting_on)
       
     </span>
   </a>
@@ -852,10 +958,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prop-reactivity-lighting_darken_self" class="md-nav__link">
+  <a href="#summary-quick-reference-for-lighting-objects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prop reactivity (lighting_darken_self)
+        Summary: Quick reference for lighting objects
       
     </span>
   </a>
@@ -1435,10 +1541,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-dynamic-lighting-and-atmosphere-work" class="md-nav__link">
+  <a href="#the-two-lighting-systems-in-tldr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How dynamic lighting and atmosphere work
+        The two lighting systems in tlDR
       
     </span>
   </a>
@@ -1446,22 +1552,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tutorial-your-first-dark-room-with-lanterns-and-reflections-in-5-steps" class="md-nav__link">
+  <a href="#1-how-dark-lighting-works-under-the-hood" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tutorial: Your first dark room with lanterns and reflections in 5 steps
+        1. How Dark Lighting works under the hood
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Tutorial: Your first dark room with lanterns and reflections in 5 steps">
+    <nav class="md-nav" aria-label="1. How Dark Lighting works under the hood">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-0-prepare-the-cavern-room" class="md-nav__link">
+  <a href="#o_lb_dl_controller-the-shadow-canvas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 0 — Prepare the cavern room
+        o_lb_dl_controller (The shadow canvas)
       
     </span>
   </a>
@@ -1469,10 +1575,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-submerge-the-room-in-darkness-o_lb_dl_controller" class="md-nav__link">
+  <a href="#o_lb_dl_light_source-the-light-cutout-cookie" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1 — Submerge the room in darkness (o_lb_dl_controller)
+        o_lb_dl_light_source (The light cutout / cookie)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-your-first-dark-cavern-with-torches-lanterns-in-6-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorial: Your first dark cavern with torches &amp; lanterns in 6 steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial: Your first dark cavern with torches &amp; lanterns in 6 steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-0-prepare-the-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — Prepare the room
       
     </span>
   </a>
@@ -1480,10 +1614,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-place-glowing-light-sources-o_lb_dl_light_source" class="md-nav__link">
+  <a href="#step-1-create-a-dedicated-lighting-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2 — Place glowing light sources (o_lb_dl_light_source)
+        Step 1 — Create a dedicated Lighting layer
       
     </span>
   </a>
@@ -1491,10 +1625,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-add-water-reflections-o_reflection_manager" class="md-nav__link">
+  <a href="#step-2-place-and-configure-static-wall-torches-o_lb_dl_light_source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3 — Add water reflections (o_reflection_manager)
+        Step 2 — Place and configure static wall torches (o_lb_dl_light_source)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Place and configure static wall torches (o_lb_dl_light_source)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-selecting-the-light-sprite-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Selecting the Light Sprite (Shape)
       
     </span>
   </a>
@@ -1502,10 +1648,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-4-configure-footsteps-and-music-o_dev_ambiance-o_dev_music" class="md-nav__link">
+  <a href="#b-adjusting-light-radius-scale" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4 — Configure footsteps and music (o_dev_ambiance, o_dev_music)
+        B. Adjusting Light Radius (Scale)
       
     </span>
   </a>
@@ -1513,10 +1659,76 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-5-build-an-altar-spotlight-trigger-lighting_on" class="md-nav__link">
+  <a href="#c-setting-light-color-intensity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5 — Build an altar spotlight trigger (lighting_on)
+        C. Setting Light Color &amp; Intensity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-a-dynamic-lantern-that-follows-kris" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Create a dynamic lantern that follows Kris
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — Create a dynamic lantern that follows Kris">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-35-optional-give-the-lantern-an-actual-orange-tint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3.5 (optional) — Give the lantern an actual orange tint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-water-puddles-with-reflections-o_reflection_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Add water puddles with reflections (o_reflection_manager)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-configure-footsteps-and-music-o_dev_ambiance-o_dev_music" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Configure footsteps and music (o_dev_ambiance, o_dev_music)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-add-an-altar-spotlight-trigger-lighting_on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Add an altar spotlight trigger (lighting_on)
       
     </span>
   </a>
@@ -1540,10 +1752,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prop-reactivity-lighting_darken_self" class="md-nav__link">
+  <a href="#summary-quick-reference-for-lighting-objects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prop reactivity (lighting_darken_self)
+        Summary: Quick reference for lighting objects
       
     </span>
   </a>
@@ -1580,117 +1792,252 @@
 
 <h1 id="lighting-and-atmosphere">Lighting and atmosphere<a class="headerlink" href="#lighting-and-atmosphere" title="Permanent link">&para;</a></h1>
 <p>Atmosphere in DELTARUNE is more than tiles and sprites — it is the golden spotlight illuminating a prophecy mural, the gloomy darkness of an ancient cavern pierced by lanterns, the rippling water reflections under the party's boots, and the rhythm of footsteps echoing in an empty hallway.</p>
-<p>tlDR Engine provides dedicated subsystems for each of these elements:
-1. <strong>Dark Lighting System</strong> (<code>o_lb_dl_controller</code>, <code>o_lb_dl_light_source</code>) — surface-based dynamic shadows and circular light cones.
-2. <strong>Atmospheric Spotlights</strong> (<code>scripts/lighting/lighting.gml</code>, <code>o_eff_lighting_controller</code>) — colored room fades and altar highlights.
-3. <strong>Floor Reflections</strong> (<code>o_reflection_manager</code>) — mirrored silhouettes on shiny water or polished marble.
-4. <strong>Soundscapes and Borders</strong> (<code>o_dev_ambiance</code>, <code>o_dev_music</code>, <code>o_dev_border</code>).</p>
-<p>This chapter explains each system, followed by a hands-on tutorial to build a dark cavern with glowing lanterns, reflective water puddles, and an altar spotlight.</p>
+<p>tlDR Engine implements two distinct lighting systems:
+1. <strong>Dark Lighting System (<code>dark_lighting_ch4</code>)</strong> — surface-based dynamic shadows where <code>o_lb_dl_light_source</code> cuts glowing holes in the dark overlay using <code>bm_subtract</code>.
+2. <strong>Atmospheric Spotlights (<code>scripts/lighting/lighting.gml</code>)</strong> — colored room fades and altar highlights (<code>lighting_on()</code>) used during prophecy scenes.</p>
+<p>This chapter explains both systems in detail, followed by a step-by-step tutorial to build dark rooms, wall torches, and player-carried lanterns.</p>
 <hr />
-<h2 id="how-dynamic-lighting-and-atmosphere-work">How dynamic lighting and atmosphere work<a class="headerlink" href="#how-dynamic-lighting-and-atmosphere-work" title="Permanent link">&para;</a></h2>
+<h2 id="the-two-lighting-systems-in-tldr">The two lighting systems in tlDR<a class="headerlink" href="#the-two-lighting-systems-in-tldr" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>graph TD
-    A["o_lb_dl_controller (Depth -4000)"] --&gt;|Draw black surface overlay| B["Darkened Screen"]
-    C["o_lb_dl_light_source (Torches, Lanterns)"] --&gt;|bm_subtract blend mode| B
-    B --&gt;|Result| D["Clear, glowing circles of light around torches and player"]</code></pre>
-<ol>
-<li><strong>Surface-based Dark Lighting:</strong> The <code>o_lb_dl_controller</code> object sits at depth <code>-4000</code> (above all sprites). Every frame, it draws a semi-transparent black surface, then uses <code>gpu_set_blendmode(bm_subtract)</code> to cut clean circular holes wherever an <code>o_lb_dl_light_source</code> is placed.</li>
-<li><strong>Global Altar Lighting:</strong> Calling <code>lighting_on(color, fade_color)</code> dims non-essential props via <code>lighting_darken_self()</code> and casts a dramatic color tint over the scene.</li>
-<li><strong>Water Reflections:</strong> <code>o_reflection_manager</code> scans for actors with <code>can_reflect = true</code> and renders vertically flipped, translucent silhouettes on reflective floor tiles.</li>
-</ol>
+    A["Lighting Systems in tlDR"] --&gt; B["1. Dark Lighting (Caverns / Flashlights)"]
+    A --&gt; C["2. Atmospheric Spotlights (Prophecy / Church)"]
+    B --&gt; D["o_lb_dl_controller (Draws black screen surface)"]
+    B --&gt; E["o_lb_dl_light_source (Cuts light holes with bm_subtract)"]
+    C --&gt; F["o_eff_lighting_controller"]
+    C --&gt; G["lighting_on(color, fade_color) / lighting_off()"]</code></pre>
 <hr />
-<h2 id="tutorial-your-first-dark-room-with-lanterns-and-reflections-in-5-steps">Tutorial: Your first dark room with lanterns and reflections in 5 steps<a class="headerlink" href="#tutorial-your-first-dark-room-with-lanterns-and-reflections-in-5-steps" title="Permanent link">&para;</a></h2>
-<p>Let's build a gloomy underground cavern containing:
-1. Complete ambient darkness (<code>o_lb_dl_controller</code>).
-2. Two warm glowing lanterns (<code>o_lb_dl_light_source</code>).
-3. A reflective water pool (<code>o_reflection_manager</code>).
-4. Footstep sound effects and ambient soundtrack (<code>o_dev_ambiance</code>, <code>o_dev_music</code>).
-5. An ancient altar trigger that bathes the room in golden light (<code>lighting_on</code>).</p>
+<h2 id="1-how-dark-lighting-works-under-the-hood">1. How Dark Lighting works under the hood<a class="headerlink" href="#1-how-dark-lighting-works-under-the-hood" title="Permanent link">&para;</a></h2>
+<p>The dark lighting system (<code>folders/@Libraries/dark_lighting_ch4.yy</code>) consists of two objects:</p>
+<h3 id="o_lb_dl_controller-the-shadow-canvas"><code>o_lb_dl_controller</code> (The shadow canvas)<a class="headerlink" href="#o_lb_dl_controller-the-shadow-canvas" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Sits at depth <code>-4000</code> (above all tiles, characters, and decor).</li>
+<li>Creates an offscreen surface (<code>surf_overlay</code>) every frame and clears it to semi-transparent black.</li>
+<li>Draws all <code>o_lb_dl_light_source</code> instances using <strong><code>gpu_set_blendmode(bm_subtract)</code></strong> — literally erasing the darkness wherever a light is placed to reveal the game world underneath.</li>
+</ul>
+<h3 id="o_lb_dl_light_source-the-light-cutout-cookie"><code>o_lb_dl_light_source</code> (The light cutout / cookie)<a class="headerlink" href="#o_lb_dl_light_source-the-light-cutout-cookie" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Is marked <strong><code>visible = false</code></strong> in its object definition so it does not draw during normal room rendering.</li>
+<li>Its sprite acts as a <strong>light mask (cookie)</strong>.</li>
+<li>If placed in a room without a controller, its Create event automatically spawns <code>o_lb_dl_controller</code> for you (<code>objects/o_lb_dl_light_source/Create_0.gml:2</code>).</li>
+</ul>
 <hr />
-<h3 id="step-0-prepare-the-cavern-room">Step 0 — Prepare the cavern room<a class="headerlink" href="#step-0-prepare-the-cavern-room" title="Permanent link">&para;</a></h3>
+<h2 id="tutorial-your-first-dark-cavern-with-torches-lanterns-in-6-steps">Tutorial: Your first dark cavern with torches &amp; lanterns in 6 steps<a class="headerlink" href="#tutorial-your-first-dark-cavern-with-torches-lanterns-in-6-steps" title="Permanent link">&para;</a></h2>
+<p>Let's build a complete dark cavern featuring:
+1. Ambient pitch-black darkness.
+2. Wall torches with warm amber glows.
+3. A mobile lantern attached to Kris that illuminates their path.
+4. Reflective water puddles on the floor.
+5. An ancient glowing altar.</p>
+<hr />
+<h3 id="step-0-prepare-the-room">Step 0 — Prepare the room<a class="headerlink" href="#step-0-prepare-the-room" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Create a new room in GameMaker (e.g. <code>room_cavern</code>).</li>
+<li>Create a new room in GameMaker (e.g. <code>room_dark_cavern</code>).</li>
 <li>Add your standard two objects on the <code>Instances</code> layer (depth <code>300</code>):</li>
 <li><strong><code>o_dev_world</code></strong> (<code>world = WORLD_TYPE.DARK</code>)</li>
 <li><strong><code>o_dev_playermarker</code></strong></li>
-<li>Draw floor tiles and solid wall collision blocks (<code>o_block</code>).</li>
+<li>Draw floor tiles and wall collision blocks (<code>o_block</code>).</li>
 </ol>
 <hr />
-<h3 id="step-1-submerge-the-room-in-darkness-o_lb_dl_controller">Step 1 — Submerge the room in darkness (<code>o_lb_dl_controller</code>)<a class="headerlink" href="#step-1-submerge-the-room-in-darkness-o_lb_dl_controller" title="Permanent link">&para;</a></h3>
+<h3 id="step-1-create-a-dedicated-lighting-layer">Step 1 — Create a dedicated Lighting layer<a class="headerlink" href="#step-1-create-a-dedicated-lighting-layer" title="Permanent link">&para;</a></h3>
+<p>In the GameMaker Room Editor layer list:
+1. Create a new <strong>Instance Layer</strong> and name it <strong><code>lighting</code></strong>.
+2. Set its depth to <code>-100</code> (or leave it at standard instance depth).</p>
+<blockquote>
+<p>[!note] Sobre o <code>o_lb_dl_controller</code>
+Você não precisa arrastar essa instância na room manualmente. Se a room tiver
+pelo menos um <code>o_lb_dl_light_source</code> (ou qualquer objeto que herde dele, como
+o <code>o_player_torch</code> do Step 3) e nenhum controller existir ainda, o próprio
+Create Event do light source cria o controller sozinho. Só coloque um
+<code>o_lb_dl_controller</code> manualmente se precisar controlar a cor/opacidade do
+overlay escuro global — caso contrário, ignore esse objeto por completo.</p>
+</blockquote>
+<hr />
+<h3 id="step-2-place-and-configure-static-wall-torches-o_lb_dl_light_source">Step 2 — Place and configure static wall torches (<code>o_lb_dl_light_source</code>)<a class="headerlink" href="#step-2-place-and-configure-static-wall-torches-o_lb_dl_light_source" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Select the <strong><code>Instances</code></strong> layer (depth <code>300</code>).</li>
-<li>Drag an instance of <strong><code>o_lb_dl_controller</code></strong> anywhere in the room.</li>
+<li>Drag an instance of <strong><code>o_lb_dl_light_source</code></strong> from the Asset Browser onto your <code>lighting</code> layer, directly over a torch or lamp on the wall.</li>
+<li>Click on the instance in the Room Editor to open the <strong>Inspector</strong>:</li>
 </ol>
-<p>When you boot the game, the controller automatically covers the screen in a dark shadow overlay at depth <code>-4000</code>.</p>
+<h4 id="a-selecting-the-light-sprite-shape">A. Selecting the Light Sprite (Shape)<a class="headerlink" href="#a-selecting-the-light-sprite-shape" title="Permanent link">&para;</a></h4>
+<p>In the Inspector's <strong>Sprite</strong> field:
+- By default, it uses <code>spr_default_alt_2</code> (a soft glowing square/circle).
+- You can select any light cookie sprite in your project (such as <code>spr_lb_dl_ex_window</code> or your own radial gradient sprite <code>spr_light_circle_soft</code>).</p>
+<h4 id="b-adjusting-light-radius-scale">B. Adjusting Light Radius (Scale)<a class="headerlink" href="#b-adjusting-light-radius-scale" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Set <strong><code>scaleX</code></strong> to <code>2.5</code> and <strong><code>scaleY</code></strong> to <code>2.5</code> to expand the radius of the light circle.</li>
+</ul>
+<h4 id="c-setting-light-color-intensity">C. Setting Light Color &amp; Intensity<a class="headerlink" href="#c-setting-light-color-intensity" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Click the <strong>Color</strong> swatch in the Inspector and pick an amber/orange tint (<code>#FFAA33</code>) for fire, or cool cyan (<code>#44AAFF</code>) for magic crystals.</li>
+<li>Adjust <strong>Alpha</strong> (<code>0.8</code> to <code>1.0</code>) to make the light softer or brighter.</li>
+</ul>
 <hr />
-<h3 id="step-2-place-glowing-light-sources-o_lb_dl_light_source">Step 2 — Place glowing light sources (<code>o_lb_dl_light_source</code>)<a class="headerlink" href="#step-2-place-glowing-light-sources-o_lb_dl_light_source" title="Permanent link">&para;</a></h3>
-<p>Now let's place light circles so the player can see:</p>
+<h3 id="step-3-create-a-dynamic-lantern-that-follows-kris">Step 3 — Create a dynamic lantern that follows Kris<a class="headerlink" href="#step-3-create-a-dynamic-lantern-that-follows-kris" title="Permanent link">&para;</a></h3>
+<p>If Kris should hold a lantern or flashlight that lights up wherever they walk:</p>
 <ol>
-<li>Drag an instance of <strong><code>o_lb_dl_light_source</code></strong> near the player spawn marker (<code>o_dev_playermarker</code>).</li>
-<li>Drag another instance of <strong><code>o_lb_dl_light_source</code></strong> over a torch or lantern prop on the wall.</li>
-<li>In the Room Editor, select the light source instances and adjust their properties:</li>
-<li><strong>Scale:</strong> Stretch <code>scaleX</code> and <code>scaleY</code> to <code>2.0</code> or <code>3.0</code> to expand the light radius.</li>
-<li><strong>Color Blend:</strong> In the Inspector, set <strong>Color</strong> to a warm amber/yellow tint (<code>#FFAA44</code>) or cool cyan (<code>#44AAFF</code>).</li>
+<li>In the Asset Browser, create a <strong>Sprite</strong> named <strong><code>spr_player_torch_light</code></strong>.</li>
+<li>Draw a soft white circle with a radial gradient (opaque white at the center, fading to transparent at the edges) on a transparent background.</li>
+<li>Size: <strong>128×128px</strong>, keeping the circle centered in the canvas. <code>o_lb_dl_light_source</code> scales this sprite to define the light's shape and falloff, so the base image must already be <strong>pure white</strong> — <code>image_blend</code> only tints it, it doesn't generate the gradient for you.</li>
+<li>
+<p><strong>Set the sprite's Origin to Middle Center — this is not optional.</strong> If the origin is left at the GameMaker default (top-left), the light gets a fixed positional bias baked in. Combined with the directional offset in Step 3.5 below, this bias <em>adds</em> to the offset in one diagonal (making the light drift too far in that direction) and <em>cancels it out</em> in the opposite diagonal (making the light look glued underneath Kris instead of in front). It's an easy bug to misdiagnose as a math error in the offset code, when it's really just the sprite's origin.</p>
+</li>
+<li>
+<p>In the Asset Browser, create an Object named <strong><code>o_player_torch</code></strong>.</p>
+</li>
+<li>Set its <strong>Sprite</strong> to <strong><code>spr_player_torch_light</code></strong> and its <strong>Parent</strong> to <strong><code>o_lb_dl_light_source</code></strong>.</li>
+<li>In its <strong>Create Event</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>   event_inherited();
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   image_xscale = 1.2; // Light radius width
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   image_yscale = 1.2; // Light radius height
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   image_blend = c_orange;
+</code></pre></div></li>
 </ol>
-<p>When running, the controller uses <code>bm_subtract</code> to punch bright, colored light cones through the darkness overlay.</p>
+<blockquote>
+<p>[!warning] <code>image_blend</code> aqui não pinta a luz de laranja
+<code>o_lb_dl_controller</code> desenha os light sources com <code>gpu_set_blendmode(bm_subtract)</code>
+— ele <strong>subtrai</strong> o RGB do sprite da camada escura, revelando o cenário original
+por baixo, sem adicionar cor nenhuma a ele. <code>image_blend</code> muda apenas <em>quanto</em>
+cada canal é subtraído (afeta sutilmente o contraste da borda do "buraco"), não
+produz um halo visivelmente laranja. Na prática, para este passo, quase
+qualquer cor aqui dá um resultado visual muito parecido — o efeito de "luz
+quente" de verdade só aparece com um passo extra (uma segunda camada desenhada
+com <code>bm_add</code>, explicada logo abaixo).
+5. In its <strong>Step Event (End Step)</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>   // Follow the party leader, offset a bit in front of them
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   // based on which way they're currently facing.
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   var _leader = get_leader();
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   if instance_exists(_leader) {
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>       var _offset = 40; // how far ahead of Kris the light sits, in pixels
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>       var _rad = degtorad(_leader.dir);
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>       // The engine's DIR enum is UP=0, RIGHT=90, DOWN=180, LEFT=270 — a
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>       // clockwise angle starting from "up", not the standard math convention
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>       // (0° = right, counter-clockwise) that lengthdir_x/y expect. Plugging
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>       // _leader.dir straight into lengthdir_x/y silently gets two of the four
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>       // directions backwards. Converting manually with sin/cos sidesteps that.
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>       var _offset_x = _offset * sin(_rad);
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>       var _offset_y = -_offset * cos(_rad);
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>       x = _leader.x + _offset_x;
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>       y = _leader.s_get_middle_y() + _offset_y;
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>   }
+</code></pre></div>
+6. Drag one instance of <code>o_player_torch</code> into your room on the <code>lighting</code> layer.</p>
+</blockquote>
+<p>Now, as Kris explores the room, a circle of warm lantern light moves with them seamlessly — and shifts ahead of them as they turn to face a new direction!</p>
+<blockquote>
+<p>[!warning] Não use <code>lengthdir_x</code>/<code>lengthdir_y</code> com <code>dir</code> diretamente
+É tentador escrever <code>lengthdir_x(_offset, _leader.dir)</code> — mas o <code>DIR</code> da
+engine (<code>UP=0, RIGHT=90, DOWN=180, LEFT=270</code>, sentido horário a partir de
+cima) não é o mesmo sistema de ângulos que <code>lengthdir_x/y</code> esperam (0° =
+direita, sentido anti-horário). O resultado é um bug sutil e assimétrico:
+a luz parece longe demais indo para direita/baixo, e grudada embaixo do
+Kris indo para esquerda/cima. A conversão manual com <code>sin</code>/<code>cos</code> acima
+evita esse problema.</p>
+<p>[!tip] Tuning the offset
+<code>_offset = 40</code> is a starting point; increase it if the light still looks glued to Kris's back, or decrease it if it drifts too far ahead when they turn a corner.</p>
+</blockquote>
+<h4 id="step-35-optional-give-the-lantern-an-actual-orange-tint">Step 3.5 (optional) — Give the lantern an actual orange tint<a class="headerlink" href="#step-35-optional-give-the-lantern-an-actual-orange-tint" title="Permanent link">&para;</a></h4>
+<p>Since <code>image_blend</code> alone doesn't tint the revealed area (see the warning above), add a second, additively-blended draw pass on top of the cutout to get a real warm glow:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Draw Event de o_player_torch
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>event_inherited(); // deixa o corte de escuridão (bm_subtract) acontecer normalmente
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>gpu_set_blendmode(bm_add);
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>draw_sprite_ext(
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    spr_player_torch_light,
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    image_index,
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    x, y,
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    image_xscale * 0.6, image_yscale * 0.6, // um pouco menor que o buraco
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    0,
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    c_orange,
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    0.25 // opacidade baixa, senão estoura pra branco
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>);
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>gpu_set_blendmode(bm_normal);
+</code></pre></div>
+<p>This draws a translucent orange halo <em>on top of</em> the area already revealed by the subtract cutout — giving the warm firelight tone without interfering with the <code>bm_subtract</code> mask that makes the cutout itself work.</p>
 <hr />
-<h3 id="step-3-add-water-reflections-o_reflection_manager">Step 3 — Add water reflections (<code>o_reflection_manager</code>)<a class="headerlink" href="#step-3-add-water-reflections-o_reflection_manager" title="Permanent link">&para;</a></h3>
+<h3 id="step-4-add-water-puddles-with-reflections-o_reflection_manager">Step 4 — Add water puddles with reflections (<code>o_reflection_manager</code>)<a class="headerlink" href="#step-4-add-water-puddles-with-reflections-o_reflection_manager" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Place water/reflective tiles on your floor (e.g. in the center of the cavern).</li>
-<li>Select the <strong><code>Instances</code></strong> layer.</li>
-<li>Drag an instance of <strong><code>o_reflection_manager</code></strong> directly over the water area.</li>
+<li>Place water floor tiles in the cavern.</li>
+<li>Drag an instance of <strong><code>o_reflection_manager</code></strong> onto the <code>Instances</code> layer over the water tiles.</li>
+<li>Whenever Kris or followers walk within 20 pixels of the manager, their mirrored, semi-transparent reflection renders beneath their feet.</li>
 </ol>
-<p>That is it! Whenever Kris, Susie, or any <code>o_actor</code> walks across the puddle, their inverted reflection renders under their boots automatically.</p>
 <hr />
-<h3 id="step-4-configure-footsteps-and-music-o_dev_ambiance-o_dev_music">Step 4 — Configure footsteps and music (<code>o_dev_ambiance</code>, <code>o_dev_music</code>)<a class="headerlink" href="#step-4-configure-footsteps-and-music-o_dev_ambiance-o_dev_music" title="Permanent link">&para;</a></h3>
+<h3 id="step-5-configure-footsteps-and-music-o_dev_ambiance-o_dev_music">Step 5 — Configure footsteps and music (<code>o_dev_ambiance</code>, <code>o_dev_music</code>)<a class="headerlink" href="#step-5-configure-footsteps-and-music-o_dev_ambiance-o_dev_music" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Drag <strong><code>o_dev_ambiance</code></strong> onto the <code>Instances</code> layer:</li>
-<li>Set <strong><code>footsteps = true</code></strong> in its Variable Definitions to enable echoing footstep audio.</li>
-<li>Drag <strong><code>o_dev_music</code></strong> onto the <code>Instances</code> layer:</li>
-<li>Set <strong><code>mus = mus_ex_church</code></strong> (or your cavern soundtrack asset).</li>
+<li>In Variable Definitions, set <strong><code>footsteps = true</code></strong>.</li>
+<li>Drag <strong><code>o_dev_music</code></strong> onto the layer:</li>
+<li>Set <strong><code>mus = mus_ex_church</code></strong> (or your cavern sound asset).</li>
 <li>Drag <strong><code>o_dev_border</code></strong> onto the layer:</li>
-<li>Set <strong><code>_border_name = "border_simple"</code></strong> for widescreen border artwork.</li>
+<li>Set <strong><code>_border_name = "border_simple"</code></strong>.</li>
 </ol>
 <hr />
-<h3 id="step-5-build-an-altar-spotlight-trigger-lighting_on">Step 5 — Build an altar spotlight trigger (<code>lighting_on</code>)<a class="headerlink" href="#step-5-build-an-altar-spotlight-trigger-lighting_on" title="Permanent link">&para;</a></h3>
-<p>Let's place a dramatic altar at the end of the cavern:</p>
+<h3 id="step-6-add-an-altar-spotlight-trigger-lighting_on">Step 6 — Add an altar spotlight trigger (<code>lighting_on</code>)<a class="headerlink" href="#step-6-add-an-altar-spotlight-trigger-lighting_on" title="Permanent link">&para;</a></h3>
+<p>To transition smoothly from cavern darkness into a dramatic golden altar:</p>
 <ol>
-<li>Place a prop or sign at the altar (e.g. <code>o_ow_prophecy</code> or <code>o_ow_sign</code>).</li>
+<li>Place a prop or altar sign (<code>o_ow_sign</code>) at the end of the hall.</li>
 <li>Place an <strong><code>o_trigger</code></strong> in front of the altar.</li>
-<li>In the trigger's <strong>Instance Creation Code</strong>, write:</li>
+<li>In its <strong>Instance Creation Code</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>trigger_code = function() {
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    // Wash the room in golden light with deep navy shadows
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    lighting_on(c_yellow, c_navy);
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    cutscene_create();
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    cutscene_dialogue("* A soothing starlight radiates from the ancient shrine.");
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    cutscene_play();
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>};
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>trigger_exit_code = function() {
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    // Restore normal dark cavern lighting when stepping away
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    lighting_off();
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>};
+</code></pre></div></li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>trigger_code = function() {
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    // Wash the room in golden light with dark navy shadows
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    lighting_on(c_yellow, c_navy);
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    // Play a brief dialogue
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    cutscene_create();
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    cutscene_dialogue("* A warm, ancient warmth radiates from the altar.");
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    cutscene_play();
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>};
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>trigger_exit_code = function() {
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    // Restore normal lighting when stepping away
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    lighting_off();
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>};
-</code></pre></div>
 <hr />
 <h2 id="testing-checklist">Testing checklist<a class="headerlink" href="#testing-checklist" title="Permanent link">&para;</a></h2>
 <p>Run your game (<code>F5</code>) and test the atmosphere:</p>
 <ul>
 <li>[ ] The room starts in gloomy darkness.</li>
-<li>[ ] Circular light cones illuminate the player and wall lanterns.</li>
-<li>[ ] Walking across the water puddle displays crisp, inverted character reflections.</li>
+<li>[ ] Wall torches cast warm glowing circles revealing wall tiles underneath.</li>
+<li>[ ] Walking with Kris moves the lantern circle smoothly across the floor.</li>
+<li>[ ] Stepping across water puddles renders inverted character reflections.</li>
 <li>[ ] Footsteps produce rhythmic tapping sound effects.</li>
-<li>[ ] Stepping onto the altar trigger smoothly transitions the room into a golden spotlight.</li>
-<li>[ ] Stepping away from the altar restores standard lighting.</li>
+<li>[ ] Stepping onto the altar trigger smoothly illuminates the room with golden light.</li>
+<li>[ ] Stepping away from the altar restores dark cavern lighting.</li>
 </ul>
 <hr />
-<h2 id="prop-reactivity-lighting_darken_self">Prop reactivity (<code>lighting_darken_self</code>)<a class="headerlink" href="#prop-reactivity-lighting_darken_self" title="Permanent link">&para;</a></h2>
-<p>To ensure custom background props darken appropriately when an altar spotlight activates, call <code>lighting_darken_self()</code> in their <strong>Draw Event</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Draw Event of your custom prop
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>draw_self();
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>lighting_darken_self(); // Dims prop when lighting_on() is active
-</code></pre></div>
+<h2 id="summary-quick-reference-for-lighting-objects">Summary: Quick reference for lighting objects<a class="headerlink" href="#summary-quick-reference-for-lighting-objects" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>How to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>o_lb_dl_controller</code></strong></td>
+<td>Controls the black overlay surface. Auto-spawned by any <code>o_lb_dl_light_source</code>.</td>
+</tr>
+<tr>
+<td><strong><code>o_lb_dl_light_source</code></strong></td>
+<td>Place over torches/lamps. Change Sprite in Inspector for custom light shapes, scale for size, color for tint.</td>
+</tr>
+<tr>
+<td><strong><code>o_player_torch</code></strong></td>
+<td>Parent to <code>o_lb_dl_light_source</code> with <code>x = get_leader().x; y = get_leader().s_get_middle_y();</code> in Step event.</td>
+</tr>
+<tr>
+<td><strong><code>lighting_on(col, fade)</code></strong></td>
+<td>Call via GML to create colored room spotlights (altars, cutscenes).</td>
+</tr>
+<tr>
+<td><strong><code>lighting_darken_self()</code></strong></td>
+<td>Put in custom prop Draw events so they dim when <code>lighting_on()</code> is active.</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
@@ -1706,16 +2053,20 @@
 <td>Missing <code>o_lb_dl_light_source</code> instances, or light sprites have 0 alpha</td>
 </tr>
 <tr>
+<td>Light circle has hard square edges</td>
+<td>Light source sprite has no alpha feathering (use a soft gradient circle sprite)</td>
+</tr>
+<tr>
+<td>Moving torch lags behind player</td>
+<td>Position was updated in <code>Step</code> instead of <code>End Step</code> or after camera update</td>
+</tr>
+<tr>
 <td>Reflections do not appear on water</td>
 <td><code>o_reflection_manager</code> is missing from the room, or distance between actor and manager exceeds 20 px</td>
 </tr>
 <tr>
 <td>Footsteps do not play when walking</td>
 <td><code>o_dev_ambiance</code> missing or <code>footsteps</code> variable definition is set to <code>false</code></td>
-</tr>
-<tr>
-<td>Screen borders are stretched or cut off</td>
-<td>Selected border asset name does not match any entry registered in <code>scripts/borders/borders.gml</code></td>
 </tr>
 </tbody>
 </table>
