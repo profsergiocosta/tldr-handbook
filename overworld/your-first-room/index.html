@@ -808,13 +808,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-7-the-doorway-to-the-next-area" class="md-nav__link">
+  <a href="#step-7-room-exits-corridors-vs-doors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 7 — The doorway to the next area
+        Step 7 — Room exits: Corridors vs. Doors
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Step 7 — Room exits: Corridors vs. Doors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-styles-of-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two styles of transitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-a-open-corridor-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Open corridor transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-doorway-with-opening-closing-sound-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Doorway with opening &amp; closing sound effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-destination-landing-marker-o_dev_marker_land" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up the destination landing marker (o_dev_marker_land)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1754,13 +1804,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-7-the-doorway-to-the-next-area" class="md-nav__link">
+  <a href="#step-7-room-exits-corridors-vs-doors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 7 — The doorway to the next area
+        Step 7 — Room exits: Corridors vs. Doors
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Step 7 — Room exits: Corridors vs. Doors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-styles-of-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two styles of transitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-a-open-corridor-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Open corridor transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-doorway-with-opening-closing-sound-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Doorway with opening &amp; closing sound effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-destination-landing-marker-o_dev_marker_land" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up the destination landing marker (o_dev_marker_land)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2038,19 +2138,77 @@
 </ul>
 <p><strong>Test:</strong> Walk up to the mural. Watch the room dim, the camera tilt, and the text shimmer into view. Step backward and watch the sanctuary return to normal.</p>
 <hr />
-<h2 id="step-7-the-doorway-to-the-next-area">Step 7 — The doorway to the next area<a class="headerlink" href="#step-7-the-doorway-to-the-next-area" title="Permanent link">&para;</a></h2>
-<p>Finally, let us add a doorway on the right wall that transports the party to another room (such as <code>room_ex_city</code>).</p>
+<h2 id="step-7-room-exits-corridors-vs-doors">Step 7 — Room exits: Corridors vs. Doors<a class="headerlink" href="#step-7-room-exits-corridors-vs-doors" title="Permanent link">&para;</a></h2>
+<p>Finally, let us connect your sanctuary to the rest of the world. In tlDR Engine, room transitions (whether an open archway or a solid door) are powered by <strong><code>o_trigger_warp</code></strong>.</p>
+<h3 id="the-two-styles-of-transitions">The two styles of transitions<a class="headerlink" href="#the-two-styles-of-transitions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Transition Type</th>
+<th>Visual</th>
+<th>Audio Settings</th>
+<th>Typical Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Open corridor / Archway</strong></td>
+<td>Empty passageway on the map</td>
+<td>No sounds (<code>enter_sound = ""</code> and <code>exit_sound = ""</code>)</td>
+<td>Moving between roads, forest paths, or adjacent hallways</td>
+</tr>
+<tr>
+<td><strong>Door / Building entrance</strong></td>
+<td>Door graphic on the wall</td>
+<td><code>enter_sound = snd_dooropen</code><br><code>exit_sound = snd_doorclose</code></td>
+<td>Entering shops, houses, temples, or closed chambers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="option-a-open-corridor-transition">Option A: Open corridor transition<a class="headerlink" href="#option-a-open-corridor-transition" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Place an <strong><code>o_trigger_warp</code></strong> at <code>(580, 240)</code> over the right corridor exit.</li>
-<li>Stretch it vertically (<code>scaleX = 1.0</code>, <code>scaleY = 3.0</code>).</li>
+<li>Place an <strong><code>o_trigger_warp</code></strong> at <code>(580, 240)</code> on the right wall over the open hallway.</li>
+<li>Stretch it vertically (<code>scaleX = 1.0</code>, <code>scaleY = 3.0</code>) so the player cannot slip past.</li>
 <li>In its <strong>Variables</strong> panel, configure:</li>
-<li><code>target_room</code>: <code>room_ex_city</code> (or any other room asset in your project).</li>
-<li><code>target_marker</code>: <code>"entrance"</code> (the <code>m_id</code> of the landing marker in that room).</li>
-<li><code>exit_direction</code>: <code>DIR.RIGHT</code>.</li>
+<li><code>target_room</code>: <code>room_ex_city</code> (or any room asset in your project).</li>
+<li><code>target_marker</code>: <code>0</code> (or a string like <code>"entrance"</code>).</li>
+<li><code>enter_sound</code>: <em>(leave empty)</em>.</li>
+<li><code>exit_sound</code>: <em>(leave empty)</em>.</li>
+<li><code>exit_direction</code>: <code>DIR.RIGHT</code> (the leader keeps walking right).</li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">The destination landing spot</p>
-<p>Make sure the destination room has an <strong><code>o_dev_marker_land</code></strong> instance with its variable <code>m_id = "entrance"</code>. When warping, the engine finds that marker and places the party directly on it.</p>
+<hr />
+<h3 id="option-b-doorway-with-opening-closing-sound-effects">Option B: Doorway with opening &amp; closing sound effects<a class="headerlink" href="#option-b-doorway-with-opening-closing-sound-effects" title="Permanent link">&para;</a></h3>
+<p>If your exit represents a physical door (like entering a shop, house, or inner sanctum):</p>
+<ol>
+<li><strong>Draw the door:</strong> Place your door tile on <code>t_buildings</code> or place a door prop sprite on <code>decor</code>.</li>
+<li><strong>Place the warp trigger:</strong> Place an <strong><code>o_trigger_warp</code></strong> right at the threshold of the door.</li>
+<li><strong>Stretch the trigger:</strong> Scale it to cover the width of the doorway (e.g. <code>scaleX = 2.0</code>, <code>scaleY = 1.0</code>).</li>
+<li><strong>Configure Variables in the Inspector:</strong></li>
+<li><code>target_room</code>: The destination interior room (e.g. <code>room_test_shops</code> or <code>room_test_loopback</code>).</li>
+<li><code>target_marker</code>: The <code>m_id</code> of the landing spot inside (e.g. <code>0</code>).</li>
+<li><code>enter_sound</code>: <strong><code>snd_dooropen</code></strong> <em>(plays the door handle/creak when Kris touches the threshold)</em>.</li>
+<li><code>exit_sound</code>: <strong><code>snd_doorclose</code></strong> <em>(plays the door shutting when the screen fades into the new room)</em>.</li>
+<li><code>exit_direction</code>: <strong><code>DIR.DOWN</code></strong> <em>(characters step into the new room facing forward)</em>.</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>How the engine executes the door transition</strong><br />
+When the player touches <code>o_trigger_warp</code> (<code>objects/o_trigger_warp/Other_10.gml</code>), it immediately plays <code>enter_sound</code> (<code>snd_dooropen</code>), locks player input, and triggers a 7-frame screen fade (<code>fader_fade(0, 1, 7)</code>). In <code>Alarm[0]</code>, the room switches, <code>exit_sound</code> (<code>snd_doorclose</code>) plays, the party appears on the destination marker, and the screen fades back in!</p>
+</blockquote>
+<hr />
+<h3 id="setting-up-the-destination-landing-marker-o_dev_marker_land">Setting up the destination landing marker (<code>o_dev_marker_land</code>)<a class="headerlink" href="#setting-up-the-destination-landing-marker-o_dev_marker_land" title="Permanent link">&para;</a></h3>
+<p>Whichever transition style you use, the destination room <strong>must</strong> know where the party should land:</p>
+<ol>
+<li>Open your destination room in the Room Editor.</li>
+<li>On the <strong><code>Instances</code></strong> layer, place an <strong><code>o_dev_marker_land</code></strong> right outside the doorway/corridor where the party should appear.</li>
+<li>In its <strong>Variables</strong> panel, set:</li>
+<li><code>m_id</code>: The matching identifier configured in <code>target_marker</code> (e.g. <code>0</code> or <code>"entrance"</code>).</li>
+</ol>
+<hr />
+<div class="admonition tip">
+<p class="admonition-title">What about DELTARUNE's Fast-Travel Shortcut Door?</p>
+<p>If you are looking for the iconic black door wrapped in red fire that opens a menu with multiple destination choices (<code>{choice(...)}</code>), tlDR Engine provides a specialized object: <strong><code>o_ow_shortcut_door</code></strong>. We explore this in <a href="../shortcuts-and-triggers/">Chapter 10: Shortcuts and Mechanisms</a>.</p>
 </div>
 <hr />
 <h2 id="testing-checklist">Testing checklist<a class="headerlink" href="#testing-checklist" title="Permanent link">&para;</a></h2>
@@ -2061,7 +2219,7 @@
 <li>[ ] <strong>Sign:</strong> Facing <code>o_ow_sign</code> and pressing confirm displays the formatted text box.</li>
 <li>[ ] <strong>NPC Memory:</strong> The NPC gives the initial speech first, and switches to the short dialogue on repeated visits.</li>
 <li>[ ] <strong>Prophecy &amp; Lighting:</strong> Walking into the altar area smoothly dims the room into golden light, frames the camera, and renders the shimmering mural text.</li>
-<li>[ ] <strong>Exit Transition:</strong> Walking into <code>o_trigger_warp</code> fades the screen and warps cleanly to the destination room.</li>
+<li>[ ] <strong>Exit Transition:</strong> Walking into <code>o_trigger_warp</code> fades the screen (playing <code>snd_dooropen</code> and <code>snd_doorclose</code> if configured as a door) and warps cleanly to the destination room marker.</li>
 </ul>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
