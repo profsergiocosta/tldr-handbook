@@ -107,31 +107,54 @@ An enemy is not one file. It is four pieces in four places:
 
 | Piece | What it is | Where you write it | Name we will use |
 |---|---|---|---|
-| The enemy **sheet** (`enemy()`) | stats, sprites, dialogue, ACTs | script `rpg_enc_enemies` | `rpg_enemy_sonso()` |
-| The **encounter** (`enc_set()`) | which enemies, which music | script `rpg_enc_sets` | `rpg_enc_set_sonso()` |
+| The enemy **sheet** (`enemy()`) | stats, sprites, dialogue, ACTs | a new script `rpg_enc_enemies` | `rpg_enemy_sonso()` |
+| The **encounter** (`enc_set()`) | which enemies, which music | a new script `rpg_enc_sets` | `rpg_enc_set_sonso()` |
 | The **turn** | the bullet pattern | a new **object**, parent `o_turn` | `o_turn_sonso` |
-| The **actor** | the body on screen | nothing to write — we reuse `o_actor_e` | — |
+| The **actor** | the body on screen | a new **object**, parent `o_actor_e` | `o_actor_sonso` |
 
-Both scripts already exist in the project. Only the turn object gets created from
-scratch, in step 8.
+Neither script exists in the starter project yet. The engine keeps its built-in
+systems in scripts like `enc_enemies` and its examples in `ex_`-prefixed scripts
+(`ex_enc_enemies`, `ex_enc_sets`). By creating your own dedicated scripts and actor objects, you
+keep custom enemies cleanly separated from the engine — making it easy to pull
+upstream engine updates later without conflicts.
 
-### Open the first script
+We will create the scripts and the actor as we need them (Step 1 and Step 3), and then build
+the turn object from scratch in Step 8.
 
-In the **Asset Browser**, click the arrow next to **Scripts** to expand it, find
-**`rpg_enc_enemies`**, and **double-click** it. A code editor opens in the
-workspace.
+### Create the actor object: `o_actor_sonso`
 
-!!! tip "Cannot find it in the tree?"
-    Use the search box at the top of the Asset Browser and type `rpg_enc`. Both
-    scripts you need will show up.
+Every enemy needs an actor representation in the world and battle. By creating a dedicated object inheriting from `o_actor_e`, your custom enemy stays cleanly decoupled from engine files and always has a valid sprite from birth:
 
-This file is yours. The engine keeps its own examples in `ex_`-prefixed scripts
-and expects your content here — which is what makes it possible to pull engine
-updates later without conflicts.
+1. In the **Asset Browser** (on the right-hand side), right-click **Objects** $\rightarrow$ **Create** $\rightarrow$ **Object**.
+2. Name it **`o_actor_sonso`** and press ++enter++.
+3. In its inspector on the left, click **Parent** and choose **`o_actor_e`** (it will inherit all movement, chasing, and collision code automatically).
+4. Set its **Sprite** to **`spr_ex_e_tasque`**.
+5. Click **Add Event** $\rightarrow$ **Create**. In the code window that opens, enter:
+   ```gml
+   event_inherited()
 
-If the file already has something in it, **scroll to the very bottom** and write
-after the last `}`. A script holds as many functions as you like, one after
-another.
+   s_intro = spr_ex_e_tasque_hurt
+   ```
+
+!!! question "Why `s_intro`?"
+    When Kris touches an enemy on the overworld map, the encounter initiates with a tension horn sound (`snd_tensionhorn`) and the enemy briefly flashes an alert/hurt reaction pose (`s_intro`) before the screen transitions into the battle arena.
+    The engine's base object `o_actor_e` defaults `s_intro` to `spr_e_virovirokun_hurt`. Overriding `s_intro = spr_ex_e_tasque_hurt` ensures Sonso displays his own startled cat reaction rather than the engine's default virus monster!
+
+### Create the first script: `rpg_enc_enemies`
+
+1. In the **Asset Browser**, right-click the **Scripts**
+   folder $\rightarrow$ **Create** $\rightarrow$ **Script**.
+2. A new script appears in the tree with its name highlighted. Type
+   **`rpg_enc_enemies`** and press ++enter++.
+3. The script opens in a new tab in the workspace. GameMaker automatically
+   generates placeholder template code (such as `function rpg_enc_enemies(){ }`).
+   **Select everything and delete it** so the file is completely blank.
+
+!!! tip "Adding more enemies later"
+    Whenever you create another enemy in the future, you do not need a new
+    script — simply open `rpg_enc_enemies`, scroll to the very bottom, and write
+    after the last `}`. A single script can hold as many functions and
+    constructors as you like.
 
 ### For sprites we borrow the cat that already exists
 
@@ -152,12 +175,12 @@ three lines to swap.
 
 ## Step 2 — The minimum enemy that compiles
 
-Type this at the bottom of `rpg_enc_enemies`, then save with ++ctrl+s++:
+Type this into your blank `rpg_enc_enemies` script (or at the bottom, if you already have other enemies in it), then save with ++ctrl+s++:
 
 ```gml
 function rpg_enemy_sonso() : enemy() constructor {
     name = "Sonso"
-    obj  = o_actor_e          // the engine's generic actor; perfectly fine
+    obj  = o_actor_sonso      // our custom actor with spr_ex_e_tasque assigned
 
     // stats
     hp      = 60
@@ -208,9 +231,13 @@ Every line inside the braces sets one field on that struct.
 
 ### Check that it compiles
 
-Press ++f5++. You do not need to find the cat — you only want to know the file is
-valid GML. If a red error appears in the **Output** tab at the bottom, read the
-line number it names and fix the typo before going on.
+Press ++f5++. You do not need to find the cat yet — this check is strictly to verify that the file has valid GML syntax without typos.
+
+!!! note "The cat is not playable or visible yet"
+    At this stage, you have only written the creature's data blueprint (`enemy()`).
+    You cannot encounter or battle Sonso yet! An enemy requires an **encounter** (`enc_set()`, created in Step 3) and registration in the developer console picker (Step 4). You will test the encounter in-game using the ++tab++ + ++e++ debug menu in **Step 5**.
+
+If a red error appears in the **Output** tab at the bottom, read the line number it names and fix the typo before going on.
 
 Close the game window when it opens.
 
@@ -222,7 +249,16 @@ An `enemy()` is a creature sheet. It cannot start a fight on its own — a fight
 an **encounter**, which says *which* creatures, standing *where*, with *what*
 music.
 
-In the **Asset Browser** → **Scripts**, double-click **`rpg_enc_sets`** and add:
+Just like the enemy sheet, encounters live in their own script.
+
+### Create the encounter script: `rpg_enc_sets`
+
+1. In the **Asset Browser**, right-click **Scripts** $\rightarrow$ **Create**
+   $\rightarrow$ **Script**.
+2. Name it **`rpg_enc_sets`** and press ++enter++.
+3. In the new tab that opens, **select all and delete any default template code**
+   so the file is empty.
+4. Add the encounter definition, then save with ++ctrl+s++:
 
 ```gml
 function rpg_enc_set_sonso() : enc_set() constructor {
@@ -256,6 +292,13 @@ crashes when it tries to read `hp`.
     grep the whole project and you will not find a single use. Write it for your
     own benefit if you like, but it is not the name the console shows you. That
     comes from step 4.
+
+!!! tip "Testing with multiple enemies"
+    If you want to fight two or more cats at once, simply instantiate more inside the `enemies` array:
+    ```gml
+    enemies = [ new rpg_enemy_sonso(), new rpg_enemy_sonso() ]
+    ```
+    Notice that you **do not need to change `enemies_pos`**! If there are more enemies than entries in `enemies_pos`, the engine automatically computes vertical spacing and positioning for the extra enemies (`o_enc_anim/Alarm_1.gml`). And because `o_actor_sonso` has its sprite assigned from the start, dynamically creating multiple instances works smoothly without any crashes.
 
 ---
 
@@ -340,6 +383,36 @@ stationary bullet.
 | It is in the list but confirming does nothing | You wrote `new rpg_enc_set_sonso` in `item_list`. |
 | The fight opens and instantly crashes | `enemies = [ rpg_enemy_sonso() ]` — the `new` is missing in step 3. |
 
+### Experiment: Fighting multiple enemies at once
+
+Before advancing to giving Sonso dialogue, moods, and custom attacks, you can easily test what a multi-enemy battle looks like!
+
+Open `rpg_enc_sets` and add another enemy instance inside the `enemies` array:
+
+```gml
+function rpg_enc_set_sonso() : enc_set() constructor {
+    debug_name = "sonso"
+
+    enemies = [
+        new rpg_enemy_sonso(),
+        new rpg_enemy_sonso(),
+    ]
+
+    flavor = "* A pair of cats is blocking the sanctuary altar."
+
+    enemies_pos = [ [0, 0, true] ]
+    bgm = mus_battle
+}
+```
+
+Save (++ctrl+s++), press ++f5++, and launch `rpg_enc_set_sonso` through the console picker (++tab++ + ++e++):
+
+- **Two cats appear side-by-side:** Notice that you **did not need to touch `enemies_pos`**! When an encounter has more enemies than positions defined in `enemies_pos`, the engine automatically computes vertical spacing and arranges the extra enemies (`o_enc_anim/Alarm_1.gml`).
+- **Independent targets:** Each cat has its own HP bar, dialogue bubble, and MERCY gauge. During the battle menu, you can select which enemy to attack or interact with.
+- **Dynamic spawning:** Because we created `o_actor_sonso` with a valid sprite assigned, the engine can spawn as many enemy actors as needed without crashing.
+
+When you're finished experimenting, you can keep both cats or restore `enemies` to a single cat as we build out Sonso's personality.
+
 ---
 
 ## Step 6 — Giving him a voice
@@ -417,7 +490,7 @@ If your braces have drifted, compare against this. Everything is one function:
 ```gml
 function rpg_enemy_sonso() : enemy() constructor {
     name = "Sonso"
-    obj  = o_actor_e
+    obj  = o_actor_sonso
 
     hp      = 60
     max_hp  = 60
@@ -1029,11 +1102,9 @@ In the **Asset Browser** → **Rooms**, double-click **`room_sanctuary`** to ope
 the Room Editor:
 
 1. In the layer panel, select the **`Instances`** layer (depth `300`).
-2. Find **`o_actor_e`** in the Asset Browser and drag it into the central aisle
-   at `(320, 240)` — guarding the path to the prophecy altar.
-3. With the new instance selected, its inspector opens. Set **Sprite** to
-   `spr_ex_e_tasque`.
-4. In the same inspector, open **Variable Definitions** and configure:
+2. Find **`o_actor_sonso`** in the Asset Browser and drag it into the central aisle
+   at `(320, 240)` — guarding the path to the prophecy altar. (Because we assigned `spr_ex_e_tasque` when creating the object in Step 1, it already appears as the cat!).
+3. In the instance inspector, open **Variable Definitions** and configure:
    - **`encounter`**: `new rpg_enc_set_sonso()`
    - **`enable_chasing`**: `true` (optional: the cat rushes the party when Kris
      approaches)
@@ -1041,7 +1112,7 @@ the Room Editor:
 
 Touching the cat starts the fight. A bonus of this route: the actor on the map
 **is reused** as the battle enemy (`o_enc_anim/Alarm_4.gml` tries `actor_find`
-before creating a new one), so the transition into combat is seamless.
+before creating a new one), so the transition into combat is seamless (and thanks to `s_intro = spr_ex_e_tasque_hurt` configured in Step 1, Sonso flashes his startled pose right as Kris touches him!).
 
 ### B. From an altar trigger
 
