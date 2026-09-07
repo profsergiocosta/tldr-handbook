@@ -926,10 +926,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#open-the-first-script" class="md-nav__link">
+  <a href="#create-the-actor-object-o_actor_sonso" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Open the first script
+        Create the actor object: o_actor_sonso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-first-script-rpg_enc_enemies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the first script: rpg_enc_enemies
       
     </span>
   </a>
@@ -1000,6 +1011,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 3 — The encounter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-encounter-script-rpg_enc_sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the encounter script: rpg_enc_sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1030,6 +1058,17 @@
     <span class="md-ellipsis">
       
         If it did not work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment-fighting-multiple-enemies-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment: Fighting multiple enemies at once
       
     </span>
   </a>
@@ -1970,10 +2009,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#open-the-first-script" class="md-nav__link">
+  <a href="#create-the-actor-object-o_actor_sonso" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Open the first script
+        Create the actor object: o_actor_sonso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-first-script-rpg_enc_enemies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the first script: rpg_enc_enemies
       
     </span>
   </a>
@@ -2044,6 +2094,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 3 — The encounter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-encounter-script-rpg_enc_sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the encounter script: rpg_enc_sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2074,6 +2141,17 @@
     <span class="md-ellipsis">
       
         If it did not work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment-fighting-multiple-enemies-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment: Fighting multiple enemies at once
       
     </span>
   </a>
@@ -2712,13 +2790,13 @@ stops working while you are testing, let go of <span class="keys"><kbd class="ke
 <tr>
 <td>The enemy <strong>sheet</strong> (<code>enemy()</code>)</td>
 <td>stats, sprites, dialogue, ACTs</td>
-<td>script <code>rpg_enc_enemies</code></td>
+<td>a new script <code>rpg_enc_enemies</code></td>
 <td><code>rpg_enemy_sonso()</code></td>
 </tr>
 <tr>
 <td>The <strong>encounter</strong> (<code>enc_set()</code>)</td>
 <td>which enemies, which music</td>
-<td>script <code>rpg_enc_sets</code></td>
+<td>a new script <code>rpg_enc_sets</code></td>
 <td><code>rpg_enc_set_sonso()</code></td>
 </tr>
 <tr>
@@ -2730,28 +2808,53 @@ stops working while you are testing, let go of <span class="keys"><kbd class="ke
 <tr>
 <td>The <strong>actor</strong></td>
 <td>the body on screen</td>
-<td>nothing to write — we reuse <code>o_actor_e</code></td>
-<td>—</td>
+<td>a new <strong>object</strong>, parent <code>o_actor_e</code></td>
+<td><code>o_actor_sonso</code></td>
 </tr>
 </tbody>
 </table>
-<p>Both scripts already exist in the project. Only the turn object gets created from
-scratch, in step 8.</p>
-<h3 id="open-the-first-script">Open the first script<a class="headerlink" href="#open-the-first-script" title="Permanent link">&para;</a></h3>
-<p>In the <strong>Asset Browser</strong>, click the arrow next to <strong>Scripts</strong> to expand it, find
-<strong><code>rpg_enc_enemies</code></strong>, and <strong>double-click</strong> it. A code editor opens in the
-workspace.</p>
-<div class="admonition tip">
-<p class="admonition-title">Cannot find it in the tree?</p>
-<p>Use the search box at the top of the Asset Browser and type <code>rpg_enc</code>. Both
-scripts you need will show up.</p>
+<p>Neither script exists in the starter project yet. The engine keeps its built-in
+systems in scripts like <code>enc_enemies</code> and its examples in <code>ex_</code>-prefixed scripts
+(<code>ex_enc_enemies</code>, <code>ex_enc_sets</code>). By creating your own dedicated scripts and actor objects, you
+keep custom enemies cleanly separated from the engine — making it easy to pull
+upstream engine updates later without conflicts.</p>
+<p>We will create the scripts and the actor as we need them (Step 1 and Step 3), and then build
+the turn object from scratch in Step 8.</p>
+<h3 id="create-the-actor-object-o_actor_sonso">Create the actor object: <code>o_actor_sonso</code><a class="headerlink" href="#create-the-actor-object-o_actor_sonso" title="Permanent link">&para;</a></h3>
+<p>Every enemy needs an actor representation in the world and battle. By creating a dedicated object inheriting from <code>o_actor_e</code>, your custom enemy stays cleanly decoupled from engine files and always has a valid sprite from birth:</p>
+<ol>
+<li>In the <strong>Asset Browser</strong> (on the right-hand side), right-click <strong>Objects</strong> $\rightarrow$ <strong>Create</strong> $\rightarrow$ <strong>Object</strong>.</li>
+<li>Name it <strong><code>o_actor_sonso</code></strong> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
+<li>In its inspector on the left, click <strong>Parent</strong> and choose <strong><code>o_actor_e</code></strong> (it will inherit all movement, chasing, and collision code automatically).</li>
+<li>Set its <strong>Sprite</strong> to <strong><code>spr_ex_e_tasque</code></strong>.</li>
+<li>Click <strong>Add Event</strong> $\rightarrow$ <strong>Create</strong>. In the code window that opens, enter:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>event_inherited()
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>s_intro = spr_ex_e_tasque_hurt
+</code></pre></div></li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Why <code>s_intro</code>?</p>
+<p>When Kris touches an enemy on the overworld map, the encounter initiates with a tension horn sound (<code>snd_tensionhorn</code>) and the enemy briefly flashes an alert/hurt reaction pose (<code>s_intro</code>) before the screen transitions into the battle arena.
+The engine's base object <code>o_actor_e</code> defaults <code>s_intro</code> to <code>spr_e_virovirokun_hurt</code>. Overriding <code>s_intro = spr_ex_e_tasque_hurt</code> ensures Sonso displays his own startled cat reaction rather than the engine's default virus monster!</p>
 </div>
-<p>This file is yours. The engine keeps its own examples in <code>ex_</code>-prefixed scripts
-and expects your content here — which is what makes it possible to pull engine
-updates later without conflicts.</p>
-<p>If the file already has something in it, <strong>scroll to the very bottom</strong> and write
-after the last <code>}</code>. A script holds as many functions as you like, one after
-another.</p>
+<h3 id="create-the-first-script-rpg_enc_enemies">Create the first script: <code>rpg_enc_enemies</code><a class="headerlink" href="#create-the-first-script-rpg_enc_enemies" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the <strong>Asset Browser</strong>, right-click the <strong>Scripts</strong>
+   folder $\rightarrow$ <strong>Create</strong> $\rightarrow$ <strong>Script</strong>.</li>
+<li>A new script appears in the tree with its name highlighted. Type
+   <strong><code>rpg_enc_enemies</code></strong> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
+<li>The script opens in a new tab in the workspace. GameMaker automatically
+   generates placeholder template code (such as <code>function rpg_enc_enemies(){ }</code>).
+   <strong>Select everything and delete it</strong> so the file is completely blank.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Adding more enemies later</p>
+<p>Whenever you create another enemy in the future, you do not need a new
+script — simply open <code>rpg_enc_enemies</code>, scroll to the very bottom, and write
+after the last <code>}</code>. A single script can hold as many functions and
+constructors as you like.</p>
+</div>
 <h3 id="for-sprites-we-borrow-the-cat-that-already-exists">For sprites we borrow the cat that already exists<a class="headerlink" href="#for-sprites-we-borrow-the-cat-that-already-exists" title="Permanent link">&para;</a></h3>
 <p>The project ships a set of cat sprites unused by any enemy: <code>spr_ex_e_tasque</code>,
 <code>spr_ex_e_tasque_hurt</code>, <code>spr_ex_e_tasque_spared</code>. When you draw your own, it is
@@ -2767,33 +2870,33 @@ find an hour into testing.</p>
 </div>
 <hr />
 <h2 id="step-2-the-minimum-enemy-that-compiles">Step 2 — The minimum enemy that compiles<a class="headerlink" href="#step-2-the-minimum-enemy-that-compiles" title="Permanent link">&para;</a></h2>
-<p>Type this at the bottom of <code>rpg_enc_enemies</code>, then save with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>function rpg_enemy_sonso() : enemy() constructor {
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    name = "Sonso"
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    obj  = o_actor_e          // the engine's generic actor; perfectly fine
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    // stats
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    hp      = 60
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    max_hp  = 60              // mind the underscore: maxhp does NOT exist
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    attack  = 4
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    defense = 1
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    carrying_money = 12
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    // sprites (already in the project)
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    s_idle  = spr_ex_e_tasque
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    s_hurt  = spr_ex_e_tasque_hurt
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    s_spare = spr_ex_e_tasque_spared
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    dialogue = "* Meow."
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    turn_object = o_turn_default   // for now: one stationary bullet
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>}
+<p>Type this into your blank <code>rpg_enc_enemies</code> script (or at the bottom, if you already have other enemies in it), then save with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>function rpg_enemy_sonso() : enemy() constructor {
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    name = "Sonso"
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    obj  = o_actor_sonso      // our custom actor with spr_ex_e_tasque assigned
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    // stats
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    hp      = 60
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    max_hp  = 60              // mind the underscore: maxhp does NOT exist
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    attack  = 4
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    defense = 1
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    carrying_money = 12
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    // sprites (already in the project)
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    s_idle  = spr_ex_e_tasque
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    s_hurt  = spr_ex_e_tasque_hurt
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    s_spare = spr_ex_e_tasque_spared
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    dialogue = "* Meow."
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    turn_object = o_turn_default   // for now: one stationary bullet
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>}
 </code></pre></div>
 <p>That is the whole enemy. Everything else — <code>mercy</code>, <code>acts</code>, <code>can_spare</code>, the
 hooks — comes from the <code>enemy()</code> base with usable defaults
 (<code>scripts/enc_enemies/enc_enemies.gml:1</code>).</p>
 <h3 id="reading-that-first-line">Reading that first line<a class="headerlink" href="#reading-that-first-line" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>function rpg_enemy_sonso() : enemy() constructor {
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>function rpg_enemy_sonso() : enemy() constructor {
 </code></pre></div>
 <p>Three things are happening, and they are worth naming because every enemy you
 ever write starts this way:</p>
@@ -2815,26 +2918,39 @@ member's defence (<code>scripts/party_hp/party_hp.gml:225</code>), so 4 costs ab
 2.</p>
 </div>
 <h3 id="check-that-it-compiles">Check that it compiles<a class="headerlink" href="#check-that-it-compiles" title="Permanent link">&para;</a></h3>
-<p>Press <span class="keys"><kbd class="key-f5">F5</kbd></span>. You do not need to find the cat — you only want to know the file is
-valid GML. If a red error appears in the <strong>Output</strong> tab at the bottom, read the
-line number it names and fix the typo before going on.</p>
+<p>Press <span class="keys"><kbd class="key-f5">F5</kbd></span>. You do not need to find the cat yet — this check is strictly to verify that the file has valid GML syntax without typos.</p>
+<div class="admonition note">
+<p class="admonition-title">The cat is not playable or visible yet</p>
+<p>At this stage, you have only written the creature's data blueprint (<code>enemy()</code>).
+You cannot encounter or battle Sonso yet! An enemy requires an <strong>encounter</strong> (<code>enc_set()</code>, created in Step 3) and registration in the developer console picker (Step 4). You will test the encounter in-game using the <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span> debug menu in <strong>Step 5</strong>.</p>
+</div>
+<p>If a red error appears in the <strong>Output</strong> tab at the bottom, read the line number it names and fix the typo before going on.</p>
 <p>Close the game window when it opens.</p>
 <hr />
 <h2 id="step-3-the-encounter">Step 3 — The encounter<a class="headerlink" href="#step-3-the-encounter" title="Permanent link">&para;</a></h2>
 <p>An <code>enemy()</code> is a creature sheet. It cannot start a fight on its own — a fight is
 an <strong>encounter</strong>, which says <em>which</em> creatures, standing <em>where</em>, with <em>what</em>
 music.</p>
-<p>In the <strong>Asset Browser</strong> → <strong>Scripts</strong>, double-click <strong><code>rpg_enc_sets</code></strong> and add:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>function rpg_enc_set_sonso() : enc_set() constructor {
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    debug_name = "sonso"
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    enemies = [ new rpg_enemy_sonso() ]     // note the `new`
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    flavor = "* A cat is blocking the sanctuary altar."
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    enemies_pos = [ [0, 0, true] ]          // [x, y, relative to default spot]
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    bgm = mus_battle
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>}
+<p>Just like the enemy sheet, encounters live in their own script.</p>
+<h3 id="create-the-encounter-script-rpg_enc_sets">Create the encounter script: <code>rpg_enc_sets</code><a class="headerlink" href="#create-the-encounter-script-rpg_enc_sets" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the <strong>Asset Browser</strong>, right-click <strong>Scripts</strong> $\rightarrow$ <strong>Create</strong>
+   $\rightarrow$ <strong>Script</strong>.</li>
+<li>Name it <strong><code>rpg_enc_sets</code></strong> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
+<li>In the new tab that opens, <strong>select all and delete any default template code</strong>
+   so the file is empty.</li>
+<li>Add the encounter definition, then save with <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>function rpg_enc_set_sonso() : enc_set() constructor {
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    debug_name = "sonso"
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    enemies = [ new rpg_enemy_sonso() ]     // note the `new`
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    flavor = "* A cat is blocking the sanctuary altar."
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    enemies_pos = [ [0, 0, true] ]          // [x, y, relative to default spot]
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    bgm = mus_battle
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>}
 </code></pre></div>
 <p>Save (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>).</p>
 <p>Same shape as before: inherit from <code>enc_set()</code>
@@ -2855,6 +2971,13 @@ grep the whole project and you will not find a single use. Write it for your
 own benefit if you like, but it is not the name the console shows you. That
 comes from step 4.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Testing with multiple enemies</p>
+<p>If you want to fight two or more cats at once, simply instantiate more inside the <code>enemies</code> array:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>enemies = [ new rpg_enemy_sonso(), new rpg_enemy_sonso() ]
+</code></pre></div>
+Notice that you <strong>do not need to change <code>enemies_pos</code></strong>! If there are more enemies than entries in <code>enemies_pos</code>, the engine automatically computes vertical spacing and positioning for the extra enemies (<code>o_enc_anim/Alarm_1.gml</code>). And because <code>o_actor_sonso</code> has its sprite assigned from the start, dynamically creating multiple instances works smoothly without any crashes.</p>
+</div>
 <hr />
 <h2 id="step-4-register-the-encounter-in-the-console-picker">Step 4 — Register the encounter in the console picker<a class="headerlink" href="#step-4-register-the-encounter-in-the-console-picker" title="Permanent link">&para;</a></h2>
 <p>Your encounter exists, but nothing in the game knows about it yet. The console's
@@ -2868,24 +2991,24 @@ appear by themselves.</p>
 <li>You will see this array (<code>objects/o_dev_encselect/Create_0.gml:3</code>), with the
    engine's own invitation in the comment:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>item_list = [
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    enc_set_ex,
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    enc_set_virovirokun,
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    ex_enc_set_shadowguys,
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    ex_enc_set_spawn,
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>]
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>// feel free to add your encounters to the item list
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>item_list = [
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    enc_set_ex,
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    enc_set_virovirokun,
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    ex_enc_set_shadowguys,
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    ex_enc_set_spawn,
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>]
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>// feel free to add your encounters to the item list
 </code></pre></div>
 <ol>
 <li>Add your encounter as one more entry:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>item_list = [
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    enc_set_ex,
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    enc_set_virovirokun,
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    ex_enc_set_shadowguys,
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    ex_enc_set_spawn,
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    rpg_enc_set_sonso,      // ←— yours
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>item_list = [
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    enc_set_ex,
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    enc_set_virovirokun,
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    ex_enc_set_shadowguys,
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    ex_enc_set_spawn,
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    rpg_enc_set_sonso,      // ←— yours
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>]
 </code></pre></div>
 <ol>
 <li>Save (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>).</li>
@@ -2953,6 +3076,30 @@ stationary bullet.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="experiment-fighting-multiple-enemies-at-once">Experiment: Fighting multiple enemies at once<a class="headerlink" href="#experiment-fighting-multiple-enemies-at-once" title="Permanent link">&para;</a></h3>
+<p>Before advancing to giving Sonso dialogue, moods, and custom attacks, you can easily test what a multi-enemy battle looks like!</p>
+<p>Open <code>rpg_enc_sets</code> and add another enemy instance inside the <code>enemies</code> array:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>function rpg_enc_set_sonso() : enc_set() constructor {
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    debug_name = "sonso"
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    enemies = [
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        new rpg_enemy_sonso(),
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        new rpg_enemy_sonso(),
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    ]
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    flavor = "* A pair of cats is blocking the sanctuary altar."
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    enemies_pos = [ [0, 0, true] ]
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    bgm = mus_battle
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>}
+</code></pre></div>
+<p>Save (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span>), press <span class="keys"><kbd class="key-f5">F5</kbd></span>, and launch <code>rpg_enc_set_sonso</code> through the console picker (<span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span>):</p>
+<ul>
+<li><strong>Two cats appear side-by-side:</strong> Notice that you <strong>did not need to touch <code>enemies_pos</code></strong>! When an encounter has more enemies than positions defined in <code>enemies_pos</code>, the engine automatically computes vertical spacing and arranges the extra enemies (<code>o_enc_anim/Alarm_1.gml</code>).</li>
+<li><strong>Independent targets:</strong> Each cat has its own HP bar, dialogue bubble, and MERCY gauge. During the battle menu, you can select which enemy to attack or interact with.</li>
+<li><strong>Dynamic spawning:</strong> Because we created <code>o_actor_sonso</code> with a valid sprite assigned, the engine can spawn as many enemy actors as needed without crashing.</li>
+</ul>
+<p>When you're finished experimenting, you can keep both cats or restore <code>enemies</code> to a single cat as we build out Sonso's personality.</p>
 <hr />
 <h2 id="step-6-giving-him-a-voice">Step 6 — Giving him a voice<a class="headerlink" href="#step-6-giving-him-a-voice" title="Permanent link">&para;</a></h2>
 <p>Now the cat gets state. We keep the mood <strong>on the enemy struct itself</strong> — GML
@@ -2960,29 +3107,29 @@ structs accept new fields without complaint, and the <code>enemy()</code> surviv
 fight, so it is the right place for short-term memory.</p>
 <p>Back in <code>rpg_enc_enemies</code>, replace <code>dialogue = "* Meow."</code> with this, and add the
 two new fields above it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    // --- Sonso's own state (our fields, not the engine's) ---
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    mood  = "calm"      // "calm" | "annoyed" | "curious"
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    calls = 0           // how many times the player insisted on calling
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    dialogue = method(self, function() {
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        switch mood {
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            case "annoyed":
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                return "* Sonso hisses. His ears are flat."
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            case "curious":
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                return "* Sonso pretends to look the other way."
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>            default:
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>                if o_enc.turn_count == 0
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                    return "* A cat stares at you. He is not impressed."
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>                return choose(
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>                    "* Sonso licks a paw.",
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>                    "* Sonso yawns.",
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>                    "* Sonso does nothing. On purpose."
-<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>                )
-<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>        }
-<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>    })
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>    // --- Sonso's own state (our fields, not the engine's) ---
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    mood  = "calm"      // "calm" | "annoyed" | "curious"
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    calls = 0           // how many times the player insisted on calling
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    dialogue = method(self, function() {
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        switch mood {
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>            case "annoyed":
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>                return "* Sonso hisses. His ears are flat."
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            case "curious":
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>                return "* Sonso pretends to look the other way."
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>            default:
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>                if o_enc.turn_count == 0
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>                    return "* A cat stares at you. He is not impressed."
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>                return choose(
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>                    "* Sonso licks a paw.",
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>                    "* Sonso yawns.",
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>                    "* Sonso does nothing. On purpose."
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>                )
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>        }
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>    })
 </code></pre></div>
 <p>Two things matter here.</p>
 <p><strong>Why <code>method(self, ...)</code>?</strong> Because the function reads <code>mood</code>, a field of the
@@ -2997,44 +3144,44 @@ If you need the index, use <code>self.slot</code>, which the engine fills in
 (<code>objects/o_enc_anim/Alarm_1.gml:69</code>).</p>
 <p>The encounter's <code>flavor</code> can react too. Back in <code>rpg_enc_sets</code>, replace the
 <code>flavor</code> string with a function:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    flavor = function() {
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>        if o_enc.turn_count == 0
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>            return "* A cat is blocking the sanctuary altar."
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        switch o_enc.encounter_data.enemies[0].mood {
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            case "annoyed": return "* The sanctuary air is tense. And furry."
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            case "curious": return "* Sonso approaches from the altar steps."
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            default:        return "* The altar smells faintly of catnip."
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        }
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    }
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    flavor = function() {
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        if o_enc.turn_count == 0
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>            return "* A cat is blocking the sanctuary altar."
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        switch o_enc.encounter_data.enemies[0].mood {
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>            case "annoyed": return "* The sanctuary air is tense. And furry."
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            case "curious": return "* Sonso approaches from the altar steps."
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            default:        return "* The altar smells faintly of catnip."
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        }
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    }
 </code></pre></div>
 <p><strong>Test.</strong> The text does not change yet — nothing touches the mood — but round 0
 already reads differently from the rest.</p>
 <h3 id="checkpoint-what-the-enemy-file-should-look-like-now">Checkpoint: what the enemy file should look like now<a class="headerlink" href="#checkpoint-what-the-enemy-file-should-look-like-now" title="Permanent link">&para;</a></h3>
 <p>If your braces have drifted, compare against this. Everything is one function:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>function rpg_enemy_sonso() : enemy() constructor {
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    name = "Sonso"
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    obj  = o_actor_e
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    hp      = 60
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    max_hp  = 60
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    attack  = 4
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    defense = 1
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    carrying_money = 12
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    s_idle  = spr_ex_e_tasque
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    s_hurt  = spr_ex_e_tasque_hurt
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    s_spare = spr_ex_e_tasque_spared
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    mood  = "calm"
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    calls = 0
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    dialogue = method(self, function() {
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        // ... the switch from above ...
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>    })
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>    turn_object = o_turn_default
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>function rpg_enemy_sonso() : enemy() constructor {
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    name = "Sonso"
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    obj  = o_actor_sonso
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    hp      = 60
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    max_hp  = 60
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    attack  = 4
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    defense = 1
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    carrying_money = 12
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    s_idle  = spr_ex_e_tasque
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    s_hurt  = spr_ex_e_tasque_hurt
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    s_spare = spr_ex_e_tasque_spared
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    mood  = "calm"
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    calls = 0
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    dialogue = method(self, function() {
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>        // ... the switch from above ...
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    })
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>    turn_object = o_turn_default
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>}
 </code></pre></div>
 <hr />
 <h2 id="step-7-the-acts-the-puzzle">Step 7 — The ACTs: the puzzle<a class="headerlink" href="#step-7-the-acts-the-puzzle" title="Permanent link">&para;</a></h2>
@@ -3048,16 +3195,16 @@ MERCY at 100 lights up <strong>SPARE</strong>.</p>
 <h3 id="where-the-code-goes">Where the code goes<a class="headerlink" href="#where-the-code-goes" title="Permanent link">&para;</a></h3>
 <p><code>acts</code> is <strong>a field of the <code>enemy()</code> struct</strong>, like <code>hp</code> or <code>s_idle</code>. It goes
 <strong>inside</strong> the function you wrote in step 2:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>function rpg_enemy_sonso() : enemy() constructor {
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    name = "Sonso"
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    hp   = 60
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    // ... everything else you already wrote ...
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    acts = [        // ←— HERE, still inside the constructor's braces
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        { ... },    // each struct is one button in the submenu
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        { ... },
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    ]
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>}                   // ←— the brace that closes the constructor
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>function rpg_enemy_sonso() : enemy() constructor {
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    name = "Sonso"
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    hp   = 60
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    // ... everything else you already wrote ...
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    acts = [        // ←— HERE, still inside the constructor's braces
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        { ... },    // each struct is one button in the submenu
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        { ... },
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    ]
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>}                   // ←— the brace that closes the constructor
 </code></pre></div>
 <p>It is an <strong>array of structs</strong>: each <code>{ ... }</code> is a button, in the order you write
 them. The <code>enemy()</code> base ships with a sample "Check" ACT, and whatever you write
@@ -3075,50 +3222,50 @@ one entry per character — see the virovirokun at
 <h3 id="sonsos-three-acts">Sonso's three ACTs<a class="headerlink" href="#sonsos-three-acts" title="Permanent link">&para;</a></h3>
 <p>One that informs, one that <strong>looks</strong> right and is wrong, and one that looks
 useless and is the answer:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    acts = [
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        {
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>            name: "Check",
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>            desc: "Useless analysis",
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>            party: [],
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>            exec: function(slot, user) {
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>                encounter_scene_dialogue(
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>                    "* SONSO - ATK 4 DEF 1{br}{resetx}"
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>                  + "* Stray cat. Decides for himself who he likes.{br}{resetx}"
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>                  + "* Hates being called."
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>                )
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>            }
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        },
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        {
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>            name: "Call",
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>            desc: "Here, kitty kitty",
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>            party: [],
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>            exec: function(slot, user) {
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>                var me = o_enc.encounter_data.enemies[slot]
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>                me.calls ++
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>                me.mood = "annoyed"
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>                audio_play(snd_ui_cant_select)
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>                if me.calls == 1
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>                    encounter_scene_dialogue("* " + party_getname(user) + " called Sonso.{br}{resetx}* He turned his back.")
-<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>                else
-<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>                    encounter_scene_dialogue("* " + party_getname(user) + " called again.{br}{resetx}* Now he is OFFENDED.")
-<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>            }
-<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>        },
-<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>        {
-<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>            name: "Ignore",
-<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>            desc: "Stare intently at literally anything else",
-<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>            party: [],
-<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>            exec: function(slot, user) {
-<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>                var me = o_enc.encounter_data.enemies[slot]
-<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>                me.mood = "curious"
-<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>
-<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>                enc_enemy_add_spare(slot, 50)   // half the MERCY bar
-<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>
-<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>                encounter_scene_dialogue("* " + party_getname(user) + " stared at nothing.{br}{resetx}* Sonso took a step closer.")
-<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>            }
-<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>        }
-<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>    ]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>    acts = [
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>        {
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>            name: "Check",
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>            desc: "Useless analysis",
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>            party: [],
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>            exec: function(slot, user) {
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>                encounter_scene_dialogue(
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>                    "* SONSO - ATK 4 DEF 1{br}{resetx}"
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>                  + "* Stray cat. Decides for himself who he likes.{br}{resetx}"
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>                  + "* Hates being called."
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>                )
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>            }
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>        },
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>        {
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>            name: "Call",
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>            desc: "Here, kitty kitty",
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>            party: [],
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>            exec: function(slot, user) {
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>                var me = o_enc.encounter_data.enemies[slot]
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>                me.calls ++
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>                me.mood = "annoyed"
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>                audio_play(snd_ui_cant_select)
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>                if me.calls == 1
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>                    encounter_scene_dialogue("* " + party_getname(user) + " called Sonso.{br}{resetx}* He turned his back.")
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>                else
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>                    encounter_scene_dialogue("* " + party_getname(user) + " called again.{br}{resetx}* Now he is OFFENDED.")
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>            }
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>        },
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>        {
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>            name: "Ignore",
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>            desc: "Stare intently at literally anything else",
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>            party: [],
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>            exec: function(slot, user) {
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>                var me = o_enc.encounter_data.enemies[slot]
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>                me.mood = "curious"
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>                enc_enemy_add_spare(slot, 50)   // half the MERCY bar
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>                encounter_scene_dialogue("* " + party_getname(user) + " stared at nothing.{br}{resetx}* Sonso took a step closer.")
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>            }
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>        }
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>    ]
 </code></pre></div>
 <h3 id="three-rules-about-exec">Three rules about <code>exec</code><a class="headerlink" href="#three-rules-about-exec" title="Permanent link">&para;</a></h3>
 <p><strong>The signature is <code>function(slot, user)</code>.</strong> <code>slot</code> is the enemy's index in
@@ -3162,7 +3309,7 @@ claws.</p>
 </ol>
 <p>Then point the enemy sheet at it, back in <code>rpg_enc_enemies</code> — replace the
 <code>turn_object</code> line:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    turn_object = o_turn_sonso
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    turn_object = o_turn_sonso
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">The event you open may be the PARENT's</p>
@@ -3184,27 +3331,27 @@ It writes <code>event_inherited();</code> on the first line, which is exactly wh
 If it does not ask, type that line yourself.</p>
 <h4 id="event-1-create">Event 1 — Create<a class="headerlink" href="#event-1-create" title="Permanent link">&para;</a></h4>
 <p><strong>Add Event → Create.</strong> Paste:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>event_inherited()
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>_side = choose(-1, 1)   // which side the first swipe comes from
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>event_inherited()
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>_side = choose(-1, 1)   // which side the first swipe comes from
 </code></pre></div>
 <p>One variable for now. Rolling it in Create rather than Step makes each fight
 start differently without being random mid-turn.</p>
 <h4 id="event-2-user-event-0">Event 2 — User Event 0<a class="headerlink" href="#event-2-user-event-0" title="Permanent link">&para;</a></h4>
 <p><strong>Add Event → Other → User Events → User Event 0.</strong> Paste:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>event_inherited()
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>__support_init_default()
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>// this turn's pattern IS the cat's mood
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>pattern = enemy_struct.mood
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>if !am_support {
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    switch pattern {
-<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        case "annoyed": timer_end = 150 break   // 5s — longest and densest
-<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>        case "curious": timer_end = 90  break   // 3s — almost affectionate
-<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>        default:        timer_end = 120 break   // 4s
-<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    }
-<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>event_inherited()
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>__support_init_default()
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>// this turn's pattern IS the cat's mood
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>pattern = enemy_struct.mood
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>if !am_support {
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    switch pattern {
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>        case "annoyed": timer_end = 150 break   // 5s — longest and densest
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>        case "curious": timer_end = 90  break   // 3s — almost affectionate
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        default:        timer_end = 120 break   // 4s
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    }
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>}
 </code></pre></div>
 <p>This is the turn's <strong>init</strong>, and it is where character meets mechanic: this
 turn's <code>pattern</code> literally becomes the cat's mood.</p>
@@ -3217,14 +3364,14 @@ from <code>pattern_pool</code> later, in User Event 2 — but with <code>??=</co
 still <code>undefined</code></strong> (<code>objects/o_turn/Other_12.gml:11</code>). Yours wins.</p>
 <h4 id="event-3-step">Event 3 — Step<a class="headerlink" href="#event-3-step" title="Permanent link">&para;</a></h4>
 <p><strong>Add Event → Step → Step.</strong> Paste:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>event_inherited()          // ← THIS is what makes timer_end work
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>if timer == 0
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    exit                   // the box and soul do not exist yet
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>// (bullet patterns arrive in step 9)
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>__support_destroy_check()
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>event_inherited()          // ← THIS is what makes timer_end work
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>if timer == 0
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    exit                   // the box and soul do not exist yet
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>// (bullet patterns arrive in step 9)
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>__support_destroy_check()
 </code></pre></div>
 <p><strong><code>event_inherited()</code> here is mandatory.</strong> The <code>timer</code> that counts and the
 <code>timer_end</code> that ends the turn live in the parent's Step
@@ -3236,8 +3383,8 @@ the whole time. It is the engine's own idiom — see
 <code>objects/o_turn_default_dark/Step_0.gml</code>.</p>
 <h4 id="event-4-destroy">Event 4 — Destroy<a class="headerlink" href="#event-4-destroy" title="Permanent link">&para;</a></h4>
 <p><strong>Add Event → Destroy.</strong> Paste:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>event_inherited()               // returns the enemy to its idle sprite
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>instance_destroy(o_enc_bullet)  // and collects orphaned bullets
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>event_inherited()               // returns the enemy to its idle sprite
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>instance_destroy(o_enc_bullet)  // and collects orphaned bullets
 </code></pre></div>
 <p><strong>Cleaning up bullets is not optional.</strong> Nothing in the engine collects them —
 they fly out of the box and keep existing. Without this line, round two starts
@@ -3274,53 +3421,53 @@ Then check that <code>event_inherited()</code> is the first line of your Step.</
 <p>Three parallel claw marks entering from one side, then the other. The <strong>gap
 between the claws</strong> is the path — the player has to read where it is and position
 for it.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>if pattern == "calm" {
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    if timer % 30 == 0 &amp;&amp; timer &lt; timer_end - 30 {
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>        _side *= -1                              // alternate left/right
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        var _gap = irandom_range(-20, 20)        // where the hole is
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        for (var i = -1; i &lt;= 1; i ++) {
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>            instance_create(o_enc_bullet,
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>                o_enc_box.x + 80 * _side,
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>                o_enc_box.y + _gap + i * 26,
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>                DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
-<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>                    speed: 3,
-<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>                    direction: (_side == 1 ? 180 : 0),
-<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>                    att: 4
-<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>                })
-<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>        }
-<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    }
-<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>if pattern == "calm" {
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    if timer % 30 == 0 &amp;&amp; timer &lt; timer_end - 30 {
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>        _side *= -1                              // alternate left/right
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>        var _gap = irandom_range(-20, 20)        // where the hole is
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>        for (var i = -1; i &lt;= 1; i ++) {
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>            instance_create(o_enc_bullet,
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>                o_enc_box.x + 80 * _side,
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>                o_enc_box.y + _gap + i * 26,
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>                DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>                    speed: 3,
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>                    direction: (_side == 1 ? 180 : 0),
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>                    att: 4
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>                })
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>        }
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>    }
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>}
 </code></pre></div>
 <p><code>_side * 80</code> spawns them <strong>outside</strong> the box, which is 75px wide. That is
 deliberate: a bullet that appears on top of the soul is unfair. The player needs
 to see it coming.</p>
 <h3 id="mood-annoyed-the-hiss">Mood <code>annoyed</code> — the Hiss<a class="headerlink" href="#mood-annoyed-the-hiss" title="Permanent link">&para;</a></h3>
 <p>You called the cat. Now he fills you with fur and pounces.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>else if pattern == "annoyed" {
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    // 1) fast drizzle from above
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    if timer % 10 == 0 &amp;&amp; timer &lt; timer_end - 50 {
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        instance_create(o_enc_bullet,
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>            o_enc_box.x + irandom_range(-32, 32),
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>            o_enc_box.y - 60,
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>            DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>                speed: 4, direction: 270, att: 4
-<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>            })
-<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    }
-<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
-<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>    // 2) THE POUNCE: a BLUE wall crosses the whole box
-<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    if timer == timer_end - 45 {
-<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>        audio_play(snd_spawn_attack)
-<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
-<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>        instance_create(o_enc_bullet,
-<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>            o_enc_box.x - 100, o_enc_box.y,
-<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>            DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
-<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>                color: BULLET_COLOR.BLUE,
-<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>                speed: 4, direction: 0, att: 5,
-<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>                image_xscale: 1.5, image_yscale: 6    // 22 x 90 px — undodgeable
-<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>            })
-<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>    }
-<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>else if pattern == "annoyed" {
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    // 1) fast drizzle from above
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    if timer % 10 == 0 &amp;&amp; timer &lt; timer_end - 50 {
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        instance_create(o_enc_bullet,
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>            o_enc_box.x + irandom_range(-32, 32),
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>            o_enc_box.y - 60,
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>            DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>                speed: 4, direction: 270, att: 4
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>            })
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    }
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>    // 2) THE POUNCE: a BLUE wall crosses the whole box
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>    if timer == timer_end - 45 {
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>        audio_play(snd_spawn_attack)
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>        instance_create(o_enc_bullet,
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>            o_enc_box.x - 100, o_enc_box.y,
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>            DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>                color: BULLET_COLOR.BLUE,
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>                speed: 4, direction: 0, att: 5,
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>                image_xscale: 1.5, image_yscale: 6    // 22 x 90 px — undodgeable
+<a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>            })
+<a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a>    }
+<a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>}
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Blue is the opposite of what it looks like</p>
@@ -3335,22 +3482,22 @@ impossible to avoid.</p>
 <h3 id="mood-curious-the-purr">Mood <code>curious</code> — the Purr<a class="headerlink" href="#mood-curious-the-purr" title="Permanent link">&para;</a></h3>
 <p>You ignored him and he came closer. The attack becomes a slow orange
 encirclement: he circles you, and you cannot freeze.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>else if pattern == "curious" {
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    if timer == 10 {
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>        for (var i = 0; i &lt; 10; i ++) {
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>            var _ang = i * 36                      // 360/10
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>            instance_create(o_enc_bullet,
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>                o_enc_box.x + lengthdir_x(90, _ang),
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>                o_enc_box.y + lengthdir_y(90, _ang),
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>                DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>                    color: BULLET_COLOR.ORANGE,
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>                    speed: 1, direction: _ang + 180,
-<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>                    att: 3
-<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>                })
-<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>        }
-<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>    }
-<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>else if pattern == "curious" {
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    if timer == 10 {
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>        for (var i = 0; i &lt; 10; i ++) {
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>            var _ang = i * 36                      // 360/10
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>            instance_create(o_enc_bullet,
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>                o_enc_box.x + lengthdir_x(90, _ang),
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>                o_enc_box.y + lengthdir_y(90, _ang),
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>                DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>                    color: BULLET_COLOR.ORANGE,
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>                    speed: 1, direction: _ang + 180,
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>                    att: 3
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>                })
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>        }
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>    }
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>}
 </code></pre></div>
 <p><code>ORANGE</code> mirrors blue: <strong>it only hurts a soul that is standing still</strong>
 (<code>objects/o_enc_bullet/Other_10.gml:7</code>). A slowly closing ring is the perfect
@@ -3372,16 +3519,16 @@ stops being a table of numbers and becomes a character.</p>
 <h3 id="101-the-cat-reacts-to-being-hit">10.1 The cat reacts to being hit<a class="headerlink" href="#101-the-cat-reacts-to-being-hit" title="Permanent link">&para;</a></h3>
 <p><strong>Where:</strong> inside <code>rpg_enemy_sonso()</code>, in <code>rpg_enc_enemies</code> — it is a struct field
 like any other:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>function rpg_enemy_sonso() : enemy() constructor {
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    // ... name, hp, sprites, mood, dialogue, acts ...
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    ev_hurt = method(self, function() {      // ←— HERE, inside the constructor
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        if hp &lt;= max_hp * 0.4 &amp;&amp; mood != "annoyed" {
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>            mood = "annoyed"
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>            enc_enemy_set_tired(slot, true)
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        }
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    })
-<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>function rpg_enemy_sonso() : enemy() constructor {
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    // ... name, hp, sprites, mood, dialogue, acts ...
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    ev_hurt = method(self, function() {      // ←— HERE, inside the constructor
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        if hp &lt;= max_hp * 0.4 &amp;&amp; mood != "annoyed" {
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>            mood = "annoyed"
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>            enc_enemy_set_tired(slot, true)
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        }
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>    })
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>}
 </code></pre></div>
 <p><code>ev_hurt</code> is one of the <code>enemy()</code> <strong>hooks</strong>: fields the engine calls at specific
 moments. They all ship disabled (<code>-1</code>) and come alive the moment you assign a
@@ -3405,18 +3552,18 @@ Writing <code>function(dmg)</code> gives you <code>undefined</code>.</p>
 <p><strong>Where:</strong> in <code>o_turn_sonso</code>'s <strong>Step</strong> event, inside the <code>pattern == "calm"</code>
 block. This is not new code — it adds two fields to the <code>instance_create</code> you
 already wrote:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>        for (var i = -1; i &lt;= 1; i ++) {
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>            instance_create(o_enc_bullet,
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>                o_enc_box.x + 80 * _side,
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>                o_enc_box.y + _gap + i * 26,
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>                DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>                    speed: 3,
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>                    direction: (_side == 1 ? 180 : 0),
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>                    att: 4,
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>                    graze: 4,          // ←— new: double TP
-<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>                    time_points: 8     // ←— new: cuts more off the turn
-<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>                })
-<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>        }
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>        for (var i = -1; i &lt;= 1; i ++) {
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>            instance_create(o_enc_bullet,
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>                o_enc_box.x + 80 * _side,
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>                o_enc_box.y + _gap + i * 26,
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>                DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>                    speed: 3,
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>                    direction: (_side == 1 ? 180 : 0),
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>                    att: 4,
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>                    graze: 4,          // ←— new: double TP
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>                    time_points: 8     // ←— new: cuts more off the turn
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>                })
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>        }
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">What grazing is</p>
@@ -3441,16 +3588,16 @@ through the middle</em>.</p>
 over and over is the slow way.</p>
 <h4 id="the-general-trick-a-throwaway-debug-act">The general trick: a throwaway debug ACT<a class="headerlink" href="#the-general-trick-a-throwaway-debug-act" title="Permanent link">&para;</a></h4>
 <p>Add a fourth, temporary ACT:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>        {
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>            name: "DEBUG",
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>            desc: "testing only - delete later",
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>            party: [],
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>            exec: function(slot, user) {
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>                var me = o_enc.encounter_data.enemies[slot]
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>                me.mood = "annoyed"            // swap: "calm" | "annoyed" | "curious"
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>                enc_enemy_set_tired(slot, true)
-<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>            }
-<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>        },
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>        {
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>            name: "DEBUG",
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>            desc: "testing only - delete later",
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>            party: [],
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>            exec: function(slot, user) {
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>                var me = o_enc.encounter_data.enemies[slot]
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>                me.mood = "annoyed"            // swap: "calm" | "annoyed" | "curious"
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>                enc_enemy_set_tired(slot, true)
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>            }
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>        },
 </code></pre></div>
 <p>It jumps straight to the state you want to see. It is also the fastest way to
 check all three bullet patterns from step 9. <strong>Delete it before you call the
@@ -3458,8 +3605,8 @@ enemy finished.</strong></p>
 <h4 id="testing-ev_hurt">Testing <code>ev_hurt</code><a class="headerlink" href="#testing-ev_hurt" title="Permanent link">&para;</a></h4>
 <p>The trigger is HP ≤ 40% — with <code>hp = 60</code>, below 24. Rather than grinding down to
 it, lower the health temporarily:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>    hp     = 10
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    max_hp = 10
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>    hp     = 10
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    max_hp = 10
 </code></pre></div>
 <p>One FIGHT crosses the line. What to watch for <strong>the following round</strong> (remember,
 the hook reads pre-damage HP, so the effect lags a turn):</p>
@@ -3570,11 +3717,9 @@ Sonso in the sanctuary hall.</p>
 the Room Editor:</p>
 <ol>
 <li>In the layer panel, select the <strong><code>Instances</code></strong> layer (depth <code>300</code>).</li>
-<li>Find <strong><code>o_actor_e</code></strong> in the Asset Browser and drag it into the central aisle
-   at <code>(320, 240)</code> — guarding the path to the prophecy altar.</li>
-<li>With the new instance selected, its inspector opens. Set <strong>Sprite</strong> to
-   <code>spr_ex_e_tasque</code>.</li>
-<li>In the same inspector, open <strong>Variable Definitions</strong> and configure:</li>
+<li>Find <strong><code>o_actor_sonso</code></strong> in the Asset Browser and drag it into the central aisle
+   at <code>(320, 240)</code> — guarding the path to the prophecy altar. (Because we assigned <code>spr_ex_e_tasque</code> when creating the object in Step 1, it already appears as the cat!).</li>
+<li>In the instance inspector, open <strong>Variable Definitions</strong> and configure:</li>
 <li><strong><code>encounter</code></strong>: <code>new rpg_enc_set_sonso()</code></li>
 <li><strong><code>enable_chasing</code></strong>: <code>true</code> (optional: the cat rushes the party when Kris
      approaches)</li>
@@ -3582,7 +3727,7 @@ the Room Editor:</p>
 </ol>
 <p>Touching the cat starts the fight. A bonus of this route: the actor on the map
 <strong>is reused</strong> as the battle enemy (<code>o_enc_anim/Alarm_4.gml</code> tries <code>actor_find</code>
-before creating a new one), so the transition into combat is seamless.</p>
+before creating a new one), so the transition into combat is seamless (and thanks to <code>s_intro = spr_ex_e_tasque_hurt</code> configured in Step 1, Sonso flashes his startled pose right as Kris touches him!).</p>
 <h3 id="b-from-an-altar-trigger">B. From an altar trigger<a class="headerlink" href="#b-from-an-altar-trigger" title="Permanent link">&para;</a></h3>
 <p>If you prefer an ambush when approaching the prophecy mural:</p>
 <ol>
@@ -3591,13 +3736,13 @@ before creating a new one), so the transition into combat is seamless.</p>
 <li>With it selected, click <strong>Instance Creation Code</strong> in the inspector — a small
    code window opens. Enter:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>trigger_code = function() {
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    enc_start(new rpg_enc_set_sonso())
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>}
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>trigger_exit_code = function() {
-<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    triggered = false     // re-arm when the player leaves the area
-<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>trigger_code = function() {
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    enc_start(new rpg_enc_set_sonso())
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>}
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>trigger_exit_code = function() {
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    triggered = false     // re-arm when the player leaves the area
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>}
 </code></pre></div>
 <p>The code is the easy part. What usually makes a trigger "not work" is <strong>three
 configuration details</strong>, none of them GML:</p>
@@ -3628,10 +3773,10 @@ it, the problem is collision (1) or control (3) — not your battle code.</p>
 just omit <code>trigger_exit_code</code>. One-shot is <code>o_trigger</code>'s default behaviour.</p>
 </div>
 <h3 id="c-from-code-anywhere">C. From code, anywhere<a class="headerlink" href="#c-from-code-anywhere" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>enc_start(new rpg_enc_set_sonso())
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>// exactly identical to:
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>new rpg_enc_set_sonso()._start()
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>enc_start(new rpg_enc_set_sonso())
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>// exactly identical to:
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>new rpg_enc_set_sonso()._start()
 </code></pre></div>
 <p><code>_start()</code> is only sugar: the method calls <code>enc_start(self)</code>
 (<code>scripts/enc_sets/enc_sets.gml:59</code>), and <code>enc_start</code> is what actually spawns the
