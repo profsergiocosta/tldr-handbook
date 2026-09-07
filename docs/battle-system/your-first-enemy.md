@@ -107,31 +107,36 @@ An enemy is not one file. It is four pieces in four places:
 
 | Piece | What it is | Where you write it | Name we will use |
 |---|---|---|---|
-| The enemy **sheet** (`enemy()`) | stats, sprites, dialogue, ACTs | script `rpg_enc_enemies` | `rpg_enemy_sonso()` |
-| The **encounter** (`enc_set()`) | which enemies, which music | script `rpg_enc_sets` | `rpg_enc_set_sonso()` |
+| The enemy **sheet** (`enemy()`) | stats, sprites, dialogue, ACTs | a new script `rpg_enc_enemies` | `rpg_enemy_sonso()` |
+| The **encounter** (`enc_set()`) | which enemies, which music | a new script `rpg_enc_sets` | `rpg_enc_set_sonso()` |
 | The **turn** | the bullet pattern | a new **object**, parent `o_turn` | `o_turn_sonso` |
 | The **actor** | the body on screen | nothing to write — we reuse `o_actor_e` | — |
 
-Both scripts already exist in the project. Only the turn object gets created from
-scratch, in step 8.
+Neither script exists in the starter project yet. The engine keeps its built-in
+systems in scripts like `enc_enemies` and its examples in `ex_`-prefixed scripts
+(`ex_enc_enemies`, `ex_enc_sets`). By creating your own dedicated scripts, you
+keep custom enemies cleanly separated from the engine — making it easy to pull
+upstream engine updates later without conflicts.
 
-### Open the first script
+We will create both scripts as we need them (Step 1 and Step 3), and then build
+the turn object from scratch in Step 8.
 
-In the **Asset Browser**, click the arrow next to **Scripts** to expand it, find
-**`rpg_enc_enemies`**, and **double-click** it. A code editor opens in the
-workspace.
+### Create the first script: `rpg_enc_enemies`
 
-!!! tip "Cannot find it in the tree?"
-    Use the search box at the top of the Asset Browser and type `rpg_enc`. Both
-    scripts you need will show up.
+1. In the **Asset Browser** (on the right-hand side), right-click the **Scripts**
+   folder (or right-click anywhere in the asset list) $\rightarrow$ **Create**
+   $\rightarrow$ **Script**.
+2. A new script appears in the tree with its name highlighted. Type
+   **`rpg_enc_enemies`** and press ++enter++.
+3. The script opens in a new tab in the workspace. GameMaker automatically
+   generates placeholder template code (such as `function rpg_enc_enemies(){ }`).
+   **Select everything and delete it** so the file is completely blank.
 
-This file is yours. The engine keeps its own examples in `ex_`-prefixed scripts
-and expects your content here — which is what makes it possible to pull engine
-updates later without conflicts.
-
-If the file already has something in it, **scroll to the very bottom** and write
-after the last `}`. A script holds as many functions as you like, one after
-another.
+!!! tip "Adding more enemies later"
+    Whenever you create another enemy in the future, you do not need a new
+    script — simply open `rpg_enc_enemies`, scroll to the very bottom, and write
+    after the last `}`. A single script can hold as many functions and
+    constructors as you like.
 
 ### For sprites we borrow the cat that already exists
 
@@ -152,7 +157,7 @@ three lines to swap.
 
 ## Step 2 — The minimum enemy that compiles
 
-Type this at the bottom of `rpg_enc_enemies`, then save with ++ctrl+s++:
+Type this into your blank `rpg_enc_enemies` script (or at the bottom, if you already have other enemies in it), then save with ++ctrl+s++:
 
 ```gml
 function rpg_enemy_sonso() : enemy() constructor {
@@ -222,7 +227,16 @@ An `enemy()` is a creature sheet. It cannot start a fight on its own — a fight
 an **encounter**, which says *which* creatures, standing *where*, with *what*
 music.
 
-In the **Asset Browser** → **Scripts**, double-click **`rpg_enc_sets`** and add:
+Just like the enemy sheet, encounters live in their own script.
+
+### Create the encounter script: `rpg_enc_sets`
+
+1. In the **Asset Browser**, right-click **Scripts** $\rightarrow$ **Create**
+   $\rightarrow$ **Script**.
+2. Name it **`rpg_enc_sets`** and press ++enter++.
+3. In the new tab that opens, **select all and delete any default template code**
+   so the file is empty.
+4. Add the encounter definition, then save with ++ctrl+s++:
 
 ```gml
 function rpg_enc_set_sonso() : enc_set() constructor {

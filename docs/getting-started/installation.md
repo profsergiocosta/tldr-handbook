@@ -67,7 +67,7 @@ datafiles/loc/    translation and font-mapping JSON
 ```
 
 !!! note "Where your own content goes"
-    The engine keeps its examples in `ex_`-prefixed scripts and expects you to write yours elsewhere. Two empty-ish scripts are already set aside:
+    The engine keeps its examples in `ex_`-prefixed scripts and expects you to write your own game content in dedicated scripts (in Part 3, we guide you to create these):
 
     - `scripts/rpg_enc_enemies/rpg_enc_enemies.gml` — your enemies
     - `scripts/rpg_enc_sets/rpg_enc_sets.gml` — your encounters
