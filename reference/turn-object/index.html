@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1769,7 +1769,7 @@
 <p>The object is created during the <code>DIALOGUE</code> state — <strong>several frames before the box exists</strong>. Its Step runs the whole time.</p>
 <div class="admonition danger">
 <p class="admonition-title">Guard the Step</p>
-<p><code>o_enc.mybox</code> does not exist until the state turns <code>TURN</code> (<code>objects/o_enc/Step_0.gml:321</code>), and it is not even initialised in <code>o_enc</code>'s Create — so reading it early raises a <em>variable not set</em> error rather than returning <code>noone</code>.</p>
+<p><code>o_enc.mybox</code> does not exist until the state turns <code>TURN</code> (<code>objects/o_enc/Step_0.gml:336</code>), and it is not even initialised in <code>o_enc</code>'s Create — so reading it early raises a <em>variable not set</em> error rather than returning <code>noone</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>event_inherited()
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>if timer == 0
@@ -1827,7 +1827,7 @@
 </tr>
 </tbody>
 </table>
-<p>Both are already filled in by the time User Event 0 runs — the engine passes them in the creation struct (<code>objects/o_enc/Step_0.gml:249</code>).</p>
+<p>Both are already filled in by the time User Event 0 runs — the engine passes them in the creation struct (<code>objects/o_enc/Step_0.gml:264</code>).</p>
 <h3 id="patterns">Patterns<a class="headerlink" href="#patterns" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1961,7 +1961,7 @@
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">The creation struct only sets fields that already exist</p>
-<p><code>instance_create</code> is overridden by the engine (<code>scripts/custom/custom.gml:297</code>). It applies the struct <strong>after</strong> the Create event, and skips any field the instance does not already have. Inventing a new field is <strong>silently ignored</strong>. Assign it after creation instead.</p>
+<p><code>instance_create</code> is overridden by the engine (<code>scripts/custom/custom.gml:315</code>). It applies the struct <strong>after</strong> the Create event, and skips any field the instance does not already have. Inventing a new field is <strong>silently ignored</strong>. Assign it after creation instead.</p>
 </div>
 <h3 id="bullet-colours">Bullet colours<a class="headerlink" href="#bullet-colours" title="Permanent link">&para;</a></h3>
 <table>
@@ -2144,10 +2144,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

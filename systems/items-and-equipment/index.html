@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1623,7 +1623,9 @@
     A --&gt; C["Weapons (ITEM_TYPE.WEAPON)"]
     A --&gt; D["Armors (ITEM_TYPE.ARMOR)"]
     A --&gt; E["Key Items (ITEM_TYPE.KEY)"]
-    A --&gt; F["Spells (ITEM_TYPE.SPELL)"]</code></pre>
+    A --&gt; F["Spells (ITEM_TYPE.SPELL)"]
+    A --&gt; G["Storage (ITEM_TYPE.STORAGE)"]
+    A --&gt; H["Light World (ITEM_TYPE.LIGHT)"]</code></pre>
 <h3 id="the-7-item-types-item_type">The 7 Item Types (<code>ITEM_TYPE</code>)<a class="headerlink" href="#the-7-item-types-item_type" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1689,9 +1691,7 @@
 <hr />
 <h3 id="step-0-create-your-items-script">Step 0 — Create your items script<a class="headerlink" href="#step-0-create-your-items-script" title="Permanent link">&para;</a></h3>
 <ol>
-<li>In the GameMaker <strong>Asset Browser</strong>, right-click <code>scripts</code> $
-ightarrow$ <strong>Create</strong> $
-ightarrow$ <strong>Script</strong>.</li>
+<li>In the GameMaker <strong>Asset Browser</strong>, right-click <code>scripts</code> → <strong>Create</strong> → <strong>Script</strong>.</li>
 <li>Name it <strong><code>my_game_items</code></strong>.</li>
 <li>Clear any default template code.</li>
 </ol>
@@ -1704,38 +1704,37 @@ ightarrow$ <strong>Script</strong>.</li>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    // 2. Descriptions: [Overworld menu, Battle submenu, Action summary, Shop preview]
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    desc = [
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        "A sugary, glowing star candy.
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Restores 80 HP.",
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        "A sugary, glowing star candy.\nRestores 80 HP.",
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        "Heals 80HP",
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        "Heals 80HP",
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        "Heals 80HP",
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        "A sweet star that restores 80 HP."
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ];
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    type = ITEM_TYPE.CONSUMABLE;
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    use_type = ITEM_USE.INDIVIDUAL; // Targets one party member
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    // 3. What happens when used in Overworld or Battle
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    use = function(item_index, target_index, caller = -1) {
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        // target_index points to the selected character in global.party_names
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        var target_name = global.party_names[target_index];
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        party_heal(target_name, 80, caller);
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        // Remove item from inventory upon consumption
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        item_delete(item_index, ITEM_TYPE.CONSUMABLE);
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    };
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    // 4. Character reaction quotes when fed this item
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    reactions = {
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        kris: "(It tastes like lemon and stardust.)",
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        susie: "Hell yeah, crunchy!",
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        ralsei: "It's so sparkly and sweet!",
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        noelle: "(Reminds me of holiday lights...)"
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    };
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    // 5. Economy values
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    buy_price = 120;
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    sell_price = 40;
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>}
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        "A sweet star that restores 80 HP."
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    ];
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    type = ITEM_TYPE.CONSUMABLE;
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    use_type = ITEM_USE.INDIVIDUAL; // Targets one party member
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    // 3. What happens when used in Overworld or Battle
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    use = function(item_index, target_index, caller = -1) {
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        // target_index points to the selected character in global.party_names
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        var target_name = global.party_names[target_index];
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        party_heal(target_name, 80, caller);
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        // Remove item from inventory upon consumption
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        item_delete(item_index, ITEM_TYPE.CONSUMABLE);
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    };
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    // 4. Character reaction quotes when fed this item
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    reactions = {
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        kris: "(It tastes like lemon and stardust.)",
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        susie: "Hell yeah, crunchy!",
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        ralsei: "It's so sparkly and sweet!",
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        noelle: "(Reminds me of holiday lights...)"
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    };
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    // 5. Economy values
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    buy_price = 120;
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    sell_price = 40;
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>}
 </code></pre></div>
 <hr />
 <h3 id="step-2-write-a-team-wide-consumable">Step 2 — Write a team-wide consumable<a class="headerlink" href="#step-2-write-a-team-wide-consumable" title="Permanent link">&para;</a></h3>
@@ -1743,28 +1742,27 @@ ightarrow$ <strong>Script</strong>.</li>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>function item_star_cake() : item() constructor {
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    name = ["StarCake", "Star Cake"];
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    desc = [
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        "A fluffy cake decorated with star icing.
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Restores 100 HP to everyone.",
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        "Heals team 100HP"
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    ];
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    type = ITEM_TYPE.CONSUMABLE;
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    use_type = ITEM_USE.EVERYONE; // Targets whole team
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    use = function(item_index, target_index, caller = -1) {
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        party_heal_all(100, caller);
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        item_delete(item_index, ITEM_TYPE.CONSUMABLE);
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    };
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    reactions = {
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        susie: "Gimme the biggest slice!!",
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        ralsei: "Delicious! Thank you, Kris!",
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        noelle: "Mmm! It's so warm and fluffy!"
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    };
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    buy_price = 300;
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    sell_price = 100;
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>}
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        "A fluffy cake decorated with star icing.\nRestores 100 HP to everyone.",
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        "Heals team 100HP"
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    ];
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    type = ITEM_TYPE.CONSUMABLE;
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    use_type = ITEM_USE.EVERYONE; // Targets whole team
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    use = function(item_index, target_index, caller = -1) {
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        party_heal_all(100, caller);
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        item_delete(item_index, ITEM_TYPE.CONSUMABLE);
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    };
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    reactions = {
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        susie: "Gimme the biggest slice!!",
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        ralsei: "Delicious! Thank you, Kris!",
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        noelle: "Mmm! It's so warm and fluffy!"
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    };
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    buy_price = 300;
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    sell_price = 100;
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>}
 </code></pre></div>
 <hr />
 <h3 id="step-3-write-a-custom-weapon-item_weapon">Step 3 — Write a custom weapon (<code>item_weapon</code>)<a class="headerlink" href="#step-3-write-a-custom-weapon-item_weapon" title="Permanent link">&para;</a></h3>
@@ -1772,42 +1770,41 @@ ightarrow$ <strong>Script</strong>.</li>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>function item_w_starlight_sword() : item_weapon() constructor {
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    name = ["Starlight Sword"];
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    desc = [
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        "A shimmering blade forged from fallen star fragments.
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Attack +5, Magic +2.",
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        "--"
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    ];
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    // Who is allowed to equip this weapon
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    weapon_whitelist = ["kris"];
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    // Stat modifiers added to the character's base stats
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    stats = {
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        attack: 5,
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        magic: 2,
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        defense: 0
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    };
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    // Menu icon and UI status effect text
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    icon = spr_ui_menu_icon_sword;
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    effect = {
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        text: "Star Power",
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>        sprite: spr_ui_menu_icon_up
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    };
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    // Character comments when inspecting this weapon in the EQUIP menu
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    reactions = {
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>        kris: "Feels perfectly balanced.",
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>        susie: "Pfft, too shiny for me.",
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>        ralsei: "What a radiant blade!",
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>        noelle: "(It glows so brightly...)"
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    };
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    // Light World counterpart (e.g. transforms into a shiny gel pen)
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    lw_counterpart = item_w_lw_pencil;
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    buy_price = 450;
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>    sell_price = 150;
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>}
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        "A shimmering blade forged from fallen star fragments.\nAttack +5, Magic +2.",
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        "--"
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    ];
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    // Who is allowed to equip this weapon
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    weapon_whitelist = ["kris"];
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    // Stat modifiers added to the character's base stats
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    stats = {
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        attack: 5,
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        magic: 2,
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        defense: 0
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    };
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    // Menu icon and UI status effect text
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    icon = spr_ui_menu_icon_sword;
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    effect = {
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        text: "Star Power",
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        sprite: spr_ui_menu_icon_up
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    };
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    // Character comments when inspecting this weapon in the EQUIP menu
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    reactions = {
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>        kris: "Feels perfectly balanced.",
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>        susie: "Pfft, too shiny for me.",
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>        ralsei: "What a radiant blade!",
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>        noelle: "(It glows so brightly...)"
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    };
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    // Light World counterpart (e.g. transforms into a shiny gel pen)
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    lw_counterpart = item_w_lw_pencil;
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    buy_price = 450;
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    sell_price = 150;
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>}
 </code></pre></div>
 <hr />
 <h3 id="step-4-place-a-treasure-chest-in-your-room-o_ow_chest">Step 4 — Place a treasure chest in your room (<code>o_ow_chest</code>)<a class="headerlink" href="#step-4-place-a-treasure-chest-in-your-room-o_ow_chest" title="Permanent link">&para;</a></h3>
@@ -1819,13 +1816,12 @@ ightarrow$ <strong>Script</strong>.</li>
 <li>Set <strong><code>item_inside</code></strong> to your struct instantiation:
      <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>new item_star_candy()
 </code></pre></div></li>
-<li>(Optional) Set <strong><code>money_inside</code></strong> if the chest should grant Dark Dollars instead of an item.</li>
+<li>An <code>o_ow_chest</code> holds one item. For anything else (money, a cutscene), set <code>open_override</code> to a function in the Creation Code — it is called instead of the normal opening (<code>objects/o_ow_chest/Create_0.gml</code>).</li>
 </ol>
 <p><code>o_ow_chest</code> handles everything automatically (<code>objects/o_ow_chest/</code>):
-- Plays opening creak audio (<code>snd_chestopen</code>).
-- Adds the item to inventory with <code>item_add()</code>.
-- Displays dialogue: <code>* You found the Star Candy! * (Added to your ITEMS.)</code>.
-- Saves state in persistent memory (<code>memory_set("chests", id, true)</code>) so the chest stays open forever.</p>
+- Plays the opening sound (<code>snd_locker</code>) and shakes the screen.
+- Adds the item to inventory with <code>item_add()</code> and shows the pickup text.
+- Records the chest as opened (<code>memory_flick(state_group, id, true)</code>, with <code>state_group = "chests_open"</code>) so it stays open when you come back.</p>
 <hr />
 <h3 id="step-5-test-and-verify-checklist">Step 5 — Test and verify checklist<a class="headerlink" href="#step-5-test-and-verify-checklist" title="Permanent link">&para;</a></h3>
 <p>Run your game (<code>F5</code>) and test:</p>
@@ -1834,7 +1830,7 @@ ightarrow$ <strong>Script</strong>.</li>
 <li>[ ] Opening the pause menu (<code>[C]</code> / <code>[CTRL]</code>) shows <code>StarCandy</code> in your <strong>ITEMS</strong> tab.</li>
 <li>[ ] Using the item heals the selected character's HP and displays their custom reaction quote.</li>
 <li>[ ] Opening the chest a second time shows it remains empty and already opened.</li>
-<li>[ ] In the <strong>EQUIP</strong> menu, Kris can equip <code>Starlight Sword</code> and their attack stat increases by +5.</li>
+<li>[ ] In the <strong>EQUIP</strong> menu, Kris can equip <code>Starlight Sword</code> and their attack stat increases by +5. (To get the sword without a shop, put <code>new item_w_starlight_sword()</code> in a second chest, or hold <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-i">I</kbd></span> for Item Select.)</li>
 </ul>
 <hr />
 <h2 id="giving-and-managing-items-via-script">Giving and managing items via script<a class="headerlink" href="#giving-and-managing-items-via-script" title="Permanent link">&para;</a></h2>
@@ -1843,7 +1839,7 @@ ightarrow$ <strong>Script</strong>.</li>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>item_add(new item_star_candy());
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>// Check if player has inventory space for a consumable
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>if array_length(global.item) &lt; item_get_maxcount(ITEM_TYPE.CONSUMABLE) {
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>if item_get_count(ITEM_TYPE.CONSUMABLE) &lt; item_get_maxcount(ITEM_TYPE.CONSUMABLE) {
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    item_add(new item_star_candy());
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>} else {
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    // Inventory full — send to storage or show dialogue
@@ -1851,7 +1847,7 @@ ightarrow$ <strong>Script</strong>.</li>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>}
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>// Check if party possesses a specific key item
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>if item_contains(item_key_cellphone) {
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>if item_inventory_contains(item_key_cell_phone) {
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    // Trigger special dialogue
 <a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>}
 </code></pre></div>
@@ -1959,10 +1955,10 @@ ightarrow$ <strong>Script</strong>.</li>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

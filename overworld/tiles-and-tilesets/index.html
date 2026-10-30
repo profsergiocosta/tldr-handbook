@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1548,8 +1548,8 @@
 </table>
 <p>20×20 is not arbitrary: the game view is 320 × 240, so a screen is exactly 16 × 12 tiles. Designing rooms in multiples of a screen keeps camera transitions clean.</p>
 <div class="admonition note">
-<p class="admonition-title">Art is drawn at 2×</p>
-<p>The engine's source art is twice the display size and drawn at <code>0.5</code> scale. You will see <code>draw_sprite_ext(..., .5, .5, ...)</code> throughout the codebase for this reason. When you author a new tileset, match the existing ones rather than the on-screen pixel size.</p>
+<p class="admonition-title">World art is drawn at 1×</p>
+<p>The world is a <strong>320 × 240</strong> view (<code>GAME_W</code> / <code>GAME_H</code> in <code>scripts/game_info/game_info.gml</code>) scaled up to the window, so tiles and sprites are authored at their on-screen pixel size: a tile is 20 × 20, Kris is 19 × 38. Only the interface (Draw GUI) works on a <strong>640 × 480</strong> canvas (<code>GAME_W_GUI</code> / <code>GAME_H_GUI</code>), twice the size. Match the existing tilesets — 20 × 20 tiles, no extra scaling.</p>
 </div>
 <h2 id="layer-conventions">Layer conventions<a class="headerlink" href="#layer-conventions" title="Permanent link">&para;</a></h2>
 <p><code>room_ex_city</code> is the reference layout. Tile layers are interleaved with instance layers by depth:</p>
@@ -1577,7 +1577,7 @@
 <li><strong>Ground tiles</strong> (<code>t_road</code>, <code>t_grounddecor</code>) — the walkable surface.</li>
 <li><strong>Structures</strong> (<code>t_buildings</code>, <code>t_buildingstop</code>) — split into two layers so the tops of buildings can overlap the bottoms of the ones behind.</li>
 <li><strong>Collisions</strong> — only now. Stretch <code>o_block</code> over everything solid. Do this after the art so you can see what you are blocking.</li>
-<li><strong>Instances</strong> — NPCs, signs, triggers, <code>o_dev_world</code>, <code>o_dev_playermarker</code>, <code>o_camera</code>.</li>
+<li><strong>Instances</strong> — NPCs, signs, triggers, <code>o_dev_world</code>, <code>o_dev_playermarker</code>. <strong>Not</strong> <code>o_camera</code>: the engine creates it, and a second one turns the screen black (see <a href="../rooms-and-collision/">Rooms and collision</a>).</li>
 <li><strong>Foreground</strong> (<code>t_foreground</code>) — awnings, treetops, anything the player should walk behind.</li>
 </ol>
 <div class="admonition tip">
@@ -1626,7 +1626,7 @@
 </tr>
 <tr>
 <td>A new tileset looks blurry or doubled</td>
-<td>authored at 1× instead of 2× — match the existing tilesets</td>
+<td>tiles not 20 × 20, or the sprite was scaled when imported — match the existing tilesets</td>
 </tr>
 </tbody>
 </table>
@@ -1689,10 +1689,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

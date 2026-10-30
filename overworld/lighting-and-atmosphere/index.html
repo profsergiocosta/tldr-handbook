@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -865,10 +865,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#c-setting-light-color-intensity" class="md-nav__link">
+  <a href="#c-setting-light-intensity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        C. Setting Light Color &amp; Intensity
+        C. Setting Light Intensity
       
     </span>
   </a>
@@ -1659,10 +1659,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#c-setting-light-color-intensity" class="md-nav__link">
+  <a href="#c-setting-light-intensity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        C. Setting Light Color &amp; Intensity
+        C. Setting Light Intensity
       
     </span>
   </a>
@@ -1842,15 +1842,15 @@
 <p>In the GameMaker Room Editor layer list:
 1. Create a new <strong>Instance Layer</strong> and name it <strong><code>lighting</code></strong>.
 2. Set its depth to <code>-100</code> (or leave it at standard instance depth).</p>
-<blockquote>
-<p>[!note] Sobre o <code>o_lb_dl_controller</code>
-Você não precisa arrastar essa instância na room manualmente. Se a room tiver
-pelo menos um <code>o_lb_dl_light_source</code> (ou qualquer objeto que herde dele, como
-o <code>o_player_torch</code> do Step 3) e nenhum controller existir ainda, o próprio
-Create Event do light source cria o controller sozinho. Só coloque um
-<code>o_lb_dl_controller</code> manualmente se precisar controlar a cor/opacidade do
-overlay escuro global — caso contrário, ignore esse objeto por completo.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">About <code>o_lb_dl_controller</code></p>
+<p>You do not need to place this instance by hand. If the room has at least one
+<code>o_lb_dl_light_source</code> (or anything that inherits from it, like the
+<code>o_player_torch</code> of Step 3) and no controller exists yet, the light source's
+own Create event spawns the controller. Only place an <code>o_lb_dl_controller</code>
+manually if you need to control the colour or opacity of the global dark
+overlay — otherwise, ignore this object entirely.</p>
+</div>
 <hr />
 <h3 id="step-2-place-and-configure-static-wall-torches-o_lb_dl_light_source">Step 2 — Place and configure static wall torches (<code>o_lb_dl_light_source</code>)<a class="headerlink" href="#step-2-place-and-configure-static-wall-torches-o_lb_dl_light_source" title="Permanent link">&para;</a></h3>
 <ol>
@@ -1865,10 +1865,10 @@ overlay escuro global — caso contrário, ignore esse objeto por completo.</p>
 <ul>
 <li>Set <strong><code>scaleX</code></strong> to <code>2.5</code> and <strong><code>scaleY</code></strong> to <code>2.5</code> to expand the radius of the light circle.</li>
 </ul>
-<h4 id="c-setting-light-color-intensity">C. Setting Light Color &amp; Intensity<a class="headerlink" href="#c-setting-light-color-intensity" title="Permanent link">&para;</a></h4>
+<h4 id="c-setting-light-intensity">C. Setting Light Intensity<a class="headerlink" href="#c-setting-light-intensity" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Click the <strong>Color</strong> swatch in the Inspector and pick an amber/orange tint (<code>#FFAA33</code>) for fire, or cool cyan (<code>#44AAFF</code>) for magic crystals.</li>
 <li>Adjust <strong>Alpha</strong> (<code>0.8</code> to <code>1.0</code>) to make the light softer or brighter.</li>
+<li>The <strong>Color</strong> swatch does <strong>not</strong> tint the light: the cutout is drawn with <code>bm_subtract</code>, so colour only changes how much darkness is removed. For a visibly warm or cold glow, use the extra additive pass described in Step 3.5.</li>
 </ul>
 <hr />
 <h3 id="step-3-create-a-dynamic-lantern-that-follows-kris">Step 3 — Create a dynamic lantern that follows Kris<a class="headerlink" href="#step-3-create-a-dynamic-lantern-that-follows-kris" title="Permanent link">&para;</a></h3>
@@ -1878,7 +1878,7 @@ overlay escuro global — caso contrário, ignore esse objeto por completo.</p>
 <li>Draw a soft white circle with a radial gradient (opaque white at the center, fading to transparent at the edges) on a transparent background.</li>
 <li>Size: <strong>128×128px</strong>, keeping the circle centered in the canvas. <code>o_lb_dl_light_source</code> scales this sprite to define the light's shape and falloff, so the base image must already be <strong>pure white</strong> — <code>image_blend</code> only tints it, it doesn't generate the gradient for you.</li>
 <li>
-<p><strong>Set the sprite's Origin to Middle Center — this is not optional.</strong> If the origin is left at the GameMaker default (top-left), the light gets a fixed positional bias baked in. Combined with the directional offset in Step 3.5 below, this bias <em>adds</em> to the offset in one diagonal (making the light drift too far in that direction) and <em>cancels it out</em> in the opposite diagonal (making the light look glued underneath Kris instead of in front). It's an easy bug to misdiagnose as a math error in the offset code, when it's really just the sprite's origin.</p>
+<p><strong>Set the sprite's Origin to Middle Center — this is not optional.</strong> If the origin is left at the GameMaker default (top-left), the light gets a fixed positional bias baked in. Combined with the directional offset in the End Step code below, this bias <em>adds</em> to the offset in one diagonal (making the light drift too far in that direction) and <em>cancels it out</em> in the opposite diagonal (making the light look glued underneath Kris instead of in front). It's an easy bug to misdiagnose as a math error in the offset code, when it's really just the sprite's origin.</p>
 </li>
 <li>
 <p>In the Asset Browser, create an Object named <strong><code>o_player_torch</code></strong>.</p>
@@ -1891,17 +1891,17 @@ overlay escuro global — caso contrário, ignore esse objeto por completo.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   image_blend = c_orange;
 </code></pre></div></li>
 </ol>
-<blockquote>
-<p>[!warning] <code>image_blend</code> aqui não pinta a luz de laranja
-<code>o_lb_dl_controller</code> desenha os light sources com <code>gpu_set_blendmode(bm_subtract)</code>
-— ele <strong>subtrai</strong> o RGB do sprite da camada escura, revelando o cenário original
-por baixo, sem adicionar cor nenhuma a ele. <code>image_blend</code> muda apenas <em>quanto</em>
-cada canal é subtraído (afeta sutilmente o contraste da borda do "buraco"), não
-produz um halo visivelmente laranja. Na prática, para este passo, quase
-qualquer cor aqui dá um resultado visual muito parecido — o efeito de "luz
-quente" de verdade só aparece com um passo extra (uma segunda camada desenhada
-com <code>bm_add</code>, explicada logo abaixo).
-5. In its <strong>Step Event (End Step)</strong>:
+<div class="admonition warning">
+<p class="admonition-title"><code>image_blend</code> here does not paint the light orange</p>
+<p><code>o_lb_dl_controller</code> draws light sources with <code>gpu_set_blendmode(bm_subtract)</code>
+— it <strong>subtracts</strong> the sprite's RGB from the dark layer, revealing the scene
+underneath without adding any colour to it. <code>image_blend</code> only changes <em>how much</em>
+each channel is subtracted (a subtle change in the edge of the "hole"); it does
+not produce a visibly orange halo. In practice almost any colour here looks the
+same — a real warm glow needs the extra additive pass in Step 3.5 below.</p>
+</div>
+<ol>
+<li>In its <strong>Step Event (End Step)</strong>:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>   // Follow the party leader, offset a bit in front of them
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   // based on which way they're currently facing.
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   var _leader = get_leader();
@@ -1921,36 +1921,37 @@ com <code>bm_add</code>, explicada logo abaixo).
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>       x = _leader.x + _offset_x;
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>       y = _leader.s_get_middle_y() + _offset_y;
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>   }
-</code></pre></div>
-6. Drag one instance of <code>o_player_torch</code> into your room on the <code>lighting</code> layer.</p>
-</blockquote>
+</code></pre></div></li>
+<li>Drag one instance of <code>o_player_torch</code> into your room on the <code>lighting</code> layer.</li>
+</ol>
 <p>Now, as Kris explores the room, a circle of warm lantern light moves with them seamlessly — and shifts ahead of them as they turn to face a new direction!</p>
-<blockquote>
-<p>[!warning] Não use <code>lengthdir_x</code>/<code>lengthdir_y</code> com <code>dir</code> diretamente
-É tentador escrever <code>lengthdir_x(_offset, _leader.dir)</code> — mas o <code>DIR</code> da
-engine (<code>UP=0, RIGHT=90, DOWN=180, LEFT=270</code>, sentido horário a partir de
-cima) não é o mesmo sistema de ângulos que <code>lengthdir_x/y</code> esperam (0° =
-direita, sentido anti-horário). O resultado é um bug sutil e assimétrico:
-a luz parece longe demais indo para direita/baixo, e grudada embaixo do
-Kris indo para esquerda/cima. A conversão manual com <code>sin</code>/<code>cos</code> acima
-evita esse problema.</p>
-<p>[!tip] Tuning the offset
-<code>_offset = 40</code> is a starting point; increase it if the light still looks glued to Kris's back, or decrease it if it drifts too far ahead when they turn a corner.</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Do not feed <code>dir</code> straight into <code>lengthdir_x</code> / <code>lengthdir_y</code></p>
+<p>It is tempting to write <code>lengthdir_x(_offset, _leader.dir)</code> — but the engine's
+<code>DIR</code> (<code>UP=0, RIGHT=90, DOWN=180, LEFT=270</code>, clockwise from up,
+<code>scripts/macro_dir/macro_dir.gml</code>) is not the angle system <code>lengthdir_x/y</code>
+expect (0° = right, counter-clockwise). The result is a subtle, asymmetric bug:
+the light drifts too far going right/down and sticks under Kris going left/up.
+The manual <code>sin</code>/<code>cos</code> conversion above avoids it.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tuning the offset</p>
+<p><code>_offset = 40</code> is a starting point; increase it if the light still looks glued to Kris's back, or decrease it if it drifts too far ahead when they turn a corner.</p>
+</div>
 <h4 id="step-35-optional-give-the-lantern-an-actual-orange-tint">Step 3.5 (optional) — Give the lantern an actual orange tint<a class="headerlink" href="#step-35-optional-give-the-lantern-an-actual-orange-tint" title="Permanent link">&para;</a></h4>
 <p>Since <code>image_blend</code> alone doesn't tint the revealed area (see the warning above), add a second, additively-blended draw pass on top of the cutout to get a real warm glow:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Draw Event de o_player_torch
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>event_inherited(); // deixa o corte de escuridão (bm_subtract) acontecer normalmente
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Draw Event of o_player_torch
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>event_inherited(); // let the darkness cutout (bm_subtract) happen as usual
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>gpu_set_blendmode(bm_add);
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>draw_sprite_ext(
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    spr_player_torch_light,
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    image_index,
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    x, y,
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    image_xscale * 0.6, image_yscale * 0.6, // um pouco menor que o buraco
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    image_xscale * 0.6, image_yscale * 0.6, // a bit smaller than the hole
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    0,
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    c_orange,
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    0.25 // opacidade baixa, senão estoura pra branco
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    0.25 // low opacity, or it blows out to white
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>);
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>gpu_set_blendmode(bm_normal);
 </code></pre></div>
@@ -2022,11 +2023,11 @@ evita esse problema.</p>
 </tr>
 <tr>
 <td><strong><code>o_lb_dl_light_source</code></strong></td>
-<td>Place over torches/lamps. Change Sprite in Inspector for custom light shapes, scale for size, color for tint.</td>
+<td>Place over torches/lamps. Change Sprite in Inspector for custom light shapes, scale for size, alpha for intensity.</td>
 </tr>
 <tr>
 <td><strong><code>o_player_torch</code></strong></td>
-<td>Parent to <code>o_lb_dl_light_source</code> with <code>x = get_leader().x; y = get_leader().s_get_middle_y();</code> in Step event.</td>
+<td>Parent to <code>o_lb_dl_light_source</code>; follow <code>get_leader()</code> in its <strong>End Step</strong> event (Step 3).</td>
 </tr>
 <tr>
 <td><strong><code>lighting_on(col, fade)</code></strong></td>
@@ -2127,10 +2128,10 @@ evita esse problema.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

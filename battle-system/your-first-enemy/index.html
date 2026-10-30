@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2762,12 +2762,12 @@ a command name into it. It works by <strong>key combination</strong>:</p>
 <tr>
 <td><span class="keys"><kbd class="key-h">H</kbd></span></td>
 <td><code>help</code></td>
-<td>Prints all commands to the <strong>Output</strong> window</td>
+<td>Shows every command on screen</td>
 </tr>
 </tbody>
 </table>
 <p>Inside any of those pickers: <span class="keys"><kbd class="key-arrow-up">Up</kbd></span> / <span class="keys"><kbd class="key-arrow-down">Down</kbd></span> to move, <span class="keys"><kbd class="key-enter">Enter</kbd></span> to confirm,
-<span class="keys"><kbd class="key-escape">Esc</kbd></span> to cancel (<code>objects/o_dev_selector/Step_0.gml:36</code>).</p>
+<span class="keys"><kbd class="key-escape">Esc</kbd></span> to cancel (<code>objects/o_dev_selector/Step_0.gml:157</code>).</p>
 <div class="admonition warning">
 <p class="admonition-title">The console blocks the game while it is open</p>
 <p>Holding <span class="keys"><kbd class="key-tab">Tab</kbd></span> sets <code>global.console = true</code>, and a lot of the engine —
@@ -2818,16 +2818,16 @@ systems in scripts like <code>enc_enemies</code> and its examples in <code>ex_</
 (<code>ex_enc_enemies</code>, <code>ex_enc_sets</code>). By creating your own dedicated scripts and actor objects, you
 keep custom enemies cleanly separated from the engine — making it easy to pull
 upstream engine updates later without conflicts.</p>
-<p>We will create the scripts and the actor as we need them (Step 1 and Step 3), and then build
-the turn object from scratch in Step 8.</p>
+<p>We create the actor and the first script right below, the encounter script in Step 3,
+and the turn object from scratch in Step 8.</p>
 <h3 id="create-the-actor-object-o_actor_sonso">Create the actor object: <code>o_actor_sonso</code><a class="headerlink" href="#create-the-actor-object-o_actor_sonso" title="Permanent link">&para;</a></h3>
 <p>Every enemy needs an actor representation in the world and battle. By creating a dedicated object inheriting from <code>o_actor_e</code>, your custom enemy stays cleanly decoupled from engine files and always has a valid sprite from birth:</p>
 <ol>
-<li>In the <strong>Asset Browser</strong> (on the right-hand side), right-click <strong>Objects</strong> $\rightarrow$ <strong>Create</strong> $\rightarrow$ <strong>Object</strong>.</li>
+<li>In the <strong>Asset Browser</strong> (on the right-hand side), right-click <strong>Objects</strong> → <strong>Create</strong> → <strong>Object</strong>.</li>
 <li>Name it <strong><code>o_actor_sonso</code></strong> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
 <li>In its inspector on the left, click <strong>Parent</strong> and choose <strong><code>o_actor_e</code></strong> (it will inherit all movement, chasing, and collision code automatically).</li>
 <li>Set its <strong>Sprite</strong> to <strong><code>spr_ex_e_tasque</code></strong>.</li>
-<li>Click <strong>Add Event</strong> $\rightarrow$ <strong>Create</strong>. In the code window that opens, enter:
+<li>Click <strong>Add Event</strong> → <strong>Create</strong>. In the code window that opens, enter:
    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>event_inherited()
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>s_intro = spr_ex_e_tasque_hurt
@@ -2841,7 +2841,7 @@ The engine's base object <code>o_actor_e</code> defaults <code>s_intro</code> to
 <h3 id="create-the-first-script-rpg_enc_enemies">Create the first script: <code>rpg_enc_enemies</code><a class="headerlink" href="#create-the-first-script-rpg_enc_enemies" title="Permanent link">&para;</a></h3>
 <ol>
 <li>In the <strong>Asset Browser</strong>, right-click the <strong>Scripts</strong>
-   folder $\rightarrow$ <strong>Create</strong> $\rightarrow$ <strong>Script</strong>.</li>
+   folder → <strong>Create</strong> → <strong>Script</strong>.</li>
 <li>A new script appears in the tree with its name highlighted. Type
    <strong><code>rpg_enc_enemies</code></strong> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
 <li>The script opens in a new tab in the workspace. GameMaker automatically
@@ -2856,9 +2856,12 @@ after the last <code>}</code>. A single script can hold as many functions and
 constructors as you like.</p>
 </div>
 <h3 id="for-sprites-we-borrow-the-cat-that-already-exists">For sprites we borrow the cat that already exists<a class="headerlink" href="#for-sprites-we-borrow-the-cat-that-already-exists" title="Permanent link">&para;</a></h3>
-<p>The project ships a set of cat sprites unused by any enemy: <code>spr_ex_e_tasque</code>,
-<code>spr_ex_e_tasque_hurt</code>, <code>spr_ex_e_tasque_spared</code>. When you draw your own, it is
-three lines to swap.</p>
+<p>The project ships the sprites of <strong>Tasque</strong>, a cat-like enemy from DELTARUNE, unused
+by any enemy in the engine: <code>spr_ex_e_tasque</code>, <code>spr_ex_e_tasque_hurt</code>,
+<code>spr_ex_e_tasque_spared</code>. When you draw your own, it is three lines to swap —
+make them the same kind of sprite: around the same size (<code>spr_ex_e_tasque</code> is
+74 × 40 px, 6 frames), with the origin at the <strong>bottom centre</strong> so the cat stands
+on the ground.</p>
 <div class="admonition warning">
 <p class="admonition-title">The rule that avoids 90% of the pain</p>
 <p>A bare identifier in GML resolves as an <strong>asset name at compile time</strong>. If
@@ -2934,8 +2937,8 @@ music.</p>
 <p>Just like the enemy sheet, encounters live in their own script.</p>
 <h3 id="create-the-encounter-script-rpg_enc_sets">Create the encounter script: <code>rpg_enc_sets</code><a class="headerlink" href="#create-the-encounter-script-rpg_enc_sets" title="Permanent link">&para;</a></h3>
 <ol>
-<li>In the <strong>Asset Browser</strong>, right-click <strong>Scripts</strong> $\rightarrow$ <strong>Create</strong>
-   $\rightarrow$ <strong>Script</strong>.</li>
+<li>In the <strong>Asset Browser</strong>, right-click <strong>Scripts</strong> → <strong>Create</strong>
+   → <strong>Script</strong>.</li>
 <li>Name it <strong><code>rpg_enc_sets</code></strong> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
 <li>In the new tab that opens, <strong>select all and delete any default template code</strong>
    so the file is empty.</li>
@@ -3017,13 +3020,13 @@ appear by themselves.</p>
 <p class="admonition-title">No <code>new</code>, no quotes, no parentheses</p>
 <p>Write <code>rpg_enc_set_sonso</code> bare. The picker stores the <strong>function itself</strong> and
 calls <code>new _item()._start()</code> when you confirm
-(<code>objects/o_dev_encselect/Create_0.gml:13</code>). Writing <code>"rpg_enc_set_sonso"</code>
+(<code>objects/o_dev_encselect/Create_0.gml:14</code>). Writing <code>"rpg_enc_set_sonso"</code>
 or <code>rpg_enc_set_sonso()</code> breaks it in a way the compiler will not catch.</p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">The name you will see in the list is the function name</p>
 <p>The picker labels each entry with <code>script_get_name()</code>
-(<code>objects/o_dev_encselect/Create_0.gml:25</code>), so it will read
+(<code>objects/o_dev_encselect/Create_0.gml:20</code>), so it will read
 <strong><code>rpg_enc_set_sonso</code></strong>, not <code>"sonso"</code>. It appears under the
 <strong>uncategorized</strong> heading, because <code>o_dev_encselect</code> sets no categories.</p>
 </div>
@@ -3139,7 +3142,7 @@ resolves. It is the idiom the engine uses
 <p><strong><code>dialogue</code> receives no arguments.</strong> The base struct's comment says it "can
 accept the slot as arg0", but the call site is
 <code>variable_callable_to_value(enemies[i].dialogue)</code> — with <strong>no arguments</strong>
-(<code>objects/o_enc/Step_0.gml:254</code>). Writing <code>function(slot)</code> gives you <code>undefined</code>.
+(<code>objects/o_enc/Step_0.gml:269</code>). Writing <code>function(slot)</code> gives you <code>undefined</code>.
 If you need the index, use <code>self.slot</code>, which the engine fills in
 (<code>objects/o_enc_anim/Alarm_1.gml:69</code>).</p>
 <p>The encounter's <code>flavor</code> can react too. Back in <code>rpg_enc_sets</code>, replace the
@@ -3213,7 +3216,7 @@ them. The <code>enemy()</code> base ships with a sample "Check" ACT, and whateve
 <p class="admonition-title">Only Kris has the ACT button</p>
 <p>The second menu slot is <strong>ACT</strong> for a character carrying <code>item_s_act</code>, and
 <strong>MAGIC</strong> for everyone else (<code>objects/o_enc/Create_0.gml:92</code>). In this
-project only Kris has it (<code>scripts/party_init/party_init.gml:153</code>). If you
+project only Kris has it (<code>scripts/party_init/party_init.gml:206</code>). If you
 test with Susie and cannot find ACT, that is why.</p>
 <p>To give the others their own action, use the sibling field <code>acts_special</code>,
 one entry per character — see the virovirokun at
@@ -3358,7 +3361,7 @@ turn's <code>pattern</code> literally becomes the cat's mood.</p>
 <p>Two non-obvious things:</p>
 <p><strong><code>enemy_struct</code> is already filled in.</strong> The engine creates the turn object
 passing <code>{enemy_index, enemy_struct}</code> in the creation struct and only <em>then</em>
-calls User Event 0 (<code>objects/o_enc/Step_0.gml:249</code>).</p>
+calls User Event 0 (<code>objects/o_enc/Step_0.gml:264</code> creates it, <code>:281</code> calls the event).</p>
 <p><strong>Your <code>pattern</code> will not be overwritten.</strong> The <code>o_turn</code> base draws a <code>pattern</code>
 from <code>pattern_pool</code> later, in User Event 2 — but with <code>??=</code>, so <strong>only if it is
 still <code>undefined</code></strong> (<code>objects/o_turn/Other_12.gml:11</code>). Yours wins.</p>
@@ -3964,10 +3967,10 @@ finished.</strong> Rooms come last.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1848,7 +1848,7 @@
 <p>Direct continuation of <a href="../your-first-enemy/">Your first enemy</a>. There, Sonso became the guardian of our sanctuary. Here the battle space stops being an abstract green grid and transforms into the <strong>Sanctuary Shrine</strong>: the box the soul moves in, the obstacles inside it, and the atmospheric background all reflect the sacred hall we built in <a href="../../overworld/your-first-room/">Your first room</a>.</p>
 <p>Nine steps, each testable on its own. You can stop at any of them.</p>
 <h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
-<p>You need Sonso working: <code>rpg_enemy_sonso()</code>, <code>rpg_enc_set_sonso()</code> and the <code>o_turn_sonso</code> object with its four events. If <span class="keys"><kbd class="key-tab">Tab</kbd></span> → <code>encounter_select</code> → <code>sonso</code> opens the fight and the cat attacks, you are ready.</p>
+<p>You need Sonso working: <code>rpg_enemy_sonso()</code>, <code>rpg_enc_set_sonso()</code> and the <code>o_turn_sonso</code> object with its four events. If <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span> → <code>rpg_enc_set_sonso</code> opens the fight and the cat attacks, you are ready.</p>
 <h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
 <p>In the previous chapter, Sonso's mood changed the <strong>bullet pattern</strong>. Here it will also change <strong>the size, tilt and contents of the arena</strong>.</p>
 <p>This matters because the box is the player's personal space. Shrinking it is not "raising the difficulty" — it is the cat cornering you against the sanctuary altar. Rotating it is not a pretty effect — it is you losing your footing. The player feels it before understanding it.</p>
@@ -1981,11 +1981,11 @@
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title"><code>if timer == 0 exit</code> is not decoration</p>
-<p>The <code>turn_object</code> is <strong>born before the box</strong>: it is created during <code>DIALOGUE</code>, and <code>o_enc.mybox</code> only exists once the state turns <code>TURN</code> (<code>objects/o_enc/Step_0.gml:321</code>). Since <code>mybox</code> is not even initialised in <code>o_enc</code>'s Create, reading it early does not return <code>noone</code> — it raises a <strong>variable not set error</strong> and the game stops.</p>
+<p>The <code>turn_object</code> is <strong>born before the box</strong>: it is created during <code>DIALOGUE</code>, and <code>o_enc.mybox</code> only exists once the state turns <code>TURN</code> (<code>objects/o_enc/Step_0.gml:336</code>). Since <code>mybox</code> is not even initialised in <code>o_enc</code>'s Create, reading it early does not return <code>noone</code> — it raises a <strong>variable not set error</strong> and the game stops.</p>
 <p>The guard works because <code>timer</code> only starts counting after User Event 1, which runs <strong>after</strong> the box is born. If <code>timer &gt; 0</code>, the box certainly exists. It is the engine's own idiom — see <code>objects/o_turn_default_dark/Step_0.gml</code>.</p>
 <p>The first chapter's code escaped this by accident: every bullet pattern sat inside conditions like <code>timer % 30 == 0 &amp;&amp; timer &gt; 0</code> or <code>timer == 10</code>, which already required <code>timer &gt; 0</code>. Add any bare line to the Step and the guard becomes necessary.</p>
 </div>
-<p><code>sine(divisor, multiplier)</code> is an engine function (<code>scripts/custom/custom.gml:491</code>): it returns a sine based on <code>o_world.frames</code>. Smaller divisor = faster; larger multiplier = wider.</p>
+<p><code>sine(divisor, multiplier)</code> is an engine function (<code>scripts/custom/custom.gml:567</code>): it returns a sine based on <code>o_world.frames</code>. Smaller divisor = faster; larger multiplier = wider.</p>
 <div class="admonition info">
 <p class="admonition-title">The soul is carried along, for free</p>
 <p>Rotating the box does not let the player pass through the wall. <code>o_enc_box_solid</code> measures its own displacement, rotation and scale change every frame (<code>objects/o_enc_box_solid/Step_1.gml</code>), and <code>o_enc_soul/Step_1.gml</code> uses those values to push and rotate the soul with the arena.</p>
@@ -2037,7 +2037,7 @@
 <p class="admonition-title">The mask is hollow, not filled</p>
 <p>The soul moves where there is <strong>no</strong> collision (<code>o_enc_soul/Step_0.gml</code>). A filled rectangle mask leaves it nowhere to stand. That is why the default <code>spr_enc_box_mask</code> is just an outline. When drawing your own, draw <strong>the walls</strong>, not the room.</p>
 </div>
-<p>The ready-made example in the engine is <strong><code>o_ex_turn_complex_box</code></strong> — worth opening and running (<code>encounter_select</code>) before you draw your own.</p>
+<p>The ready-made example in the engine is <strong><code>o_ex_turn_complex_box</code></strong>, the Killer Car's attack in <code>enc_set_ex</code> — worth opening and running (<span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span> → <code>enc_set_ex</code>) before you draw your own.</p>
 <hr />
 <h2 id="step-5-obstacles-inside-the-arena">Step 5 — Obstacles inside the arena<a class="headerlink" href="#step-5-obstacles-inside-the-arena" title="Permanent link">&para;</a></h2>
 <p>Here is a detail that opens a lot up: <strong><code>o_enc_box</code> is a child of <code>o_enc_box_solid</code></strong>, and the soul tests collision against the <strong>parent</strong>:</p>
@@ -2148,7 +2148,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    bg_type = ENC_BG.NONE
 </code></pre></div>
 <p>That kills layers 1 and 2. Layer 3, the veil, remains — and it is still what gives the arena focus.</p>
-<p><strong>Then create the object.</strong> A night sanctuary shrine for the cat, with no new sprites at all — everything with <code>spr_pixel</code>, which is 1×1 with its origin at the corner, so <code>image_xscale</code> is literally the width in pixels:</p>
+<p><strong>Then create the object.</strong> In the Asset Browser, <strong>Objects → Create → Object</strong>, name it <code>o_bg_sanctuary</code>, and leave both <strong>Sprite</strong> and <strong>Parent</strong> empty. Add the three events below (Create, Draw, Step). A night sanctuary shrine for the cat, with no new sprites at all — everything with <code>spr_pixel</code>, which is 1×1 with its origin at the corner, so <code>image_xscale</code> is literally the width in pixels:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>// ---------- o_bg_sanctuary / Create_0.gml ----------
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>depth = DEPTH_ENCOUNTER.BACKGROUND + 10   // LARGER number = further back
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
@@ -2231,7 +2231,7 @@
 </tbody>
 </table>
 <h3 id="64-the-dark-veil-as-a-dramatic-tool">6.4 The dark veil, as a dramatic tool<a class="headerlink" href="#64-the-dark-veil-as-a-dramatic-tool" title="Permanent link">&para;</a></h3>
-<p>Layer 3 (<code>o_eff_bg.fade</code>) is a black rectangle over everything. The engine animates it to <code>0.75</code> when the defence turn starts (<code>o_enc/Step_0.gml:241</code>) and back to <code>0</code> when it ends.</p>
+<p>Layer 3 (<code>o_eff_bg.fade</code>) is a black rectangle over everything. The engine animates it to <code>0.75</code> when the defence turn starts (<code>o_enc/Step_0.gml:256</code>) and back to <code>0</code> when it ends.</p>
 <p>Since it is just a variable, you can use it deliberately. Darken further when the cat is annoyed, for instance — the world disappears and only the arena is left:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>// in Other_12.gml, after configuring the box
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>if pattern == "annoyed"
@@ -2295,6 +2295,7 @@
 <a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>}
 </code></pre></div>
 <p>Each <code>new</code> is an independent struct: the two cats have their own mood, HP and MERCY.</p>
+<p>Then <strong>register it in the picker</strong>, exactly as in step 4 of <a href="../your-first-enemy/#step-4-register-the-encounter-in-the-console-picker">Your first enemy</a>: add <code>rpg_enc_set_sonso_double</code> to <code>item_list</code> in <code>o_dev_encselect</code>'s Create event. Without that line it simply does not appear in the list.</p>
 <h3 id="the-surprising-part-they-do-not-attack-twice">The surprising part: they do not attack twice<a class="headerlink" href="#the-surprising-part-they-do-not-attack-twice" title="Permanent link">&para;</a></h3>
 <p>You expect two bullet turns and get <strong>one</strong>. That is not a bug. Look at the <code>o_turn</code> base's User Event 0:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>with object_index {
@@ -2326,7 +2327,7 @@
 </code></pre></div>
 <p>If you genuinely want <strong>two independent turns</strong>, set <code>allow_same_turns = true</code> in <code>o_turn_sonso</code>'s Create. Then brace yourself: two patterns at once in the same box.</p>
 </div>
-<p><strong>Test:</strong> <code>encounter_select</code> → <code>sonso_double</code>. Check that two names appear in the list, that you can choose which to attack, and that the attack got denser than with one cat.</p>
+<p><strong>Test:</strong> <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span> → <code>rpg_enc_set_sonso_double</code>. Check that two names appear in the list, that you can choose which to attack, and that the attack got denser than with one cat.</p>
 <div class="admonition info">
 <p class="admonition-title">How many fit?</p>
 <p>There is no limit in the code, but the enemy name list is drawn at <code>375 + 30*i</code> in a 480px-tall interface (<code>o_enc/Draw_64.gml:190</code>). In practice: <strong>3 comfortably, 4 tight</strong>. The engine's examples use 2.</p>
@@ -2347,7 +2348,7 @@
 <a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        return true    // the default rule: nobody left fighting
 <a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    }
 </code></pre></div>
-<p>The engine evaluates this while executing actions (<code>o_enc/Step_0.gml:216</code>), so the fight ends on the round after the condition is met.</p>
+<p>The engine evaluates it <strong>before each queued action</strong> while actions run (<code>o_enc/Step_0.gml:231</code>). So the fight ends right before the next action executes; if the action that satisfied the condition was the last one of the round, it ends when the next round's actions start.</p>
 <p>Other conditions the same structure allows: survive until <code>o_enc.turn_count == N</code>, accumulate TP (<code>o_enc.tp &gt;= 100</code>), defeat one specific enemy, or a flag an ACT flips.</p>
 <hr />
 <h2 id="step-9-where-the-party-stands">Step 9 — Where the party stands<a class="headerlink" href="#step-9-where-the-party-stands" title="Permanent link">&para;</a></h2>
@@ -2380,7 +2381,7 @@
 <tbody>
 <tr>
 <td>arena size</td>
-<td>enter the fight and compare against a sample encounter (<code>encounter_select</code>)</td>
+<td>enter the fight and compare against a sample encounter (<span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span>)</td>
 </tr>
 <tr>
 <td>size <strong>per mood</strong></td>
@@ -2587,10 +2588,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

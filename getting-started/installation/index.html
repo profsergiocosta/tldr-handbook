@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1494,42 +1494,76 @@
 </div>
 <h2 id="first-run">First run<a class="headerlink" href="#first-run" title="Permanent link">&para;</a></h2>
 <p>Press <strong>Run</strong> (<span class="keys"><kbd class="key-f5">F5</kbd></span>). You should land in the engine's demo content.</p>
-<p>Now open the console with <span class="keys"><kbd class="key-tab">Tab</kbd></span> and type <code>help</code>. The commands are:</p>
+<p>The first build can take a few minutes; later runs are much faster.</p>
+<p>Now try the debug console. It is <strong>not</strong> a text prompt — you never type a command. <strong>Hold <span class="keys"><kbd class="key-tab">Tab</kbd></span></strong>, and a small box reading <code>tab+</code> appears in the top-left corner. <strong>Keep holding <span class="keys"><kbd class="key-tab">Tab</kbd></span> and hold a letter</strong>; when the bar under the command name fills, the command runs (<code>scripts/console/console.gml</code>):</p>
 <table>
 <thead>
 <tr>
+<th>Hold with <span class="keys"><kbd class="key-tab">Tab</kbd></span></th>
 <th>Command</th>
 <th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>room_select</code></td>
+<td><span class="keys"><kbd class="key-h">H</kbd></span></td>
+<td>Help</td>
+<td>Shows every command on screen</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-r">R</kbd></span></td>
+<td>Room Select</td>
 <td>Jump to any room in the project</td>
 </tr>
 <tr>
-<td><code>encounter_select</code></td>
+<td><span class="keys"><kbd class="key-e">E</kbd></span></td>
+<td>Encounter Select</td>
 <td>Start any encounter immediately</td>
 </tr>
 <tr>
-<td><code>party_select</code></td>
+<td><span class="keys"><kbd class="key-p">P</kbd></span></td>
+<td>Party Select</td>
 <td>Choose who is in your party</td>
 </tr>
 <tr>
-<td><code>encounter_end</code></td>
-<td>End the current battle turn</td>
+<td><span class="keys"><kbd class="key-i">I</kbd></span></td>
+<td>Item Select</td>
+<td>Give yourself any item</td>
 </tr>
 <tr>
-<td><code>language_switch</code></td>
+<td><span class="keys"><kbd class="key-w">W</kbd></span></td>
+<td>End an Encounter</td>
+<td>Leave the current battle</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-t">T</kbd></span></td>
+<td>Max out TP</td>
+<td>Fill the TP bar</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-m">M</kbd></span></td>
+<td>Toggle Mute BGM</td>
+<td>Mute the music</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-l">L</kbd></span></td>
+<td>Switch Language</td>
 <td>Cycle the language</td>
 </tr>
 <tr>
-<td><code>save_wipe</code></td>
+<td><span class="keys"><kbd class="key-d">D</kbd></span></td>
+<td>Wipe Save Files</td>
 <td>Erase save data</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-n">N</kbd></span></td>
+<td>Open Intro Sequence</td>
+<td>Play the intro</td>
 </tr>
 </tbody>
 </table>
-<p>If all of that works, the engine is installed correctly.</p>
+<p>Inside any picker, <span class="keys"><kbd class="key-arrow-up">Up</kbd></span> / <span class="keys"><kbd class="key-arrow-down">Down</kbd></span> move, <span class="keys"><kbd class="key-enter">Enter</kbd></span> confirms and <span class="keys"><kbd class="key-escape">Esc</kbd></span> cancels.</p>
+<p>If <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-h">H</kbd></span> shows that list, the engine is installed correctly.</p>
 <h2 id="the-lay-of-the-land">The lay of the land<a class="headerlink" href="#the-lay-of-the-land" title="Permanent link">&para;</a></h2>
 <p>You do not need to know all of this yet, but it helps to know where things live.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>objects/
@@ -1559,7 +1593,7 @@
 <p>Keeping your code out of the <code>ex_</code> files makes it much easier to pull engine updates later.</p>
 </div>
 <h2 id="a-custom-instance_create-you-should-know-about">A custom <code>instance_create</code> you should know about<a class="headerlink" href="#a-custom-instance_create-you-should-know-about" title="Permanent link">&para;</a></h2>
-<p>The engine overrides <code>instance_create</code> (<code>scripts/custom/custom.gml:297</code>):</p>
+<p>The engine overrides <code>instance_create</code> (<code>scripts/custom/custom.gml:315</code>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {})
 </code></pre></div>
 <p>Two things differ from what you might expect, and both matter:</p>
@@ -1630,10 +1664,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

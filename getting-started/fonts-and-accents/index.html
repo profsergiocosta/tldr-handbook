@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1987,7 +1987,7 @@
 <p>That sentence carries two different accent families: <code>é</code> (acute, 233) and <code>ã</code> (tilde, 227). If both survive, the rest will too.</p>
 </li>
 <li>
-<p>Run. If <code>RoomTest</code> is not the first room, open the console with <span class="keys"><kbd class="key-tab">Tab</kbd></span>, type <code>room_select</code>, and pick it.</p>
+<p>Run. If <code>RoomTest</code> is not the first room, hold <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-r">R</kbd></span> (Room Select) and pick it.</p>
 </li>
 <li>Read the sign, and <strong>write down what you saw</strong>. That is your "before".</li>
 </ol>
@@ -2063,11 +2063,11 @@
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>          → fonts.json:  "font_text" → "font_main_mono"
 </code></pre></div>
 <p><strong>The enemy bubble branches off midway.</strong> It goes through the same <code>o_text_typer</code>, but a <em>preset</em> swaps the font:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>enemy.dialogue → actor_dialogue_create()          scripts/misc/misc.gml:313
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>enemy.dialogue → actor_dialogue_create()          scripts/misc/misc.gml:331
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>               → o_ui_actordialogue
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>                     preset = "{preset(enemy_text)}"    Create_0.gml:7
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>               → o_text_typer, handling that preset:
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                     font = loc_font("enc")             Other_10.gml:98
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                     font = loc_font("enc")             Other_10.gml:99
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>               → fonts.json:  "font_enc" → "font_dotumche"
 </code></pre></div>
 <p>So it is entirely possible to fix the sign, walk into a battle, and watch the enemy still speak without accents. <strong>Different assets.</strong></p>
@@ -2165,7 +2165,7 @@
 <h3 id="test-the-enemy-bubble-too">Test the enemy bubble too<a class="headerlink" href="#test-the-enemy-bubble-too" title="Permanent link">&para;</a></h3>
 <p>Signs and battle bubbles use <strong>different fonts</strong>, so one can be right while the other is broken:</p>
 <ol>
-<li>Open the console (<span class="keys"><kbd class="key-tab">Tab</kbd></span>) and type <code>encounter_select</code>.</li>
+<li>Hold <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span> to open Encounter Select.</li>
 <li>Pick any encounter whose enemy speaks with accented text.</li>
 <li>Read the bubble above the enemy at the start of the round.</li>
 </ol>
@@ -2481,10 +2481,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

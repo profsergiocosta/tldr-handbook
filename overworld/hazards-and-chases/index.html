@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1603,9 +1603,7 @@
 <hr />
 <h3 id="step-0-create-the-patrol-path-asset">Step 0 — Create the patrol path asset<a class="headerlink" href="#step-0-create-the-patrol-path-asset" title="Permanent link">&para;</a></h3>
 <ol>
-<li>In the GameMaker <strong>Asset Browser</strong>, right-click <code>Paths</code> $
-ightarrow$ <strong>Create</strong> $
-ightarrow$ <strong>Path</strong>.</li>
+<li>In the GameMaker <strong>Asset Browser</strong>, right-click <code>Paths</code> → <strong>Create</strong> → <strong>Path</strong>.</li>
 <li>Name it <strong><code>path_corridor_patrol</code></strong>.</li>
 <li>In the Path Editor:</li>
 <li>Click to add Point 0 at <code>(0, 0)</code>.</li>
@@ -1666,17 +1664,15 @@ ightarrow$ <strong>Path</strong>.</li>
 <li>Stretch its bounding box (<code>scaleX</code> and <code>scaleY</code>) to cover the entire hazardous floor.</li>
 </ol>
 <p><code>o_trigger_dodge</code> handles all state management automatically (<code>objects/o_trigger_dodge/Create_0.gml</code>):
-- <strong>Entering:</strong> Calls <code>dodge_on()</code> $
-ightarrow$ Spawns <code>o_dodge_soul</code> over Kris and enables real-time damage.
-- <strong>Exiting:</strong> Calls <code>dodge_off()</code> $
-ightarrow$ Destroys <code>o_dodge_soul</code> and restores normal overworld control.</p>
+- <strong>Entering:</strong> Calls <code>dodge_on()</code> → Spawns <code>o_dodge_soul</code> over Kris and enables real-time damage.
+- <strong>Exiting:</strong> Calls <code>dodge_off()</code> → Destroys <code>o_dodge_soul</code> and restores normal overworld control.</p>
 <hr />
 <h3 id="step-3-create-an-overworld-hazard-bullet-o_hazard_car">Step 3 — Create an overworld hazard bullet (<code>o_hazard_car</code>)<a class="headerlink" href="#step-3-create-an-overworld-hazard-bullet-o_hazard_car" title="Permanent link">&para;</a></h3>
 <p>Let's make a simple moving obstacle that crosses the road and damages the red SOUL:</p>
 <ol>
 <li>In the Asset Browser, create an Object named <strong><code>o_hazard_car</code></strong>.</li>
 <li>Set its <strong>Parent</strong> to <strong><code>o_dodge_bullet</code></strong> (<code>objects/o_dodge_bullet/</code>).</li>
-<li>Set its <strong>Sprite</strong> (e.g. <code>spr_ex_ow_city_car_left</code> or any hazard sprite).</li>
+<li>Set its <strong>Sprite</strong> — <code>spr_e_killercar</code> works for testing, or draw your own. The sprite's collision mask is what hits the SOUL.</li>
 <li>Add a <strong>Create Event</strong>:
    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>event_inherited(); // Inherits collision and graze code
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>spd = 5;
@@ -1828,10 +1824,10 @@ ightarrow$ Destroys <code>o_dodge_soul</code> and restores normal overworld cont
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

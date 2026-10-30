@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1105,10 +1105,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#adding-a-member-party_add" class="md-nav__link">
+  <a href="#adding-a-member-party_member_add" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adding a member (party_add)
+        Adding a member (party_member_add)
       
     </span>
   </a>
@@ -1116,10 +1116,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#removing-a-member-party_remove" class="md-nav__link">
+  <a href="#removing-a-member-party_member_kick" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Removing a member (party_remove)
+        Removing a member (party_member_kick)
       
     </span>
   </a>
@@ -1565,10 +1565,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#adding-a-member-party_add" class="md-nav__link">
+  <a href="#adding-a-member-party_member_add" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adding a member (party_add)
+        Adding a member (party_member_add)
       
     </span>
   </a>
@@ -1576,10 +1576,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#removing-a-member-party_remove" class="md-nav__link">
+  <a href="#removing-a-member-party_member_kick" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Removing a member (party_remove)
+        Removing a member (party_member_kick)
       
     </span>
   </a>
@@ -1784,25 +1784,26 @@
 <hr />
 <h2 id="1-adding-and-removing-party-members">1. Adding and removing party members<a class="headerlink" href="#1-adding-and-removing-party-members" title="Permanent link">&para;</a></h2>
 <p>You can modify party composition on the fly in cutscenes, room triggers, or plot milestones using built-in party helpers (<code>scripts/party_scripts/party_scripts.gml</code>):</p>
-<h3 id="adding-a-member-party_add">Adding a member (<code>party_add</code>)<a class="headerlink" href="#adding-a-member-party_add" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Adds Susie to the active follower lineup
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>party_add("susie");
+<h3 id="adding-a-member-party_member_add">Adding a member (<code>party_member_add</code>)<a class="headerlink" href="#adding-a-member-party_member_add" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>// Adds Susie to the active party and creates her follower next to the leader
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>party_member_add("susie");
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>// Smoothly align the follower trail behind the leader
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>party_member_interpolate("susie");
 </code></pre></div>
-<h3 id="removing-a-member-party_remove">Removing a member (<code>party_remove</code>)<a class="headerlink" href="#removing-a-member-party_remove" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Removes Noelle from the party
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>party_remove("noelle");
+<p><code>party_member_add(name, _x, _y, _recalculate_positions)</code> pushes the name onto <code>global.party_names</code> and creates the follower instance (<code>scripts/party_scripts/party_scripts.gml:16</code>). <code>_x</code> and <code>_y</code> default to the leader's position.</p>
+<h3 id="removing-a-member-party_member_kick">Removing a member (<code>party_member_kick</code>)<a class="headerlink" href="#removing-a-member-party_member_kick" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Removes Noelle from the party and deletes her follower
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>party_member_kick("noelle");
 </code></pre></div>
 <h3 id="checking-and-modifying-party-stats">Checking and modifying party stats<a class="headerlink" href="#checking-and-modifying-party-stats" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Read a character's current HP or Attack
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>var kris_hp = party_getdata("kris", "hp");
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>var susie_atk = party_getdata("susie", "attack");
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>// Heal or damage a character
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>// Heal or hurt a character
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>party_heal("susie", 50);
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>party_damage("kris", 20);
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>party_hurt("kris", 20);
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>// Heal the entire team
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>party_heal_all(100);
@@ -1828,11 +1829,6 @@
 <td>Striped green sweater, brown skin</td>
 </tr>
 <tr>
-<td><strong>Party</strong></td>
-<td>Full team (Kris, Susie, Ralsei, Noelle)</td>
-<td>Kris alone (Susie follows as separate NPC)</td>
-</tr>
-<tr>
 <td><strong>Pause Menu</strong></td>
 <td>Full <code>o_ui_menu</code> (ITEMS, EQUIP, POWER, CONFIG)</td>
 <td>Minimal <code>o_ui_menu_lw</code> (ITEM, STAT, CELL, CONFIG)</td>
@@ -1856,11 +1852,11 @@
 <li>Open its <strong>Variable Definitions</strong> in the Inspector.</li>
 <li>Set <strong><code>world</code></strong> to <strong><code>WORLD_TYPE.LIGHT</code></strong>.</li>
 </ol>
-<p>When the room loads, <code>o_dev_world</code> calls <code>world_switch(WORLD_TYPE.LIGHT)</code>:
-- Kris switches to Light World sprites (<code>spr_kris_lw_*</code>).
-- Followers automatically detach so Kris walks alone.
-- Equipment transforms into Light World counterparts.
-- The pause menu switches to <code>o_ui_menu_lw</code>.</p>
+<p>When the room loads, <code>o_dev_world</code> calls <code>world_switch(WORLD_TYPE.LIGHT)</code> (<code>scripts/misc/misc.gml:287</code>), which sets <code>global.world</code> and converts the <strong>leader's</strong> equipment (<code>convert_leader_equipment()</code>). From then on, the rest of the engine reads <code>global.world</code>:
+- Party sprites switch to their <code>_light</code> variants, e.g. <code>spr_kris_down_light</code> (<code>scripts/party_scripts/party_scripts.gml:268</code>).
+- Items with an <code>lw_counterpart</code> are converted (<code>scripts/misc/misc.gml:250</code>).
+- The pause menu opens <code>o_ui_menu_lw</code> instead of the Dark World menu.</p>
+<p><code>world_switch</code> does <strong>not</strong> remove anyone from the party. Who follows Kris in the Light World is still <code>global.party_names</code> — use <code>party_member_kick</code> if a scene needs Kris alone.</p>
 <hr />
 <h2 id="3-dual-world-item-counterparts">3. Dual-World item counterparts<a class="headerlink" href="#3-dual-world-item-counterparts" title="Permanent link">&para;</a></h2>
 <p>In DELTARUNE, items change form between worlds (a spooky sword in the Dark World becomes a Halloween pencil in the Light World; a pile of dark candy becomes a pile of chalk).</p>
@@ -1885,20 +1881,29 @@
 </code></pre></div>
 <hr />
 <h2 id="4-the-recruits-system-recruitsgml">4. The Recruits System (<code>recruits.gml</code>)<a class="headerlink" href="#4-the-recruits-system-recruitsgml" title="Permanent link">&para;</a></h2>
-<p>In DELTARUNE Chapter 2, sparing enemies repeatedly recruits them to Castle Town. tlDR Engine includes full recruit progress tracking (<code>scripts/recruits/recruits.gml</code>).</p>
+<p>In DELTARUNE Chapter 2, sparing enemies repeatedly recruits them to Castle Town. tlDR Engine tracks recruit progress in <code>scripts/recruits/recruits.gml</code>.</p>
 <h3 id="how-recruits-work">How recruits work<a class="headerlink" href="#how-recruits-work" title="Permanent link">&para;</a></h3>
-<p>Every enemy definition can specify its recruit requirement in <code>scripts/enc_enemies_recruits/</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// In an enemy struct definition:
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>recruit_need = 3; // Sparing this enemy 3 times recruits them permanently
+<p>An enemy is recruitable when its <code>recruit</code> field holds a recruit struct. The base <code>enemy()</code> sets <code>recruit = new enemy_recruit()</code>; the virovirokun overrides it with its own (<code>scripts/enc_enemies/enc_enemies.gml:261</code>). Recruit structs live in <code>scripts/enc_enemies_recruits/enc_enemies_recruits.gml</code> and inherit from <code>enemy_recruit()</code>, whose <code>need</code> field is how many spares it takes (default <code>2</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// scripts/rpg_enc_recruits/rpg_enc_recruits.gml
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>function enemy_recruit_sonso(data = {progress: 0}) : enemy_recruit(data) constructor {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    need    = 3                 // spare him 3 times to recruit him
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    sprite  = spr_ex_e_tasque
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    bgcolor = c_orange
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>}
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>// inside rpg_enemy_sonso()
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>recruit = new enemy_recruit_sonso()
 </code></pre></div>
-<p>When spared in battle, the engine calls <code>recruit_advance(enemy)</code>:
-- Spawns the recruitment progress counter (e.g. <code>1/3</code>, <code>2/3</code>, <code>RECRUITED!</code>).
-- Once fully recruited, the recruit appears in Castle Town rooms or the Recruits Menu (<code>o_ui_recruits</code>).</p>
+<p>Sparing advances progress with <code>recruit_advance(enemy)</code> (<code>scripts/recruits/recruits.gml:3</code>), called from the spare cutscene in <code>scripts/cutscene_shortcuts/cutscene_shortcuts.gml</code>. Defeating a recruitable enemy calls <code>recruit_lose</code>, after which it can no longer be recruited (<code>recruit_islost</code>).</p>
 <h3 id="checking-recruit-status-in-scripts">Checking recruit status in scripts<a class="headerlink" href="#checking-recruit-status-in-scripts" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>// Check if an enemy has been successfully recruited
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>if recruit_isrecruited(new enc_e_virovirokun()) {
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    // Spawn the NPC in your town room!
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>}
+<p>All the recruit functions take an <strong>enemy struct</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>var _virovirokun = new enemy_virovirokun();
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>if recruit_isrecruited(_virovirokun) {
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    // Spawn the NPC in your town room!
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>}
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>var _progress = recruit_get_progress(_virovirokun);   // how many spares so far
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>var _need     = recruit_getneed(_virovirokun);        // how many it takes
 </code></pre></div>
 <hr />
 <h2 id="tutorial-your-first-party-join-cutscene-in-5-steps">Tutorial: Your first party join cutscene in 5 steps<a class="headerlink" href="#tutorial-your-first-party-join-cutscene-in-5-steps" title="Permanent link">&para;</a></h2>
@@ -1907,7 +1912,7 @@
 <h3 id="step-0-place-susie-as-an-overworld-npc">Step 0 — Place Susie as an overworld NPC<a class="headerlink" href="#step-0-place-susie-as-an-overworld-npc" title="Permanent link">&para;</a></h3>
 <ol>
 <li>In your room on the <code>Instances</code> layer, place an <code>o_ow_npc</code>.</li>
-<li>Set its sprite to <code>spr_ow_npc_susie_idle</code>.</li>
+<li>Set its sprite to <code>spr_susie_down</code>.</li>
 <li>Give this instance the name <code>inst_susie_npc</code>.</li>
 </ol>
 <hr />
@@ -1931,8 +1936,8 @@
 <a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
 <a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    // 2. Susie joins the team
 <a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    cutscene_func(function(npc_inst) {
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        // Add Susie to global party array
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        party_add("susie");
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        // Add Susie to the party and create her follower
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        party_member_add("susie");
 <a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>        party_member_interpolate("susie");
 <a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>
 <a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>        // Destroy the static NPC instance
@@ -1969,7 +1974,7 @@
 </tr>
 <tr>
 <td>Follower teleports across screen when added</td>
-<td>Forgot to call <code>party_member_interpolate(name)</code> right after <code>party_add(name)</code></td>
+<td>Forgot to call <code>party_member_interpolate(name)</code> right after <code>party_member_add(name)</code></td>
 </tr>
 <tr>
 <td>Dual-world item disappears when changing rooms</td>
@@ -2038,10 +2043,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

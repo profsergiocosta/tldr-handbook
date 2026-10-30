@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -32,10 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2011,7 +2011,7 @@
 <p>Leave camera tracking to <code>o_dev_playermarker</code>, which automatically finds the global camera and binds it to the party leader on creation.</p>
 </div>
 <h3 id="test-now">Test now<a class="headerlink" href="#test-now" title="Permanent link">&para;</a></h3>
-<p>Press <strong>Run</strong> (<span class="keys"><kbd class="key-f5">F5</kbd></span>). Open the console with <span class="keys"><kbd class="key-tab">Tab</kbd></span>, type <code>room_select</code>, and pick <code>room_sanctuary</code>.</p>
+<p>Press <strong>Run</strong> (<span class="keys"><kbd class="key-f5">F5</kbd></span>). Hold <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-r">R</kbd></span> (Room Select), and pick <code>room_sanctuary</code>.</p>
 <p>You should see Kris (and your party members) standing in the middle of a blank room, able to walk in four directions with smooth camera follow.</p>
 <hr />
 <h2 id="step-2-laying-the-floor-and-solid-walls">Step 2 — Laying the floor and solid walls<a class="headerlink" href="#step-2-laying-the-floor-and-solid-walls" title="Permanent link">&para;</a></h2>
@@ -2055,7 +2055,7 @@
 <p>Let us add a friendly guide NPC who gives directions and remembers when you speak to them again.</p>
 <ol>
 <li>On the <strong><code>Instances</code></strong> layer, drag an <strong><code>o_ow_npc</code></strong> into the room at <code>(400, 320)</code>.</li>
-<li>In its inspector properties, set <strong>Sprite</strong> to <code>spr_ralsei_d</code> (or any NPC sprite of your choice).</li>
+<li>In its inspector properties, set <strong>Sprite</strong> to <code>spr_ralsei_down</code> (or any NPC sprite of your choice).</li>
 <li>Open its <strong>Instance Creation Code</strong> and paste:</li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>interaction_code = function() {
@@ -2171,12 +2171,20 @@
 <li>Place an <strong><code>o_trigger_warp</code></strong> at <code>(580, 240)</code> on the right wall over the open hallway.</li>
 <li>Stretch it vertically (<code>scaleX = 1.0</code>, <code>scaleY = 3.0</code>) so the player cannot slip past.</li>
 <li>In its <strong>Variables</strong> panel, configure:</li>
-<li><code>target_room</code>: <code>room_ex_city</code> (or any room asset in your project).</li>
-<li><code>target_marker</code>: <code>0</code> (or a string like <code>"entrance"</code>).</li>
-<li><code>enter_sound</code>: <em>(leave empty)</em>.</li>
+<li><code>target_room</code>: <code>room_test_main</code> (or any room asset in your project that has an <code>o_dev_marker_land</code> — see below).</li>
+<li>
+<p><code>target_marker</code>: <code>0</code> (or a string like <code>"entrance"</code>).</p>
+</li>
+<li>
+<p><code>enter_sound</code>: <em>(leave empty)</em>.</p>
+</li>
 <li><code>exit_sound</code>: <em>(leave empty)</em>.</li>
 <li><code>exit_direction</code>: <code>DIR.RIGHT</code> (the leader keeps walking right).</li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title">The destination needs a landing marker</p>
+<p>Not every example room has one. <code>room_ex_city</code>, for instance, has <strong>no</strong> <code>o_dev_marker_land</code>, so warping there drops the party in the wrong place. <code>room_test_main</code> has two.</p>
+</div>
 <hr />
 <h3 id="option-b-doorway-with-opening-closing-sound-effects">Option B: Doorway with opening &amp; closing sound effects<a class="headerlink" href="#option-b-doorway-with-opening-closing-sound-effects" title="Permanent link">&para;</a></h3>
 <p>If your exit represents a physical door (like entering a shop, house, or inner sanctum):</p>
@@ -2191,11 +2199,10 @@
 <li><code>exit_sound</code>: <strong><code>snd_doorclose</code></strong> <em>(plays the door shutting when the screen fades into the new room)</em>.</li>
 <li><code>exit_direction</code>: <strong><code>DIR.DOWN</code></strong> <em>(characters step into the new room facing forward)</em>.</li>
 </ol>
-<blockquote>
-<p>[!NOTE]
-<strong>How the engine executes the door transition</strong><br />
-When the player touches <code>o_trigger_warp</code> (<code>objects/o_trigger_warp/Other_10.gml</code>), it immediately plays <code>enter_sound</code> (<code>snd_dooropen</code>), locks player input, and triggers a 7-frame screen fade (<code>fader_fade(0, 1, 7)</code>). In <code>Alarm[0]</code>, the room switches, <code>exit_sound</code> (<code>snd_doorclose</code>) plays, the party appears on the destination marker, and the screen fades back in!</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">How the engine executes the door transition</p>
+<p>When the player touches <code>o_trigger_warp</code> (<code>objects/o_trigger_warp/Other_10.gml</code>), it immediately plays <code>enter_sound</code> (<code>snd_dooropen</code>), locks player input, and triggers a 7-frame screen fade (<code>fader_fade(0, 1, 7)</code>). In <code>Alarm[0]</code>, the room switches, <code>exit_sound</code> (<code>snd_doorclose</code>) plays, the party appears on the destination marker, and the screen fades back in!</p>
+</div>
 <hr />
 <h3 id="setting-up-the-destination-landing-marker-o_dev_marker_land">Setting up the destination landing marker (<code>o_dev_marker_land</code>)<a class="headerlink" href="#setting-up-the-destination-landing-marker-o_dev_marker_land" title="Permanent link">&para;</a></h3>
 <p>Whichever transition style you use, the destination room <strong>must</strong> know where the party should land:</p>
@@ -2333,10 +2340,10 @@ When the player touches <code>o_trigger_warp</code> (<code>objects/o_trigger_war
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>
