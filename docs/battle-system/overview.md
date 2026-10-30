@@ -30,7 +30,7 @@ Each party member gets a row of **five buttons** (`objects/o_enc/Create_0.gml:82
 | **DEFEND** | Damage taken drops to 2/3 and the turn gets shorter. |
 
 !!! warning "Only Kris has ACT"
-    In the shipped party data, only Kris carries `item_s_act` (`scripts/party_init/party_init.gml:152`). Susie, Ralsei and Noelle show **MAGIC** in that slot instead. If you test a fight with Susie selected and cannot find the ACT button, that is why — not a bug.
+    In the shipped party data, only Kris carries `item_s_act` (`scripts/party_init/party_init.gml:206`). Susie, Ralsei and Noelle show **MAGIC** in that slot instead. If you test a fight with Susie selected and cannot find the ACT button, that is why — not a bug.
 
     To give the other characters an enemy-specific action, use the sibling field `acts_special`, which has one entry per character name and appears inside their MAGIC menu. There is a worked example on the virovirokun in `scripts/enc_enemies/enc_enemies.gml:239`.
 

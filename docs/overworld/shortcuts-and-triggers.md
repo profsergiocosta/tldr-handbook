@@ -81,7 +81,7 @@ For the warp to position Kris properly:
 
 Let's place a switch that unlocks a passage by removing collision:
 
-1. Select the **`collisions`** layer and place an `o_block` across an archway. Name this instance `inst_iron_gate`.
+1. Select the **`collisions`** layer and place an `o_block` across an archway. Double-click the instance and change its **name** at the top of the instance window to `inst_iron_gate` — that name is what the code below refers to.
 2. Select the **`Instances`** layer and place an `o_ow_npc` (or sign/switch). Set its sprite to `spr_ex_ow_church_switch`.
 3. In its **Instance Creation Code**, write:
 
@@ -89,7 +89,7 @@ Let's place a switch that unlocks a passage by removing collision:
 interaction_code = function() {
     // Flip switch sprite frame
     image_index = 1;
-    audio_play(snd_switch);
+    audio_play(snd_ui_select);
     
     // Open the iron gate by turning off collision
     with (inst_iron_gate) {

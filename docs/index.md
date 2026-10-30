@@ -13,11 +13,11 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 
 | | |
 |---|---|
-| **Who it is for** | Anyone who can read a `for` loop in GML and wants to build a game rather than study an engine |
+| **Who it is for** | Anyone who wants to build a DELTARUNE-style game — including people who have never opened GameMaker. Where the book assumes GameMaker or GML knowledge, it says so |
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
 | **Structure** | 18 chapters in 4 parts, plus 5 reference pages |
 | **Status** | Work in progress — written as I learn, and still moving |
-| **Engine version** | Verified against tlDR Engine commit `7308e305` |
+| **Engine version** | Verified against tlDR Engine commit `73280a31` |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
 
 If you have never played DELTARUNE or Undertale, start with **[How a fight works](battle-system/overview.md)**. The genre makes assumptions that are invisible from the outside, and every design decision in the battle system follows from them.
@@ -34,7 +34,7 @@ That matters for two reasons, and you should know both before you rely on anythi
 
 **The first is that I ask beginner questions.** Why does my accent not show up? Where exactly does this code go? Why does my trigger do nothing? Those are not interesting questions to someone who already knows the engine, which is precisely why they are rarely written down — and why every one of them cost me an afternoon. They are answered here.
 
-**The second is that I cannot trust my instincts**, because I have none yet. So I check everything. Every claim in this book was traced back to a specific line of engine source, which is why you keep seeing references like `objects/o_enc/Step_0.gml:321`. When something surprised me, I went and read the code instead of guessing — and several times the guess would have been wrong.
+**The second is that I cannot trust my instincts**, because I have none yet. So I check everything. Every claim in this book was traced back to a specific line of engine source, which is why you keep seeing references like `objects/o_enc/Step_0.gml:336`. When something surprised me, I went and read the code instead of guessing — and several times the guess would have been wrong.
 
 That verification work was done with the help of **Claude**, an AI assistant, reading the engine source alongside me. The writing, the structure, the decisions about what deserves a chapter, and every mistake that survived, are mine.
 
@@ -54,7 +54,7 @@ None of this would be worth writing about if the engine were not so carefully bu
 * **Hooks are inert until you use them.** Every `ev_*` field sits at `-1` doing nothing until you assign a function. No callbacks to register, no interfaces to implement.
 * **Localization is a layer, not a sprinkle.** Text and font choices resolve through `loc()` and a JSON map, so a whole game can change language without touching a line of GML.
 * **Examples are separated from the engine.** Everything demonstrative is prefixed `ex_`, leaving your own scripts clean and engine updates easy to pull.
-* **There is real tooling.** The in-game console — `encounter_select`, `room_select`, `party_select` — turns a twenty-minute test cycle into a five-second one. Someone thought hard about the experience of *building* with this, not just playing it.
+* **There is real tooling.** The in-game console — hold ++tab++ plus a letter to pick an encounter, jump to a room or change the party — turns a twenty-minute test cycle into a five-second one. Someone thought hard about the experience of *building* with this, not just playing it.
 
 Thank you to **tweenko** and everyone who contributed to it. This book is only an attempt to lower the first step for the next person who arrives the way I did.
 
@@ -73,7 +73,7 @@ Getting the project open, getting it running, and fixing the one thing that bite
 
 Everything outside of combat: the rooms the player walks through and the things they talk to.
 
-* **[Rooms and collision](overworld/rooms-and-collision.md)** — the three objects every room needs, the layer-depth convention, walls, warps and triggers
+* **[Rooms and collision](overworld/rooms-and-collision.md)** — the two objects every room needs, the layer-depth convention, walls, warps and triggers
 * **[NPCs and dialogue](overworld/npcs-and-dialogue.md)** — the interaction scan, cutscenes, and the full dialogue markup language
 * **[Tiles and tilesets](overworld/tiles-and-tilesets.md)** — the 20×20 grid, layer ordering, and a practical order for building a room
 * **[Your first room](overworld/your-first-room.md)** — an eight-step walkthrough building a sanctuary with collision, signs, an NPC, a glowing prophecy mural, and transitions
@@ -88,7 +88,7 @@ Everything outside of combat: the rooms the player walks through and the things 
 The heart of the engine, built up from concepts to a complete, playable enemy.
 
 * **[How a fight works](battle-system/overview.md)** — the design ideas first, then the objects that implement them
-* **[Your first enemy](battle-system/your-first-enemy.md)** — nine steps from an empty file to a fight with a personality
+* **[Your first enemy](battle-system/your-first-enemy.md)** — eleven steps from an empty file to a fight with a personality
 * **[The arena](battle-system/the-arena.md)** — making the box, the background and the enemy count part of the performance
 * **[Advanced patterns](battle-system/advanced-patterns.md)** — custom bullets, animated paths, support enemies, and scaling difficulty
 
@@ -113,9 +113,9 @@ GML structs accept any field you assign to them. Writing `maxhp` when the engine
 So: **copy from a working example rather than typing from memory**, and when something silently does nothing, suspect the field name first.
 
 !!! tip "Your fastest feedback loop"
-    Press ++tab++ in game to open the console. `encounter_select` starts any battle instantly, `room_select` jumps to any room, `party_select` changes your party, and `encounter_end` ends the current turn.
+    The console is not a text prompt: **hold ++tab++ and then hold a letter** until the bar fills. ++tab++ + ++e++ starts any battle instantly, ++tab++ + ++r++ jumps to any room, ++tab++ + ++p++ changes your party, and ++tab++ + ++w++ ends the current encounter. The full list is in [Installation](getting-started/installation.md#first-run).
 
-    You will use `encounter_select` more than any other tool in this book — never build a room just to test a fight.
+    You will use ++tab++ + ++e++ more than any other tool in this book — never build a room just to test a fight.
 
 ---
 
@@ -130,9 +130,9 @@ function rpg_enemy_sonso() : enemy() constructor {
 }
 ```
 
-References to engine source look like `objects/o_enc/Step_0.gml:321` — path, then line. Everything here was checked against the source rather than remembered, and those references are there so you can check too.
+References to engine source look like `objects/o_enc/Step_0.gml:336` — path, then line. Everything here was checked against the source rather than remembered, and those references are there so you can check too.
 
-!!! info "Verified against engine commit `7308e305`"
+!!! info "Verified against engine commit `73280a31`"
     Line numbers drift as the engine changes. Paths and behaviour are far more stable than the numbers — if a reference does not line up, search for the surrounding code instead.
 
 The game runs at **30 frames per second**. Every duration in this book is given in frames, and 30 frames is one second. This trips people up constantly, because most GameMaker material assumes 60.

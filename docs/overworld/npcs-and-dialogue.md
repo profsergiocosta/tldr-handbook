@@ -164,7 +164,7 @@ Text is not plain — it is a small language interpreted by `o_text_typer` as it
 | `{link(id)}` / `{unlink(id)}` | animate an NPC while this text types |
 
 !!! warning "`{preset(...)}` changes the font"
-    `{preset(enemy_text)}` sets `font = loc_font("enc")` (`objects/o_text_typer/Other_10.gml:98`), which resolves to a **different font asset** from ordinary dialogue. If some text renders without accents while the rest is fine, look for a preset. See [Fonts and accents](../getting-started/fonts-and-accents.md).
+    `{preset(enemy_text)}` sets `font = loc_font("enc")` (`objects/o_text_typer/Other_10.gml:99`), which resolves to a **different font asset** from ordinary dialogue. If some text renders without accents while the rest is fine, look for a preset. See [Fonts and accents](../getting-started/fonts-and-accents.md).
 
 ## Which function starts the text?
 

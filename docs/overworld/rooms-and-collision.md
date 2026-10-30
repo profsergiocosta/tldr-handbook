@@ -11,7 +11,7 @@ Drop these into any new room and it will boot:
 | **`o_dev_world`** | The controller. It calls `world_switch(world)` on creation, which sets `global.world` and converts party equipment accordingly. Without it, nothing initialises. |
 | **`o_dev_playermarker`** | Where the party spawns. It creates the leader with `party_leader_create(...)` and then every other member behind them, and automatically points the camera at the leader. |
 
-`o_dev_world` has one Variable Definition worth knowing: **`world`**, which is `WORLD_TYPE.DARK` by default. Set it to `WORLD_TYPE.LIGHT` for Light World rooms — party sprites and equipment switch accordingly (`scripts/party_scripts/party_scripts.gml:240`).
+`o_dev_world` has one Variable Definition worth knowing: **`world`**, which is `WORLD_TYPE.DARK` by default. Set it to `WORLD_TYPE.LIGHT` for Light World rooms — party sprites and equipment switch accordingly (`scripts/party_scripts/party_scripts.gml:268`).
 
 !!! danger "Do NOT place `o_camera` in your rooms"
     `o_camera` is a **persistent singleton** spawned globally by `o_world` at game startup (`objects/o_world/Other_2.gml:6`). Placing a manual instance of `o_camera` inside a room creates a second camera whose target is `noone` at `(0, 0)`, which steals `view_camera[0]` and **turns the entire screen pitch black**.
@@ -63,7 +63,7 @@ Place them on the `collisions` layer, stretch them over whatever should be solid
 collide = true
 ```
 
-The player's movement code checks it on every instance it touches (`objects/o_actor/Step_0.gml:180`), which means **you can turn a wall off at runtime**:
+The player's movement code checks it on every instance it touches (`objects/o_actor/Step_0.gml:182`), which means **you can turn a wall off at runtime**:
 
 ```gml
 // a door that opens
@@ -75,9 +75,9 @@ This is much simpler than destroying and recreating instances, and it keeps the 
 
 ### How movement resolves collisions
 
-Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (`objects/o_actor/Step_0.gml:176` and `:194`). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.
+Worth knowing, because it explains some behaviour that otherwise looks like a bug. The player moves in sub-pixel steps and tests each axis independently (`objects/o_actor/Step_0.gml:176` and `:196`). Horizontal first, then vertical. That is why you slide along a wall instead of sticking to it when you push into it diagonally.
 
-Diagonal blocks get a second pass (`:229`) that also checks whether a regular `o_block` is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.
+Diagonal blocks get a second pass (`:231`) that also checks whether a regular `o_block` is interfering, so a diagonal that meets a straight wall behaves sensibly at the join.
 
 !!! warning "Blocks are not for the battle arena"
     The soul inside a battle collides with `o_enc_box_solid`, not `o_block`. They are separate systems — see [The arena](../battle-system/the-arena.md).
@@ -92,7 +92,7 @@ Anywhere you can run code:
 room_goto(room_my_next_area);
 ```
 
-Fine for prototyping, but the party will spawn at that room's `o_dev_playermarker`, which is rarely where you want them to arrive.
+Fine for prototyping, but the party will spawn at that room's `o_dev_playermarker`, which is rarely where you want them to arrive. With neither a player marker nor a landing marker, they appear at `(0, 0)`.
 
 ### The proper way: warp triggers
 
@@ -151,9 +151,9 @@ One-shot is often what you want, though. A trigger that starts a boss fight shou
 
 ### 3. The player must be in control
 
-With `controlled_activation = true` (the default), the trigger only fires when `get_leader()._checkmove()` is true (`objects/o_trigger/Step_0.gml:4`). That function requires `moveable_console`, `moveable_dialogue`, `moveable_battle` and several others to all be true (`objects/o_actor/Create_0.gml:197`).
+With `controlled_activation = true` (the default), the trigger only fires when `get_leader()._checkmove()` is true (`objects/o_trigger/Step_0.gml:4`). That function requires `moveable_console`, `moveable_dialogue`, `moveable_battle` and several others to all be true (`objects/o_actor/Create_0.gml:213`).
 
-In practice: **with the console open (++tab++), no trigger fires.** If you want a trigger that works regardless — room edges, for instance — set `controlled_activation = false` in the Creation Code.
+In practice: **while you are holding ++tab++ for the console, no trigger fires.** If you want a trigger that works regardless — room edges, for instance — set `controlled_activation = false` in the Creation Code.
 
 !!! tip "30-second diagnosis"
     Put `show_debug_message(">>> TRIGGER FIRED")` as the first line of `trigger_code`. If it never prints in the Output window while you walk over it, the problem is collision (1) or control (3), not your code.
@@ -168,6 +168,6 @@ In practice: **with the console open (++tab++), no trigger fires.** If you want 
 | The player walks through a wall | the `o_block` is on a layer the player does not collide with, or `collide` was set to `false` |
 | A trigger never fires | the instance is still 20×20 — stretch it |
 | A trigger fires once and never again | expected; reset `triggered` in `trigger_exit_code` |
-| No trigger fires while you are testing | the console is open |
+| No trigger fires while you are testing | you are holding ++tab++ (the console) |
 | Foreground tiles draw behind the player | depth is positive; foreground needs a negative depth |
 | Warping lands the party in the wrong spot | the destination has no `o_dev_marker_land` with the `m_id` you referenced |

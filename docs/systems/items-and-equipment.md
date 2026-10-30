@@ -17,6 +17,8 @@ graph TD
     A --> D["Armors (ITEM_TYPE.ARMOR)"]
     A --> E["Key Items (ITEM_TYPE.KEY)"]
     A --> F["Spells (ITEM_TYPE.SPELL)"]
+    A --> G["Storage (ITEM_TYPE.STORAGE)"]
+    A --> H["Light World (ITEM_TYPE.LIGHT)"]
 ```
 
 ### The 7 Item Types (`ITEM_TYPE`)
@@ -45,7 +47,7 @@ Let's create:
 
 ### Step 0 — Create your items script
 
-1. In the GameMaker **Asset Browser**, right-click `scripts` $ightarrow$ **Create** $ightarrow$ **Script**.
+1. In the GameMaker **Asset Browser**, right-click `scripts` → **Create** → **Script**.
 2. Name it **`my_game_items`**.
 3. Clear any default template code.
 
@@ -62,8 +64,7 @@ function item_star_candy() : item() constructor {
     
     // 2. Descriptions: [Overworld menu, Battle submenu, Action summary, Shop preview]
     desc = [
-        "A sugary, glowing star candy.
-Restores 80 HP.",
+        "A sugary, glowing star candy.\nRestores 80 HP.",
         "Heals 80HP",
         "Heals 80HP",
         "A sweet star that restores 80 HP."
@@ -106,8 +107,7 @@ If an item should heal or affect the entire party simultaneously (like the Top C
 function item_star_cake() : item() constructor {
     name = ["StarCake", "Star Cake"];
     desc = [
-        "A fluffy cake decorated with star icing.
-Restores 100 HP to everyone.",
+        "A fluffy cake decorated with star icing.\nRestores 100 HP to everyone.",
         "Heals team 100HP"
     ];
     
@@ -140,8 +140,7 @@ Weapons inherit from `item_weapon()` (`scripts/items_weapons/items_weapons.gml`)
 function item_w_starlight_sword() : item_weapon() constructor {
     name = ["Starlight Sword"];
     desc = [
-        "A shimmering blade forged from fallen star fragments.
-Attack +5, Magic +2.",
+        "A shimmering blade forged from fallen star fragments.\nAttack +5, Magic +2.",
         "--"
     ];
     
@@ -190,13 +189,12 @@ Attack +5, Magic +2.",
      ```gml
      new item_star_candy()
      ```
-   - (Optional) Set **`money_inside`** if the chest should grant Dark Dollars instead of an item.
+   - An `o_ow_chest` holds one item. For anything else (money, a cutscene), set `open_override` to a function in the Creation Code — it is called instead of the normal opening (`objects/o_ow_chest/Create_0.gml`).
 
 `o_ow_chest` handles everything automatically (`objects/o_ow_chest/`):
-- Plays opening creak audio (`snd_chestopen`).
-- Adds the item to inventory with `item_add()`.
-- Displays dialogue: `* You found the Star Candy! * (Added to your ITEMS.)`.
-- Saves state in persistent memory (`memory_set("chests", id, true)`) so the chest stays open forever.
+- Plays the opening sound (`snd_locker`) and shakes the screen.
+- Adds the item to inventory with `item_add()` and shows the pickup text.
+- Records the chest as opened (`memory_flick(state_group, id, true)`, with `state_group = "chests_open"`) so it stays open when you come back.
 
 ---
 
@@ -208,7 +206,7 @@ Run your game (`F5`) and test:
 - [ ] Opening the pause menu (`[C]` / `[CTRL]`) shows `StarCandy` in your **ITEMS** tab.
 - [ ] Using the item heals the selected character's HP and displays their custom reaction quote.
 - [ ] Opening the chest a second time shows it remains empty and already opened.
-- [ ] In the **EQUIP** menu, Kris can equip `Starlight Sword` and their attack stat increases by +5.
+- [ ] In the **EQUIP** menu, Kris can equip `Starlight Sword` and their attack stat increases by +5. (To get the sword without a shop, put `new item_w_starlight_sword()` in a second chest, or hold ++tab++ + ++i++ for Item Select.)
 
 ---
 
@@ -221,7 +219,7 @@ You can grant or remove items directly in cutscenes, dialogue scripts, or battle
 item_add(new item_star_candy());
 
 // Check if player has inventory space for a consumable
-if array_length(global.item) < item_get_maxcount(ITEM_TYPE.CONSUMABLE) {
+if item_get_count(ITEM_TYPE.CONSUMABLE) < item_get_maxcount(ITEM_TYPE.CONSUMABLE) {
     item_add(new item_star_candy());
 } else {
     // Inventory full — send to storage or show dialogue
@@ -229,7 +227,7 @@ if array_length(global.item) < item_get_maxcount(ITEM_TYPE.CONSUMABLE) {
 }
 
 // Check if party possesses a specific key item
-if item_contains(item_key_cellphone) {
+if item_inventory_contains(item_key_cell_phone) {
     // Trigger special dialogue
 }
 ```

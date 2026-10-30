@@ -34,7 +34,7 @@ Note the ordering: **User Event 2 fires before User Event 1.** The engine create
 The object is created during the `DIALOGUE` state — **several frames before the box exists**. Its Step runs the whole time.
 
 !!! danger "Guard the Step"
-    `o_enc.mybox` does not exist until the state turns `TURN` (`objects/o_enc/Step_0.gml:321`), and it is not even initialised in `o_enc`'s Create — so reading it early raises a *variable not set* error rather than returning `noone`.
+    `o_enc.mybox` does not exist until the state turns `TURN` (`objects/o_enc/Step_0.gml:336`), and it is not even initialised in `o_enc`'s Create — so reading it early raises a *variable not set* error rather than returning `noone`.
 
     ```gml
     event_inherited()
@@ -68,7 +68,7 @@ At 30 FPS, `timer_end = 60` is **two** seconds.
 | `enemy_index` | This enemy's slot in the encounter |
 | `enemy_struct` | The `enemy()` struct itself. `enemy_struct.actor_id` is the on-screen instance |
 
-Both are already filled in by the time User Event 0 runs — the engine passes them in the creation struct (`objects/o_enc/Step_0.gml:249`).
+Both are already filled in by the time User Event 0 runs — the engine passes them in the creation struct (`objects/o_enc/Step_0.gml:264`).
 
 ### Patterns
 
@@ -165,7 +165,7 @@ instance_create(o_enc_bullet, xx, yy, DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
 ```
 
 !!! warning "The creation struct only sets fields that already exist"
-    `instance_create` is overridden by the engine (`scripts/custom/custom.gml:297`). It applies the struct **after** the Create event, and skips any field the instance does not already have. Inventing a new field is **silently ignored**. Assign it after creation instead.
+    `instance_create` is overridden by the engine (`scripts/custom/custom.gml:315`). It applies the struct **after** the Create event, and skips any field the instance does not already have. Inventing a new field is **silently ignored**. Assign it after creation instead.
 
 ### Bullet colours
 

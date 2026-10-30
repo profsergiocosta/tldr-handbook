@@ -43,7 +43,7 @@ function my_shop() : shop() constructor {
 An array of 4 shop option constructors:
 
 ### 1. `new shop_option_buy(items_array, [dialogue_callback])`
-- `items_array`: Array of item struct instances (e.g. `[new item_candy(), new item_sword()]`).
+- `items_array`: Array of item struct instances (e.g. `[new item_lightcandy(), new item_w_spookysword()]`).
 - `dialogue_callback`: Function receiving a `context` parameter from `SHOP_TALK_CONTEXT`:
   - `SHOP_TALK_CONTEXT.IDLE`
   - `SHOP_TALK_CONTEXT.BOUGHT`

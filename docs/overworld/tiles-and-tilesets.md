@@ -16,8 +16,8 @@ Every tileset in the project uses **20 × 20 pixel** tiles:
 
 20×20 is not arbitrary: the game view is 320 × 240, so a screen is exactly 16 × 12 tiles. Designing rooms in multiples of a screen keeps camera transitions clean.
 
-!!! note "Art is drawn at 2×"
-    The engine's source art is twice the display size and drawn at `0.5` scale. You will see `draw_sprite_ext(..., .5, .5, ...)` throughout the codebase for this reason. When you author a new tileset, match the existing ones rather than the on-screen pixel size.
+!!! note "World art is drawn at 1×"
+    The world is a **320 × 240** view (`GAME_W` / `GAME_H` in `scripts/game_info/game_info.gml`) scaled up to the window, so tiles and sprites are authored at their on-screen pixel size: a tile is 20 × 20, Kris is 19 × 38. Only the interface (Draw GUI) works on a **640 × 480** canvas (`GAME_W_GUI` / `GAME_H_GUI`), twice the size. Match the existing tilesets — 20 × 20 tiles, no extra scaling.
 
 ## Layer conventions
 
@@ -55,7 +55,7 @@ A practical order that avoids rework:
 2. **Ground tiles** (`t_road`, `t_grounddecor`) — the walkable surface.
 3. **Structures** (`t_buildings`, `t_buildingstop`) — split into two layers so the tops of buildings can overlap the bottoms of the ones behind.
 4. **Collisions** — only now. Stretch `o_block` over everything solid. Do this after the art so you can see what you are blocking.
-5. **Instances** — NPCs, signs, triggers, `o_dev_world`, `o_dev_playermarker`, `o_camera`.
+5. **Instances** — NPCs, signs, triggers, `o_dev_world`, `o_dev_playermarker`. **Not** `o_camera`: the engine creates it, and a second one turns the screen black (see [Rooms and collision](rooms-and-collision.md)).
 6. **Foreground** (`t_foreground`) — awnings, treetops, anything the player should walk behind.
 
 !!! tip "Collision does not follow tiles"
@@ -89,7 +89,7 @@ Parallax is a background layer job, not a tile layer job — put it behind every
 | The player walks through a painted wall | tiles are not solid; add `o_block` |
 | Tiles have hairline gaps when the camera moves | the camera is at a fractional position, or the room size is not a multiple of the tile size |
 | A prop always draws in front of the player | it is not parented to `o_ow_depthobj` |
-| A new tileset looks blurry or doubled | authored at 1× instead of 2× — match the existing tilesets |
+| A new tileset looks blurry or doubled | tiles not 20 × 20, or the sprite was scaled when imported — match the existing tilesets |
 
 ## Next
 

@@ -74,7 +74,7 @@ Do not test in the middle of your game. A minimal room opens in two seconds and 
 
     That sentence carries two different accent families: `é` (acute, 233) and `ã` (tilde, 227). If both survive, the rest will too.
 
-4. Run. If `RoomTest` is not the first room, open the console with ++tab++, type `room_select`, and pick it.
+4. Run. If `RoomTest` is not the first room, hold ++tab++ + ++r++ (Room Select) and pick it.
 5. Read the sign, and **write down what you saw**. That is your "before".
 
 ---
@@ -150,11 +150,11 @@ o_ow_sign → dialogue_start()            objects/o_ow_sign/Other_10.gml:1
 **The enemy bubble branches off midway.** It goes through the same `o_text_typer`, but a *preset* swaps the font:
 
 ```text
-enemy.dialogue → actor_dialogue_create()          scripts/misc/misc.gml:313
+enemy.dialogue → actor_dialogue_create()          scripts/misc/misc.gml:331
                → o_ui_actordialogue
                      preset = "{preset(enemy_text)}"    Create_0.gml:7
                → o_text_typer, handling that preset:
-                     font = loc_font("enc")             Other_10.gml:98
+                     font = loc_font("enc")             Other_10.gml:99
                → fonts.json:  "font_enc" → "font_dotumche"
 ```
 
@@ -230,7 +230,7 @@ Compare the last one against any other text in the game — a menu, a sign in `r
 
 Signs and battle bubbles use **different fonts**, so one can be right while the other is broken:
 
-1. Open the console (++tab++) and type `encounter_select`.
+1. Hold ++tab++ + ++e++ to open Encounter Select.
 2. Pick any encounter whose enemy speaks with accented text.
 3. Read the bubble above the enemy at the start of the round.
 

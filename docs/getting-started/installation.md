@@ -30,18 +30,27 @@ Open `tldr-engine.yyp` in GameMaker.
 
 Press **Run** (++f5++). You should land in the engine's demo content.
 
-Now open the console with ++tab++ and type `help`. The commands are:
+The first build can take a few minutes; later runs are much faster.
 
-| Command | What it does |
-|---|---|
-| `room_select` | Jump to any room in the project |
-| `encounter_select` | Start any encounter immediately |
-| `party_select` | Choose who is in your party |
-| `encounter_end` | End the current battle turn |
-| `language_switch` | Cycle the language |
-| `save_wipe` | Erase save data |
+Now try the debug console. It is **not** a text prompt — you never type a command. **Hold ++tab++**, and a small box reading `tab+` appears in the top-left corner. **Keep holding ++tab++ and hold a letter**; when the bar under the command name fills, the command runs (`scripts/console/console.gml`):
 
-If all of that works, the engine is installed correctly.
+| Hold with ++tab++ | Command | What it does |
+|---|---|---|
+| ++h++ | Help | Shows every command on screen |
+| ++r++ | Room Select | Jump to any room in the project |
+| ++e++ | Encounter Select | Start any encounter immediately |
+| ++p++ | Party Select | Choose who is in your party |
+| ++i++ | Item Select | Give yourself any item |
+| ++w++ | End an Encounter | Leave the current battle |
+| ++t++ | Max out TP | Fill the TP bar |
+| ++m++ | Toggle Mute BGM | Mute the music |
+| ++l++ | Switch Language | Cycle the language |
+| ++d++ | Wipe Save Files | Erase save data |
+| ++n++ | Open Intro Sequence | Play the intro |
+
+Inside any picker, ++up++ / ++down++ move, ++enter++ confirms and ++esc++ cancels.
+
+If ++tab++ + ++h++ shows that list, the engine is installed correctly.
 
 ## The lay of the land
 
@@ -76,7 +85,7 @@ datafiles/loc/    translation and font-mapping JSON
 
 ## A custom `instance_create` you should know about
 
-The engine overrides `instance_create` (`scripts/custom/custom.gml:297`):
+The engine overrides `instance_create` (`scripts/custom/custom.gml:315`):
 
 ```gml
 function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {})

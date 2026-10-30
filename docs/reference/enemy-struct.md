@@ -119,7 +119,7 @@ The engine calls it as `method_call(act.exec, array_concat([target, acting_membe
 | `dia_bubble_sprites` | box + spike | Bubble sprites |
 
 !!! warning "`dialogue` receives no arguments"
-    The base's comment claims it can take the slot as arg0, but the call site is `variable_callable_to_value(enemies[i].dialogue)` — **with no arguments** (`objects/o_enc/Step_0.gml:254`). Writing `function(slot)` gives you `undefined`.
+    The base's comment claims it can take the slot as arg0, but the call site is `variable_callable_to_value(enemies[i].dialogue)` — **with no arguments** (`objects/o_enc/Step_0.gml:269`). Writing `function(slot)` gives you `undefined`.
 
     If you need the index, use `self.slot`, which the engine fills in (`objects/o_enc_anim/Alarm_1.gml:69`). To read your own fields from inside, define it with `method(self, function() { ... })`.
 

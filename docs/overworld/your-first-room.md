@@ -69,7 +69,7 @@ Switch to the **`Instances`** layer (depth `300`) and place these two objects:
 
 ### Test now
 
-Press **Run** (++f5++). Open the console with ++tab++, type `room_select`, and pick `room_sanctuary`.
+Press **Run** (++f5++). Hold ++tab++ + ++r++ (Room Select), and pick `room_sanctuary`.
 
 You should see Kris (and your party members) standing in the middle of a blank room, able to walk in four directions with smooth camera follow.
 
@@ -127,7 +127,7 @@ text = "{col(y)}* Sanctuary of the Ancients.{br}{resetx}* Seekers of the prophec
 Let us add a friendly guide NPC who gives directions and remembers when you speak to them again.
 
 1. On the **`Instances`** layer, drag an **`o_ow_npc`** into the room at `(400, 320)`.
-2. In its inspector properties, set **Sprite** to `spr_ralsei_d` (or any NPC sprite of your choice).
+2. In its inspector properties, set **Sprite** to `spr_ralsei_down` (or any NPC sprite of your choice).
 3. Open its **Instance Creation Code** and paste:
 
 ```gml
@@ -237,11 +237,15 @@ Finally, let us connect your sanctuary to the rest of the world. In tlDR Engine,
 1. Place an **`o_trigger_warp`** at `(580, 240)` on the right wall over the open hallway.
 2. Stretch it vertically (`scaleX = 1.0`, `scaleY = 3.0`) so the player cannot slip past.
 3. In its **Variables** panel, configure:
-   - `target_room`: `room_ex_city` (or any room asset in your project).
+   - `target_room`: `room_test_main` (or any room asset in your project that has an `o_dev_marker_land` — see below).
    - `target_marker`: `0` (or a string like `"entrance"`).
+
    - `enter_sound`: *(leave empty)*.
    - `exit_sound`: *(leave empty)*.
    - `exit_direction`: `DIR.RIGHT` (the leader keeps walking right).
+
+!!! warning "The destination needs a landing marker"
+    Not every example room has one. `room_ex_city`, for instance, has **no** `o_dev_marker_land`, so warping there drops the party in the wrong place. `room_test_main` has two.
 
 ---
 
@@ -259,9 +263,8 @@ If your exit represents a physical door (like entering a shop, house, or inner s
    - `exit_sound`: **`snd_doorclose`** *(plays the door shutting when the screen fades into the new room)*.
    - `exit_direction`: **`DIR.DOWN`** *(characters step into the new room facing forward)*.
 
-> [!NOTE]
-> **How the engine executes the door transition**  
-> When the player touches `o_trigger_warp` (`objects/o_trigger_warp/Other_10.gml`), it immediately plays `enter_sound` (`snd_dooropen`), locks player input, and triggers a 7-frame screen fade (`fader_fade(0, 1, 7)`). In `Alarm[0]`, the room switches, `exit_sound` (`snd_doorclose`) plays, the party appears on the destination marker, and the screen fades back in!
+!!! note "How the engine executes the door transition"
+    When the player touches `o_trigger_warp` (`objects/o_trigger_warp/Other_10.gml`), it immediately plays `enter_sound` (`snd_dooropen`), locks player input, and triggers a 7-frame screen fade (`fader_fade(0, 1, 7)`). In `Alarm[0]`, the room switches, `exit_sound` (`snd_doorclose`) plays, the party appears on the destination marker, and the screen fades back in!
 
 ---
 

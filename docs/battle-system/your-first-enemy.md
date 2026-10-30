@@ -89,10 +89,10 @@ a command name into it. It works by **key combination**:
 | ++r++ | `room_select` | Jump to any room |
 | ++p++ | `party_select` | Choose the party |
 | ++w++ | `encounter_end` | End the current turn instantly |
-| ++h++ | `help` | Prints all commands to the **Output** window |
+| ++h++ | `help` | Shows every command on screen |
 
 Inside any of those pickers: ++up++ / ++down++ to move, ++enter++ to confirm,
-++esc++ to cancel (`objects/o_dev_selector/Step_0.gml:36`).
+++esc++ to cancel (`objects/o_dev_selector/Step_0.gml:157`).
 
 !!! warning "The console blocks the game while it is open"
     Holding ++tab++ sets `global.console = true`, and a lot of the engine —
@@ -118,18 +118,18 @@ systems in scripts like `enc_enemies` and its examples in `ex_`-prefixed scripts
 keep custom enemies cleanly separated from the engine — making it easy to pull
 upstream engine updates later without conflicts.
 
-We will create the scripts and the actor as we need them (Step 1 and Step 3), and then build
-the turn object from scratch in Step 8.
+We create the actor and the first script right below, the encounter script in Step 3,
+and the turn object from scratch in Step 8.
 
 ### Create the actor object: `o_actor_sonso`
 
 Every enemy needs an actor representation in the world and battle. By creating a dedicated object inheriting from `o_actor_e`, your custom enemy stays cleanly decoupled from engine files and always has a valid sprite from birth:
 
-1. In the **Asset Browser** (on the right-hand side), right-click **Objects** $\rightarrow$ **Create** $\rightarrow$ **Object**.
+1. In the **Asset Browser** (on the right-hand side), right-click **Objects** → **Create** → **Object**.
 2. Name it **`o_actor_sonso`** and press ++enter++.
 3. In its inspector on the left, click **Parent** and choose **`o_actor_e`** (it will inherit all movement, chasing, and collision code automatically).
 4. Set its **Sprite** to **`spr_ex_e_tasque`**.
-5. Click **Add Event** $\rightarrow$ **Create**. In the code window that opens, enter:
+5. Click **Add Event** → **Create**. In the code window that opens, enter:
    ```gml
    event_inherited()
 
@@ -143,7 +143,7 @@ Every enemy needs an actor representation in the world and battle. By creating a
 ### Create the first script: `rpg_enc_enemies`
 
 1. In the **Asset Browser**, right-click the **Scripts**
-   folder $\rightarrow$ **Create** $\rightarrow$ **Script**.
+   folder → **Create** → **Script**.
 2. A new script appears in the tree with its name highlighted. Type
    **`rpg_enc_enemies`** and press ++enter++.
 3. The script opens in a new tab in the workspace. GameMaker automatically
@@ -158,9 +158,12 @@ Every enemy needs an actor representation in the world and battle. By creating a
 
 ### For sprites we borrow the cat that already exists
 
-The project ships a set of cat sprites unused by any enemy: `spr_ex_e_tasque`,
-`spr_ex_e_tasque_hurt`, `spr_ex_e_tasque_spared`. When you draw your own, it is
-three lines to swap.
+The project ships the sprites of **Tasque**, a cat-like enemy from DELTARUNE, unused
+by any enemy in the engine: `spr_ex_e_tasque`, `spr_ex_e_tasque_hurt`,
+`spr_ex_e_tasque_spared`. When you draw your own, it is three lines to swap —
+make them the same kind of sprite: around the same size (`spr_ex_e_tasque` is
+74 × 40 px, 6 frames), with the origin at the **bottom centre** so the cat stands
+on the ground.
 
 !!! warning "The rule that avoids 90% of the pain"
     A bare identifier in GML resolves as an **asset name at compile time**. If
@@ -253,8 +256,8 @@ Just like the enemy sheet, encounters live in their own script.
 
 ### Create the encounter script: `rpg_enc_sets`
 
-1. In the **Asset Browser**, right-click **Scripts** $\rightarrow$ **Create**
-   $\rightarrow$ **Script**.
+1. In the **Asset Browser**, right-click **Scripts** → **Create**
+   → **Script**.
 2. Name it **`rpg_enc_sets`** and press ++enter++.
 3. In the new tab that opens, **select all and delete any default template code**
    so the file is empty.
@@ -342,12 +345,12 @@ item_list = [
 !!! danger "No `new`, no quotes, no parentheses"
     Write `rpg_enc_set_sonso` bare. The picker stores the **function itself** and
     calls `new _item()._start()` when you confirm
-    (`objects/o_dev_encselect/Create_0.gml:13`). Writing `"rpg_enc_set_sonso"`
+    (`objects/o_dev_encselect/Create_0.gml:14`). Writing `"rpg_enc_set_sonso"`
     or `rpg_enc_set_sonso()` breaks it in a way the compiler will not catch.
 
 !!! info "The name you will see in the list is the function name"
     The picker labels each entry with `script_get_name()`
-    (`objects/o_dev_encselect/Create_0.gml:25`), so it will read
+    (`objects/o_dev_encselect/Create_0.gml:20`), so it will read
     **`rpg_enc_set_sonso`**, not `"sonso"`. It appears under the
     **uncategorized** heading, because `o_dev_encselect` sets no categories.
 
@@ -460,7 +463,7 @@ resolves. It is the idiom the engine uses
 **`dialogue` receives no arguments.** The base struct's comment says it "can
 accept the slot as arg0", but the call site is
 `variable_callable_to_value(enemies[i].dialogue)` — with **no arguments**
-(`objects/o_enc/Step_0.gml:254`). Writing `function(slot)` gives you `undefined`.
+(`objects/o_enc/Step_0.gml:269`). Writing `function(slot)` gives you `undefined`.
 If you need the index, use `self.slot`, which the engine fills in
 (`objects/o_enc_anim/Alarm_1.gml:69`).
 
@@ -552,7 +555,7 @@ them. The `enemy()` base ships with a sample "Check" ACT, and whatever you write
 !!! warning "Only Kris has the ACT button"
     The second menu slot is **ACT** for a character carrying `item_s_act`, and
     **MAGIC** for everyone else (`objects/o_enc/Create_0.gml:92`). In this
-    project only Kris has it (`scripts/party_init/party_init.gml:153`). If you
+    project only Kris has it (`scripts/party_init/party_init.gml:206`). If you
     test with Susie and cannot find ACT, that is why.
 
     To give the others their own action, use the sibling field `acts_special`,
@@ -726,7 +729,7 @@ Two non-obvious things:
 
 **`enemy_struct` is already filled in.** The engine creates the turn object
 passing `{enemy_index, enemy_struct}` in the creation struct and only *then*
-calls User Event 0 (`objects/o_enc/Step_0.gml:249`).
+calls User Event 0 (`objects/o_enc/Step_0.gml:264` creates it, `:281` calls the event).
 
 **Your `pattern` will not be overwritten.** The `o_turn` base draws a `pattern`
 from `pattern_pool` later, in User Event 2 — but with `??=`, so **only if it is
