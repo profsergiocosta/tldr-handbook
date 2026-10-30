@@ -6,7 +6,7 @@ Nine steps, each testable on its own. You can stop at any of them.
 
 ## Before you start
 
-You need Sonso working: `rpg_enemy_sonso()`, `rpg_enc_set_sonso()` and the `o_turn_sonso` object with its four events. If ++tab++ → `encounter_select` → `sonso` opens the fight and the cat attacks, you are ready.
+You need Sonso working: `rpg_enemy_sonso()`, `rpg_enc_set_sonso()` and the `o_turn_sonso` object with its four events. If ++tab++ + ++e++ → `rpg_enc_set_sonso` opens the fight and the cat attacks, you are ready.
 
 ## The idea
 
@@ -121,13 +121,13 @@ __support_destroy_check()
 ```
 
 !!! danger "`if timer == 0 exit` is not decoration"
-    The `turn_object` is **born before the box**: it is created during `DIALOGUE`, and `o_enc.mybox` only exists once the state turns `TURN` (`objects/o_enc/Step_0.gml:321`). Since `mybox` is not even initialised in `o_enc`'s Create, reading it early does not return `noone` — it raises a **variable not set error** and the game stops.
+    The `turn_object` is **born before the box**: it is created during `DIALOGUE`, and `o_enc.mybox` only exists once the state turns `TURN` (`objects/o_enc/Step_0.gml:336`). Since `mybox` is not even initialised in `o_enc`'s Create, reading it early does not return `noone` — it raises a **variable not set error** and the game stops.
 
     The guard works because `timer` only starts counting after User Event 1, which runs **after** the box is born. If `timer > 0`, the box certainly exists. It is the engine's own idiom — see `objects/o_turn_default_dark/Step_0.gml`.
 
     The first chapter's code escaped this by accident: every bullet pattern sat inside conditions like `timer % 30 == 0 && timer > 0` or `timer == 10`, which already required `timer > 0`. Add any bare line to the Step and the guard becomes necessary.
 
-`sine(divisor, multiplier)` is an engine function (`scripts/custom/custom.gml:491`): it returns a sine based on `o_world.frames`. Smaller divisor = faster; larger multiplier = wider.
+`sine(divisor, multiplier)` is an engine function (`scripts/custom/custom.gml:567`): it returns a sine based on `o_world.frames`. Smaller divisor = faster; larger multiplier = wider.
 
 !!! info "The soul is carried along, for free"
     Rotating the box does not let the player pass through the wall. `o_enc_box_solid` measures its own displacement, rotation and scale change every frame (`objects/o_enc_box_solid/Step_1.gml`), and `o_enc_soul/Step_1.gml` uses those values to push and rotate the soul with the arena.
@@ -167,7 +167,7 @@ The trailing `with` is mandatory: the box's Step recalculates scale as `image_xs
 !!! warning "The mask is hollow, not filled"
     The soul moves where there is **no** collision (`o_enc_soul/Step_0.gml`). A filled rectangle mask leaves it nowhere to stand. That is why the default `spr_enc_box_mask` is just an outline. When drawing your own, draw **the walls**, not the room.
 
-The ready-made example in the engine is **`o_ex_turn_complex_box`** — worth opening and running (`encounter_select`) before you draw your own.
+The ready-made example in the engine is **`o_ex_turn_complex_box`**, the Killer Car's attack in `enc_set_ex` — worth opening and running (++tab++ + ++e++ → `enc_set_ex`) before you draw your own.
 
 ---
 
@@ -292,7 +292,7 @@ When the grid does not fit, turn it off and draw your own.
 
 That kills layers 1 and 2. Layer 3, the veil, remains — and it is still what gives the arena focus.
 
-**Then create the object.** A night sanctuary shrine for the cat, with no new sprites at all — everything with `spr_pixel`, which is 1×1 with its origin at the corner, so `image_xscale` is literally the width in pixels:
+**Then create the object.** In the Asset Browser, **Objects → Create → Object**, name it `o_bg_sanctuary`, and leave both **Sprite** and **Parent** empty. Add the three events below (Create, Draw, Step). A night sanctuary shrine for the cat, with no new sprites at all — everything with `spr_pixel`, which is 1×1 with its origin at the corner, so `image_xscale` is literally the width in pixels:
 
 ```gml
 // ---------- o_bg_sanctuary / Create_0.gml ----------
@@ -362,7 +362,7 @@ Three decisions worth explaining:
 
 ### 6.4 The dark veil, as a dramatic tool
 
-Layer 3 (`o_eff_bg.fade`) is a black rectangle over everything. The engine animates it to `0.75` when the defence turn starts (`o_enc/Step_0.gml:241`) and back to `0` when it ends.
+Layer 3 (`o_eff_bg.fade`) is a black rectangle over everything. The engine animates it to `0.75` when the defence turn starts (`o_enc/Step_0.gml:256`) and back to `0` when it ends.
 
 Since it is just a variable, you can use it deliberately. Darken further when the cat is annoyed, for instance — the world disappears and only the arena is left:
 
@@ -410,6 +410,8 @@ function rpg_enc_set_sonso_double() : enc_set() constructor {
 
 Each `new` is an independent struct: the two cats have their own mood, HP and MERCY.
 
+Then **register it in the picker**, exactly as in step 4 of [Your first enemy](your-first-enemy.md#step-4-register-the-encounter-in-the-console-picker): add `rpg_enc_set_sonso_double` to `item_list` in `o_dev_encselect`'s Create event. Without that line it simply does not appear in the list.
+
 ### The surprising part: they do not attack twice
 
 You expect two bullet turns and get **one**. That is not a bug. Look at the `o_turn` base's User Event 0:
@@ -452,7 +454,7 @@ That is the same trick `o_turn_default_dark` uses.
 
     If you genuinely want **two independent turns**, set `allow_same_turns = true` in `o_turn_sonso`'s Create. Then brace yourself: two patterns at once in the same box.
 
-**Test:** `encounter_select` → `sonso_double`. Check that two names appear in the list, that you can choose which to attack, and that the attack got denser than with one cat.
+**Test:** ++tab++ + ++e++ → `rpg_enc_set_sonso_double`. Check that two names appear in the list, that you can choose which to attack, and that the attack got denser than with one cat.
 
 !!! info "How many fit?"
     There is no limit in the code, but the enemy name list is drawn at `375 + 30*i` in a 480px-tall interface (`o_enc/Draw_64.gml:190`). In practice: **3 comfortably, 4 tight**. The engine's examples use 2.
@@ -479,7 +481,7 @@ A Sonso who just wants to be left alone: survive three rounds without attacking 
     }
 ```
 
-The engine evaluates this while executing actions (`o_enc/Step_0.gml:216`), so the fight ends on the round after the condition is met.
+The engine evaluates it **before each queued action** while actions run (`o_enc/Step_0.gml:231`). So the fight ends right before the next action executes; if the action that satisfied the condition was the last one of the round, it ends when the next round's actions start.
 
 Other conditions the same structure allows: survive until `o_enc.turn_count == N`, accumulate TP (`o_enc.tp >= 100`), defeat one specific enemy, or a flag an ACT flips.
 
@@ -517,7 +519,7 @@ That is the default — a column on the left, vertically centred according to pa
 
 | What you changed | Fastest way to confirm |
 |---|---|
-| arena size | enter the fight and compare against a sample encounter (`encounter_select`) |
+| arena size | enter the fight and compare against a sample encounter (++tab++ + ++e++) |
 | size **per mood** | use the `DEBUG` ACT from the first chapter to force each mood |
 | rotation / shake | exaggerate first: `sine(2, 25)`. If nothing moves, the code is in the wrong event |
 | shape (sprites) | walk into the wall in all four directions. If the soul escapes, the mask is wrong |

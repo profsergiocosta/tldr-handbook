@@ -41,21 +41,23 @@ var count = party_length(true);
 
 You can modify party composition on the fly in cutscenes, room triggers, or plot milestones using built-in party helpers (`scripts/party_scripts/party_scripts.gml`):
 
-### Adding a member (`party_add`)
+### Adding a member (`party_member_add`)
 
 ```gml
-// Adds Susie to the active follower lineup
-party_add("susie");
+// Adds Susie to the active party and creates her follower next to the leader
+party_member_add("susie");
 
 // Smoothly align the follower trail behind the leader
 party_member_interpolate("susie");
 ```
 
-### Removing a member (`party_remove`)
+`party_member_add(name, _x, _y, _recalculate_positions)` pushes the name onto `global.party_names` and creates the follower instance (`scripts/party_scripts/party_scripts.gml:16`). `_x` and `_y` default to the leader's position.
+
+### Removing a member (`party_member_kick`)
 
 ```gml
-// Removes Noelle from the party
-party_remove("noelle");
+// Removes Noelle from the party and deletes her follower
+party_member_kick("noelle");
 ```
 
 ### Checking and modifying party stats
@@ -65,9 +67,9 @@ party_remove("noelle");
 var kris_hp = party_getdata("kris", "hp");
 var susie_atk = party_getdata("susie", "attack");
 
-// Heal or damage a character
+// Heal or hurt a character
 party_heal("susie", 50);
-party_damage("kris", 20);
+party_hurt("kris", 20);
 
 // Heal the entire team
 party_heal_all(100);
@@ -85,7 +87,6 @@ When you switch between worlds, the engine transforms gameplay rules and visual 
 | Feature | Dark World (`WORLD_TYPE.DARK`) | Light World (`WORLD_TYPE.LIGHT`) |
 |---|---|---|
 | **Kris Appearance** | Blue skin, silver armor, cape | Striped green sweater, brown skin |
-| **Party** | Full team (Kris, Susie, Ralsei, Noelle) | Kris alone (Susie follows as separate NPC) |
 | **Pause Menu** | Full `o_ui_menu` (ITEMS, EQUIP, POWER, CONFIG) | Minimal `o_ui_menu_lw` (ITEM, STAT, CELL, CONFIG) |
 | **Stats Display** | HP, Attack, Defense, Magic, TP Bar | HP, LV, EXP, Next, Guts |
 | **Equipment** | Magic Swords, Axes, Scarves, Ribbons | School Pencils, Wristwatches, Bandages |
@@ -98,11 +99,12 @@ To make any room a Light World room:
 2. Open its **Variable Definitions** in the Inspector.
 3. Set **`world`** to **`WORLD_TYPE.LIGHT`**.
 
-When the room loads, `o_dev_world` calls `world_switch(WORLD_TYPE.LIGHT)`:
-- Kris switches to Light World sprites (`spr_kris_lw_*`).
-- Followers automatically detach so Kris walks alone.
-- Equipment transforms into Light World counterparts.
-- The pause menu switches to `o_ui_menu_lw`.
+When the room loads, `o_dev_world` calls `world_switch(WORLD_TYPE.LIGHT)` (`scripts/misc/misc.gml:287`), which sets `global.world` and converts the **leader's** equipment (`convert_leader_equipment()`). From then on, the rest of the engine reads `global.world`:
+- Party sprites switch to their `_light` variants, e.g. `spr_kris_down_light` (`scripts/party_scripts/party_scripts.gml:268`).
+- Items with an `lw_counterpart` are converted (`scripts/misc/misc.gml:250`).
+- The pause menu opens `o_ui_menu_lw` instead of the Dark World menu.
+
+`world_switch` does **not** remove anyone from the party. Who follows Kris in the Light World is still `global.party_names` — use `party_member_kick` if a scene needs Kris alone.
 
 ---
 
@@ -136,28 +138,38 @@ function item_w_lw_halloween_pencil() : item_weapon() constructor {
 
 ## 4. The Recruits System (`recruits.gml`)
 
-In DELTARUNE Chapter 2, sparing enemies repeatedly recruits them to Castle Town. tlDR Engine includes full recruit progress tracking (`scripts/recruits/recruits.gml`).
+In DELTARUNE Chapter 2, sparing enemies repeatedly recruits them to Castle Town. tlDR Engine tracks recruit progress in `scripts/recruits/recruits.gml`.
 
 ### How recruits work
 
-Every enemy definition can specify its recruit requirement in `scripts/enc_enemies_recruits/`:
+An enemy is recruitable when its `recruit` field holds a recruit struct. The base `enemy()` sets `recruit = new enemy_recruit()`; the virovirokun overrides it with its own (`scripts/enc_enemies/enc_enemies.gml:261`). Recruit structs live in `scripts/enc_enemies_recruits/enc_enemies_recruits.gml` and inherit from `enemy_recruit()`, whose `need` field is how many spares it takes (default `2`):
 
 ```gml
-// In an enemy struct definition:
-recruit_need = 3; // Sparing this enemy 3 times recruits them permanently
+// scripts/rpg_enc_recruits/rpg_enc_recruits.gml
+function enemy_recruit_sonso(data = {progress: 0}) : enemy_recruit(data) constructor {
+    need    = 3                 // spare him 3 times to recruit him
+    sprite  = spr_ex_e_tasque
+    bgcolor = c_orange
+}
+
+// inside rpg_enemy_sonso()
+recruit = new enemy_recruit_sonso()
 ```
 
-When spared in battle, the engine calls `recruit_advance(enemy)`:
-- Spawns the recruitment progress counter (e.g. `1/3`, `2/3`, `RECRUITED!`).
-- Once fully recruited, the recruit appears in Castle Town rooms or the Recruits Menu (`o_ui_recruits`).
+Sparing advances progress with `recruit_advance(enemy)` (`scripts/recruits/recruits.gml:3`), called from the spare cutscene in `scripts/cutscene_shortcuts/cutscene_shortcuts.gml`. Defeating a recruitable enemy calls `recruit_lose`, after which it can no longer be recruited (`recruit_islost`).
 
 ### Checking recruit status in scripts
 
+All the recruit functions take an **enemy struct**:
+
 ```gml
-// Check if an enemy has been successfully recruited
-if recruit_isrecruited(new enc_e_virovirokun()) {
+var _virovirokun = new enemy_virovirokun();
+
+if recruit_isrecruited(_virovirokun) {
     // Spawn the NPC in your town room!
 }
+var _progress = recruit_get_progress(_virovirokun);   // how many spares so far
+var _need     = recruit_getneed(_virovirokun);        // how many it takes
 ```
 
 ---
@@ -171,7 +183,7 @@ Let's script a scene where Kris meets Susie in a room, speaks with her, and Susi
 ### Step 0 — Place Susie as an overworld NPC
 
 1. In your room on the `Instances` layer, place an `o_ow_npc`.
-2. Set its sprite to `spr_ow_npc_susie_idle`.
+2. Set its sprite to `spr_susie_down`.
 3. Give this instance the name `inst_susie_npc`.
 
 ---
@@ -199,8 +211,8 @@ interaction_code = function() {
     
     // 2. Susie joins the team
     cutscene_func(function(npc_inst) {
-        // Add Susie to global party array
-        party_add("susie");
+        // Add Susie to the party and create her follower
+        party_member_add("susie");
         party_member_interpolate("susie");
         
         // Destroy the static NPC instance
@@ -231,6 +243,6 @@ Run your game (`F5`):
 | Symptom | Cause |
 |---|---|
 | Light World room still shows Dark World menu and sprites | `o_dev_world` was missing or its `world` variable definition was not set to `WORLD_TYPE.LIGHT` |
-| Follower teleports across screen when added | Forgot to call `party_member_interpolate(name)` right after `party_add(name)` |
+| Follower teleports across screen when added | Forgot to call `party_member_interpolate(name)` right after `party_member_add(name)` |
 | Dual-world item disappears when changing rooms | `lw_counterpart` or `dw_counterpart` was written as a string instead of a script reference |
 | Party member stats show 0 in battle | Character was not registered in `scripts/party_init/party_init.gml` |

@@ -1,0 +1,24 @@
+# Names the handbook tells the reader to create, placeholders, and console
+# command names. tools/check_engine_refs.py does not expect these in the engine.
+o_actor_sonso
+o_turn_sonso
+o_bg_sanctuary
+o_bullet_feather
+o_my_helper_object
+o_my_turn
+o_my_custom_shopkeep
+o_hazard_car
+o_player_torch
+room_sanctuary
+room_dark_cavern
+room_my_next_area
+spr_my_enemy_attack
+spr_light_circle_soft
+spr_player_torch_light
+spr_xxx
+shop_catalog
+shop_desc
+dialogue_callback
+dialogue_text
+room_select
+party_select

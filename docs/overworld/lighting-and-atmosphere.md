@@ -67,13 +67,13 @@ In the GameMaker Room Editor layer list:
 1. Create a new **Instance Layer** and name it **`lighting`**.
 2. Set its depth to `-100` (or leave it at standard instance depth).
 
-> [!note] Sobre o `o_lb_dl_controller`
-> Você não precisa arrastar essa instância na room manualmente. Se a room tiver
-> pelo menos um `o_lb_dl_light_source` (ou qualquer objeto que herde dele, como
-> o `o_player_torch` do Step 3) e nenhum controller existir ainda, o próprio
-> Create Event do light source cria o controller sozinho. Só coloque um
-> `o_lb_dl_controller` manualmente se precisar controlar a cor/opacidade do
-> overlay escuro global — caso contrário, ignore esse objeto por completo.
+!!! note "About `o_lb_dl_controller`"
+    You do not need to place this instance by hand. If the room has at least one
+    `o_lb_dl_light_source` (or anything that inherits from it, like the
+    `o_player_torch` of Step 3) and no controller exists yet, the light source's
+    own Create event spawns the controller. Only place an `o_lb_dl_controller`
+    manually if you need to control the colour or opacity of the global dark
+    overlay — otherwise, ignore this object entirely.
 
 ---
 
@@ -90,9 +90,9 @@ In the Inspector's **Sprite** field:
 #### B. Adjusting Light Radius (Scale)
 - Set **`scaleX`** to `2.5` and **`scaleY`** to `2.5` to expand the radius of the light circle.
 
-#### C. Setting Light Color & Intensity
-- Click the **Color** swatch in the Inspector and pick an amber/orange tint (`#FFAA33`) for fire, or cool cyan (`#44AAFF`) for magic crystals.
+#### C. Setting Light Intensity
 - Adjust **Alpha** (`0.8` to `1.0`) to make the light softer or brighter.
+- The **Color** swatch does **not** tint the light: the cutout is drawn with `bm_subtract`, so colour only changes how much darkness is removed. For a visibly warm or cold glow, use the extra additive pass described in Step 3.5.
 
 ---
 
@@ -103,7 +103,7 @@ If Kris should hold a lantern or flashlight that lights up wherever they walk:
 1. In the Asset Browser, create a **Sprite** named **`spr_player_torch_light`**.
    - Draw a soft white circle with a radial gradient (opaque white at the center, fading to transparent at the edges) on a transparent background.
    - Size: **128×128px**, keeping the circle centered in the canvas. `o_lb_dl_light_source` scales this sprite to define the light's shape and falloff, so the base image must already be **pure white** — `image_blend` only tints it, it doesn't generate the gradient for you.
-   - **Set the sprite's Origin to Middle Center — this is not optional.** If the origin is left at the GameMaker default (top-left), the light gets a fixed positional bias baked in. Combined with the directional offset in Step 3.5 below, this bias *adds* to the offset in one diagonal (making the light drift too far in that direction) and *cancels it out* in the opposite diagonal (making the light look glued underneath Kris instead of in front). It's an easy bug to misdiagnose as a math error in the offset code, when it's really just the sprite's origin.
+   - **Set the sprite's Origin to Middle Center — this is not optional.** If the origin is left at the GameMaker default (top-left), the light gets a fixed positional bias baked in. Combined with the directional offset in the End Step code below, this bias *adds* to the offset in one diagonal (making the light drift too far in that direction) and *cancels it out* in the opposite diagonal (making the light look glued underneath Kris instead of in front). It's an easy bug to misdiagnose as a math error in the offset code, when it's really just the sprite's origin.
 
 2. In the Asset Browser, create an Object named **`o_player_torch`**.
 3. Set its **Sprite** to **`spr_player_torch_light`** and its **Parent** to **`o_lb_dl_light_source`**.
@@ -115,15 +115,13 @@ If Kris should hold a lantern or flashlight that lights up wherever they walk:
    image_blend = c_orange;
 ```
 
-> [!warning] `image_blend` aqui não pinta a luz de laranja
-> `o_lb_dl_controller` desenha os light sources com `gpu_set_blendmode(bm_subtract)`
-> — ele **subtrai** o RGB do sprite da camada escura, revelando o cenário original
-> por baixo, sem adicionar cor nenhuma a ele. `image_blend` muda apenas *quanto*
-> cada canal é subtraído (afeta sutilmente o contraste da borda do "buraco"), não
-> produz um halo visivelmente laranja. Na prática, para este passo, quase
-> qualquer cor aqui dá um resultado visual muito parecido — o efeito de "luz
-> quente" de verdade só aparece com um passo extra (uma segunda camada desenhada
-> com `bm_add`, explicada logo abaixo).
+!!! warning "`image_blend` here does not paint the light orange"
+    `o_lb_dl_controller` draws light sources with `gpu_set_blendmode(bm_subtract)`
+    — it **subtracts** the sprite's RGB from the dark layer, revealing the scene
+    underneath without adding any colour to it. `image_blend` only changes *how much*
+    each channel is subtracted (a subtle change in the edge of the "hole"); it does
+    not produce a visibly orange halo. In practice almost any colour here looks the
+    same — a real warm glow needs the extra additive pass in Step 3.5 below.
 5. In its **Step Event (End Step)**:
 ```gml
    // Follow the party leader, offset a bit in front of them
@@ -150,35 +148,34 @@ If Kris should hold a lantern or flashlight that lights up wherever they walk:
 
 Now, as Kris explores the room, a circle of warm lantern light moves with them seamlessly — and shifts ahead of them as they turn to face a new direction!
 
-> [!warning] Não use `lengthdir_x`/`lengthdir_y` com `dir` diretamente
-> É tentador escrever `lengthdir_x(_offset, _leader.dir)` — mas o `DIR` da
-> engine (`UP=0, RIGHT=90, DOWN=180, LEFT=270`, sentido horário a partir de
-> cima) não é o mesmo sistema de ângulos que `lengthdir_x/y` esperam (0° =
-> direita, sentido anti-horário). O resultado é um bug sutil e assimétrico:
-> a luz parece longe demais indo para direita/baixo, e grudada embaixo do
-> Kris indo para esquerda/cima. A conversão manual com `sin`/`cos` acima
-> evita esse problema.
+!!! warning "Do not feed `dir` straight into `lengthdir_x` / `lengthdir_y`"
+    It is tempting to write `lengthdir_x(_offset, _leader.dir)` — but the engine's
+    `DIR` (`UP=0, RIGHT=90, DOWN=180, LEFT=270`, clockwise from up,
+    `scripts/macro_dir/macro_dir.gml`) is not the angle system `lengthdir_x/y`
+    expect (0° = right, counter-clockwise). The result is a subtle, asymmetric bug:
+    the light drifts too far going right/down and sticks under Kris going left/up.
+    The manual `sin`/`cos` conversion above avoids it.
 
-> [!tip] Tuning the offset
-> `_offset = 40` is a starting point; increase it if the light still looks glued to Kris's back, or decrease it if it drifts too far ahead when they turn a corner.
+!!! tip "Tuning the offset"
+    `_offset = 40` is a starting point; increase it if the light still looks glued to Kris's back, or decrease it if it drifts too far ahead when they turn a corner.
 
 #### Step 3.5 (optional) — Give the lantern an actual orange tint
 
 Since `image_blend` alone doesn't tint the revealed area (see the warning above), add a second, additively-blended draw pass on top of the cutout to get a real warm glow:
 
 ```gml
-// Draw Event de o_player_torch
-event_inherited(); // deixa o corte de escuridão (bm_subtract) acontecer normalmente
+// Draw Event of o_player_torch
+event_inherited(); // let the darkness cutout (bm_subtract) happen as usual
 
 gpu_set_blendmode(bm_add);
 draw_sprite_ext(
     spr_player_torch_light,
     image_index,
     x, y,
-    image_xscale * 0.6, image_yscale * 0.6, // um pouco menor que o buraco
+    image_xscale * 0.6, image_yscale * 0.6, // a bit smaller than the hole
     0,
     c_orange,
-    0.25 // opacidade baixa, senão estoura pra branco
+    0.25 // low opacity, or it blows out to white
 );
 gpu_set_blendmode(bm_normal);
 ```
@@ -249,8 +246,8 @@ Run your game (`F5`) and test the atmosphere:
 | Object | How to use |
 |---|---|
 | **`o_lb_dl_controller`** | Controls the black overlay surface. Auto-spawned by any `o_lb_dl_light_source`. |
-| **`o_lb_dl_light_source`** | Place over torches/lamps. Change Sprite in Inspector for custom light shapes, scale for size, color for tint. |
-| **`o_player_torch`** | Parent to `o_lb_dl_light_source` with `x = get_leader().x; y = get_leader().s_get_middle_y();` in Step event. |
+| **`o_lb_dl_light_source`** | Place over torches/lamps. Change Sprite in Inspector for custom light shapes, scale for size, alpha for intensity. |
+| **`o_player_torch`** | Parent to `o_lb_dl_light_source`; follow `get_leader()` in its **End Step** event (Step 3). |
 | **`lighting_on(col, fade)`** | Call via GML to create colored room spotlights (altars, cutscenes). |
 | **`lighting_darken_self()`** | Put in custom prop Draw events so they dim when `lighting_on()` is active. |
 

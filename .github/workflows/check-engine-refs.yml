@@ -1,0 +1,36 @@
+name: Check engine references
+
+# Fails when a `path:line` reference or an engine name used in the code
+# samples no longer exists in the tlDR Engine.
+
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "17 6 * * 1"   # weekly, to catch engine changes
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout handbook
+        uses: actions/checkout@v4
+
+      - name: Checkout engine
+        uses: actions/checkout@v4
+        with:
+          repository: profsergiocosta/tldr-engine
+          path: tldr-engine
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check references
+        run: python3 tools/check_engine_refs.py --engine tldr-engine

@@ -43,7 +43,7 @@ Let's build a custom vendor — the **Starlight Cafe** — complete with items f
 
 ### Step 0 — Create your shop script
 
-1. In the GameMaker **Asset Browser**, right-click `scripts` $ightarrow$ **Create** $ightarrow$ **Script**.
+1. In the GameMaker **Asset Browser**, right-click `scripts` → **Create** → **Script**.
 2. Name it **`my_game_shops`**.
 
 ---
@@ -203,23 +203,26 @@ Run your game (`F5`) and test your new shop:
 
 ## Animated shopkeeper portraits (`o_shop_shopkeep`)
 
-To give your vendor an animated portrait in the shop screen:
+The base object `o_shop_shopkeep` is deliberately small: its Create event only sets `link_id = 0` and `talking = false`. The text typer turns `talking` on while linked text is typing, and **your** object decides what to draw with it. The engine's example is `o_ex_shop_shopkeep_swatch` (used by `scripts/ex_shop/ex_shop.gml`).
 
-1. Create an object inheriting from **`o_shop_shopkeep`** (like `o_ex_shop_shopkeep_swatch`).
-2. Assign idle and talking sprites in its Create Event:
+1. Draw a shopkeeper sprite whose frames are the **mouth animation** (frame 0 = mouth closed).
+2. Create an object, set its **Sprite** to it and its **Parent** to **`o_shop_shopkeep`**.
+3. Add a **Step** event that animates only while talking:
    ```gml
-   event_inherited();
-   s_idle = spr_shopkeep_swatch_idle;
-   s_talk = spr_shopkeep_swatch_talk;
+   if talking
+       image_index = (image_index + 0.25) mod image_number;
+   else
+       image_index = 0;
    ```
-3. In your shop struct, assign the shopkeeper object:
+4. In your shop struct, assign the object and **link the text to it**, as the example shop does:
    ```gml
-   shopkeeper = o_my_custom_shopkeep;
-   shopkeeper_x = 160;
-   shopkeeper_y = 120;
+   shopkeeper    = o_my_custom_shopkeep;
+   shopkeeper_x  = 160;
+   shopkeeper_y  = 120;
+   flavor_prefix = "{link(0, true, `o_shop_shopkeep`)}";
    ```
 
-When dialogue text scrolls, the shopkeeper automatically switches to `s_talk` and animates their mouth until the text pauses.
+Without the `{link(...)}` in `flavor_prefix`, `talking` never becomes `true` and the mouth never moves.
 
 ---
 

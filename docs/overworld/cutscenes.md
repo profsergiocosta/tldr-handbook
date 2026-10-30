@@ -84,16 +84,15 @@ new actor_movement(_x, _y, _time, [_seed = ""], [_spd = undefined], [_char_dir =
 |---|---|---|---|
 | **`_x`** | `real` | *(required)* | Target X position (or horizontal pixel offset if `_absolute = false`). |
 | **`_y`** | `real` | *(required)* | Target Y position (or vertical pixel offset if `_absolute = false`). |
-| **`_time`** | `real` | *(required)* | Duration of the movement in **frames** (e.g. `20` or `30` frames at 60 FPS). Speed is calculated automatically if `_spd` is omitted. |
+| **`_time`** | `real` | *(required)* | Duration of the movement in **frames** — the game runs at 30 FPS, so `30` is one second. Speed is calculated automatically if `_spd` is omitted. |
 | **`_seed`** | `string` | `""` | Behavior seed: `""` (empty string) for normal walking, `"jump"` for jump with landing, `"jump_into"` for ledge leap without landing. |
 | **`_spd`** | `real \| undefined` | `undefined` | Optional fixed speed constraint. **Leave `undefined`** (using empty commas `,,,`) so the engine calculates speed automatically based on distance and `_time`. *(Never pass strings like `"linear"` here!)* |
 | **`_char_dir`** | `enum.DIR \| undefined` | `undefined` | Direction to lock the actor's facing sprite (`DIR.UP`, `DIR.DOWN`, `DIR.LEFT`, `DIR.RIGHT`). If `undefined`, the actor turns automatically towards the angle of movement. |
 | **`_absolute`** | `bool` | `true` | If `true`, `_x` and `_y` are absolute room coordinates. If `false`, they are relative offsets from the actor's current position. |
 | **`_play_sfx`** | `bool` | `true` | Whether movement sound effects (footsteps or jump sounds) should play. |
 
-> [!TIP]
-> **Skipping middle arguments with `,,,`**  
-> In GML, you can keep default values for middle arguments by omitting them between commas. For example, `new actor_movement(300, 200, 30,,, DIR.RIGHT)` skips `_seed` and `_spd`, passing `DIR.RIGHT` as the 6th argument (`_char_dir`).
+!!! tip "Skipping middle arguments with `,,,`"
+    In GML, you can keep default values for middle arguments by omitting them between commas. For example, `new actor_movement(300, 200, 30,,, DIR.RIGHT)` skips `_seed` and `_spd`, passing `DIR.RIGHT` as the 6th argument (`_char_dir`).
 
 ---
 
@@ -310,7 +309,7 @@ cutscene_dialogue([
 ], "{p}{e}", false);
 
 cutscene_wait_dialogue_boxes(2); // Wait until player confirms past Box 2
-cutscene_audio_play(snd_bell);   // Sound plays on Box 3
+cutscene_audio_play(snd_exclamation); // Sound plays on Box 3
 cutscene_wait_dialogue_finish();
 ```
 
@@ -335,7 +334,7 @@ for (var i = 0; i < party_length(true); i++) {
 }
 ```
 
-This pattern (used in [`room_test_cutscene`](file:///home/sergio/GameMakerProjects/tldr-engine/rooms/room_test_cutscene/InstanceCreationCode_inst_172DAEE9.gml#L29-L35)) triggers all movements on the exact same frame, while keeping the cutscene queue paused until the full party reaches formation.
+This pattern (used in `room_test_cutscene`, `rooms/room_test_cutscene/InstanceCreationCode_inst_172DAEE9.gml`) triggers all movements on the exact same frame, while keeping the cutscene queue paused until the full party reaches formation.
 
 ---
 
@@ -384,8 +383,8 @@ cutscene_set_variable(o_camera, "target", get_leader());
 You can execute any custom GML function or inline lambda at an exact point in the queue:
 
 ```gml
-// Play music
-cutscene_func(music_play, [mus_ex_church]);
+// Play music — music_play(sound, slot) needs a slot; 0 is the main one
+cutscene_func(music_play, [mus_ex_church, 0]);
 
 // Spawn a visual effect or particle
 cutscene_func(function() {

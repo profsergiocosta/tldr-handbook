@@ -23,7 +23,7 @@ function my_item() : item() constructor {
 | `name` | `["Item"]` | Name array: `[short_name, long_name]` or single string. Short name is used in menu grids. |
 | `desc` | `["..."]` | Description array: `[overworld_desc, battle_desc, action_desc, shop_desc]`. |
 | `type` | `ITEM_TYPE.CONSUMABLE` | Type enum: `CONSUMABLE`, `KEY`, `WEAPON`, `ARMOR`, `SPELL`, `STORAGE`, `LIGHT`. |
-| `icon` | `spr_ui_menu_icon_exclamation` | Icon sprite rendered next to the item in menus. |
+| `icon` | `undefined` | Icon sprite rendered next to the item in menus. |
 | `color` | `c_white` | Text color tint in inventory menus. |
 
 ---

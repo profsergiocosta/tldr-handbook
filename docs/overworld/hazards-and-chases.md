@@ -35,7 +35,7 @@ Let's build a hazardous hallway with two connected challenges:
 
 ### Step 0 — Create the patrol path asset
 
-1. In the GameMaker **Asset Browser**, right-click `Paths` $ightarrow$ **Create** $ightarrow$ **Path**.
+1. In the GameMaker **Asset Browser**, right-click `Paths` → **Create** → **Path**.
 2. Name it **`path_corridor_patrol`**.
 3. In the Path Editor:
    - Click to add Point 0 at `(0, 0)`.
@@ -72,8 +72,8 @@ When the room boots, the enemy walks back and forth along the path. If Kris walk
 3. Stretch its bounding box (`scaleX` and `scaleY`) to cover the entire hazardous floor.
 
 `o_trigger_dodge` handles all state management automatically (`objects/o_trigger_dodge/Create_0.gml`):
-- **Entering:** Calls `dodge_on()` $ightarrow$ Spawns `o_dodge_soul` over Kris and enables real-time damage.
-- **Exiting:** Calls `dodge_off()` $ightarrow$ Destroys `o_dodge_soul` and restores normal overworld control.
+- **Entering:** Calls `dodge_on()` → Spawns `o_dodge_soul` over Kris and enables real-time damage.
+- **Exiting:** Calls `dodge_off()` → Destroys `o_dodge_soul` and restores normal overworld control.
 
 ---
 
@@ -83,7 +83,7 @@ Let's make a simple moving obstacle that crosses the road and damages the red SO
 
 1. In the Asset Browser, create an Object named **`o_hazard_car`**.
 2. Set its **Parent** to **`o_dodge_bullet`** (`objects/o_dodge_bullet/`).
-3. Set its **Sprite** (e.g. `spr_ex_ow_city_car_left` or any hazard sprite).
+3. Set its **Sprite** — `spr_e_killercar` works for testing, or draw your own. The sprite's collision mask is what hits the SOUL.
 4. Add a **Create Event**:
    ```gml
    event_inherited(); // Inherits collision and graze code

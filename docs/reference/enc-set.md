@@ -20,7 +20,7 @@ function my_encounter() : enc_set() constructor {
 
 | Field | Default | Meaning |
 |---|---|---|
-| `debug_name` | `"undefined"` | The name shown in the console's `encounter_select` |
+| `debug_name` | `"undefined"` | Not read anywhere in the engine. The console picker labels encounters with the function name (`script_get_name`, `objects/o_dev_encselect/Create_0.gml:20`) |
 | `enemies` | `[]` | Array of `new …()` enemy instances |
 
 Each `new` is an independent struct — two of the same enemy have separate HP, MERCY and state.
@@ -123,7 +123,7 @@ win_condition = function() {
 }
 ```
 
-Evaluated while actions execute (`objects/o_enc/Step_0.gml:216`), so the fight ends on the round after the condition is met.
+Evaluated before each queued action while actions execute (`objects/o_enc/Step_0.gml:231`): the fight ends right before the next action runs, or at the start of the next round's actions if the condition became true on the last one.
 
 ## Party actions
 

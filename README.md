@@ -31,7 +31,7 @@ answered here.
 
 **I cannot trust my instincts, because I have none yet.** So I check everything.
 Every claim was traced back to a specific line of engine source, which is why the
-text is full of references like `objects/o_enc/Step_0.gml:321`. When something
+text is full of references like `objects/o_enc/Step_0.gml:336`. When something
 surprised me I went and read the code instead of guessing, and several times the
 guess would have been wrong.
 
@@ -89,15 +89,26 @@ Pushing to `main` publishes to GitHub Pages automatically
 |---|---|
 | **Getting Started** | installing the project; getting accented characters to render |
 | **The Overworld** | rooms, collision, NPCs, dialogue, tiles, a complete worked room |
+| **The Overworld** (cont.) | cutscenes and camera, climbing, hazards and dodging, shortcuts, lighting |
 | **The Battle System** | how a fight works; a complete worked enemy; the arena; advanced patterns |
-| **Reference** | `enemy()`, `enc_set()`, the turn object |
+| **Systems and Economy** | items and equipment, shops, party and the Light World |
+| **Reference** | `enemy()`, `enc_set()`, the turn object, `item()`, `shop()` |
 
 ## About the engine references
 
-**Verified against tlDR Engine commit `7308e305`.** Line numbers drift as the engine
+**Verified against tlDR Engine commit `73280a31`.** Line numbers drift as the engine
 changes; file paths and behaviour are far more stable than the numbers. If a
 reference does not line up, search for the surrounding code instead — and please
 open an issue.
+
+`tools/check_engine_refs.py` checks this automatically: it resolves every
+`path:line` reference and every engine identifier used in the code samples
+against a local engine checkout.
+
+```bash
+git clone https://github.com/profsergiocosta/tldr-engine ../tldr-engine
+python3 tools/check_engine_refs.py --engine ../tldr-engine
+```
 
 ## Contributing
 
