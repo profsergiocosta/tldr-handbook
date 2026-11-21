@@ -200,10 +200,34 @@ the character; the character comes in the next chapter.)
     draw_circle_color(x, y, 1, c_lime, c_lime, false);
     ```
 
-5. Make a room (see [Rooms and collision](../overworld/rooms-and-collision.md)):
-   put **`o_dev_world`** and **`o_dev_playermarker`** in it, and place
-   **`o_test_berto`** a little to the side of the marker.
-6. Run the game and jump to the room with ++tab++ + ++r++.
+The object is done. To see it you need a room, which is the next step.
+
+## Step 4 — A minimal test room
+
+You do not need a finished area, only somewhere to put the object. If you have
+never made a room, this is the shortest recipe. (A complete, decorated room is
+built in [Your first room](../overworld/your-first-room.md).)
+
+1. In the **Asset Browser**, right-click your rooms folder → **Create → Room**.
+   Name it **`room_test_characters`**.
+2. In the room's settings, set the size to **640 × 480** and the grid to
+   **20 × 20**, as in that chapter.
+3. On the room's default **Instances** layer, place two objects:
+    - **`o_dev_world`**, anywhere (for example at `20, 20`);
+    - **`o_dev_playermarker`**, at `320, 380`: this is where the party appears.
+4. Place **`o_test_berto`** a little to the right of the marker, for example at
+   `400, 380`.
+5. Run the game (++f5++), hold ++tab++ + ++r++ and pick `room_test_characters`.
+
+!!! danger "Do not place `o_camera`"
+    The engine creates the camera by itself. A second one makes the screen go
+    completely black ([Rooms and collision](../overworld/rooms-and-collision.md)).
+
+This room has no tiles, so you will see a plain background. That is enough for
+this chapter; the book's own first room was also blank at this point
+(see [Your first room](../overworld/your-first-room.md)). I have not tested a room
+with no layers other than Instances, so if anything misbehaves, compare with
+that chapter's layer setup.
 
 You should see Berto next to Kris and company, with:
 
