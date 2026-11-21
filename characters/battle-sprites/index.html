@@ -1,0 +1,2270 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical guide to building a DELTARUNE-style game with the tlDR Engine: the overworld, the battle system, and a field reference.
+">
+      
+      
+        <meta name="author" content="Sergio Souza Costa">
+      
+      
+      
+        <link rel="prev" href="../first-party-member/">
+      
+      
+        <link rel="next" href="../../reference/enemy-struct/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Ch 21: Battle Sprites and Icons - The tlDR Engine Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/lambdageo.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#battle-sprites-and-icons" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-header__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The tlDR Engine Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 21: Battle Sprites and Icons
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The tlDR Engine Handbook" class="md-nav__button md-logo" aria-label="The tlDR Engine Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The tlDR Engine Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://lambdageo.github.io/ebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⇦ Coleção LambdaGeo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1: Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/fonts-and-accents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2: Fonts and Accents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — The Overworld
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — The Overworld
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/rooms-and-collision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3: Rooms and Collision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/npcs-and-dialogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4: NPCs and Dialogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/tiles-and-tilesets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5: Tiles and Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/your-first-room/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 6: Your First Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/cutscenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 7: Cutscenes and Camera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/climbing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 8: Climbing and Traversal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/hazards-and-chases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9: Hazards and Dodging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/shortcuts-and-triggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 10: Shortcuts and Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overworld/lighting-and-atmosphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 11: Lighting and Atmosphere
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — The Battle System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — The Battle System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 12: How a Fight Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/your-first-enemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 13: Your First Enemy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/the-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 14: The Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../battle-system/advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 15: Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 — Systems and Economy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 — Systems and Economy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/items-and-equipment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 16: Items and Equipment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/shops-and-vendors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 17: Shops and Vendors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/party-and-light-world/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 18: Party and the Light World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 — Your Own Characters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 5 — Your Own Characters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 19: Character Sprites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../first-party-member/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 20: Your First Party Member
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 21: Battle Sprites and Icons
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 21: Battle Sprites and Icons
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-engine-finds-a-battle-sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the engine finds a battle sprite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How the engine finds a battle sprite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-if-an-entry-is-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What happens if an entry is missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-s_battle_intro-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What s_battle_intro does
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-see-him-fight-as-susie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — See him fight as Susie
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-replace-idle-hurt-and-defeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Replace idle, hurt and defeat
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Replace idle, hurt and defeat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-draw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to draw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wire-them-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wire them in
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-the-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — The attack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-the-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — The rest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-icons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Icons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enemy-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enemy()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/enc-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    enc_set()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/turn-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    turn_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/item-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    item()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/shop-struct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    shop()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-engine-finds-a-battle-sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the engine finds a battle sprite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How the engine finds a battle sprite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-if-an-entry-is-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What happens if an entry is missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-s_battle_intro-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What s_battle_intro does
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-see-him-fight-as-susie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — See him fight as Susie
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-replace-idle-hurt-and-defeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Replace idle, hurt and defeat
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2 — Replace idle, hurt and defeat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-draw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to draw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wire-them-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wire them in
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-the-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — The attack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-the-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — The rest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-icons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Icons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="battle-sprites-and-icons">Battle sprites and icons<a class="headerlink" href="#battle-sprites-and-icons" title="Permanent link">&para;</a></h1>
+<p>Right now Berto fights <strong>as Susie</strong>: you registered him in the
+<a href="../first-party-member/">previous chapter</a>, and everything you did not set in
+<code>party_m_berto</code> came from the base <code>party_m</code>, which holds Susie's battle sprites. This
+chapter gives him his own, plus his own menu icons.</p>
+<p>It is the biggest art job in Part 5, so it is done <strong>one piece at a time</strong>: first you
+see him fight with the borrowed sprites, then you replace them in the order the battle
+needs them, testing after each.</p>
+<hr />
+<h2 id="how-the-engine-finds-a-battle-sprite">How the engine finds a battle sprite<a class="headerlink" href="#how-the-engine-finds-a-battle-sprite" title="Permanent link">&para;</a></h2>
+<p>Overworld sprites are found <strong>by name</strong> (<code>spr_berto_down</code>). Battle sprites are not:
+they are listed, directly as assets, in a struct called <code>battle_sprites</code> inside the
+party member. Here is Noelle's, trimmed (<code>scripts/party_init/party_init.gml</code>, in
+<code>party_m_noelle</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>battle_sprites = {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    idle:       spr_bnoelle_idle,
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    hurt:       spr_bnoelle_hurt,
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    attack:     [spr_bnoelle_attack, true],
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    actend:     [spr_bnoelle_actend, "idle", 1],
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    // ...
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>}
+</code></pre></div>
+<p>Each entry is one of three shapes:</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spr_x</code></td>
+<td>Just play this sprite (it loops).</td>
+</tr>
+<tr>
+<td><code>[spr_x, true]</code></td>
+<td>Play once and <strong>freeze on the last frame</strong>.</td>
+</tr>
+<tr>
+<td><code>[spr_x, "idle", 1]</code></td>
+<td>Play once, then <strong>switch to another entry</strong> (here <code>idle</code>) at the given speed.</td>
+</tr>
+</tbody>
+</table>
+<p>This is decided when the animation ends (<code>objects/o_actor/Other_7.gml</code>).</p>
+<p>The keys, and when the battle asks for each:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>When it is used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idle</code></td>
+<td>Standing in battle. Also used to measure his height for centring (<code>party_getbattleheight</code>).</td>
+</tr>
+<tr>
+<td><code>hurt</code></td>
+<td>When he takes a hit.</td>
+</tr>
+<tr>
+<td><code>defeat</code></td>
+<td>When his HP is zero or below.</td>
+</tr>
+<tr>
+<td><code>attack</code></td>
+<td>During the attack (the FIGHT timing bar), and in the battle intro.</td>
+</tr>
+<tr>
+<td><code>attackready</code></td>
+<td>Once FIGHT has been chosen for him, while he waits for the attack to start.</td>
+</tr>
+<tr>
+<td><code>attack_eff</code></td>
+<td>The slash effect shown on the enemy when the attack lands.</td>
+</tr>
+<tr>
+<td><code>actready</code>, <code>act</code>, <code>actend</code></td>
+<td>ACT chosen for him, performing the act, returning to idle.</td>
+</tr>
+<tr>
+<td><code>spellready</code>, <code>spell</code></td>
+<td>A spell chosen, casting.</td>
+</tr>
+<tr>
+<td><code>itemready</code>, <code>itemuse</code></td>
+<td>An item chosen, using it.</td>
+</tr>
+<tr>
+<td><code>defend</code></td>
+<td>The Defend button.</td>
+</tr>
+<tr>
+<td><code>spare</code></td>
+<td>Sparing an enemy.</td>
+</tr>
+<tr>
+<td><code>victory</code></td>
+<td>When the fight is won.</td>
+</tr>
+<tr>
+<td><code>intro</code>, <code>introb</code></td>
+<td>The battle intro, depending on <code>s_battle_intro</code> (below).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-happens-if-an-entry-is-missing">What happens if an entry is missing<a class="headerlink" href="#what-happens-if-an-entry-is-missing" title="Permanent link">&para;</a></h3>
+<p>For most keys, nothing bad: when the battle asks for a sprite the party member does not
+have, the actor <strong>keeps whatever it was showing</strong>
+(<code>enc_party_set_battle_sprite</code>, <code>scripts/enc_scripts/enc_scripts.gml</code>). So a character
+without an <code>act</code> sprite simply does not change pose when you ACT.</p>
+<p>Three keys are different, because the engine reads them directly: <strong><code>idle</code></strong>,
+<strong><code>hurt</code></strong> and <strong><code>defeat</code></strong>. Treat those, plus <strong><code>attack</code></strong> and <strong><code>attack_eff</code></strong>, as
+required. I have not run a battle with them deliberately missing, so this is read from
+the code, not tested.</p>
+<div class="admonition danger">
+<p class="admonition-title">Every sprite you name must exist</p>
+<p>The struct refers to sprites as assets, not as text. If you write
+<code>spr_bberto_idle</code> and that sprite does not exist in the Asset Browser, the game does
+not show a placeholder: it fails. Create the sprite first, then add it to the
+struct.</p>
+</div>
+<h3 id="what-s_battle_intro-does">What <code>s_battle_intro</code> does<a class="headerlink" href="#what-s_battle_intro-does" title="Permanent link">&para;</a></h3>
+<p><code>s_battle_intro</code> in the constructor chooses how the battle begins
+(<code>objects/o_enc_anim/Alarm_1.gml</code> and <code>Alarm_2.gml</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Plays your <code>intro</code> sprite as the full intro.</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>No intro sprite; he goes straight to the <code>attack</code> pose. This is the base default.</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Uses your <code>introb</code> sprite during the intro, then <code>attack</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Leave it at <code>1</code>. That way you need neither <code>intro</code> nor <code>introb</code>.</p>
+<hr />
+<h2 id="step-1-see-him-fight-as-susie">Step 1 — See him fight as Susie<a class="headerlink" href="#step-1-see-him-fight-as-susie" title="Permanent link">&para;</a></h2>
+<p>Before drawing, confirm the pipeline works. Open <code>room_test_characters</code>, add Berto to
+the party with <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-p">P</kbd></span> (right arrow four times, <span class="keys"><kbd class="key-enter">Enter</kbd></span>), then start a fight
+with <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-e">E</kbd></span> (Encounter Select) and pick any encounter.</p>
+<p>Berto fights, with Susie's sprites and Susie's placeholder icon. Use <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-w">W</kbd></span> to
+leave the fight. If this step fails, fix it before drawing anything.</p>
+<hr />
+<h2 id="step-2-replace-idle-hurt-and-defeat">Step 2 — Replace <code>idle</code>, <code>hurt</code> and <code>defeat</code><a class="headerlink" href="#step-2-replace-idle-hurt-and-defeat" title="Permanent link">&para;</a></h2>
+<p>These three come first because the engine reads them directly.</p>
+<h3 id="what-to-draw">What to draw<a class="headerlink" href="#what-to-draw" title="Permanent link">&para;</a></h3>
+<p>Look at what the engine's own characters use, so yours are consistent:</p>
+<table>
+<thead>
+<tr>
+<th>Sprite</th>
+<th>Size (Noelle)</th>
+<th>Frames</th>
+<th>Fps</th>
+<th>Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spr_bnoelle_idle</code></td>
+<td>26 × 46</td>
+<td>5</td>
+<td>6</td>
+<td>14, 46</td>
+</tr>
+<tr>
+<td><code>spr_bnoelle_hurt</code></td>
+<td>32 × 46</td>
+<td>1</td>
+<td>0</td>
+<td>15, 46</td>
+</tr>
+<tr>
+<td><code>spr_bnoelle_defeat</code></td>
+<td>23 × 46</td>
+<td>1</td>
+<td>0</td>
+<td>11, 46</td>
+</tr>
+</tbody>
+</table>
+<p>Two rules to copy:</p>
+<ul>
+<li><strong>The origin is at the feet</strong>, as in the overworld (the bottom row of the sprite, on the
+  horizontal centre of the body). Keep it in the <strong>same place for all of a character's
+  battle sprites</strong>: if <code>idle</code> has the origin at <code>(14, 46)</code> and <code>attack</code> at <code>(30, 20)</code>,
+  Berto jumps every time the sprite changes. A pixel of difference, like Noelle's
+  <code>hurt</code>, is fine.</li>
+<li>Different poses may be <strong>different widths</strong> (Noelle's idle is 26 wide, her act is
+  51 wide), but the <strong>height stays the same</strong> (46) so the feet stay on the ground.</li>
+</ul>
+<p>Animated sprites use the Fps of the engine's own: about 6 for idle. <code>hurt</code> and
+<code>defeat</code> are a single frame, so Fps does not matter for them.</p>
+<h3 id="wire-them-in">Wire them in<a class="headerlink" href="#wire-them-in" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Create <strong><code>spr_bberto_idle</code></strong>, <strong><code>spr_bberto_hurt</code></strong> and <strong><code>spr_bberto_defeat</code></strong>, with
+   the origin at the feet.</li>
+<li>
+<p>In <code>party_m_berto</code> (your script), add below <code>s_name</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>s_battle_intro = 1
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>battle_sprites.idle   = spr_bberto_idle
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>battle_sprites.hurt   = spr_bberto_hurt
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>battle_sprites.defeat = spr_bberto_defeat
+</code></pre></div>
+<p>This only works because each party member gets its <strong>own</strong> copy of the base
+<code>battle_sprites</code> struct. You are replacing three entries in Berto's copy; the other
+entries are still Susie's, and Susie is not affected.</p>
+</li>
+<li>
+<p>Run, add Berto, start a fight. In the fight, Berto stands as himself. Take a hit on
+   purpose (let an enemy attack) to see <code>hurt</code>, and let his HP reach zero to see <code>defeat</code>.</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">A mixed set will look off</p>
+<p>While the other entries are still Susie's, he changes from his sprite to hers when
+he attacks, and the origins will not line up. That is expected. The next steps
+remove it.</p>
+</div>
+<hr />
+<h2 id="step-3-the-attack">Step 3 — The attack<a class="headerlink" href="#step-3-the-attack" title="Permanent link">&para;</a></h2>
+<p>Now the fight itself: <strong><code>attackready</code></strong> (FIGHT highlighted), <strong><code>attack</code></strong> (the action)
+and <strong><code>attack_eff</code></strong> (the slash on the enemy).</p>
+<table>
+<thead>
+<tr>
+<th>Sprite</th>
+<th>Size (Noelle)</th>
+<th>Frames</th>
+<th>Fps</th>
+<th>Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spr_bnoelle_attackready</code></td>
+<td>23 × 46</td>
+<td>1</td>
+<td>0</td>
+<td>11, 46</td>
+</tr>
+<tr>
+<td><code>spr_bnoelle_attack</code></td>
+<td>37 × 46</td>
+<td>5</td>
+<td>10</td>
+<td>14, 46</td>
+</tr>
+<tr>
+<td><code>spr_bnoelle_attackeff</code></td>
+<td>44 × 45</td>
+<td>4</td>
+<td>15</td>
+<td>22, 22</td>
+</tr>
+</tbody>
+</table>
+<p><code>attack_eff</code> is the exception to the feet rule: it is an <strong>effect</strong>, so its origin is its
+<strong>centre</strong> (22, 22 on a 44 × 45 sprite), because it is drawn on top of the enemy.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>battle_sprites.attackready = spr_bberto_attackready
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>battle_sprites.attack      = [spr_bberto_attack, true]
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>battle_sprites.attack_eff  = spr_bberto_attackeff
+</code></pre></div>
+<p><code>attack</code> is <code>[sprite, true]</code>: it plays once and <strong>freezes on its last frame</strong>, which is
+how the engine holds the pose at the end of the swing.</p>
+<p>Test: in a fight, choose FIGHT for Berto (he takes his ready pose) and attack.</p>
+<hr />
+<h2 id="step-4-the-rest">Step 4 — The rest<a class="headerlink" href="#step-4-the-rest" title="Permanent link">&para;</a></h2>
+<p>These are optional (see <em>What happens if an entry is missing</em>), and each can be added
+later, one at a time. A character without them just does not change pose for that
+action.</p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Suggested shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>act</code></td>
+<td><code>[spr_bberto_act, true]</code></td>
+</tr>
+<tr>
+<td><code>actready</code></td>
+<td><code>spr_bberto_actready</code></td>
+</tr>
+<tr>
+<td><code>actend</code></td>
+<td><code>[spr_bberto_actend, "idle", 1]</code></td>
+</tr>
+<tr>
+<td><code>spell</code> / <code>spellready</code></td>
+<td><code>[spr_bberto_spell, "idle", 1]</code> / <code>spr_bberto_spellready</code></td>
+</tr>
+<tr>
+<td><code>itemuse</code> / <code>itemready</code></td>
+<td><code>[spr_bberto_item, "idle", 1]</code> / <code>spr_bberto_itemready</code></td>
+</tr>
+<tr>
+<td><code>defend</code></td>
+<td><code>[spr_bberto_defend, true]</code></td>
+</tr>
+<tr>
+<td><code>spare</code></td>
+<td><code>[spr_bberto_act, "idle", 1]</code> (Noelle and Susie reuse their <code>act</code>)</td>
+</tr>
+<tr>
+<td><code>victory</code></td>
+<td><code>[spr_bberto_victory, true]</code></td>
+</tr>
+</tbody>
+</table>
+<p>These shapes come from Noelle's and Susie's structs. <code>defend</code> is a plain sprite for
+Noelle and <code>[sprite, true]</code> for Susie; either works.</p>
+<p>When you have everything, you can stop patching the base struct and <strong>write the whole
+struct</strong> in the constructor instead, so that nothing of Susie's is left:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>battle_sprites = {
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    act:         [spr_bberto_act, true],
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    actready:    spr_bberto_actready,
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    actend:      [spr_bberto_actend, "idle", 1],
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    attack:      [spr_bberto_attack, true],
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    attackready: spr_bberto_attackready,
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    defeat:      spr_bberto_defeat,
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    defend:      [spr_bberto_defend, true],
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    hurt:        spr_bberto_hurt,
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    idle:        spr_bberto_idle,
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    intro:       spr_bberto_idle,   // unused while s_battle_intro = 1
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    introb:      spr_bberto_idle,   // unused while s_battle_intro = 1
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    itemuse:     [spr_bberto_item, "idle", 1],
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    itemready:   spr_bberto_itemready,
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    spell:       [spr_bberto_spell, "idle", 1],
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    spellready:  spr_bberto_spellready,
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    victory:     [spr_bberto_victory, true],
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    spare:       [spr_bberto_act, "idle", 1],
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    attack_eff:  spr_bberto_attackeff,
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>}
+</code></pre></div>
+<p>Remember: every sprite named there must already exist.</p>
+<hr />
+<h2 id="step-5-icons">Step 5 — Icons<a class="headerlink" href="#step-5-icons" title="Permanent link">&para;</a></h2>
+<p>Three small sprites represent him in the menus. Berto currently uses the engine's
+placeholders (<code>spr_ui_default_icon</code> and <code>spr_ui_default_head</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Where it appears</th>
+<th>Size (all base-game ones)</th>
+<th>Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s_icon</code></td>
+<td>The battle box, and the party menu</td>
+<td>35 × 24</td>
+<td>0, 0</td>
+</tr>
+<tr>
+<td><code>s_icon_ow</code></td>
+<td>Party Select and the overworld menu</td>
+<td>25 × 20</td>
+<td>0, 0</td>
+</tr>
+<tr>
+<td><code>s_icon_weapon</code></td>
+<td>The equipment menu</td>
+<td>13 × 18</td>
+<td>0, 5</td>
+</tr>
+</tbody>
+</table>
+<p>For icons, the origin is the <strong>top-left</strong>, the opposite of the character sprites.</p>
+<p>Create <code>spr_ui_berto_icon</code> (35 × 24), <code>spr_ui_berto_head</code> (25 × 20) and
+<code>spr_ui_berto_icon_hurt</code> (35 × 24), and set:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>s_icon    = spr_ui_berto_icon
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>s_icon_ow = spr_ui_berto_head
+</code></pre></div>
+<p>Notice the third sprite: when a party member is hurt, the battle box swaps the icon
+for the one <strong>named after it plus <code>_hurt</code></strong> (<code>party_get_icon_hurt</code>,
+<code>scripts/party_get/party_get.gml</code>). Noelle has <code>spr_ui_noelle_icon</code> and
+<code>spr_ui_noelle_icon_hurt</code>. You never write the hurt one into the constructor; the
+engine builds its name, so it must be spelled exactly <code>&lt;icon name&gt;_hurt</code>. I have not
+tested what happens when it is missing, so create it.</p>
+<p>For <code>s_icon_weapon</code>, the engine ships a few weapon icons (<code>spr_ui_menu_weapon_sword</code>,
+<code>_axe</code>, <code>_ring</code>). Pick the one that matches his weapon until you draw your own.</p>
+<hr />
+<h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The game fails when a fight starts</td>
+<td>A sprite named in <code>battle_sprites</code> does not exist, or is misspelled</td>
+</tr>
+<tr>
+<td>Berto jumps sideways or up when the pose changes</td>
+<td>The origins of his battle sprites do not match</td>
+</tr>
+<tr>
+<td>He floats above or sinks into the ground</td>
+<td>The battle sprite's origin is not at the feet</td>
+</tr>
+<tr>
+<td>He shows Susie's pose for an action</td>
+<td>That entry is not replaced yet (Step 4), or it is misspelled</td>
+</tr>
+<tr>
+<td>The slash effect appears off-centre</td>
+<td><code>attack_eff</code>'s origin is not its centre</td>
+</tr>
+<tr>
+<td>The battle box shows a grey placeholder icon</td>
+<td><code>s_icon</code> is not set, or the sprite is missing</td>
+</tr>
+</tbody>
+</table>
+<p>I have read each of these steps in the engine's code, but have not run a custom
+character through a full fight in GameMaker. If a step does not behave as written,
+treat it as a bug in this chapter.</p>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<p>The next chapter gives Berto his <strong>own stats, weapon, armour and spells</strong>, instead of
+the values he inherited from the base party member.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
