@@ -14,6 +14,31 @@ lowercase and without spaces, because it becomes part of every asset name.
 
 ---
 
+## What you need to draw
+
+The short answer: **4 sprites, each with 4 frames — 16 small drawings.**
+
+| Sprite | Frames | What it is |
+|---|---|---|
+| `spr_berto_down` | 4 | walking animation, facing the camera |
+| `spr_berto_up` | 4 | walking animation, facing away |
+| `spr_berto_left` | 4 | walking animation, facing left |
+| `spr_berto_right` | 4 | walking animation, facing right |
+
+There is no separate "standing" sprite and no separate "walking" sprite at this
+point: one walking animation per direction does both. When Berto is not moving the
+engine stops the animation on frame 0, so **frame 0 should be the standing pose**.
+(The base-game sprites all have 4 frames and the engine counts frames from the
+sprite itself instead of fixing the number. It also stops the animation on even
+frames, so I recommend keeping to an even number such as 4. I have not tested
+other counts.)
+
+That is the complete minimum for a character who can walk around. Everything in
+Step 2 beyond these four sprites is an **optional extra**, and you can add it later
+without touching what you already drew.
+
+---
+
 ## Do all characters need the same size?
 
 No. The engine's own party members are different sizes, on purpose:
