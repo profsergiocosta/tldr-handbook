@@ -1696,8 +1696,17 @@ battle sprites and icons is a later chapter.</p>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    global.party_names = []
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>}
 </code></pre></div>
-<p>Do not edit that function. Add one line in <strong><code>o_world</code></strong>, in the <strong>Game Start</strong> event
-(<code>objects/o_world/Other_2.gml</code>), right after the call to <code>party_init()</code>:</p>
+<p>Do not edit that function. Instead, add your registration in <strong><code>o_world</code></strong>, in the
+<strong>Game Start</strong> event (<code>objects/o_world/Other_2.gml</code>).</p>
+<p><strong>How to get there in GameMaker:</strong></p>
+<ol>
+<li>In the <strong>Asset Browser</strong>, type <code>o_world</code> in the search box. The object is in
+   <strong>Objects</strong>, inside the <code>@Engine</code> group.</li>
+<li>Double-click it to open the object editor.</li>
+<li>In the <strong>Events</strong> panel, double-click the <strong>Game Start</strong> event (under <em>Other</em>).</li>
+<li>Find the call to <code>party_init()</code>, about two thirds of the way down.</li>
+</ol>
+<p>Two places need a line. First, right after <code>party_init()</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>party_init()
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>party_m_initialize("berto", party_m_berto)   // &lt;-- yours
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>global.party_names = [   // &lt;-- if you wish to change the default team members, change them here
@@ -1705,13 +1714,29 @@ battle sprites and icons is a later chapter.</p>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>]
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>party_apply_equipment()
 </code></pre></div>
+<p>Second, a little further down, right after <code>save_load(global.save_slot)</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>save_load(global.save_slot)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>if !struct_exists(global.party, "berto")      // &lt;-- yours
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    party_m_initialize("berto", party_m_berto)
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Why the second block is needed</p>
+<p><code>save_load</code> runs at the end of Game Start and <strong>replaces <code>global.party</code> with
+whatever the save file contains</strong>. A save made before you registered Berto does
+not contain him, so without the second block he silently disappears from the
+game even though the first line ran. The <code>if</code> re-registers him only when he is
+missing; with a fresh game he is already there and nothing happens. Once the game
+is saved again, the save includes him.</p>
+<p>Save files are named <code>save_ch{chapter}_{slot}</code> (for example <code>save_ch1_0</code>), if you
+would rather delete an old test save.</p>
+</div>
 <p>Registering is not the same as being <em>in the party</em>. <code>global.party_names</code> is the
 list of who is in the party right now, and Berto is not in it yet.</p>
 <div class="admonition tip">
-<p class="admonition-title">Keep your edits to <code>@Engine</code> to one line</p>
+<p class="admonition-title">Keep your edits to <code>@Engine</code> small</p>
 <p><code>o_world</code> is part of the engine, so every line you change there can conflict
 when you <a href="../../getting-started/installation/#updating-the-engine">update the engine</a>.
-One registration line is easy to carry over; keep the rest in your own scripts.</p>
+Two short registration blocks are easy to carry over; keep the rest in your own scripts.</p>
 </div>
 <hr />
 <h2 id="step-4-test-add-berto-to-the-party">Step 4 — Test: add Berto to the party<a class="headerlink" href="#step-4-test-add-berto-to-the-party" title="Permanent link">&para;</a></h2>
@@ -1719,7 +1744,8 @@ One registration line is easy to carry over; keep the rest in your own scripts.<
 <code>o_test_berto</code> instance</strong> from the room, since the real Berto replaces it.</p>
 <p>Run the game, go to the room, and use the console's <strong>Party Select</strong>: hold
 <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-p">P</kbd></span>. The list is built from every registered party member, so <strong>Berto
-appears in it</strong> next to the engine's four. Move to him with the arrow keys and press
+appears in it</strong>, after the engine's four. It shows only three icons at a time, so
+press the right arrow four times to reach him. Move to him with the arrow keys and press
 <span class="keys"><kbd class="key-enter">Enter</kbd></span>: the console prints that he was added to your party, and he appears behind
 Kris. Press <span class="keys"><kbd class="key-enter">Enter</kbd></span> on him again to remove him.</p>
 <p>Walk around. You should see:</p>
@@ -1742,7 +1768,7 @@ Kris. Press <span class="keys"><kbd class="key-enter">Enter</kbd></span> on him 
 <tbody>
 <tr>
 <td>Berto is not in Party Select</td>
-<td>The registration line (Step 3) is missing, or its name does not match</td>
+<td>He is the fifth entry, so press the right arrow four times. Otherwise: a registration line (Step 3) is missing or its name does not match, or an old save is overriding <code>global.party</code> (the second block in Step 3)</td>
 </tr>
 <tr>
 <td>Berto is a grey square</td>
