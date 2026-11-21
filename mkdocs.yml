@@ -97,6 +97,9 @@ nav:
     - "Ch 17: Shops and Vendors":        systems/shops-and-vendors.md
     - "Ch 18: Party and the Light World": systems/party-and-light-world.md
 
+  - Part 5 — Your Own Characters:
+    - "Ch 19: Character Sprites":        characters/sprites.md
+
   - Reference:
     - "enemy()":                         reference/enemy-struct.md
     - "enc_set()":                       reference/enc-set.md
