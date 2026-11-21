@@ -92,7 +92,7 @@ What each part does:
     the battle sprites (`battle_sprites`), and the placeholder menu icons
     (`spr_ui_default_icon` and `spr_ui_default_head`) that every new character gets.
     So Berto works in a fight, but looks like Susie in it. Giving him his own
-    battle sprites and icons is a later chapter.
+    battle sprites and icons is [the next chapter](battle-sprites.md).
 
 ---
 
@@ -204,5 +204,5 @@ you see, treat it as a bug in this chapter.
 
 ## Next
 
-The next chapter gives Berto his own **battle sprites**, so that he stops looking
+[Battle sprites and icons](battle-sprites.md) gives Berto his own **battle sprites**, so that he stops looking
 like Susie in a fight.
