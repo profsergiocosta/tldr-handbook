@@ -1730,14 +1730,20 @@ collision shape (more on that in a moment).</p>
    not moving (<code>objects/o_actor/Step_0.gml:327</code>).</li>
 <li>
 <p>Set the <strong>origin</strong> to the feet: horizontally centred, vertically on the bottom
-   row of the sprite. In the sprite editor, <em>Bottom Centre</em> is a good start;
-   Kris, for instance, is <code>10, 37</code> on a 19 × 38 sprite.</p>
+   row of the sprite. In the sprite editor's <strong>Properties</strong> panel, open the <em>Origin</em>
+   drop-down (it starts at <em>Top Left</em>) and choose <strong>Bottom Centre</strong>; you can then
+   adjust X and Y by hand. Kris, for instance, is <code>10, 37</code> on a 19 × 38 sprite.</p>
 <div class="admonition warning">
 <p class="admonition-title">Never leave the origin at the GameMaker default</p>
 <p>The default is the top-left corner. A character whose origin is at the head
 floats above the ground, and the party lines up by their heads instead of
 their feet.</p>
 </div>
+</li>
+<li>
+<p>In the same Properties panel, set <strong>Fps</strong> to <strong>4</strong>. The editor starts at 30
+   frames per second, which makes a walking animation run far too fast; the
+   base-game character sprites use 4 (<em>Time Units</em>: <em>Frames per second</em>).</p>
 </li>
 <li>
 <p>Set the <strong>collision mask</strong> to <em>Manual</em>, type <em>Rectangle</em>, and make it a small
@@ -1947,7 +1953,7 @@ that chapter's layer setup.</p>
 <li>a <strong>small red box around the feet</strong>, not around the whole body.</li>
 </ul>
 <p>If the dot is at the head, the origin is wrong (Step 1, item 3). If the red box
-covers the whole sprite, the mask is still set to automatic (Step 1, item 4). If
+covers the whole sprite, the mask is still set to automatic (Step 1, item 5). If
 Berto is a grey square, the sprite name is wrong (Step 2).</p>
 <div class="admonition danger">
 <p class="admonition-title">Do not place <code>o_actor_&lt;your name&gt;</code> in a room yet</p>
