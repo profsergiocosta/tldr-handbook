@@ -71,15 +71,19 @@ collision shape (more on that in a moment).
    first frame is the standing pose, which the engine shows when the character is
    not moving (`objects/o_actor/Step_0.gml:327`).
 3. Set the **origin** to the feet: horizontally centred, vertically on the bottom
-   row of the sprite. In the sprite editor, *Bottom Centre* is a good start;
-   Kris, for instance, is `10, 37` on a 19 × 38 sprite.
+   row of the sprite. In the sprite editor's **Properties** panel, open the *Origin*
+   drop-down (it starts at *Top Left*) and choose **Bottom Centre**; you can then
+   adjust X and Y by hand. Kris, for instance, is `10, 37` on a 19 × 38 sprite.
 
     !!! warning "Never leave the origin at the GameMaker default"
         The default is the top-left corner. A character whose origin is at the head
         floats above the ground, and the party lines up by their heads instead of
         their feet.
 
-4. Set the **collision mask** to *Manual*, type *Rectangle*, and make it a small
+4. In the same Properties panel, set **Fps** to **4**. The editor starts at 30
+   frames per second, which makes a walking animation run far too fast; the
+   base-game character sprites use 4 (*Time Units*: *Frames per second*).
+5. Set the **collision mask** to *Manual*, type *Rectangle*, and make it a small
    box at the feet. Look at what the base-game characters use:
 
     | Sprite | Mask (left, top → right, bottom) | Size |
@@ -235,7 +239,7 @@ You should see Berto next to Kris and company, with:
 - a **small red box around the feet**, not around the whole body.
 
 If the dot is at the head, the origin is wrong (Step 1, item 3). If the red box
-covers the whole sprite, the mask is still set to automatic (Step 1, item 4). If
+covers the whole sprite, the mask is still set to automatic (Step 1, item 5). If
 Berto is a grey square, the sprite name is wrong (Step 2).
 
 !!! danger "Do not place `o_actor_<your name>` in a room yet"
