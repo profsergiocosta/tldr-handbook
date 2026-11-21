@@ -127,6 +127,8 @@ Text is not plain — it is a small language interpreted by `o_text_typer` as it
 | `{br}` | line break |
 | `{resetx}` | reset the horizontal position |
 | `{instant}` | print the rest without typing animation |
+| `{can_skip(bool)}`, `{can_superskip(bool)}` | allow or forbid skipping the typing |
+| `{auto_pauses(bool)}`, `{auto_breaks(bool)}` | turn automatic pauses / line breaks on or off |
 
 `{br}{resetx}` is the pair the engine uses everywhere to start a new line at the left margin. `{p}{e}` is the standard ending for a single box.
 
@@ -134,7 +136,7 @@ Text is not plain — it is a small language interpreted by `o_text_typer` as it
 
 | Tag | Effect |
 |---|---|
-| `{col(c)}` / `{color(c)}` | text colour — `y` for yellow, `w` for white, or a colour name |
+| `{col(c)}` / `{color(c)}` | text colour — see the table below |
 | `{reset_col}` | back to the previous colour |
 | `{font(name)}` | switch font |
 | `{shadow(bool)}` | drop shadow on/off |
@@ -151,6 +153,8 @@ Text is not plain — it is a small language interpreted by `o_text_typer` as it
 | `{face(name, expression)}` | portrait only |
 | `{f_ex(expression)}` | change the expression mid-line |
 | `{voice(sound)}` | the blip sound while typing |
+| `{pitch(min, max)}` | voice pitch; with no arguments it resets |
+| `{sound(snd)}` / `{snd(snd)}` | play a sound effect at this point in the text |
 | `{speed(n)}` | typing speed |
 | `{mini(text, …)}` | a small secondary box |
 
@@ -162,6 +166,27 @@ Text is not plain — it is a small language interpreted by `o_text_typer` as it
 | `{preset(name)}` | apply a whole style preset: `enemy_text`, `god_text`, `light_world` |
 | `{box_pos(bool)}` | move the box to the top or bottom of the screen |
 | `{link(id)}` / `{unlink(id)}` | animate an NPC while this text types |
+
+### Text colours
+
+`{col(...)}` accepts these names (`string_to_color`, `scripts/misc/misc.gml`), plus `tired_aqua`, which the typer handles separately (`objects/o_text_typer/Other_10.gml:131`):
+
+| Name | Short | Colour |
+|---|---|---|
+| `c_red` / `red` | `r` | red |
+| `c_orange` / `orange` | — | orange |
+| `c_yellow` / `yellow` | `y` | yellow |
+| `c_lime` / `lime` | `g` | lime green |
+| `tired_aqua` | — | `#00C1F2` |
+| `c_blue` / `blue` | `b` | blue |
+| `c_black`, `c_dkgray`, `c_gray`, `c_silver` (and without `c_`) | — | black, dark gray, gray, silver |
+
+!!! warning "Unknown names silently become white"
+    Any name not in the table — including a typo, and `w` — falls through to white without an error. `{col(w)}` works only because of that. To add your own colours, extend `string_to_color`.
+
+### Commas inside arguments
+
+Arguments are split on commas, so an argument that contains a comma must be wrapped in backticks: `` {mini(`Hello, world`)} ``. Everything between the backticks is one argument. Arguments are always read as text, whatever you type.
 
 !!! warning "`{preset(...)}` changes the font"
     `{preset(enemy_text)}` sets `font = loc_font("enc")` (`objects/o_text_typer/Other_10.gml:99`), which resolves to a **different font asset** from ordinary dialogue. If some text renders without accents while the rest is fine, look for a preset. See [Fonts and accents](../getting-started/fonts-and-accents.md).

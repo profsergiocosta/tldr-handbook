@@ -1,6 +1,6 @@
 # The tlDR Engine Handbook
 
-Welcome to a practical guide to building a game with the **[tlDR Engine](https://github.com/profsergiocosta/tldr-engine)** — an independent, 1:1 DELTARUNE engine written in GameMaker. This book is not a feature list: it is a set of walkthroughs that each end with something **running on your screen**, followed by a reference you can come back to when you forget a field name.
+Welcome to a practical guide to building a game with the **[tlDR Engine](https://github.com/tweenko/tldr-engine)** — an independent, 1:1 DELTARUNE engine written in GameMaker. This book is not a feature list: it is a set of walkthroughs that each end with something **running on your screen**, followed by a reference you can come back to when you forget a field name.
 
 Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of open textbooks.
 
@@ -17,7 +17,7 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
 | **Structure** | 18 chapters in 4 parts, plus 5 reference pages |
 | **Status** | Work in progress — written as I learn, and still moving |
-| **Engine version** | Verified against tlDR Engine commit `73280a31` |
+| **Engine version** | Verified against tlDR Engine commit `73280a31`; the author's own documentation refers to v2.2.1. Reference checks were re-run in November 2026 against the then-current upstream with no broken references |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
 
 If you have never played DELTARUNE or Undertale, start with **[How a fight works](battle-system/overview.md)**. The genre makes assumptions that are invisible from the outside, and every design decision in the battle system follows from them.
@@ -141,7 +141,7 @@ The game runs at **30 frames per second**. Every duration in this book is given 
 
 ## 📚 Credits and further reading
 
-* **tlDR Engine** by **tweenko** — MIT licensed. [Repository](https://github.com/profsergiocosta/tldr-engine) · [Discord](https://discord.gg/x3t8JTyC2p)
+* **tlDR Engine** by **tweenko** — MIT licensed. [Repository](https://github.com/tweenko/tldr-engine) · [Documentation](https://docs.google.com/document/d/14SpnU32P-_HLdNS17gwaIe8Z2mO8AG1KUUGMe_hNdzM/edit?tab=t.0) · [Discord](https://discord.gg/x3t8JTyC2p)
 * Libraries by [Juju Adams](https://www.jujuadams.com/) and [futuregamer25](https://futuregamer25.github.io/)
 * The soul and box system is loosely based on the one created by **Callum** (jevilhumor)
 * The engine's own `room_ex_*` rooms and `ex_`-prefixed scripts are the best documentation there is — this book points at them constantly
