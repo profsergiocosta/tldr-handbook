@@ -15,7 +15,7 @@ Part of the **[LambdaGeo](https://lambdageo.github.io/ebooks/)** collection of o
 |---|---|
 | **Who it is for** | Anyone who wants to build a DELTARUNE-style game — including people who have never opened GameMaker. Where the book assumes GameMaker or GML knowledge, it says so |
 | **Prerequisites** | GameMaker installed; no prior DELTARUNE-style battle experience assumed |
-| **Structure** | 19 chapters in 5 parts, plus 5 reference pages |
+| **Structure** | 20 chapters in 5 parts, plus 5 reference pages |
 | **Status** | Work in progress — written as I learn, and still moving |
 | **Engine version** | Verified against tlDR Engine commit `73280a31`; the author's own documentation refers to v2.2.1. Reference checks were re-run in November 2026 against the then-current upstream with no broken references |
 | **Licence** | Text under CC BY 4.0. The engine itself is MIT, © tweenko |
@@ -104,7 +104,10 @@ Inventory management, commercial vendors, character growth, and dual-world mecha
 
 Making party members of your own, instead of using Kris, Susie, Ralsei and Noelle.
 
-* **[Character sprites](characters/sprites.md)** — sizes, origin, the feet-sized collision mask, and the naming scheme the engine searches for. More chapters on registering the character, battle sprites and dialogue are planned
+* **[Character sprites](characters/sprites.md)** — sizes, origin, the feet-sized collision mask, and the naming scheme the engine searches for.
+* **[Your first party member](characters/first-party-member.md)** — the actor object, the `party_m` constructor, registering with `party_m_initialize`, and adding him to the party
+
+More chapters on battle sprites and dialogue are planned.
 
 ### 📕 Reference
 

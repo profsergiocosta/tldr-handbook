@@ -7,7 +7,7 @@ called. It ends with your character standing in a room, with its origin and
 collision box drawn on top of it so you can check both by eye.
 
 It does not make the character a *party member* yet. That is
-the next chapter (*Your first party member*).
+[the next chapter](first-party-member.md).
 
 We will build a character called **Berto**. Use any name you like, but keep it
 lowercase and without spaces, because it becomes part of every asset name.
@@ -233,7 +233,7 @@ this chapter; the book's own first room was also blank at this point
 with no layers other than Instances, so if anything misbehaves, compare with
 that chapter's layer setup.
 
-You should see Berto next to Kris and company, with:
+You should see Berto next to Kris and company. He only plays his animation in place: **he does not walk and is not in the party yet**; that is the next chapter. Check that there is:
 
 - a **green dot at the feet**, in the middle of the character;
 - a **small red box around the feet**, not around the whole body.
@@ -261,5 +261,5 @@ Berto is a grey square, the sprite name is wrong (Step 2).
 
 ## Next
 
-*Your first party member*: turn these sprites into a
+[Your first party member](first-party-member.md): turn these sprites into a
 character the engine knows about, and make it follow Kris.

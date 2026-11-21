@@ -99,6 +99,7 @@ nav:
 
   - Part 5 — Your Own Characters:
     - "Ch 19: Character Sprites":        characters/sprites.md
+    - "Ch 20: Your First Party Member":  characters/first-party-member.md
 
   - Reference:
     - "enemy()":                         reference/enemy-struct.md
