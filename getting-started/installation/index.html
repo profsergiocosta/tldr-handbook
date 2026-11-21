@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -443,6 +443,39 @@
     <span class="md-ellipsis">
       
         The lay of the land
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-make-your-first-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to make your first changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming convention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating the engine
       
     </span>
   </a>
@@ -1418,6 +1451,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#where-to-make-your-first-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to make your first changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming convention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating the engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#a-custom-instance_create-you-should-know-about" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1468,7 +1534,7 @@
 <tbody>
 <tr>
 <td><strong>GameMaker</strong></td>
-<td>The project was last saved with IDE <code>2024.1400.5.1065</code>. Opening it in an older IDE will fail; a newer one will offer to upgrade the project format.</td>
+<td>The upstream project was last saved with IDE <code>2026.1.0.27</code> (<code>IDEVersion</code> in <code>tldr-engine.yyp</code>, as of November 2026). Opening it in an older IDE may fail; a newer one will offer to upgrade the project format. Check that field if GameMaker complains.</td>
 </tr>
 <tr>
 <td><strong>Git</strong></td>
@@ -1482,10 +1548,26 @@
 </table>
 <p>The engine is MIT licensed, so you can ship what you build with it.</p>
 <h2 id="getting-the-project">Getting the project<a class="headerlink" href="#getting-the-project" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/profsergiocosta/tldr-engine.git
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>tldr-engine
+<p>The engine's author asks you <strong>not</strong> to just download or clone the repository. Create a repository of your own and pull the engine into it, so that you can take future updates with a normal <code>git pull</code> (see <a href="#updating-the-engine">Updating the engine</a> below).</p>
+<ol>
+<li>Install <a href="https://desktop.github.com/">GitHub Desktop</a> if you do not have it.</li>
+<li>Create an empty repository on the GitHub website, then clone it with GitHub Desktop.</li>
+<li>
+<p>Open that repository in a terminal (Command Prompt on Windows) and fetch the engine into it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>https://github.com/tweenko/tldr-engine.git<span class="w"> </span>main
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>FETCH_HEAD
 </code></pre></div>
+<p>The official documentation writes the second command with a URL instead of <code>FETCH_HEAD</code>; <code>git reset</code> needs a commit, so <code>FETCH_HEAD</code> (the commit you just fetched) is what actually works.</p>
+</li>
+<li>
+<p>Publish your repository with the big <strong>Publish</strong> button in GitHub Desktop (press <em>Fetch origin</em> first if you cannot see it).</p>
+</li>
+</ol>
 <p>Open <code>tldr-engine.yyp</code> in GameMaker.</p>
+<div class="admonition note">
+<p class="admonition-title">About the repository this book links to</p>
+<p>The official engine is <a href="https://github.com/tweenko/tldr-engine"><code>tweenko/tldr-engine</code></a>. Some line references in this book were checked against a fork, <code>profsergiocosta/tldr-engine</code>; behaviour is the same, but when in doubt, treat the official repository as the source of truth. The engine's own <a href="https://docs.google.com/document/d/14SpnU32P-_HLdNS17gwaIe8Z2mO8AG1KUUGMe_hNdzM/edit?tab=t.0">documentation</a> and <a href="https://discord.gg/x3t8JTyC2p">Discord</a> are the places to ask when this book is silent.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Work on a branch</p>
 <p>Before you change anything, branch. You will be regenerating font assets and editing rooms, and both produce diffs that are hard to read and easy to get wrong.</p>
@@ -1565,6 +1647,7 @@
 <p>Inside any picker, <span class="keys"><kbd class="key-arrow-up">Up</kbd></span> / <span class="keys"><kbd class="key-arrow-down">Down</kbd></span> move, <span class="keys"><kbd class="key-enter">Enter</kbd></span> confirms and <span class="keys"><kbd class="key-escape">Esc</kbd></span> cancels.</p>
 <p>If <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-h">H</kbd></span> shows that list, the engine is installed correctly.</p>
 <h2 id="the-lay-of-the-land">The lay of the land<a class="headerlink" href="#the-lay-of-the-land" title="Permanent link">&para;</a></h2>
+<p>In the GameMaker Asset Browser you will see two groups made by the engine's authors, <strong><code>@Engine</code></strong> and <strong><code>zzz Examples</code></strong>. These are IDE groups, not folders on disk. <code>@Engine</code> holds the parts that make up the DELTARUNE mechanics; you may edit them, but every change makes updating harder, so keep such edits small. <code>zzz Examples</code> holds the test rooms and recreated DELTARUNE areas.</p>
 <p>You do not need to know all of this yet, but it helps to know where things live.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>objects/
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  o_actor…        the player and party members
@@ -1592,9 +1675,27 @@
 </ul>
 <p>Keeping your code out of the <code>ex_</code> files makes it much easier to pull engine updates later.</p>
 </div>
+<h2 id="where-to-make-your-first-changes">Where to make your first changes<a class="headerlink" href="#where-to-make-your-first-changes" title="Permanent link">&para;</a></h2>
+<p>Almost everything you will want to change globally lives in <code>o_world</code>:</p>
+<ul>
+<li><strong>Default party</strong> — <code>global.party_names</code> is set in the Game Start event (<code>objects/o_world/Other_2.gml:141</code>, with a comment marking the spot).</li>
+<li><strong>Starting inventory and settings</strong> — also in <code>o_world</code>; the Create and Game Start events are the ones that matter, the others rarely do.</li>
+</ul>
+<p>Everything else (enemies, encounters, items, party members) is a <strong>constructor</strong>, and constructors can live in any script. Make one new script per kind of constructor, for example <code>rpg_enc_enemies</code>, instead of editing the engine's own.</p>
+<h2 id="naming-convention">Naming convention<a class="headerlink" href="#naming-convention" title="Permanent link">&para;</a></h2>
+<p>The engine suggests this scheme for your own assets:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{asset type}_{project prefix}_{category}*_{identifier}_{state}*_{substate}*     (* = optional)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>spr_g_rune_togore_down_happy_light
+</code></pre></div>
+<p>Asset-type prefixes: none for scripts, <code>o_</code> objects, <code>spr_</code> sprites, <code>room_</code> rooms, <code>shd_</code> shaders. The engine's own examples use the project prefix <code>ex_</code>; pick another for your game so your assets never collide with the examples. <em>State</em> and <em>substate</em> let code find a variant by appending to a sprite name.</p>
+<h2 id="updating-the-engine">Updating the engine<a class="headerlink" href="#updating-the-engine" title="Permanent link">&para;</a></h2>
+<p>Updating only works if you set the project up as described above. Commit your work first, then in a terminal opened in your repository:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>pull<span class="w"> </span>--no-rebase<span class="w"> </span>https://github.com/tweenko/tldr-engine.git<span class="w"> </span>main
+</code></pre></div>
+<p>If an editor opens asking for a commit message, fill it in and close it. Then open GitHub Desktop, resolve any merge conflicts (an editor such as Visual Studio Code makes this easier), and push. Conflicts are most likely in files you edited inside <code>@Engine</code>, which is another reason to keep your content in your own scripts.</p>
 <h2 id="a-custom-instance_create-you-should-know-about">A custom <code>instance_create</code> you should know about<a class="headerlink" href="#a-custom-instance_create-you-should-know-about" title="Permanent link">&para;</a></h2>
 <p>The engine overrides <code>instance_create</code> (<code>scripts/custom/custom.gml:315</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {})
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {})
 </code></pre></div>
 <p>Two things differ from what you might expect, and both matter:</p>
 <ol>
@@ -1602,8 +1703,8 @@
 <li>It only assigns fields that <strong>already exist</strong> on the instance. Inventing a new field in the struct is <strong>silently ignored</strong>.</li>
 </ol>
 <p>That second rule catches everyone once. If you need to attach your own data to an instance, either declare the variable in that object's Create event first, or assign it after creation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>var inst = instance_create(o_enc_bullet, xx, yy, depth);
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>inst.my_own_field = 5;    // works; passing it in the struct would not
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>var inst = instance_create(o_enc_bullet, xx, yy, depth);
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>inst.my_own_field = 5;    // works; passing it in the struct would not
 </code></pre></div>
 <h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
 <p>Before you write a line of game code, deal with <a href="../fonts-and-accents/">fonts and accents</a> if your game is not in English. It affects every string you will ever write, and it is much less annoying to fix now than after you have written a hundred lines of dialogue.</p>
@@ -1667,7 +1768,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>

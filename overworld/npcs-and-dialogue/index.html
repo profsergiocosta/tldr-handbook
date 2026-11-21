@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -644,6 +644,28 @@
     <span class="md-ellipsis">
       
         Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-colours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text colours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commas-inside-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commas inside arguments
       
     </span>
   </a>
@@ -1556,6 +1578,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#text-colours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text colours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commas-inside-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commas inside arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1789,6 +1833,14 @@
 <td><code>{instant}</code></td>
 <td>print the rest without typing animation</td>
 </tr>
+<tr>
+<td><code>{can_skip(bool)}</code>, <code>{can_superskip(bool)}</code></td>
+<td>allow or forbid skipping the typing</td>
+</tr>
+<tr>
+<td><code>{auto_pauses(bool)}</code>, <code>{auto_breaks(bool)}</code></td>
+<td>turn automatic pauses / line breaks on or off</td>
+</tr>
 </tbody>
 </table>
 <p><code>{br}{resetx}</code> is the pair the engine uses everywhere to start a new line at the left margin. <code>{p}{e}</code> is the standard ending for a single box.</p>
@@ -1803,7 +1855,7 @@
 <tbody>
 <tr>
 <td><code>{col(c)}</code> / <code>{color(c)}</code></td>
-<td>text colour — <code>y</code> for yellow, <code>w</code> for white, or a colour name</td>
+<td>text colour — see the table below</td>
 </tr>
 <tr>
 <td><code>{reset_col}</code></td>
@@ -1861,6 +1913,14 @@
 <td>the blip sound while typing</td>
 </tr>
 <tr>
+<td><code>{pitch(min, max)}</code></td>
+<td>voice pitch; with no arguments it resets</td>
+</tr>
+<tr>
+<td><code>{sound(snd)}</code> / <code>{snd(snd)}</code></td>
+<td>play a sound effect at this point in the text</td>
+</tr>
+<tr>
 <td><code>{speed(n)}</code></td>
 <td>typing speed</td>
 </tr>
@@ -1897,6 +1957,60 @@
 </tr>
 </tbody>
 </table>
+<h3 id="text-colours">Text colours<a class="headerlink" href="#text-colours" title="Permanent link">&para;</a></h3>
+<p><code>{col(...)}</code> accepts these names (<code>string_to_color</code>, <code>scripts/misc/misc.gml</code>), plus <code>tired_aqua</code>, which the typer handles separately (<code>objects/o_text_typer/Other_10.gml:131</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Short</th>
+<th>Colour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c_red</code> / <code>red</code></td>
+<td><code>r</code></td>
+<td>red</td>
+</tr>
+<tr>
+<td><code>c_orange</code> / <code>orange</code></td>
+<td>—</td>
+<td>orange</td>
+</tr>
+<tr>
+<td><code>c_yellow</code> / <code>yellow</code></td>
+<td><code>y</code></td>
+<td>yellow</td>
+</tr>
+<tr>
+<td><code>c_lime</code> / <code>lime</code></td>
+<td><code>g</code></td>
+<td>lime green</td>
+</tr>
+<tr>
+<td><code>tired_aqua</code></td>
+<td>—</td>
+<td><code>#00C1F2</code></td>
+</tr>
+<tr>
+<td><code>c_blue</code> / <code>blue</code></td>
+<td><code>b</code></td>
+<td>blue</td>
+</tr>
+<tr>
+<td><code>c_black</code>, <code>c_dkgray</code>, <code>c_gray</code>, <code>c_silver</code> (and without <code>c_</code>)</td>
+<td>—</td>
+<td>black, dark gray, gray, silver</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Unknown names silently become white</p>
+<p>Any name not in the table — including a typo, and <code>w</code> — falls through to white without an error. <code>{col(w)}</code> works only because of that. To add your own colours, extend <code>string_to_color</code>.</p>
+</div>
+<h3 id="commas-inside-arguments">Commas inside arguments<a class="headerlink" href="#commas-inside-arguments" title="Permanent link">&para;</a></h3>
+<p>Arguments are split on commas, so an argument that contains a comma must be wrapped in backticks: <code>{mini(`Hello, world`)}</code>. Everything between the backticks is one argument. Arguments are always read as text, whatever you type.</p>
 <div class="admonition warning">
 <p class="admonition-title"><code>{preset(...)}</code> changes the font</p>
 <p><code>{preset(enemy_text)}</code> sets <code>font = loc_font("enc")</code> (<code>objects/o_text_typer/Other_10.gml:99</code>), which resolves to a <strong>different font asset</strong> from ordinary dialogue. If some text renders without accents while the rest is fine, look for a preset. See <a href="../../getting-started/fonts-and-accents/">Fonts and accents</a>.</p>
@@ -2052,7 +2166,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>
