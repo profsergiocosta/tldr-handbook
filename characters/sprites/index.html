@@ -1226,6 +1226,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-4-a-minimal-test-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — A minimal test room
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1563,6 +1574,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-4-a-minimal-test-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — A minimal test room
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-problems" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1889,13 +1911,36 @@ the character; the character comes in the next chapter.)</p>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>draw_circle_color(x, y, 1, c_lime, c_lime, false);
 </code></pre></div>
 </li>
-<li>
-<p>Make a room (see <a href="../../overworld/rooms-and-collision/">Rooms and collision</a>):
-   put <strong><code>o_dev_world</code></strong> and <strong><code>o_dev_playermarker</code></strong> in it, and place
-   <strong><code>o_test_berto</code></strong> a little to the side of the marker.</p>
-</li>
-<li>Run the game and jump to the room with <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-r">R</kbd></span>.</li>
 </ol>
+<p>The object is done. To see it you need a room, which is the next step.</p>
+<h2 id="step-4-a-minimal-test-room">Step 4 — A minimal test room<a class="headerlink" href="#step-4-a-minimal-test-room" title="Permanent link">&para;</a></h2>
+<p>You do not need a finished area, only somewhere to put the object. If you have
+never made a room, this is the shortest recipe. (A complete, decorated room is
+built in <a href="../../overworld/your-first-room/">Your first room</a>.)</p>
+<ol>
+<li>In the <strong>Asset Browser</strong>, right-click your rooms folder → <strong>Create → Room</strong>.
+   Name it <strong><code>room_test_characters</code></strong>.</li>
+<li>In the room's settings, set the size to <strong>640 × 480</strong> and the grid to
+   <strong>20 × 20</strong>, as in that chapter.</li>
+<li>On the room's default <strong>Instances</strong> layer, place two objects:<ul>
+<li><strong><code>o_dev_world</code></strong>, anywhere (for example at <code>20, 20</code>);</li>
+<li><strong><code>o_dev_playermarker</code></strong>, at <code>320, 380</code>: this is where the party appears.</li>
+</ul>
+</li>
+<li>Place <strong><code>o_test_berto</code></strong> a little to the right of the marker, for example at
+   <code>400, 380</code>.</li>
+<li>Run the game (<span class="keys"><kbd class="key-f5">F5</kbd></span>), hold <span class="keys"><kbd class="key-tab">Tab</kbd></span> + <span class="keys"><kbd class="key-r">R</kbd></span> and pick <code>room_test_characters</code>.</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Do not place <code>o_camera</code></p>
+<p>The engine creates the camera by itself. A second one makes the screen go
+completely black (<a href="../../overworld/rooms-and-collision/">Rooms and collision</a>).</p>
+</div>
+<p>This room has no tiles, so you will see a plain background. That is enough for
+this chapter; the book's own first room was also blank at this point
+(see <a href="../../overworld/your-first-room/">Your first room</a>). I have not tested a room
+with no layers other than Instances, so if anything misbehaves, compare with
+that chapter's layer setup.</p>
 <p>You should see Berto next to Kris and company, with:</p>
 <ul>
 <li>a <strong>green dot at the feet</strong>, in the middle of the character;</li>
