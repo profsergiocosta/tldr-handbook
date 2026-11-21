@@ -113,8 +113,18 @@ function party_init() {
 }
 ```
 
-Do not edit that function. Add one line in **`o_world`**, in the **Game Start** event
-(`objects/o_world/Other_2.gml`), right after the call to `party_init()`:
+Do not edit that function. Instead, add your registration in **`o_world`**, in the
+**Game Start** event (`objects/o_world/Other_2.gml`).
+
+**How to get there in GameMaker:**
+
+1. In the **Asset Browser**, type `o_world` in the search box. The object is in
+   **Objects**, inside the `@Engine` group.
+2. Double-click it to open the object editor.
+3. In the **Events** panel, double-click the **Game Start** event (under *Other*).
+4. Find the call to `party_init()`, about two thirds of the way down.
+
+Two places need a line. First, right after `party_init()`:
 
 ```gml
 party_init()
@@ -125,13 +135,32 @@ global.party_names = [   // <-- if you wish to change the default team members, 
 party_apply_equipment()
 ```
 
+Second, a little further down, right after `save_load(global.save_slot)`:
+
+```gml
+save_load(global.save_slot)
+if !struct_exists(global.party, "berto")      // <-- yours
+    party_m_initialize("berto", party_m_berto)
+```
+
+!!! warning "Why the second block is needed"
+    `save_load` runs at the end of Game Start and **replaces `global.party` with
+    whatever the save file contains**. A save made before you registered Berto does
+    not contain him, so without the second block he silently disappears from the
+    game even though the first line ran. The `if` re-registers him only when he is
+    missing; with a fresh game he is already there and nothing happens. Once the game
+    is saved again, the save includes him.
+
+    Save files are named `save_ch{chapter}_{slot}` (for example `save_ch1_0`), if you
+    would rather delete an old test save.
+
 Registering is not the same as being *in the party*. `global.party_names` is the
 list of who is in the party right now, and Berto is not in it yet.
 
-!!! tip "Keep your edits to `@Engine` to one line"
+!!! tip "Keep your edits to `@Engine` small"
     `o_world` is part of the engine, so every line you change there can conflict
     when you [update the engine](../getting-started/installation.md#updating-the-engine).
-    One registration line is easy to carry over; keep the rest in your own scripts.
+    Two short registration blocks are easy to carry over; keep the rest in your own scripts.
 
 ---
 
@@ -142,7 +171,8 @@ Open `room_test_characters` from the previous chapter. First **delete the
 
 Run the game, go to the room, and use the console's **Party Select**: hold
 ++tab++ + ++p++. The list is built from every registered party member, so **Berto
-appears in it** next to the engine's four. Move to him with the arrow keys and press
+appears in it**, after the engine's four. It shows only three icons at a time, so
+press the right arrow four times to reach him. Move to him with the arrow keys and press
 ++enter++: the console prints that he was added to your party, and he appears behind
 Kris. Press ++enter++ on him again to remove him.
 
@@ -161,7 +191,7 @@ If you would rather have him in the party from the start, add `"berto"` to
 
 | Symptom | Likely cause |
 |---|---|
-| Berto is not in Party Select | The registration line (Step 3) is missing, or its name does not match |
+| Berto is not in Party Select | He is the fifth entry, so press the right arrow four times. Otherwise: a registration line (Step 3) is missing or its name does not match, or an old save is overriding `global.party` (the second block in Step 3) |
 | Berto is a grey square | The sprite names do not match `s_name`; see *Naming scheme* in the previous chapter |
 | He walks, but the animation is too fast or too slow | Change the sprite's **Fps** in the sprite editor (the engine's own use 4) |
 | He floats above, or sinks into, the ground | The sprite origin is not at the feet |
