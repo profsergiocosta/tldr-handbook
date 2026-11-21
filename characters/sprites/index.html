@@ -1154,6 +1154,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-you-need-to-draw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need to draw
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#do-all-characters-need-the-same-size" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1480,6 +1491,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-you-need-to-draw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need to draw
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#do-all-characters-need-the-same-size" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1589,6 +1611,50 @@ collision box drawn on top of it so you can check both by eye.</p>
 the next chapter (<em>Your first party member</em>).</p>
 <p>We will build a character called <strong>Berto</strong>. Use any name you like, but keep it
 lowercase and without spaces, because it becomes part of every asset name.</p>
+<hr />
+<h2 id="what-you-need-to-draw">What you need to draw<a class="headerlink" href="#what-you-need-to-draw" title="Permanent link">&para;</a></h2>
+<p>The short answer: <strong>4 sprites, each with 4 frames — 16 small drawings.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Sprite</th>
+<th>Frames</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spr_berto_down</code></td>
+<td>4</td>
+<td>walking animation, facing the camera</td>
+</tr>
+<tr>
+<td><code>spr_berto_up</code></td>
+<td>4</td>
+<td>walking animation, facing away</td>
+</tr>
+<tr>
+<td><code>spr_berto_left</code></td>
+<td>4</td>
+<td>walking animation, facing left</td>
+</tr>
+<tr>
+<td><code>spr_berto_right</code></td>
+<td>4</td>
+<td>walking animation, facing right</td>
+</tr>
+</tbody>
+</table>
+<p>There is no separate "standing" sprite and no separate "walking" sprite at this
+point: one walking animation per direction does both. When Berto is not moving the
+engine stops the animation on frame 0, so <strong>frame 0 should be the standing pose</strong>.
+(The base-game sprites all have 4 frames and the engine counts frames from the
+sprite itself instead of fixing the number. It also stops the animation on even
+frames, so I recommend keeping to an even number such as 4. I have not tested
+other counts.)</p>
+<p>That is the complete minimum for a character who can walk around. Everything in
+Step 2 beyond these four sprites is an <strong>optional extra</strong>, and you can add it later
+without touching what you already drew.</p>
 <hr />
 <h2 id="do-all-characters-need-the-same-size">Do all characters need the same size?<a class="headerlink" href="#do-all-characters-need-the-same-size" title="Permanent link">&para;</a></h2>
 <p>No. The engine's own party members are different sizes, on purpose:</p>
