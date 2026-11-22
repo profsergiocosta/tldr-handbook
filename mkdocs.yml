@@ -101,6 +101,9 @@ nav:
     - "Ch 19: Character Sprites":        characters/sprites.md
     - "Ch 20: Your First Party Member":  characters/first-party-member.md
     - "Ch 21: Battle Sprites and Icons": characters/battle-sprites.md
+    - "Ch 22: Stats, Equipment and Spells": characters/stats-and-equipment.md
+    - "Ch 23: Light World and Dialogue":  characters/light-world-and-dialogue.md
+    - "Ch 24: Joining the Party":        characters/joining-the-party.md
 
   - Reference:
     - "enemy()":                         reference/enemy-struct.md

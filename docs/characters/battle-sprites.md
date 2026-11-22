@@ -282,5 +282,5 @@ treat it as a bug in this chapter.
 
 ## Next
 
-The next chapter gives Berto his **own stats, weapon, armour and spells**, instead of
+[Stats, equipment and spells](stats-and-equipment.md) gives Berto his **own stats, weapon, armour and spells**, instead of
 the values he inherited from the base party member.
