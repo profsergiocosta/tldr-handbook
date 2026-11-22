@@ -95,7 +95,7 @@ Before drawing, confirm the pipeline works. Open `room_test_characters`, add Ber
 the party with ++tab++ + ++p++ (right arrow four times, ++enter++), then start a fight
 with ++tab++ + ++e++ (Encounter Select) and pick any encounter.
 
-Berto fights, with Susie's sprites and Susie's placeholder icon. Use ++tab++ + ++w++ to
+Berto fights, with Susie's sprites and Susie's placeholder icon. (If the game crashes the first time he attacks, with `weapon_element` in the error, he has no weapon: see the danger box in [Your first party member](first-party-member.md), Step 2.) Use ++tab++ + ++w++ to
 leave the fight. If this step fails, fix it before drawing anything.
 
 ---

@@ -98,7 +98,7 @@ Four things to notice:
 Now equip it in `party_m_berto`:
 
 ```gml
-weapon = new item_w_berto_staff()
+weapon = new item_w_berto_staff()    // replaces the placeholder item_w_wood_blade from the previous chapters
 ```
 
 **Test:** wipe the save, add Berto, open the menu and look at his stats: **Attack** and

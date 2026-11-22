@@ -69,6 +69,9 @@ Put your own constructors in your own script instead of the engine's
         defense = 2
         magic   = 1
 
+        // every fighter needs a weapon (see the warning below)
+        weapon = new item_w_wood_blade()
+
         // sprites: the name the engine uses to build every sprite name
         s_name = "berto"
     }
@@ -86,6 +89,18 @@ What each part does:
   a localisation key (`"party_kris_name"`); `loc()` returns the text unchanged if
   no such key exists (`scripts/loc/loc.gml:68`), so a plain `"Berto"` works until
   you add translations.
+
+!!! danger "A party member **must** have a weapon"
+    The base `party_m` sets `weapon = undefined`. A character without a weapon **crashes the
+    game the first time he attacks in a fight**, with an error like
+    `Variable <unknown_object>.element(...) cannot be resolved` at
+    `o_enc_fightstick_Other_11` line 36. The attack code reads the weapon's element
+    (`weapon_element`) and does not check that there is a weapon
+    (`objects/o_enc_fightstick/Other_11.gml:27-36`). Every character the engine ships has
+    one, which is why you never see this error with them. The line `weapon = new
+    item_w_wood_blade()` above is a placeholder from the engine's own weapons;
+    [Stats, equipment and spells](stats-and-equipment.md) replaces it with a weapon of
+    his own.
 
 !!! warning "Berto will fight like Susie, for now"
     Anything the base `party_m` provides and you do not override is **Susie's**:
@@ -196,6 +211,7 @@ If you would rather have him in the party from the start, add `"berto"` to
 | He walks, but the animation is too fast or too slow | Change the sprite's **Fps** in the sprite editor (the engine's own use 4) |
 | He floats above, or sinks into, the ground | The sprite origin is not at the feet |
 | Walls stop him at the chest | The object's collision mask is not the manual box from `spr_berto_down` |
+| The game crashes when Berto attacks, with `weapon_element` / `element` in the error | He has no weapon; add `weapon = new item_w_wood_blade()` (see the warning in Step 2) and wipe the save |
 | The game stops at startup with an error about `party_m_berto` | The script with the constructor is missing, or the name is misspelled in `o_world` |
 
 I have checked each step against the engine's source, but have not run a custom
