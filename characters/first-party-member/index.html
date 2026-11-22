@@ -1767,9 +1767,12 @@ your sprites.</p>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    defense = 2
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    magic   = 1
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    // sprites: the name the engine uses to build every sprite name
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    s_name = "berto"
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>}
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    // every fighter needs a weapon (see the warning below)
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    weapon = new item_w_wood_blade()
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    // sprites: the name the engine uses to build every sprite name
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    s_name = "berto"
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>}
 </code></pre></div>
 </li>
 </ol>
@@ -1786,6 +1789,19 @@ your sprites.</p>
   no such key exists (<code>scripts/loc/loc.gml:68</code>), so a plain <code>"Berto"</code> works until
   you add translations.</li>
 </ul>
+<div class="admonition danger">
+<p class="admonition-title">A party member <strong>must</strong> have a weapon</p>
+<p>The base <code>party_m</code> sets <code>weapon = undefined</code>. A character without a weapon <strong>crashes the
+game the first time he attacks in a fight</strong>, with an error like
+<code>Variable &lt;unknown_object&gt;.element(...) cannot be resolved</code> at
+<code>o_enc_fightstick_Other_11</code> line 36. The attack code reads the weapon's element
+(<code>weapon_element</code>) and does not check that there is a weapon
+(<code>objects/o_enc_fightstick/Other_11.gml:27-36</code>). Every character the engine ships has
+one, which is why you never see this error with them. The line <code>weapon = new
+item_w_wood_blade()</code> above is a placeholder from the engine's own weapons;
+<a href="../stats-and-equipment/">Stats, equipment and spells</a> replaces it with a weapon of
+his own.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Berto will fight like Susie, for now</p>
 <p>Anything the base <code>party_m</code> provides and you do not override is <strong>Susie's</strong>:
@@ -1897,6 +1913,10 @@ Kris. Press <span class="keys"><kbd class="key-enter">Enter</kbd></span> on him 
 <tr>
 <td>Walls stop him at the chest</td>
 <td>The object's collision mask is not the manual box from <code>spr_berto_down</code></td>
+</tr>
+<tr>
+<td>The game crashes when Berto attacks, with <code>weapon_element</code> / <code>element</code> in the error</td>
+<td>He has no weapon; add <code>weapon = new item_w_wood_blade()</code> (see the warning in Step 2) and wipe the save</td>
 </tr>
 <tr>
 <td>The game stops at startup with an error about <code>party_m_berto</code></td>
